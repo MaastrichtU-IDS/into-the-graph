@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import NavBar from './navbar'; 
+import React, { Component } from "react"; 
  
 class Sparql extends Component {
   render() {
     return (
       <div className="Sparql">
-        <NavBar/>
         <p>
           This is the sparql me page.
         </p>
