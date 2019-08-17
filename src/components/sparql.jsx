@@ -6,12 +6,12 @@ class Sparql extends Component {
     return (
       <div className="Sparql">
         <NavBar/>
-        <div id="contact">
-          This is the contact me page.
-        </div>
+        <p>
+          This is the sparql me page.
+        </p>
       </div>
     );
   }
 }
  
-export default NavBar;
+export default Sparql;
