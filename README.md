@@ -272,64 +272,6 @@ This makes it obvious you are using a global variable intentionally rather than 
 
 Alternatively, you can force the linter to ignore any line by adding `// eslint-disable-line` after it.
 
-## Adding Bootstrap
-
-You don’t have to use [React Bootstrap](https://react-bootstrap.github.io) together with React but it is a popular library for integrating Bootstrap with React apps. If you need it, you can integrate it with Create React App by following these steps:
-
-Install React Bootstrap and Bootstrap from npm. React Bootstrap does not include Bootstrap CSS so this needs to be installed as well:
-
-```
-npm install react-bootstrap --save
-npm install bootstrap@3 --save
-```
-
-Import Bootstrap CSS and optionally Bootstrap theme CSS in the beginning of your ```src/index.js``` file:
-
-```js
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-```
-
-Import required React Bootstrap components within ```src/App.js``` file or your custom component files:
-
-```js
-import { Navbar, Jumbotron, Button } from 'react-bootstrap';
-```
-
-Now you are ready to use the imported React Bootstrap components within your component hierarchy defined in the render method. Here is an example [`App.js`](https://gist.githubusercontent.com/gaearon/85d8c067f6af1e56277c82d19fd4da7b/raw/6158dd991b67284e9fc8d70b9d973efe87659d72/App.js) redone using React Bootstrap.
-
-### Using a Custom Theme
-
-Sometimes you might need to tweak the visual styles of Bootstrap (or equivalent package).<br>
-We suggest the following approach:
-
-* Create a new package that depends on the package you wish to customize, e.g. Bootstrap.
-* Add the necessary build steps to tweak the theme, and publish your package on npm.
-* Install your own theme npm package as a dependency of your app.
-
-Here is an example of adding a [customized Bootstrap](https://medium.com/@tacomanator/customizing-create-react-app-aa9ffb88165) that follows these steps.
-
-## Adding Flow
-
-Flow is a static type checker that helps you write code with fewer bugs. Check out this [introduction to using static types in JavaScript](https://medium.com/@preethikasireddy/why-use-static-types-in-javascript-part-1-8382da1e0adb) if you are new to this concept.
-
-Recent versions of [Flow](http://flowtype.org/) work with Create React App projects out of the box.
-
-To add Flow to a Create React App project, follow these steps:
-
-1. Run `npm install --save-dev flow-bin` (or `yarn add --dev flow-bin`).
-2. Add `"flow": "flow"` to the `scripts` section of your `package.json`.
-3. Run `npm run flow -- init` (or `yarn flow -- init`) to create a [`.flowconfig` file](https://flowtype.org/docs/advanced-configuration.html) in the root directory.
-4. Add `// @flow` to any files you want to type check (for example, to `src/App.js`).
-
-Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
-You can optionally use an IDE like [Nuclide](https://nuclide.io/docs/languages/flow/) for a better integrated experience.
-In the future we plan to integrate it into Create React App even more closely.
-
-To learn more about Flow, check out [its documentation](https://flowtype.org/).
-
 ## Adding Custom Environment Variables
 
 >Note: this feature is available with `react-scripts@0.2.3` and higher.
@@ -469,11 +411,6 @@ using `fetch()` to access it.
 Check out [this tutorial](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/).
 You can find the companion GitHub repository [here](https://github.com/fullstackreact/food-lookup-demo).
 
-### Ruby on Rails
-
-Check out [this tutorial](https://www.fullstackreact.com/articles/how-to-get-create-react-app-to-work-with-your-rails-api/).
-You can find the companion GitHub repository [here](https://github.com/fullstackreact/food-lookup-demo-rails).
-
 ## Proxying API Requests in Development
 
 >Note: this feature is available with `react-scripts@0.2.3` and higher.
@@ -518,14 +455,6 @@ If the `proxy` option is **not** flexible enough for you, alternatively you can:
 You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature](#proxying-api-requests-in-development) to proxy requests to an API server when that API server is itself serving HTTPS.
 
 To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`:
-
-#### Windows (cmd.exe)
-
-```cmd
-set HTTPS=true&&npm start
-```
-
-(Note: the lack of whitespace is intentional.)
 
 #### Linux, macOS (Bash)
 
@@ -617,132 +546,6 @@ Jest will always explicitly mention that it only ran tests related to the files 
 
 Jest will always run all tests on a [continuous integration](#continuous-integration) server or if the project is not inside a Git or Mercurial repository.
 
-### Writing Tests
-
-To create tests, add `it()` (or `test()`) blocks with the name of the test and its code. You may optionally wrap them in `describe()` blocks for logical grouping but this is neither required nor recommended.
-
-Jest provides a built-in `expect()` global function for making assertions. A basic test could look like this:
-
-```js
-import sum from './sum';
-
-it('sums numbers', () => {
-  expect(sum(1, 2)).toEqual(3);
-  expect(sum(2, 2)).toEqual(4);
-});
-```
-
-All `expect()` matchers supported by Jest are [extensively documented here](http://facebook.github.io/jest/docs/expect.html).<br>
-You can also use [`jest.fn()` and `expect(fn).toBeCalled()`](http://facebook.github.io/jest/docs/expect.html#tohavebeencalled) to create “spies” or mock functions.
-
-### Testing Components
-
-There is a broad spectrum of component testing techniques. They range from a “smoke test” verifying that a component renders without throwing, to shallow rendering and testing some of the output, to full rendering and testing component lifecycle and state changes.
-
-Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. If you haven’t decided on a testing strategy yet, we recommend that you start with creating simple smoke tests for your components:
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-});
-```
-
-This test mounts a component and makes sure that it didn’t throw during rendering. Tests like this provide a lot value with very little effort so they are great as a starting point, and this is the test you will find in `src/App.test.js`.
-
-When you encounter bugs caused by changing components, you will gain a deeper insight into which parts of them are worth testing in your application. This might be a good time to introduce more specific tests asserting specific expected output or behavior.
-
-If you’d like to test components in isolation from the child components they render, we recommend using [`shallow()` rendering API](http://airbnb.io/enzyme/docs/api/shallow.html) from [Enzyme](http://airbnb.io/enzyme/). You can write a smoke test with it too:
-
-```sh
-npm install --save-dev enzyme react-addons-test-utils
-```
-
-```js
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
-
-it('renders without crashing', () => {
-  shallow(<App />);
-});
-```
-
-Unlike the previous smoke test using `ReactDOM.render()`, this test only renders `<App>` and doesn’t go deeper. For example, even if `<App>` itself renders a `<Button>` that throws, this test will pass. Shallow rendering is great for isolated unit tests, but you may still want to create some full rendering tests to ensure the components integrate correctly. Enzyme supports [full rendering with `mount()`](http://airbnb.io/enzyme/docs/api/mount.html), and you can also use it for testing state changes and component lifecycle.
-
-You can read the [Enzyme documentation](http://airbnb.io/enzyme/) for more testing techniques. Enzyme documentation uses Chai and Sinon for assertions but you don’t have to use them because Jest provides built-in `expect()` and `jest.fn()` for spies.
-
-Here is an example from Enzyme documentation that asserts specific output, rewritten to use Jest matchers:
-
-```js
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
-
-it('renders welcome message', () => {
-  const wrapper = shallow(<App />);
-  const welcome = <h2>Welcome to React</h2>;
-  // expect(wrapper.contains(welcome)).to.equal(true);
-  expect(wrapper.contains(welcome)).toEqual(true);
-});
-```
-
-All Jest matchers are [extensively documented here](http://facebook.github.io/jest/docs/expect.html).<br>
-Nevertheless you can use a third-party assertion library like [Chai](http://chaijs.com/) if you want to, as described below.
-
-Additionally, you might find [jest-enzyme](https://github.com/blainekasten/enzyme-matchers) helpful to simplify your tests with readable matchers. The above `contains` code can be written simpler with jest-enzyme.
-
-```js
-expect(wrapper).toContainReact(welcome)
-```
-
-To setup jest-enzyme with Create React App, follow the instructions for [initializing your test environment](#initializing-test-environment) to import `jest-enzyme`.
-
-```sh
-npm install --save-dev jest-enzyme
-```
-
-```js
-// src/setupTests.js
-import 'jest-enzyme';
-```
-
-
-### Using Third Party Assertion Libraries
-
-We recommend that you use `expect()` for assertions and `jest.fn()` for spies. If you are having issues with them please [file those against Jest](https://github.com/facebook/jest/issues/new), and we’ll fix them. We intend to keep making them better for React, supporting, for example, [pretty-printing React elements as JSX](https://github.com/facebook/jest/pull/1566).
-
-However, if you are used to other libraries, such as [Chai](http://chaijs.com/) and [Sinon](http://sinonjs.org/), or if you have existing code using them that you’d like to port over, you can import them normally like this:
-
-```js
-import sinon from 'sinon';
-import { expect } from 'chai';
-```
-
-and then use them in your tests like you normally do.
-
-### Initializing Test Environment
-
->Note: this feature is available with `react-scripts@0.4.0` and higher.
-
-If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `src/setupTests.js` to your project. It will be automatically executed before running your tests.
-
-For example:
-
-#### `src/setupTests.js`
-```js
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  clear: jest.fn()
-};
-global.localStorage = localStorageMock
-```
-
 ### Focusing and Excluding Tests
 
 You can replace `it()` with `xit()` to temporarily exclude a test from being executed.<br>
@@ -786,18 +589,6 @@ script:
 1. [Customize your Travis CI Build](https://docs.travis-ci.com/user/customizing-the-build/) if needed.
 
 ### On your own environment
-##### Windows (cmd.exe)
-
-```cmd
-set CI=true&&npm test
-```
-
-```cmd
-set CI=true&&npm run build
-```
-
-(Note: the lack of whitespace is intentional.)
-
 ##### Linux, macOS (Bash)
 
 ```bash
@@ -814,42 +605,9 @@ The test command will force Jest to run tests once instead of launching the watc
 
 The build command will check for linter warnings and fail if any are found.
 
-### Disabling jsdom
-
-By default, the `package.json` of the generated project looks like this:
-
-```js
-  // ...
-  "scripts": {
-    // ...
-    "test": "react-scripts test --env=jsdom"
-  }
-```
-
-If you know that none of your tests depend on [jsdom](https://github.com/tmpvar/jsdom), you can safely remove `--env=jsdom`, and your tests will run faster.<br>
-To help you make up your mind, here is a list of APIs that **need jsdom**:
-
-* Any browser globals like `window` and `document`
-* [`ReactDOM.render()`](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render)
-* [`TestUtils.renderIntoDocument()`](https://facebook.github.io/react/docs/test-utils.html#renderintodocument) ([a shortcut](https://github.com/facebook/react/blob/34761cf9a252964abfaab6faf74d473ad95d1f21/src/test/ReactTestUtils.js#L83-L91) for the above)
-* [`mount()`](http://airbnb.io/enzyme/docs/api/mount.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
-
-In contrast, **jsdom is not needed** for the following APIs:
-
-* [`TestUtils.createRenderer()`](https://facebook.github.io/react/docs/test-utils.html#shallow-rendering) (shallow rendering)
-* [`shallow()`](http://airbnb.io/enzyme/docs/api/shallow.html) in [Enzyme](http://airbnb.io/enzyme/index.html)
-
-Finally, jsdom is also not needed for [snapshot testing](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
-
-### Snapshot Testing
-
-Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. [Read more about snapshot testing.](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html)
-
 ### Editor Integration
 
-If you use [Visual Studio Code](https://code.visualstudio.com), there is a [Jest extension](https://github.com/orta/vscode-jest) which works with Create React App out of the box. This provides a lot of IDE-like features while using a text editor: showing the status of a test run with potential fail messages inline, starting and stopping the watcher automatically, and offering one-click snapshot updates.
-
-![VS Code Jest Preview](https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png)
+If you use [Visual Studio Code](https://code.visualstudio.com), there is a cool [Jest extension](https://github.com/orta/vscode-jest)
 
 ## Developing Components in Isolation
 
@@ -993,71 +751,6 @@ If you are not using the HTML5 `pushState` history API or not using client-side 
 
 This will make sure that all the asset paths are relative to `index.html`. You will then be able to move your app from `http://mywebsite.com` to `http://mywebsite.com/relativepath` or even `http://mywebsite.com/relative/path` without having to rebuild it.
 
-### Azure
-
-See [this](https://medium.com/@to_pe/deploying-create-react-app-on-microsoft-azure-c0f6686a4321) blog post on how to deploy your React app to [Microsoft Azure](https://azure.microsoft.com/).
-
-### Firebase
-
-Install the Firebase CLI if you haven’t already by running `npm install -g firebase-tools`. Sign up for a [Firebase account](https://console.firebase.google.com/) and create a new project. Run `firebase login` and login with your previous created Firebase account.
-
-Then run the `firebase init` command from your project’s root. You need to choose the **Hosting: Configure and deploy Firebase Hosting sites** and choose the Firebase project you created in the previous step. You will need to agree with `database.rules.json` being created, choose `build` as the public directory, and also agree to **Configure as a single-page app** by replying with `y`.
-
-```sh
-    === Project Setup
-
-    First, let's associate this project directory with a Firebase project.
-    You can create multiple project aliases by running firebase use --add,
-    but for now we'll just set up a default project.
-
-    ? What Firebase project do you want to associate as default? Example app (example-app-fd690)
-
-    === Database Setup
-
-    Firebase Realtime Database Rules allow you to define how your data should be
-    structured and when your data can be read from and written to.
-
-    ? What file should be used for Database Rules? database.rules.json
-    ✔  Database Rules for example-app-fd690 have been downloaded to database.rules.json.
-    Future modifications to database.rules.json will update Database Rules when you run
-    firebase deploy.
-
-    === Hosting Setup
-
-    Your public directory is the folder (relative to your project directory) that
-    will contain Hosting assets to uploaded with firebase deploy. If you
-    have a build process for your assets, use your build's output directory.
-
-    ? What do you want to use as your public directory? build
-    ? Configure as a single-page app (rewrite all urls to /index.html)? Yes
-    ✔  Wrote build/index.html
-
-    i  Writing configuration info to firebase.json...
-    i  Writing project information to .firebaserc...
-
-    ✔  Firebase initialization complete!
-```
-
-Now, after you create a production build with `npm run build`, you can deploy it by running `firebase deploy`.
-
-```sh
-    === Deploying to 'example-app-fd690'...
-
-    i  deploying database, hosting
-    ✔  database: rules ready to deploy.
-    i  hosting: preparing build directory for upload...
-    Uploading: [==============================          ] 75%✔  hosting: build folder uploaded successfully
-    ✔  hosting: 8 files uploaded successfully
-    i  starting release process (may take several minutes)...
-
-    ✔  Deploy complete!
-
-    Project Console: https://console.firebase.google.com/project/example-app-fd690/overview
-    Hosting URL: https://example-app-fd690.firebaseapp.com
-```
-
-For more information see [Add Firebase to your JavaScript Project](https://firebase.google.com/docs/web/setup).
-
 ### GitHub Pages
 
 >Note: this feature is available with `react-scripts@0.2.0` and higher.
@@ -1070,7 +763,7 @@ For more information see [Add Firebase to your JavaScript Project](https://fireb
 Open your `package.json` and add a `homepage` field:
 
 ```js
-  "homepage": "https://myusername.github.io/my-app",
+  "homepage": "https://MaastrichtU-IDS.github.io/rdf-graph-explorer",
 ```
 
 Create React App uses the `homepage` field to determine the root URL in the built HTML file.
@@ -1164,84 +857,6 @@ In this case, ensure that the file is there with the proper lettercase and that�
 ### Modulus
 
 See the [Modulus blog post](http://blog.modulus.io/deploying-react-apps-on-modulus) on how to deploy your react app to Modulus.
-
-## Netlify
-
-**To do a manual deploy to Netlify’s CDN:**
-
-```sh
-npm install netlify-cli
-netlify deploy
-```
-
-Choose `build` as the path to deploy.
-
-**To setup continuous delivery:**
-
-With this setup Netlify will build and deploy when you push to git or open a pull request:
-
-1. [Start a new netlify project](https://app.netlify.com/signup)
-2. Pick your Git hosting service and select your repository
-3. Click `Build your site`
-
-**Support for client-side routing:**
-
-To support `pushState`, make sure to create a `public/_redirects` file with the following rewrite rules:
-
-```
-/*  /index.html  200
-```
-
-When you build the project, Create React App will place the `public` folder contents into the build output.
-
-### Now
-
-[now](https://zeit.co/now) offers a zero-configuration single-command deployment.
-
-1. Install the `now` command-line tool either via the recommended [desktop tool](https://zeit.co/download) or via node with `npm install -g now`.
-
-2. Install `serve` by running `npm install --save serve`.
-
-3. Add this line to `scripts` in `package.json`:
-   
-    ```
-    "now-start": "serve build/",
-    ```
-    
-4. Run `now` from your project directory. You will see a **now.sh** URL in your output like this:
-   
-    ```
-    > Ready! https://your-project-dirname-tpspyhtdtk.now.sh (copied to clipboard)
-    ```
-    
-    Paste that URL into your browser when the build is complete, and you will see your deployed app.
-
-Details are available in [this article.](https://zeit.co/blog/now-static)
-
-### S3 and CloudFront
-
-See this [blog post](https://medium.com/@omgwtfmarc/deploying-create-react-app-to-s3-or-cloudfront-48dae4ce0af) on how to deploy your React app to Amazon Web Services [S3](https://aws.amazon.com/s3) and [CloudFront](https://aws.amazon.com/cloudfront/).
-
-### Surge
-
-Install the Surge CLI if you haven’t already by running `npm install -g surge`. Run the `surge` command and log in you or create a new account. You just need to specify the *build* folder and your custom domain, and you are done.
-
-```sh
-              email: email@domain.com
-           password: ********
-       project path: /path/to/project/build
-               size: 7 files, 1.8 MB
-             domain: create-react-app.surge.sh
-             upload: [====================] 100%, eta: 0.0s
-   propagate on CDN: [====================] 100%
-               plan: Free
-              users: email@domain.com
-         IP Address: X.X.X.X
-
-    Success! Project is published and running at create-react-app.surge.sh
-```
-
-Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
 
 ## Advanced Configuration
 
