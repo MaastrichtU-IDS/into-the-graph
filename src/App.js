@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/navbar';
+import routes from './routes';
+
+// ReactDom.render(  //  try to put routes here
+//   <Router history={browserHistory} routes={routes} />,
+//   document.querySelector('#app')
+// );
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <NavBar/>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button class="btn btn-outline-success" type="button">Main button</button>
+        <p>Nothing to see</p>
       </div>
     );
   }

@@ -12,9 +12,9 @@ class NavBar extends Component {
         <Navbar bg="primary" variant="dark">
             <Navbar.Brand href="#home">rdf-graph-explorer</Navbar.Brand>
             <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#data">Data</Nav.Link>
-            <Nav.Link href="#rdf">RDF</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/sparql">SPARQL</Nav.Link>
+            <Nav.Link href="/describe">Describe</Nav.Link>
             </Nav>
         </Navbar>
       </React.Fragment>
