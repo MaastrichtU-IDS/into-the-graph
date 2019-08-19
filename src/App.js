@@ -11,16 +11,16 @@ import DescribeComponent from './components/describe';
 class App extends Component {
   render() {
     return (
-    <Router>
-        <div>
+      <React.Fragment>
+        <Router>
           <NavBar/>
           <Switch>
-              <Route exact path='/' component={SparqlComponent} />
-              <Route path='/sparql' component={SparqlComponent} />
-              <Route path='/describe' component={DescribeComponent} />
+            <Route exact path='/' component={SparqlComponent} />
+            <Route path='/sparql' component={SparqlComponent} />
+            <Route path='/describe' component={DescribeComponent} />
           </Switch>
-        </div>
-      </Router>
+        </Router>
+      </React.Fragment>
     );
   }
 }
