@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
     // background: '#fafafa'
     color: '#fafafa',
     marginRight: '1em',
-    marginLeft: '1em'
+    marginLeft: '1em',
+    textTransform: 'none'
   }
 }));
  
@@ -24,8 +25,8 @@ export default function NavBar() {
           <Toolbar>
             <Link to="/">
               <Button className={classes.menuButton}>
-              <Icon>home</Icon>
-                &nbsp;Home
+              <Icon>explore</Icon>
+                &nbsp;Explore datasets
               </Button>
             </Link>
             <Link to="/sparql">
@@ -41,13 +42,11 @@ export default function NavBar() {
               </Button>
             </Link>
             <div className="flexGrow"></div>
-            <Link to="http://github.com/MaastrichtU-IDS/into-the-graph" target="_blank">
-              <Button className={classes.menuButton} target="_blank"
-              href="https://github.com/MaastrichtU-IDS/into-the-graph">
-                <Icon>code</Icon>
-                &nbsp;Source on GitHub
-              </Button>
-            </Link>
+            <Button className={classes.menuButton} target="_blank"
+            href="https://github.com/MaastrichtU-IDS/into-the-graph">
+              <Icon>code</Icon>
+              &nbsp;Source on GitHub
+            </Button>
           </Toolbar>
         </AppBar>
       </React.Fragment>
