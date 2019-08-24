@@ -46,7 +46,7 @@ class Sparql extends Component {
   render() {
       return (
           <Container>
-            <Card>
+            <Card  style={{marginTop: '40px'}}>
               <CardContent>
                 <table table ref="main" className="row-border">
                   <thead>

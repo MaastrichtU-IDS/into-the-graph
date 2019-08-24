@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-// import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container';;
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import YASGUI from 'yasgui/dist/yasgui.bundled.min.js';
 import 'yasgui/dist/yasgui.min.css'
 
@@ -89,7 +90,11 @@ class Sparql extends Component {
     const { classes } = this.props;
 
     return <Container maxWidth="xl">
-        <div id="yasguiDiv" style={{marginTop: '40px'}}></div>
+        <Card style={{marginTop: '40px'}}>
+          <CardContent>
+            <div id="yasguiDiv"></div>
+          </CardContent>
+        </Card>
       </Container>
   }
 }
