@@ -1,5 +1,7 @@
 import React, { Component } from "react"; 
 import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 // import $ from 'jquery'
 
 // import DataTable from 'datatables.net'
@@ -44,67 +46,71 @@ class Sparql extends Component {
   render() {
       return (
           <Container>
-              <table table ref="main" className="row-border">
-                <thead>
-                  <tr>
-                    <th>Dataset</th>
-                    <th>date generated</th>
-                    <th># of triples</th>
-                    <th># of entities</th>
-                    <th># of properties</th>
-                    <th># of classes</th>
-                    <th>Download as RDF/XML</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Datas1
-                    </td>
-                    <td>
-                      date
-                    </td>
-                    <td>
-                      1
-                    </td>
-                    <td>
-                      2  
-                    </td>
-                    <td>
-                      3
-                    </td>
-                    <td>
-                      4
-                    </td>
-                    <td>
-                      5
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Datas2
-                    </td>
-                    <td>
-                      date2
-                    </td>
-                    <td>
-                      2
-                    </td>
-                    <td>
-                      3
-                    </td>
-                    <td>
-                      4
-                    </td>
-                    <td>
-                      1
-                    </td>
-                    <td>
-                      2
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <Card>
+              <CardContent>
+                <table table ref="main" className="row-border">
+                  <thead>
+                    <tr>
+                      <th>Dataset</th>
+                      <th>date generated</th>
+                      <th># of triples</th>
+                      <th># of entities</th>
+                      <th># of properties</th>
+                      <th># of classes</th>
+                      <th>Download as RDF/XML</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Datas1
+                      </td>
+                      <td>
+                        date
+                      </td>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        2  
+                      </td>
+                      <td>
+                        3
+                      </td>
+                      <td>
+                        4
+                      </td>
+                      <td>
+                        5
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Datas2
+                      </td>
+                      <td>
+                        date2
+                      </td>
+                      <td>
+                        2
+                      </td>
+                      <td>
+                        3
+                      </td>
+                      <td>
+                        4
+                      </td>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        2
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </CardContent>
+            </Card>
           </Container>);
   }
 }
