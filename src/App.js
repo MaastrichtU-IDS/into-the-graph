@@ -29,6 +29,15 @@ const theme = createMuiTheme({
    }
 });
 
+// Using Typography with p and span still leads to DejaVu Sans font...
+// They had one job...
+theme.typography.span = {
+  fontFamily: 'Open Sans'
+};
+theme.typography.p = {
+  fontFamily: 'Open Sans'
+};
+
 // Routing happens here
 class App extends Component {
   render() {
