@@ -4,11 +4,14 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { makeStyles, mergeClasses } from '@material-ui/styles';
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles(theme => ({
-  whiteColor: {
+  menuButton: {
     // background: '#fafafa'
-    color: '#fafafa'
+    color: '#fafafa',
+    marginRight: '1em',
+    marginLeft: '1em'
   }
 }));
  
@@ -20,25 +23,29 @@ export default function NavBar() {
         <AppBar title="rdf-graph-explorer" position="static">
           <Toolbar>
             <Link to="/">
-              <Button className={classes.whiteColor}>
-                Home
+              <Button className={classes.menuButton}>
+              <Icon>home</Icon>
+                &nbsp;Home
               </Button>
             </Link>
             <Link to="/sparql">
-              <Button className={classes.whiteColor}>
-                SPARQL
+              <Button className={classes.menuButton}>
+                <Icon>share</Icon>
+                &nbsp;Run SPARQL queries
               </Button>
             </Link>
             <Link to="/describe">
-              <Button className={classes.whiteColor}>
-                Describe
+              <Button className={classes.menuButton}>
+                <Icon>search</Icon>
+                &nbsp;Describe URIs
               </Button>
             </Link>
             <div className="flexGrow"></div>
             <Link to="http://github.com/MaastrichtU-IDS/into-the-graph" target="_blank">
-              <Button className={classes.whiteColor} target="_blank"
+              <Button className={classes.menuButton} target="_blank"
               href="https://github.com/MaastrichtU-IDS/into-the-graph">
-                Source on GitHub
+                <Icon>code</Icon>
+                &nbsp;Source on GitHub
               </Button>
             </Link>
           </Toolbar>
