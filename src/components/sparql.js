@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container';
+// import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container';;
 import YASGUI from 'yasgui/dist/yasgui.bundled.min.js';
 import 'yasgui/dist/yasgui.min.css'
-
-// Everything freezes when we import YASGUI.
-// Such a robust and reliable framework
 
 const styles = theme => ({
   menuButton: {
@@ -91,7 +88,7 @@ class Sparql extends Component {
   render () {
     const { classes } = this.props;
 
-    return <Container>
+    return <Container maxWidth="xl">
         <div id="yasguiDiv" style={{marginTop: '40px'}}></div>
       </Container>
   }
