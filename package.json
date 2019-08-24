@@ -9,7 +9,8 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "yasgui": "^2.7.29"
   },
   "devDependencies": {
     "node-sass": "^4.12.0",
