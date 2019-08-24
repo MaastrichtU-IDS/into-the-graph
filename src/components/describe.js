@@ -116,9 +116,18 @@ class Describe extends Component {
         <div>
           This is the describe me page.
           {this.params.get("uri")}
-          {/* {this.state.datasetsStat.map(({dataset}) => <div>{dataset.graph.value}<div/>))} */}
+          
+          {/* Following can't find 'this' */}
+          {/* {Object.keys(this.state.describeHash).map(function(datasetUri, key, listDatasets){
+            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]}/>;
+          })} */}
+
+          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
+            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]}/>;
+          })}
+
           {this.state.describeGraphClasses.map(function(dataset, index){
-            return <div key={index}>{dataset}</div>;
+            return <span key={index}>{dataset}</span>;
           })}
         </div>
       </Container>
@@ -150,3 +159,21 @@ class Describe extends Component {
 }
  
 export default withStyles(styles)(Describe);
+
+// Work to generate a component:
+// const DescribeGraphPanel = ({ dataset }) => <h1>
+// {dataset}
+// </h1>;
+
+// Also work. But this.propos never work. 
+// Apparently this is undefined. How is it even possible?
+// Maybe it should be "class MyClass extends Component"?
+// Or even "React,createClass"? So much choice, really handy
+export function DescribeGraphPanel(props) {
+  return (
+      <h1>
+        {console.log(props)}
+        {props.datasetUri}
+      </h1>
+  )
+}
