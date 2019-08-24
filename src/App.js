@@ -6,6 +6,7 @@ import './App.css';
 import NavBar from './components/navbar';
 import SparqlComponent from './components/sparql';
 import DescribeComponent from './components/describe';
+import DatasetsOverviewComponent from './components/datasets_overview';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -47,7 +48,7 @@ class App extends Component {
           <Router>
             <NavBar/>
             <Switch>
-              <Route exact path='/' component={SparqlComponent} />
+              <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route path='/sparql' component={SparqlComponent} />
               <Route path='/describe' component={DescribeComponent} />
             </Switch>
