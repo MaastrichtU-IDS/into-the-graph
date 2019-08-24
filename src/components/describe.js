@@ -18,24 +18,26 @@ const styles = theme => ({
 class Describe extends Component {
   params = new URLSearchParams(location.search);
 
-  state = {datasetStat: []}
+  state = {datasetsStat: []}
 
   componentDidMount() {
     axios.get(`http://graphdb.dumontierlab.com/repositories/test?query=` + this.getDescribeQuery(this.params.get('uri')))
       .then(res => {
-        const datasetStat = res.data.results.bindings;
-        console.log("yeaaah");
-        console.log(datasetStat);
-        this.setState({ datasetStat });
+        const datasetsStat = res.data.results.bindings;
+        this.setState({ datasetsStat });
       })
   }
 
   render () {
     return <Container>
-        <Typography component="p">
+        <div>
           This is the describe me page.
           {this.params.get("uri")}
-        </Typography >
+          {/* {this.state.datasetsStat.map(({dataset}) => <div>{dataset.graph.value}<div/>))} */}
+          {this.state.datasetsStat.map(function(dataset, index){
+            return <div>{dataset.graph.value}</div>;
+          })}
+        </div>
       </Container>
   }
 
