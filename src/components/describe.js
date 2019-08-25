@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
 import { BrowserRouter as Link, Router } from "react-router-dom";
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
  
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
- 
+
 const styles = theme => ({
   menuButton: {
     color: '#fafafa',
@@ -180,6 +185,11 @@ export default withStyles(styles)(Describe);
 // Maybe it should be "class MyClass extends Component"?
 // Or even "React,createClass"? So much choice, really handy
 export function DescribeGraphPanel(props) {
+  const [value, setValue] = React.useState(0);
+
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
   return (
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
@@ -187,15 +197,56 @@ export function DescribeGraphPanel(props) {
         <Typography variant="h6">{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-          sit amet blandit leo lobortis eget.
-        </Typography>
+        <div className='flexGrow'>
+          <AppBar position="static" color="inherit">
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
+            indicatorColor="primary" textColor="primary">
+              <Tab style={{textTransform: 'none'}} label="As subject" {...a11yProps(0)} />
+              <Tab style={{textTransform: 'none'}} label="As predicate" {...a11yProps(1)} />
+              <Tab style={{textTransform: 'none'}} label="As object" {...a11yProps(2)} />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+            Subject
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Predicate
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Object
+          </TabPanel>
+        </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )
 }
-    // <h1>
-    //   {console.log(props)}
-    //   {props.datasetUri}
-    // </h1>
+
+
+// Tabs setup
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
+}
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
