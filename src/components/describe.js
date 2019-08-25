@@ -23,6 +23,9 @@ const styles = theme => ({
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none'
+  },
+  tabLabel: {
+    textTransform: 'none'
   }
 })
 
@@ -123,9 +126,10 @@ class Describe extends Component {
   }
 
   render () {
+    const { classes } = this.props;
     return <Container>
         <div>
-          {/* TODO: Link doesn't work without reason. It's included in Router. */}
+          {/* TODO: Link doesn't work without reason. It's included in Router though */}
           <Link to="/describe?uri={this.params.get('uri')}">
             <Typography variant="h4">
               {this.params.get('uri')}
@@ -138,7 +142,7 @@ class Describe extends Component {
           })} */}
 
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
-            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]}/>;
+            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} classes={classes} />;
           })}
 
           {this.state.describeGraphClasses.map(function(dataset, index){
@@ -171,21 +175,13 @@ class Describe extends Component {
       }
     } LIMIT 1000`);
   }
-}
- 
+} 
 export default withStyles(styles)(Describe);
 
-// Work to generate a component:
-// const DescribeGraphPanel = ({ dataset }) => <h1>
-// {dataset}
-// </h1>;
-
-// Also work. But this.propos never work. 
-// Apparently this is undefined. How is it even possible?
-// Maybe it should be "class MyClass extends Component"?
-// Or even "React,createClass"? So much choice, really handy
+// Display the panels showing s,p,o for each graph 
 export function DescribeGraphPanel(props) {
   const [value, setValue] = React.useState(0);
+  const { classes } = props;
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -201,19 +197,19 @@ export function DescribeGraphPanel(props) {
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
             indicatorColor="primary" textColor="primary">
-              <Tab style={{textTransform: 'none'}} label="As subject" {...a11yProps(0)} />
-              <Tab style={{textTransform: 'none'}} label="As predicate" {...a11yProps(1)} />
-              <Tab style={{textTransform: 'none'}} label="As object" {...a11yProps(2)} />
+              <Tab className={classes.tabLabel} label="As subject" {...a11yProps(0)} />
+              <Tab className={classes.tabLabel} label="As predicate" {...a11yProps(1)} />
+              <Tab className={classes.tabLabel} label="As object" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            Subject
+            Subject panel
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Predicate
+            Predicate panel
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Object
+            Object panel
           </TabPanel>
         </div>
       </ExpansionPanelDetails>
@@ -225,7 +221,6 @@ export function DescribeGraphPanel(props) {
 // Tabs setup
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <Typography
       component="div"
@@ -233,8 +228,7 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       <Box p={3}>{children}</Box>
     </Typography>
   );
