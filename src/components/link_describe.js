@@ -50,7 +50,7 @@ export function LinkDescribe(props) {
   }
   return (
     // For non URI
-    <Typography variant={props.variant} className={props.passClass}>
+    <Typography variant={props.variant} className={props.passClass} style={{textAlign: 'left'}}>
       {props.uri}
     </Typography>
   )
