@@ -33,12 +33,17 @@ class Describe extends Component {
   params = new URLSearchParams(location.search);
 
   state = {
+    describeUri: this.params.get('uri'),
     describeHash: {}, 
     describeGraphClasses: []
   }
 
   componentDidMount() {
-    axios.get(`http://graphdb.dumontierlab.com/repositories/test?query=` + this.getDescribeQuery(this.params.get('uri')))
+    // Not working:
+    // this.setState({ describeUri: this.params.get('uri') });
+    console.log('describeUri');
+    console.log(this.state.describeUri);
+    axios.get(`http://graphdb.dumontierlab.com/repositories/test?query=` + this.getDescribeQuery(this.state.describeUri))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
         let describeHash = {};
@@ -130,9 +135,9 @@ class Describe extends Component {
     return <Container>
         <div>
           {/* TODO: Link doesn't work without reason. It's included in Router though */}
-          <Link to="/describe?uri={this.params.get('uri')}">
+          <Link to='/describe?uri={this.state.describeUri}'>
             <Typography variant="h4">
-              {this.params.get('uri')}
+              {this.state.describeUri}
             </Typography>
           </Link>
           
@@ -142,7 +147,8 @@ class Describe extends Component {
           })} */}
 
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
-            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} classes={classes} />;
+            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
+            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} />;
           })}
 
           {this.state.describeGraphClasses.map(function(dataset, index){
@@ -188,6 +194,8 @@ export function DescribeGraphPanel(props) {
   }
   return (
     <ExpansionPanel defaultExpanded>
+      {console.log('in expansion panel')}
+      {console.log(props)}
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
         <Typography variant="h6">{props.datasetUri}</Typography>
@@ -204,15 +212,22 @@ export function DescribeGraphPanel(props) {
           </AppBar>
           <TabPanel value={value} index={0}>
             <Grid container spacing={3}>
-              <Grid item xs={4}>
-                s
-              </Grid>
-              <Grid item xs={4}>
-                p
-              </Grid>
-              <Grid item xs={4}>
-                o
-              </Grid>
+              {console.log(props)}
+              {/* Iterate over properties in a graph */}
+              {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
+                return <React.Fragment>
+                  <Grid item xs={4}>
+                    {props.describeUri}
+                  </Grid>
+                  <Grid item xs={4}>
+                    {propertyUri}
+                  </Grid>
+                  <Grid item xs={4}>
+                    {/* loop for values in this grid cell */}
+                    {props.datasetHash.asSubject[propertyUri][0]}
+                  </Grid>
+                </React.Fragment>
+              })}
             </Grid>
           </TabPanel>
           <TabPanel value={value} index={1}>
