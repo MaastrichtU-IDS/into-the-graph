@@ -20,6 +20,7 @@ import axios from 'axios';
  
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
+import { DescribeLink } from "./describe_link";
 
 const styles = theme => ({
   menuButton: {
@@ -158,12 +159,13 @@ class Describe extends Component {
               {this.state.describeUri}
             </Typography>
           </Link> */}
-          <a href={'/describe?uri=' + this.state.describeUri} className={classes.uriLink}>
+          <DescribeLink uri={this.state.describeUri} variant='h4' />
+          {/* <a href={'/describe?uri=' + this.state.describeUri} className={classes.uriLink}>
           {/* <a href={'/describe?uri=' + this.state.describeUri}> */}
-            <Typography variant="h4">
+            {/* <Typography variant="h4">
               {this.state.describeUri}
             </Typography>
-          </a>
+          </a>  */}
         {/* </BrowserRouter> */}
 
           {/* Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
