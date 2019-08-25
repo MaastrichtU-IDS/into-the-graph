@@ -1,24 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles(theme => ({
   uriLink: {
     textDecoration: 'none',
     color: 'rgba(0, 0, 0, 0.87)',
     '& :hover': {
+      // TODO: important primary color and better transition
       color: '#2196f3',
     },
   }
 }));
 
-// Display the panels showing s,p,o for each graph 
+// Format a link to be displayedby shortening URI
 export function LinkDescribe(props) {
   const classes = useStyles();
-  // const [value, setValue] = React.useState(0);
-  // const { classes } = props;
 
   const prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
