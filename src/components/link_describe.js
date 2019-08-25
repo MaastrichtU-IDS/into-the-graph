@@ -7,8 +7,7 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'rgba(0, 0, 0, 0.87)',
     '& :hover': {
-      // TODO: important primary color and better transition
-      color: '#2196f3',
+      color: theme.palette.primary.main,
     },
   }
 }));
