@@ -12,11 +12,13 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { LinkDescribe } from "./link_describe";
+import { ok } from "assert";
 
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import { BrowserRouter } from "react-router-dom";
@@ -28,7 +30,7 @@ const styles = theme => ({
     marginLeft: '1em',
     textTransform: 'none'
   },
-  tabLabel: {
+  noCap: {
     textTransform: 'none'
   },
   describePanelUri: {
@@ -200,6 +202,13 @@ export function DescribeGraphPanel(props) {
   const [value, setValue] = React.useState(0);
   const { classes } = props;
 
+  function showMoreStatements(propertyUri) {
+    props.datasetHash.showExtra[propertyUri] = true;
+    console.log('clicked');
+    // Ok apparently we cannot change state of parent component in function
+    // And it doesn't pick up changes. So we will need to convert it to Component...
+  }
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -216,9 +225,9 @@ export function DescribeGraphPanel(props) {
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
             indicatorColor="primary" textColor="primary">
-              <Tab className={classes.tabLabel} label="As subject" {...a11yProps(0)} />
-              <Tab className={classes.tabLabel} label="As predicate" {...a11yProps(1)} />
-              <Tab className={classes.tabLabel} label="As object" {...a11yProps(2)} />
+              <Tab className={classes.noCap} label="As subject" {...a11yProps(0)} />
+              <Tab className={classes.noCap} label="As predicate" {...a11yProps(1)} />
+              <Tab className={classes.noCap} label="As object" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
@@ -226,6 +235,20 @@ export function DescribeGraphPanel(props) {
               {console.log(props)}
               {/* Iterate over properties in a graph */}
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
+                let addShowMore = '';
+                if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
+                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
+                  // onClick={props.datasetHash.showExtra[propertyUri] = false}>
+                  // onClick={showMoreStatements(props.datasetHash, propertyUri)}
+                  onClick={(e) => showMoreStatements(propertyUri)}
+                  >
+                    Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                  </Button>  );
+                } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
+                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
+                    Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                  </Button>  );
+                }
                 return <React.Fragment>
                   <Grid item xs={4} className={classes.describePanelUri}>
                     <LinkDescribe variant='body2' uri={props.describeUri}/>
@@ -246,6 +269,7 @@ export function DescribeGraphPanel(props) {
                           <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
                         </React.Fragment>
                       })}
+                      {addShowMore}
                     </Paper>
                   </Grid>
                 </React.Fragment>
