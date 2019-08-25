@@ -20,7 +20,7 @@ import axios from 'axios';
  
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
-import { DescribeLink } from "./describe_link";
+import { LinkDescribe } from "./link_describe";
 
 const styles = theme => ({
   menuButton: {
@@ -152,21 +152,7 @@ class Describe extends Component {
     const { classes } = this.props;
     return <Container>
         <div>
-        {/* <BrowserRouter> */}
-          {/* TODO: Link doesn't work without reason. It's included in Router though */}
-          {/* <Link to='/describe?uri={this.state.describeUri}'>
-            <Typography variant="h4">
-              {this.state.describeUri}
-            </Typography>
-          </Link> */}
-          <DescribeLink uri={this.state.describeUri} variant='h4' />
-          {/* <a href={'/describe?uri=' + this.state.describeUri} className={classes.uriLink}>
-          {/* <a href={'/describe?uri=' + this.state.describeUri}> */}
-            {/* <Typography variant="h4">
-              {this.state.describeUri}
-            </Typography>
-          </a>  */}
-        {/* </BrowserRouter> */}
+          <LinkDescribe uri={this.state.describeUri} variant='h4' />
 
           {/* Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {

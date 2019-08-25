@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // Display the panels showing s,p,o for each graph 
-export function DescribeLink(props) {
+export function LinkDescribe(props) {
   const classes = useStyles();
   // const [value, setValue] = React.useState(0);
   // const { classes } = props;
