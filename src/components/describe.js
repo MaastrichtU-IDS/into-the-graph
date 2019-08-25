@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -43,6 +44,9 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing(2, 2),
   },
+  divider: {
+    margin: theme.spacing(1, 1),
+  }
 })
 
 class Describe extends Component {
@@ -233,7 +237,14 @@ export function DescribeGraphPanel(props) {
                     {/* loop for property values in this grid cell */}
                     <Paper className={classes.paper}>
                       {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
-                        return <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
+                        let addDivider = '';
+                        if (key != 0) {
+                          addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                        }
+                        return <React.Fragment>
+                          {addDivider}
+                          <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
+                        </React.Fragment>
                       })}
                     </Paper>
                   </Grid>
