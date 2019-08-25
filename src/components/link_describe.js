@@ -26,26 +26,32 @@ export function LinkDescribe(props) {
     dc: 'http://purl.org/dc/elements/1.1/',
     obo: 'http://purl.obolibrary.org/obo/',
     owl: 'http://www.w3.org/2002/07/owl#',
-    // ido: 'http://identifiers.org/',
+    ido: 'http://identifiers.org/',
   };
 
   function shortenUri(uriToShorten) {
-    console.log(props);
-    if (uriToShorten.startsWith('http://') || uriToShorten.startsWith('https://')) {
-      for (const prefix in prefixRegistry) {
-        if (uriToShorten.startsWith(prefixRegistry[prefix])) {
-          return uriToShorten.replace(prefixRegistry[prefix], prefix + ':');
-        }
+    for (const prefix in prefixRegistry) {
+      if (uriToShorten.startsWith(prefixRegistry[prefix])) {
+        return uriToShorten.replace(prefixRegistry[prefix], prefix + ':');
       }
     }
     return uriToShorten;
   }
 
+  if (props.uri.startsWith('http://') || props.uri.startsWith('https://')) {
+    // Process URIs
+    return (
+      <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
+        <Typography variant={props.variant}>
+          {shortenUri(props.uri)}
+        </Typography>
+      </a>
+    )
+  }
   return (
-    <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
-      <Typography variant={props.variant}>
-        {shortenUri(props.uri)}
-      </Typography>
-    </a>
+    // For non URI
+    <Typography variant={props.variant}>
+      {props.uri}
+    </Typography>
   )
 }

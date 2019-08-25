@@ -15,12 +15,10 @@ import Paper from '@material-ui/core/Paper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-
-// import { Routes } from 'Routes.js';
- 
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
 import { LinkDescribe } from "./link_describe";
+
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
 
 const styles = theme => ({
   menuButton: {
@@ -235,9 +233,7 @@ export function DescribeGraphPanel(props) {
                     {/* loop for property values in this grid cell */}
                     <Paper className={classes.paper}>
                       {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
-                        return <Typography component='p' className={classes.describePanelUri} key={key}>
-                            {props.datasetHash.asSubject[propertyUri][valueIndex]}
-                          </Typography>
+                        return <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
                       })}
                     </Paper>
                   </Grid>
