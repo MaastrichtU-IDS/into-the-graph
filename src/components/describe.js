@@ -224,10 +224,10 @@ export function DescribeGraphPanel(props) {
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                 return <React.Fragment>
                   <Grid item xs={4} className={classes.describePanelUri}>
-                    {props.describeUri}
+                    <LinkDescribe variant='body2' uri={props.describeUri}/>
                   </Grid>
                   <Grid key={key} item xs={4} className={classes.describePanelUri}>
-                    {propertyUri}
+                    <LinkDescribe variant='body2' uri={propertyUri}/>
                   </Grid>
                   <Grid item xs={4}>
                     {/* loop for property values in this grid cell */}
