@@ -11,6 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -26,7 +27,13 @@ const styles = theme => ({
   },
   tabLabel: {
     textTransform: 'none'
-  }
+  },
+  uriLink: {
+    fontSize: 16
+  },
+  paper: {
+    padding: theme.spacing(2, 2),
+  },
 })
 
 class Describe extends Component {
@@ -216,15 +223,21 @@ export function DescribeGraphPanel(props) {
               {/* Iterate over properties in a graph */}
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                 return <React.Fragment>
-                  <Grid item xs={4}>
+                  <Grid item xs={4} className={classes.uriLink}>
                     {props.describeUri}
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid key={key} item xs={4} className={classes.uriLink}>
                     {propertyUri}
                   </Grid>
                   <Grid item xs={4}>
-                    {/* loop for values in this grid cell */}
-                    {props.datasetHash.asSubject[propertyUri][0]}
+                    {/* loop for property values in this grid cell */}
+                    <Paper className={classes.paper}>
+                      {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
+                        return <Typography component='p' className={classes.uriLink} key={key}>
+                            {props.datasetHash.asSubject[propertyUri][valueIndex]}
+                          </Typography>
+                      })}
+                    </Paper>
                   </Grid>
                 </React.Fragment>
               })}
