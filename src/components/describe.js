@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Badge from '@material-ui/core/Badge';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -45,6 +46,9 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing(2, 2),
+  },
+  badgePadding: {
+    padding: theme.spacing(0, 2),
   },
   divider: {
     margin: theme.spacing(1, 1),
@@ -247,9 +251,19 @@ export function DescribeGraphPanel(props) {
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
             indicatorColor="primary" textColor="primary">
-              <Tab className={classes.noCap} label="As subject" {...a11yProps(0)} />
-              <Tab className={classes.noCap} label="As predicate" {...a11yProps(1)} />
-              <Tab className={classes.noCap} label="As object" {...a11yProps(2)} />
+              {/* <Tab className={classes.noCap} label="As subject" {...a11yProps(0)} /> */}
+              <Tab className={classes.noCap} {...a11yProps(0)}
+              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
+                As subject
+                </Badge>}/>
+              <Tab className={classes.noCap} {...a11yProps(1)}
+              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
+                As predicate
+                </Badge>} />
+              <Tab className={classes.noCap} {...a11yProps(2)}
+              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
+                As object
+                </Badge>} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
