@@ -90,7 +90,7 @@ class Sparql extends Component {
     const { classes } = this.props;
 
     return <Container maxWidth="xl">
-        <Card className='mainContainer'>
+        <Card className='mainContainer' style={{textAlign: 'left'}}>
           <CardContent>
             <div id="yasguiDiv"></div>
           </CardContent>
