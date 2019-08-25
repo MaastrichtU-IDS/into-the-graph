@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
 import { BrowserRouter as Link, Router } from "react-router-dom";
 import Typography from '@material-ui/core/Typography'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
  
@@ -176,9 +180,22 @@ export default withStyles(styles)(Describe);
 // Or even "React,createClass"? So much choice, really handy
 export function DescribeGraphPanel(props) {
   return (
-      <h1>
-        {console.log(props)}
-        {props.datasetUri}
-      </h1>
+    <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
+        id="panel1a-header" aria-controls="panel1a-content">
+        <Typography variant="h6">{props.datasetUri}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Typography>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+          sit amet blandit leo lobortis eget.
+        </Typography>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }
+
+    // <h1>
+    //   {console.log(props)}
+    //   {props.datasetUri}
+    // </h1>
