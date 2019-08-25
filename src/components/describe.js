@@ -63,7 +63,7 @@ class Describe extends Component {
     // this.setState({ describeUri: this.params.get('uri') });
     console.log('describeUri');
     console.log(this.state.describeUri);
-    axios.get(`http://graphdb.dumontierlab.com/repositories/test?query=` + this.getDescribeQuery(this.state.describeUri))
+    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + this.getDescribeQuery(this.state.describeUri))
       .then(res => {
         const sparqlResultArray = res.data.results.bindings;
         let describeHash = {};
