@@ -176,10 +176,10 @@ class Describe extends Component {
   render () {
     const { classes } = this.props;
     return <Container>
-        <div>
+        <div className='mainContainer'>
           <LinkDescribe uri={this.state.describeUri} variant='h4' passClass={classes.font300}/>
-
-          {/* Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
+          <br/>
+          {/* TODO: Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
             return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
             datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
