@@ -42,7 +42,8 @@ export function LinkDescribe(props) {
     // Process URIs
     return (
       <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
-        <Typography variant={props.variant}>
+        {console.log(props.fontWeight)}
+        <Typography variant={props.variant} className={props.passClass}>
           {shortenUri(props.uri)}
         </Typography>
       </a>
@@ -50,7 +51,7 @@ export function LinkDescribe(props) {
   }
   return (
     // For non URI
-    <Typography variant={props.variant}>
+    <Typography variant={props.variant} className={props.passClass}>
       {props.uri}
     </Typography>
   )

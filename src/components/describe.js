@@ -48,11 +48,31 @@ const styles = theme => ({
   },
   divider: {
     margin: theme.spacing(1, 1),
+  },
+  font300: {
+    fontWeight: 300
   }
 })
 
 class Describe extends Component {
   params = new URLSearchParams(location.search);
+
+  constructor(props) {
+    super(props)
+
+    this.showMoreHandler = this.showMoreHandler.bind(this)
+  }
+
+  showMoreHandler(graphUri, propertyUri, showMore) {
+    // We should set state here but how to do it properly?
+    // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
+    this.state.describeHash[graphUri].showExtra[propertyUri] = true;
+    console.log('showMoreHandler');
+    // this.setState({
+      
+    // })
+  }
+
 
   state = {
     describeUri: this.params.get('uri'),
@@ -152,16 +172,17 @@ class Describe extends Component {
     })
   }
 
+  // START HTML
   render () {
     const { classes } = this.props;
     return <Container>
         <div>
-          <LinkDescribe uri={this.state.describeUri} variant='h4' />
+          <LinkDescribe uri={this.state.describeUri} variant='h4' passClass={classes.font300}/>
 
           {/* Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
             return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
-            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} />;
+            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
           })}
 
           {this.state.describeGraphClasses.map(function(dataset, index){
@@ -203,7 +224,8 @@ export function DescribeGraphPanel(props) {
   const { classes } = props;
 
   function showMoreStatements(propertyUri) {
-    props.datasetHash.showExtra[propertyUri] = true;
+    props.showMoreHandler(props.datasetUri, propertyUri, true)
+    // props.datasetHash.showExtra[propertyUri] = true;
     console.log('clicked');
     // Ok apparently we cannot change state of parent component in function
     // And it doesn't pick up changes. So we will need to convert it to Component...
@@ -231,7 +253,7 @@ export function DescribeGraphPanel(props) {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} alignItems="center">
               {console.log(props)}
               {/* Iterate over properties in a graph */}
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
