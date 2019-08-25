@@ -36,7 +36,7 @@ export default function NavBar() {
                 &nbsp;Run SPARQL queries
               </Button>
             </Link>
-            <Link to="/describe">
+            <Link to="/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4600">
               <Button className={classes.menuButton}>
                 <Icon>search</Icon>
                 &nbsp;Describe URIs

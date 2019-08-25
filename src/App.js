@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/navbar';
@@ -36,6 +37,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
+          {/* <BrowserRouter> */}
           <Router>
             <NavBar/>
             <Switch>
@@ -44,10 +46,11 @@ class App extends Component {
               <Route exact path='/describe' component={DescribeComponent} />
             </Switch>
           </Router>
+          {/* </BrowserRouter> */}
         </MuiThemeProvider>
       </React.Fragment>
     );
   }
 }
 
-export default App;
+export default (App);
