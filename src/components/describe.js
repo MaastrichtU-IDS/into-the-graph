@@ -203,7 +203,17 @@ export function DescribeGraphPanel(props) {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            Subject panel
+            <Grid container spacing={3}>
+              <Grid item xs={4}>
+                s
+              </Grid>
+              <Grid item xs={4}>
+                p
+              </Grid>
+              <Grid item xs={4}>
+                o
+              </Grid>
+            </Grid>
           </TabPanel>
           <TabPanel value={value} index={1}>
             Predicate panel
