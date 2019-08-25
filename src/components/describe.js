@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
+import { BrowserRouter as Link, Router } from "react-router-dom";
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -114,8 +115,12 @@ class Describe extends Component {
   render () {
     return <Container>
         <div>
-          This is the describe me page.
-          {this.params.get("uri")}
+          {/* TODO: Link doesn't work without reason. It's included in Router. */}
+          <Link to="/describe?uri={this.params.get('uri')}">
+            <Typography variant="h4">
+              {this.params.get('uri')}
+            </Typography>
+          </Link>
           
           {/* Following can't find 'this' */}
           {/* {Object.keys(this.state.describeHash).map(function(datasetUri, key, listDatasets){
