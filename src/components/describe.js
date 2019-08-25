@@ -15,8 +15,11 @@ import Paper from '@material-ui/core/Paper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+
+// import { Routes } from 'Routes.js';
  
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 const styles = theme => ({
   menuButton: {
@@ -28,8 +31,15 @@ const styles = theme => ({
   tabLabel: {
     textTransform: 'none'
   },
-  uriLink: {
+  describePanelUri: {
     fontSize: 16
+  },
+  uriLink: {
+    textDecoration: 'none',
+    color: 'rgba(0, 0, 0, 0.87)',
+    '& :hover': {
+      color: '#2196f3',
+    },
   },
   paper: {
     padding: theme.spacing(2, 2),
@@ -141,18 +151,22 @@ class Describe extends Component {
     const { classes } = this.props;
     return <Container>
         <div>
+        {/* <BrowserRouter> */}
           {/* TODO: Link doesn't work without reason. It's included in Router though */}
-          <Link to='/describe?uri={this.state.describeUri}'>
+          {/* <Link to='/describe?uri={this.state.describeUri}'>
             <Typography variant="h4">
               {this.state.describeUri}
             </Typography>
-          </Link>
-          
-          {/* Following can't find 'this' */}
-          {/* {Object.keys(this.state.describeHash).map(function(datasetUri, key, listDatasets){
-            return <DescribeGraphPanel key={key} datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]}/>;
-          })} */}
+          </Link> */}
+          <a href={'/describe?uri=' + this.state.describeUri} className={classes.uriLink}>
+          {/* <a href={'/describe?uri=' + this.state.describeUri}> */}
+            <Typography variant="h4">
+              {this.state.describeUri}
+            </Typography>
+          </a>
+        {/* </BrowserRouter> */}
 
+          {/* Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
             return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
             datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} />;
@@ -223,17 +237,17 @@ export function DescribeGraphPanel(props) {
               {/* Iterate over properties in a graph */}
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                 return <React.Fragment>
-                  <Grid item xs={4} className={classes.uriLink}>
+                  <Grid item xs={4} className={classes.describePanelUri}>
                     {props.describeUri}
                   </Grid>
-                  <Grid key={key} item xs={4} className={classes.uriLink}>
+                  <Grid key={key} item xs={4} className={classes.describePanelUri}>
                     {propertyUri}
                   </Grid>
                   <Grid item xs={4}>
                     {/* loop for property values in this grid cell */}
                     <Paper className={classes.paper}>
                       {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
-                        return <Typography component='p' className={classes.uriLink} key={key}>
+                        return <Typography component='p' className={classes.describePanelUri} key={key}>
                             {props.datasetHash.asSubject[propertyUri][valueIndex]}
                           </Typography>
                       })}

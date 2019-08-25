@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/navbar';
@@ -12,15 +12,17 @@ import DatasetsOverviewComponent from './components/datasets_overview';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
 
 // Change theme color and typography here
 const theme = createMuiTheme({
   palette: {
-    primary: blue,
+    // primary: blue[400],
+    primary: { light: blue[300], main: blue[500], dark: blue[700] },
     secondary: green,
   },
   status: {
-    danger: 'orange',
+    danger: orange,
   },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
@@ -37,16 +39,16 @@ class App extends Component {
     return (
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
-          {/* <BrowserRouter> */}
-          <Router>
+          <BrowserRouter>
+          {/* <Router> */}
             <NavBar/>
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route exact path='/sparql' component={SparqlComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
             </Switch>
-          </Router>
-          {/* </BrowserRouter> */}
+          {/* </Router> */}
+          </BrowserRouter>
         </MuiThemeProvider>
       </React.Fragment>
     );
