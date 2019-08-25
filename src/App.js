@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/navbar';
+import Footer from './components/footer';
 import SparqlComponent from './components/sparql';
 import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/datasets_overview';
@@ -40,14 +41,16 @@ class App extends Component {
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
-          {/* <Router> */}
+          {/* Of course this doesn't work */}
+          <div style={{minHeight: '100vh'}}>
             <NavBar/>
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route exact path='/sparql' component={SparqlComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
             </Switch>
-          {/* </Router> */}
+          <Footer />
+          </div>
           </BrowserRouter>
         </MuiThemeProvider>
       </React.Fragment>
