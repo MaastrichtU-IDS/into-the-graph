@@ -19,7 +19,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { LinkDescribe } from "./link_describe";
-import { ok } from "assert";
 
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import { BrowserRouter } from "react-router-dom";
@@ -34,9 +33,6 @@ const styles = theme => ({
   noCap: {
     textTransform: 'none'
   },
-  describePanelUri: {
-    fontSize: 16
-  },
   uriLink: {
     textDecoration: 'none',
     color: 'rgba(0, 0, 0, 0.87)',
@@ -44,7 +40,13 @@ const styles = theme => ({
       color: '#2196f3',
     },
   },
-  paper: {
+  alignRight: {
+    textAlign: 'right'
+  },
+  alignLeft: {
+    textAlign: 'left'
+  },
+  paperPadding: {
     padding: theme.spacing(2, 2),
   },
   badgePadding: {
@@ -248,6 +250,7 @@ export function DescribeGraphPanel(props) {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
+          {/* Tab Header */}
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
             indicatorColor="primary" textColor="primary">
@@ -266,12 +269,14 @@ export function DescribeGraphPanel(props) {
                 </Badge>} />
             </Tabs>
           </AppBar>
+          {/* Tab content */}
           <TabPanel value={value} index={0}>
             <Grid container spacing={3} alignItems="center">
               {console.log(props)}
               {/* Iterate over properties in a graph */}
               {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                 let addShowMore = '';
+                // Add button to show more statements if more that 5 for smae property
                 if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
                   addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
                   // onClick={props.datasetHash.showExtra[propertyUri] = false}>
@@ -285,16 +290,15 @@ export function DescribeGraphPanel(props) {
                     Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                   </Button>  );
                 }
+
+                // Display property / values for the described subject URI
                 return <React.Fragment>
-                  <Grid item xs={4} className={classes.describePanelUri}>
-                    <LinkDescribe variant='body2' uri={props.describeUri}/>
-                  </Grid>
-                  <Grid key={key} item xs={4} className={classes.describePanelUri}>
+                  <Grid key={key} item xs={6} className={classes.alignRight}>
                     <LinkDescribe variant='body2' uri={propertyUri}/>
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={6} className={classes.alignLeft}>
                     {/* loop for property values in this grid cell */}
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paperPadding}>
                       {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
                         let addDivider = '';
                         if (key != 0) {
@@ -312,9 +316,11 @@ export function DescribeGraphPanel(props) {
               })}
             </Grid>
           </TabPanel>
+
           <TabPanel value={value} index={1}>
             Predicate panel
           </TabPanel>
+          
           <TabPanel value={value} index={2}>
             Object panel
           </TabPanel>
