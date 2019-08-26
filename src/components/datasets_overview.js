@@ -152,7 +152,7 @@ class DatasetsOverview extends Component {
     }
       // Now render the tables!
     return (
-      <Container>
+      <Container maxWidth="xl">
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Overview of ncats-red-kg datasets
         </Typography>
