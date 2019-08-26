@@ -2,34 +2,27 @@ import React, { Component } from "react";
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-// import $ from 'jquery'
-
-// import DataTable from 'datatables.net'
-// $.DataTable = DataTable
-
-// import DataTableDt from 'datatables.net-dt'
+import axios from 'axios';
 
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
+// Shoud also work:
+// import $ from 'jquery'
+// import DataTable from 'datatables.net'
+// $.DataTable = DataTable
 
-const columns = [{title: 'Name', width: 120,data: 'name'},{title: 'Nickname',width: 180,data: 'nickname'}];
-
-// Following this post: https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
-
-class Sparql extends Component {
-  // state = {columns: [{title: 'Name', width: 120,data: 'name'},{title: 'Nickname',width: 180,data: 'nickname'}]}
+class DatasetsOverview extends Component {
+  state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
-    // This fails to get columns data,so the test data is in the render.
-    // $(this.refs.main).DataTable({
-    //    dom: '<"data-table-wrapper"t>',
-    //    data: this.props.names,
-    //    columns,
-    //    ordering: true
-    // });
 
-    $(this.refs.main).DataTable();
+    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + encodeURIComponent(this.statsOverviewQuery))
+      .then(res => {
+        this.setState( { statsOverview: res.data.results.bindings } );
+        $(this.refs.main).DataTable();
+      });
+
   }
 
   componentWillUnmount(){
@@ -40,109 +33,133 @@ class Sparql extends Component {
   }
 
   shouldComponentUpdate() {
-      return false;
+      return true;
   }
 
   render() {
+    let myTable = '';
+    if (this.state.statsOverview.length > 0) {
+      myTable = ( <table table ref="main" className="row-border">
+        <thead>
+          <tr>
+            <th>Dataset</th>
+            <th>date generated</th>
+            <th># of triples</th>
+            <th># of entities</th>
+            <th># of properties</th>
+            <th># of classes</th>
+            <th>Download as RDF/XML</th>
+          </tr>
+        </thead>
+        <tbody>
+          {console.log('before statsOverview map')}
+          {console.log(this.state)}
+          {this.state.statsOverview.map((row, key) => {
+            {console.log('in statsOverview map')}
+            {console.log(row)}
+            return <tr>
+              <td>
+                {row.source.value}
+              </td>
+              <td>
+                {row.dateGenerated.value}
+              </td>
+              <td>
+                {row.statements.value}
+              </td>
+              <td>
+                {row.entities.value}
+              </td>
+              <td>
+                {row.properties.value}
+              </td>
+              <td>
+                {row.classes.value}
+              </td>
+              <td>
+                Download
+              </td>
+            </tr>;
+          })}
+      </tbody>
+    </table> )
+    }
       return (
           <Container>
             <Card className='mainContainer'>
               <CardContent>
-                <table table ref="main" className="row-border">
-                  <thead>
-                    <tr>
-                      <th>Dataset</th>
-                      <th>date generated</th>
-                      <th># of triples</th>
-                      <th># of entities</th>
-                      <th># of properties</th>
-                      <th># of classes</th>
-                      <th>Download as RDF/XML</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        Datas1
-                      </td>
-                      <td>
-                        date
-                      </td>
-                      <td>
-                        1
-                      </td>
-                      <td>
-                        2  
-                      </td>
-                      <td>
-                        3
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td>
-                        5
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Datas2
-                      </td>
-                      <td>
-                        date2
-                      </td>
-                      <td>
-                        2
-                      </td>
-                      <td>
-                        3
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td>
-                        1
-                      </td>
-                      <td>
-                        2
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </CardContent>
-            </Card>
-          </Container>);
+                {myTable}
+            </CardContent>
+          </Card>
+        </Container>);
   }
+
+  statsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX bl: <http://w3id.org/biolink/vocab/>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX idot: <http://identifiers.org/idot/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX void: <http://rdfs.org/ns/void#>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  PREFIX void-ext: <http://ldf.fi/void-ext#>
+  SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+  WHERE {
+    GRAPH ?g {
+      ?dataset a dctypes:Dataset ;
+        dct:description ?description ;
+        foaf:page ?homepage ;
+        idot:preferredPrefix ?source .
+      ?version dct:isVersionOf ?dataset ;
+        dcat:distribution ?rdfDistribution .
+      ?rdfDistribution a void:Dataset ;
+        dcat:accessURL ?graph ;
+        void:triples ?statements ;
+        void:entities ?entities ;
+        void:properties ?properties ;
+        dct:issued ?dateGenerated .
+      ?rdfDistribution void:classPartition [
+        void:class rdfs:Class ;
+        void:distinctSubjects ?classes
+      ] .
+    }
+  } ORDER BY DESC(?statements)`;
+
+  entitiesRelationsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX bl: <http://w3id.org/biolink/vocab/>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX idot: <http://identifiers.org/idot/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX void: <http://rdfs.org/ns/void#>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  PREFIX void-ext: <http://ldf.fi/void-ext#>
+  SELECT DISTINCT ?source ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+  WHERE {
+    GRAPH ?g {
+      ?dataset a dctypes:Dataset ;
+        idot:preferredPrefix ?source .
+      ?version dct:isVersionOf ?dataset ;
+        dcat:distribution ?rdfDistribution .
+      ?rdfDistribution a void:Dataset ;
+        dcat:accessURL ?graph .
+      ?rdfDistribution void:propertyPartition [
+          void:property ?relationWith ;
+          void:classPartition [
+              void:class ?class1 ;
+              void:distinctSubjects ?classCount1 ;
+          ];
+          void-ext:objectClassPartition [
+            void:class ?class2 ;
+            void:distinctObjects ?classCount2 ;
+      ]] .
+    }
+  } ORDER BY DESC(?classCount1)`;
 }
 
-export default Sparql;
-
-// Another failing solution
-// componentDidMount(nextProps, nextState) {
-//   this.table = $(this.refs.main).DataTable({
-//     dom: '<"data-table-wrapper"tip>',
-//     data: [],
-//     columns,
-//     language: {
-//       info: 'Mostrando _START_-_END_ de _TOTAL_ puntos',
-//       infoEmpty: 'No hay puntos',
-//       paginate: {
-//         next: 'Siguiente',
-//         previous: 'Anterior',
-//       },
-//     },
-//   })
-// }
-// render() {
-//   return (
-//       <table
-//         className="table table-striped hover"
-//         cellSpacing="0"
-//         width="100%"
-//         ref="main"
-//       />
-//   )
-// }
+export default DatasetsOverview;
 
 // Turgay snippet:
 // state ={
