@@ -52,6 +52,12 @@ const styles = theme => ({
   }
 })
 
+function displayDate(dateToDisplay) {
+  const parsedDate = new Date(dateToDisplay);
+  return parsedDate.getFullYear() + '-'
+  + (parsedDate.getMonth() + 1).toString() + '-' + parsedDate.getDate().toString();
+}
+
 class DatasetsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
@@ -104,7 +110,7 @@ class DatasetsOverview extends Component {
           {this.state.statsOverview.map((row, key) => {
             return <tr>
               <td>{row.source.value}</td>
-              <td>{row.dateGenerated.value}</td>
+              <td>{displayDate(row.dateGenerated.value)}</td>
               <td>{row.statements.value}</td>
               <td>{row.entities.value}</td>
               <td>{row.properties.value}</td>
