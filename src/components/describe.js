@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
-import { BrowserRouter as Link, Router } from "react-router-dom";
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography'
@@ -224,6 +223,8 @@ class Describe extends Component {
 } 
 export default withStyles(styles)(Describe);
 
+
+
 // Display the panels showing s,p,o for each graph 
 export function DescribeGraphPanel(props) {
   const [value, setValue] = React.useState(0);
@@ -243,26 +244,86 @@ export function DescribeGraphPanel(props) {
 
   // Define tab header here to hide them if no results for this tab
   // TODO: it bugs when switching panels, to fix
-  let tabSubject = ''
+  let tabSubject = '';
+  let tabPanelSubject = '';
   if (props.datasetHash.asSubjectCount != 0) {
     tabSubject = (<Tab className={classes.noCap} {...a11yProps(0)}
     label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
       As subject
-      </Badge>}/>)
+      </Badge>}/>);
+    tabPanelSubject = ( <TabPanel value={value} index={0}>
+      <Grid container spacing={3} alignItems="center">
+        {console.log(props)}
+        {/* Iterate over properties in a graph */}
+        {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
+          let addShowMore = '';
+          // Add button to show more statements if more that 5 for smae property
+          if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
+            addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
+            // onClick={props.datasetHash.showExtra[propertyUri] = false}>
+            // onClick={showMoreStatements(props.datasetHash, propertyUri)}
+            onClick={(e) => showMoreStatements(propertyUri)}
+            >
+              Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+            </Button>  );
+          } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
+            addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
+              Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+            </Button>  );
+          }
+
+          // Display property / values for the described subject URI
+          return <React.Fragment>
+            <Grid key={key} item xs={6} className={classes.alignRight}>
+              <LinkDescribe variant='body2' uri={propertyUri}/>
+            </Grid>
+            <Grid item xs={6} className={classes.alignLeft}>
+              {/* loop for property values in this grid cell */}
+              <Paper className={classes.paperPadding}>
+                {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
+                  let addDivider = '';
+                  if (key != 0) {
+                    addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                  }
+                  return <React.Fragment>
+                    {addDivider}
+                    <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
+                  </React.Fragment>
+                })}
+                {addShowMore}
+              </Paper>
+            </Grid>
+          </React.Fragment>})}
+      </Grid>
+    </TabPanel> );
   }
+
+
+  // Tab as predicate
   let tabPredicate = '';
+  let tabPanelPredicate = '';
   if (props.datasetHash.asPredicateCount != 0) {
     tabPredicate = ( <Tab className={classes.noCap} {...a11yProps(1)}
       label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
         As predicate
         </Badge>} /> );
+    tabPanelPredicate = ( <TabPanel value={value} index={1}>
+        Predicate panel
+      </TabPanel> );
   }
-  let tabObject = ''
+
+
+  // Tab as object
+  let tabObject = '';
+  let tabPanelObject = '';
   if (props.datasetHash.asObjectCount != 0) {
     tabObject = (<Tab className={classes.noCap} {...a11yProps(0)}
     label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
-      As object
-      </Badge>}/>)
+        As object
+      </Badge>}/>);
+    tabPanelObject = ( <TabPanel value={value} index={2}>
+        Object panel
+      </TabPanel> );
   }
   return (
     <ExpansionPanel defaultExpanded>
@@ -284,60 +345,9 @@ export function DescribeGraphPanel(props) {
             </Tabs>
           </AppBar>
           {/* Tab content */}
-          <TabPanel value={value} index={0}>
-            <Grid container spacing={3} alignItems="center">
-              {console.log(props)}
-              {/* Iterate over properties in a graph */}
-              {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
-                let addShowMore = '';
-                // Add button to show more statements if more that 5 for smae property
-                if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
-                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
-                  // onClick={props.datasetHash.showExtra[propertyUri] = false}>
-                  // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                  onClick={(e) => showMoreStatements(propertyUri)}
-                  >
-                    Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
-                  </Button>  );
-                } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
-                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
-                    Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
-                  </Button>  );
-                }
-
-                // Display property / values for the described subject URI
-                return <React.Fragment>
-                  <Grid key={key} item xs={6} className={classes.alignRight}>
-                    <LinkDescribe variant='body2' uri={propertyUri}/>
-                  </Grid>
-                  <Grid item xs={6} className={classes.alignLeft}>
-                    {/* loop for property values in this grid cell */}
-                    <Paper className={classes.paperPadding}>
-                      {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
-                        let addDivider = '';
-                        if (key != 0) {
-                          addDivider = ( <Divider variant="middle" className={classes.divider}/> );
-                        }
-                        return <React.Fragment>
-                          {addDivider}
-                          <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
-                        </React.Fragment>
-                      })}
-                      {addShowMore}
-                    </Paper>
-                  </Grid>
-                </React.Fragment>
-              })}
-            </Grid>
-          </TabPanel>
-
-          <TabPanel value={value} index={1}>
-            Predicate panel
-          </TabPanel>
-          
-          <TabPanel value={value} index={2}>
-            Object panel
-          </TabPanel>
+          {tabPanelSubject}
+          {tabPanelPredicate}
+          {tabPanelObject}
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
