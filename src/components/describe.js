@@ -240,6 +240,30 @@ export function DescribeGraphPanel(props) {
   function handleChange(event, newValue) {
     setValue(newValue);
   }
+
+  // Define tab header here to hide them if no results for this tab
+  // TODO: it bugs when switching panels, to fix
+  let tabSubject = ''
+  if (props.datasetHash.asSubjectCount != 0) {
+    tabSubject = (<Tab className={classes.noCap} {...a11yProps(0)}
+    label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
+      As subject
+      </Badge>}/>)
+  }
+  let tabPredicate = '';
+  if (props.datasetHash.asPredicateCount != 0) {
+    tabPredicate = ( <Tab className={classes.noCap} {...a11yProps(1)}
+      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
+        As predicate
+        </Badge>} /> );
+  }
+  let tabObject = ''
+  if (props.datasetHash.asObjectCount != 0) {
+    tabObject = (<Tab className={classes.noCap} {...a11yProps(0)}
+    label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
+      As object
+      </Badge>}/>)
+  }
   return (
     <ExpansionPanel defaultExpanded>
       {console.log('in expansion panel')}
@@ -254,19 +278,9 @@ export function DescribeGraphPanel(props) {
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
             indicatorColor="primary" textColor="primary">
-              {/* <Tab className={classes.noCap} label="As subject" {...a11yProps(0)} /> */}
-              <Tab className={classes.noCap} {...a11yProps(0)}
-              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
-                As subject
-                </Badge>}/>
-              <Tab className={classes.noCap} {...a11yProps(1)}
-              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
-                As predicate
-                </Badge>} />
-              <Tab className={classes.noCap} {...a11yProps(2)}
-              label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
-                As object
-                </Badge>} />
+              {tabSubject}
+              {tabPredicate}
+              {tabObject}
             </Tabs>
           </AppBar>
           {/* Tab content */}

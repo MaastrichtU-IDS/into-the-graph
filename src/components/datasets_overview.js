@@ -20,7 +20,13 @@ class DatasetsOverview extends Component {
     axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
-        $(this.refs.main).DataTable();
+        $(this.refs.statsOverview).DataTable();
+      });
+
+    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + encodeURIComponent(this.entitiesRelationsQuery))
+      .then(res => {
+        this.setState( { entitiesRelations: res.data.results.bindings } );
+        $(this.refs.entitiesRelations).DataTable();
       });
 
   }
@@ -37,9 +43,11 @@ class DatasetsOverview extends Component {
   }
 
   render() {
-    let myTable = '';
+    let statsOverviewTable = '';
+    // We don't render the table before the data has been retrieved
+    // To avoid No data in table message
     if (this.state.statsOverview.length > 0) {
-      myTable = ( <table table ref="main" className="row-border">
+      statsOverviewTable = ( <table table ref="statsOverview" className="row-border">
         <thead>
           <tr>
             <th>Dataset</th>
@@ -52,11 +60,7 @@ class DatasetsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {console.log('before statsOverview map')}
-          {console.log(this.state)}
           {this.state.statsOverview.map((row, key) => {
-            {console.log('in statsOverview map')}
-            {console.log(row)}
             return <tr>
               <td>
                 {row.source.value}
@@ -81,17 +85,66 @@ class DatasetsOverview extends Component {
               </td>
             </tr>;
           })}
-      </tbody>
-    </table> )
+        </tbody>
+      </table> )
     }
-      return (
-          <Container>
-            <Card className='mainContainer'>
-              <CardContent>
-                {myTable}
-            </CardContent>
-          </Card>
-        </Container>);
+    let entitiesRelationsTable = '';
+    if (this.state.entitiesRelations.length > 0) {
+      entitiesRelationsTable = ( <table table ref="entitiesRelations" className="row-border">
+        <thead>
+          <tr>
+            <th>Dataset</th>
+            <th># of instance of subject</th>
+            <th>Subject class</th>
+            <th>Have relation with</th>
+            <th>Object class</th>
+            <th># of instance of object</th>
+            <th>Download as RDF/XML</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.entitiesRelations.map((row, key) => {
+            return <tr>
+              <td>
+                {row.source.value}
+              </td>
+              <td>
+                {row.classCount1.value}
+              </td>
+              <td>
+                {row.class1.value}
+              </td>
+              <td>
+                {row.relationWith.value}
+              </td>
+              <td>
+                {row.class2.value}
+              </td>
+              <td>
+                {row.classCount2.value}
+              </td>
+              <td>
+                Download
+              </td>
+            </tr>;
+          })}
+        </tbody>
+      </table> )
+    }
+      // 
+    return (
+      <Container>
+        <Card className='mainContainer'>
+          <CardContent>
+            {statsOverviewTable}
+          </CardContent>
+        </Card>
+        <Card className='mainContainer'>
+          <CardContent>
+            {entitiesRelationsTable}
+          </CardContent>
+        </Card>
+      </Container>);
   }
 
   statsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
