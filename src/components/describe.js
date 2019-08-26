@@ -251,6 +251,7 @@ export function DescribeGraphPanel(props) {
     label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
       As subject
       </Badge>}/>);
+      
     tabPanelSubject = ( <TabPanel value={value} index={0}>
       <Grid container spacing={3} alignItems="center">
         {console.log(props)}
@@ -318,7 +319,7 @@ export function DescribeGraphPanel(props) {
   let tabPanelObject = '';
   if (props.datasetHash.asObjectCount != 0) {
     tabObject = (<Tab className={classes.noCap} {...a11yProps(0)}
-    label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
+      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
         As object
       </Badge>}/>);
     tabPanelObject = ( <TabPanel value={value} index={2}>
@@ -337,8 +338,8 @@ export function DescribeGraphPanel(props) {
         <div className='flexGrow'>
           {/* Tab Header */}
           <AppBar position="static" color="inherit">
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
-            indicatorColor="primary" textColor="primary">
+            <Tabs value={value} onChange={handleChange} aria-label="describe URI tabs"
+            indicatorColor="primary" textColor="primary" centered>
               {tabSubject}
               {tabPredicate}
               {tabObject}
