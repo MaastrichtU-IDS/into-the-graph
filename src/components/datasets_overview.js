@@ -1,16 +1,56 @@
 import React, { Component } from "react"; 
+import { withStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
+import { LinkDescribe } from "./link_describe";
 
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import { Typography } from "@material-ui/core";
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 // Shoud also work:
 // import $ from 'jquery'
 // import DataTable from 'datatables.net'
 // $.DataTable = DataTable
+
+const styles = theme => ({
+  menuButton: {
+    color: '#fafafa',
+    marginRight: '1em',
+    marginLeft: '1em',
+    textTransform: 'none'
+  },
+  noCap: {
+    textTransform: 'none'
+  },
+  uriLink: {
+    textDecoration: 'none',
+    color: 'rgba(0, 0, 0, 0.87)',
+    '& :hover': {
+      color: '#2196f3',
+    },
+  },
+  alignRight: {
+    textAlign: 'right'
+  },
+  alignLeft: {
+    textAlign: 'left'
+  },
+  paperPadding: {
+    padding: theme.spacing(2, 2),
+  },
+  badgePadding: {
+    padding: theme.spacing(0, 2),
+  },
+  divider: {
+    margin: theme.spacing(1, 1),
+  },
+  font300: {
+    fontWeight: 300
+  }
+})
 
 class DatasetsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
@@ -43,6 +83,7 @@ class DatasetsOverview extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     let statsOverviewTable = '';
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
@@ -62,27 +103,13 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.statsOverview.map((row, key) => {
             return <tr>
-              <td>
-                {row.source.value}
-              </td>
-              <td>
-                {row.dateGenerated.value}
-              </td>
-              <td>
-                {row.statements.value}
-              </td>
-              <td>
-                {row.entities.value}
-              </td>
-              <td>
-                {row.properties.value}
-              </td>
-              <td>
-                {row.classes.value}
-              </td>
-              <td>
-                Download
-              </td>
+              <td>{row.source.value}</td>
+              <td>{row.dateGenerated.value}</td>
+              <td>{row.statements.value}</td>
+              <td>{row.entities.value}</td>
+              <td>{row.properties.value}</td>
+              <td>{row.classes.value}</td>
+              <td>Download</td>
             </tr>;
           })}
         </tbody>
@@ -105,40 +132,32 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.entitiesRelations.map((row, key) => {
             return <tr>
-              <td>
-                {row.source.value}
-              </td>
-              <td>
-                {row.classCount1.value}
-              </td>
-              <td>
-                {row.class1.value}
-              </td>
-              <td>
-                {row.relationWith.value}
-              </td>
-              <td>
-                {row.class2.value}
-              </td>
-              <td>
-                {row.classCount2.value}
-              </td>
-              <td>
-                Download
-              </td>
+              <td>{row.source.value}</td>
+              <td>{row.classCount1.value}</td>
+              <td><LinkDescribe uri={row.class1.value} variant='body2'/></td>
+              <td><LinkDescribe uri={row.relationWith.value} variant='body2'/></td>
+              <td><LinkDescribe uri={row.class2.value} variant='body2'/></td>
+              <td>{row.classCount2.value}</td>
+              <td>Download</td>
             </tr>;
           })}
         </tbody>
       </table> )
     }
-      // 
+      // Now render the tables!
     return (
       <Container>
+        <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
+          Overview of ncats-red-kg datasets
+        </Typography>
         <Card className='mainContainer'>
           <CardContent>
             {statsOverviewTable}
           </CardContent>
         </Card>
+        <Typography variant="h4" className={classes.font300}>
+          Explore ncats-red-kg entities and relations
+        </Typography>
         <Card className='mainContainer'>
           <CardContent>
             {entitiesRelationsTable}
@@ -212,7 +231,7 @@ class DatasetsOverview extends Component {
   } ORDER BY DESC(?classCount1)`;
 }
 
-export default DatasetsOverview;
+export default withStyles(styles) (DatasetsOverview);
 
 // Turgay snippet:
 // state ={
