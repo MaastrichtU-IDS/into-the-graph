@@ -243,40 +243,6 @@ export function DescribeGraphPanel(props) {
   }
 
   // Define tab header here to hide them if no results for this tab
-  // TODO: it bugs when switching panels, to fix
-  // Disable tab if empty
-  let tabHeaderSubject = ( <Tab className={classes.noCap} {...a11yProps(0)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
-        As subject
-    </Badge>}/> );
-  if (props.datasetHash.asSubjectCount == 0) {
-    tabHeaderSubject = ( <Tab className={classes.noCap} disabled {...a11yProps(0)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
-        As subject
-    </Badge>}/> );
-  } 
-
-  let tabHeaderPredicate = (<Tab className={classes.noCap} {...a11yProps(1)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
-        As predicate
-    </Badge>} />);
-  if (props.datasetHash.asPredicateCount == 0) {
-    tabHeaderPredicate = (<Tab className={classes.noCap} disabled {...a11yProps(1)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
-        As predicate
-    </Badge>} />);
-  }
-
-  let tabHeaderObject = ( <Tab className={classes.noCap} {...a11yProps(0)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
-        As object
-    </Badge>}/> );
-  if (props.datasetHash.asObjectCount == 0) {
-    tabHeaderObject = ( <Tab className={classes.noCap} disabled {...a11yProps(0)}
-      label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
-        As object
-    </Badge>}/> );
-  }
   return (
     <ExpansionPanel defaultExpanded>
       {console.log('in expansion panel')}
@@ -291,14 +257,27 @@ export function DescribeGraphPanel(props) {
           <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="describe URI tabs"
             indicatorColor="primary" textColor="primary" centered>
-              {tabHeaderSubject}
-              {tabHeaderPredicate}
-              {tabHeaderObject}
+              
+              {props.datasetHash.asSubjectCount !== 0 && ( <Tab className={classes.noCap} {...a11yProps(0)}
+                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
+                    As subject
+              </Badge>}/> ) }
+
+              {props.datasetHash.asPredicateCount !== 0 && (<Tab className={classes.noCap} {...a11yProps(1)}
+                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
+                    As predicate
+                </Badge>} />) }
+              
+              {props.datasetHash.asObjectCount !== 0 && ( <Tab className={classes.noCap} {...a11yProps(0)}
+                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
+                    As object
+                </Badge>}/> ) }
+              
             </Tabs>
           </AppBar>
 
           {/* Subject tabs content */}
-          <TabPanel value={value} index={0}>
+          {props.datasetHash.asSujectCount !== 0 && ( <TabPanel value={value} index={0}>
             <Grid container spacing={3} alignItems="center">
               {console.log(props)}
               {/* Iterate over properties in a graph */}
@@ -341,18 +320,19 @@ export function DescribeGraphPanel(props) {
                     </Paper>
                   </Grid>
                 </React.Fragment>})}
-            </Grid>
-          </TabPanel>
+              </Grid>
+            </TabPanel> ) 
+            }
           
           {/* Predicate tabs content */}
-          <TabPanel value={value} index={1}>
+          {props.datasetHash.asPredicateCount !== 0 && ( <TabPanel value={value} index={1}>
             Predicate panel
-          </TabPanel>
+          </TabPanel> ) }
           
           {/* Object tabs content */}
-          <TabPanel value={value} index={2}>
+          {props.datasetHash.asOjectCount !== 0 && ( <TabPanel value={value} index={2}>
             Object panel
-          </TabPanel>
+          </TabPanel> ) }
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
