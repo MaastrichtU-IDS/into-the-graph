@@ -242,6 +242,28 @@ export function DescribeGraphPanel(props) {
     setValue(newValue);
   }
 
+  let subjectTabIndex = null;
+  let predicateTabIndex = null;
+  let objectTabIndex = null;
+  let tabCount = 0
+  console.log("before props.datasetHash.asSujectCount");
+  console.log(JSON.stringify(props));
+  console.log(props);
+  console.log(props.datasetHash.asSujectCount);
+  if (props.datasetHash.asSujectCount !== 0) {
+    subjectTabIndex = tabCount++;
+    console.log("in asSujectCount. Count: " + tabCount)
+  }
+  if (props.datasetHash.asPredicateCount !== 0) {
+    predicateTabIndex = tabCount++;
+    console.log("in asPredicateCount. Count: " + tabCount)
+  }
+  if (props.datasetHash.asOjectCount !== 0) {
+    objectTabIndex = tabCount++;
+    console.log("in asObjectCount. Count: " + tabCount)
+  }
+  console.log('tabCount');
+  console.log(props.datasetHash);
   // Define tab header here to hide them if no results for this tab
   return (
     <ExpansionPanel defaultExpanded>
@@ -277,7 +299,8 @@ export function DescribeGraphPanel(props) {
           </AppBar>
 
           {/* Subject tabs content */}
-          {props.datasetHash.asSujectCount !== 0 && ( <TabPanel value={value} index={0}>
+          {props.datasetHash.asSujectCount !== 0 && ( <TabPanel value={value} index={subjectTabIndex}>
+            {/* {tabCount = tabCount + 1} */}
             <Grid container spacing={3} alignItems="center">
               {console.log(props)}
               {/* Iterate over properties in a graph */}
@@ -325,12 +348,16 @@ export function DescribeGraphPanel(props) {
             }
           
           {/* Predicate tabs content */}
-          {props.datasetHash.asPredicateCount !== 0 && ( <TabPanel value={value} index={1}>
+          {props.datasetHash.asPredicateCount !== 0 && ( <TabPanel value={value} index={predicateTabIndex}>
+            {/* {tabCount = tabCount + 1} */}
             Predicate panel
           </TabPanel> ) }
           
           {/* Object tabs content */}
-          {props.datasetHash.asOjectCount !== 0 && ( <TabPanel value={value} index={2}>
+          {props.datasetHash.asOjectCount !== 0 && ( <TabPanel value={value} index={objectTabIndex}>
+            
+            {console.log('Value: ' + value)}
+            {console.log('Index: ' + (tabCount-1))}
             Object panel
           </TabPanel> ) }
         </div>
