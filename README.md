@@ -26,6 +26,16 @@ Starts the development server.
 npm start
 ```
 
+* Known issues
+
+  * `System limit for number of file watchers reached`
+
+    ```bash
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+    ```
+
+    
+
 Bundles the app into static files for production.
 
 ```shell
