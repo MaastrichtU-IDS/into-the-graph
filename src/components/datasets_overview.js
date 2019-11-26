@@ -103,7 +103,7 @@ class DatasetsOverview extends Component {
             <th># of entities</th>
             <th># of properties</th>
             <th># of classes</th>
-            <th>Download as RDF/XML</th>
+            {/* <th>Download as RDF/XML</th> */}
           </tr>
         </thead>
         <tbody>
@@ -115,7 +115,7 @@ class DatasetsOverview extends Component {
               <td>{row.entities.value}</td>
               <td>{row.properties.value}</td>
               <td>{row.classes.value}</td>
-              <td>Download</td>
+              {/* <td>Download</td> */}
             </tr>;
           })}
         </tbody>
