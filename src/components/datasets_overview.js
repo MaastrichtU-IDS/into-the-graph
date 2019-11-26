@@ -154,7 +154,7 @@ class DatasetsOverview extends Component {
     return (
       <Container maxWidth="xl">
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
-          Overview of ncats-red-kg datasets
+          Graphs overview
         </Typography>
         <Card className='mainContainer'>
           <CardContent>
@@ -162,7 +162,7 @@ class DatasetsOverview extends Component {
           </CardContent>
         </Card>
         <Typography variant="h4" className={classes.font300}>
-          Explore ncats-red-kg entities and relations
+          Explore entities and relations
         </Typography>
         <Card className='mainContainer'>
           <CardContent>
