@@ -132,7 +132,6 @@ class DatasetsOverview extends Component {
             <th>Have relation with</th>
             <th>Object class</th>
             <th># of instance of object</th>
-            <th>Download as RDF/XML</th>
           </tr>
         </thead>
         <tbody>
@@ -144,7 +143,6 @@ class DatasetsOverview extends Component {
               <td><LinkDescribe uri={row.relationWith.value} variant='body2'/></td>
               <td><LinkDescribe uri={row.class2.value} variant='body2'/></td>
               <td>{row.classCount2.value}</td>
-              <td>Download</td>
             </tr>;
           })}
         </tbody>
