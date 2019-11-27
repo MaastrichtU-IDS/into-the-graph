@@ -315,7 +315,7 @@ export function DescribeGraphPanel(props) {
                       </Button>  );
                     }
 
-                    // Display property / values for the described subject URI
+                    // Display property / values for the described SUBJECT URI
                     return <React.Fragment>
                       <Grid key={key} item xs={6} className={classes.alignRight}>
                         <LinkDescribe variant='body2' uri={propertyUri}/>
@@ -341,14 +341,49 @@ export function DescribeGraphPanel(props) {
                 </Grid>
               </TabPanel>
             ) }
+
             {props.datasetHash.asPredicateCount !== 0 && ( 
               <TabPanel>
-                <h2>Predicate panel (todo)</h2>
+                <Grid container spacing={3} alignItems="center">
+                  {console.log(props)}
+                  {/* Iterate over predicates in the graph */}
+                  {Object.keys(props.datasetHash.asPredicate).map((subjectUri, key) => {
+                    
+                    // Display subject / predicate / objects for the described PREDICATE URI
+                    return <React.Fragment>
+                      <Grid key={key} item xs={4} className={classes.alignRight}>
+                        <Paper className={classes.paperPadding}>
+                          <LinkDescribe variant='body2' uri={subjectUri}/>
+                        </Paper>
+                      </Grid>
+                      <Grid key={key} item xs={4} >
+                        <LinkDescribe variant='body2' uri={props.describeUri}/>
+                      </Grid>
+                      <Grid item xs={4} className={classes.alignLeft}>
+                        {/* loop for property values in this grid cell */}
+                        <Paper className={classes.paperPadding}>
+                          {Object.keys(props.datasetHash.asPredicate[subjectUri]).map((valueIndex, key) => {
+                            let addDivider = '';
+                            if (key != 0) {
+                              addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                            }
+                            return <React.Fragment>
+                              {addDivider}
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asPredicate[subjectUri][valueIndex]} key={key}/>
+                            </React.Fragment>
+                          })}
+                          {/* {addShowMore} */}
+                        </Paper>
+                      </Grid>
+                    </React.Fragment>})
+                  }
+                </Grid>
               </TabPanel>
             ) }
             {props.datasetHash.asObjectCount !== 0 && ( 
               <TabPanel>
                 <h2>Object panel (todo)</h2>
+                <p>my object uri IS property OF subject</p>
               </TabPanel>
             ) }
           </Tabs>
