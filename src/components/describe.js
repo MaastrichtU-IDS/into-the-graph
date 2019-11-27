@@ -254,27 +254,7 @@ export function DescribeGraphPanel(props) {
     setValue(newValue);
   }
 
-  let subjectTabIndex = null;
-  let predicateTabIndex = null;
-  let objectTabIndex = null;
-  let tabCount = 0 
-  console.log("before props.datasetHash.asSujectCount");
-  console.log(JSON.stringify(props));
-  console.log(props);
-  console.log(props.datasetHash.asSujectCount);
-  if (props.datasetHash.asSujectCount !== 0) {
-    subjectTabIndex = tabCount++;
-    console.log("in asSujectCount. Count: " + tabCount)
-  }
-  if (props.datasetHash.asPredicateCount !== 0) {
-    predicateTabIndex = tabCount++;
-    console.log("in asPredicateCount. Count: " + tabCount)
-  }
-  if (props.datasetHash.asOjectCount !== 0) {
-    objectTabIndex = tabCount++;
-    console.log("in asObjectCount. Count: " + tabCount)
-  }
-  console.log('tabCount');
+  console.log('datasetHash before expansion panel:');
   console.log(props.datasetHash);
   // Define tab header here to hide them if no results for this tab
   return (
