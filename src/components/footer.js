@@ -9,14 +9,13 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://maastrichtuniversity.nl/ids">
+        Institute of Data Science at Maastricht University
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'. Built with '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI.
-      </Link>
+      {'2019-2020.'}
+      {/* <Link color="inherit" href="https://github.com/MaastrichtU-IDS/linked-data-browser/blob/master/LICENSE">
+        MIT license
+      </Link> */}
     </Typography>
   );
 }
@@ -47,7 +46,13 @@ export default function Footer() {
     //   <CssBaseline />
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Typography variant="body1">Footer here.</Typography>
+          <Typography variant="body2">
+            Except where otherwise noted, content on this site is licensed under&nbsp;
+            <Link color="inherit" href="https://github.com/MaastrichtU-IDS/linked-data-browser/blob/master/LICENSE">
+              MIT license
+            </Link>
+            .
+          </Typography>
           <Copyright />
         </Container>
       </footer>

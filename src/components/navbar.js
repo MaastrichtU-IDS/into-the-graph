@@ -22,7 +22,7 @@ export default function NavBar() {
   
     return (
       <React.Fragment>
-        <AppBar title="rdf-graph-explorer" position="static">
+        <AppBar title="linked-data-browser" position="static">
           <Toolbar>
             <Link to="/">
               <Button className={classes.menuButton}>
@@ -38,7 +38,8 @@ export default function NavBar() {
             </Link>
             <Link to="/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4600">
               <Button className={classes.menuButton}>
-                <Icon>search</Icon>
+                {/* <Icon>search</Icon> */}
+                <Icon>format_list_bulleted</Icon>
                 &nbsp;Describe URIs
               </Button>
             </Link>
