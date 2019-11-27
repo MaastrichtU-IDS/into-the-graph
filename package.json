@@ -24,6 +24,7 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "0.9.5",
+    "react-tabs": "^3.0.0",
     "yasgui": "^2.7.29"
   },
   "devDependencies": {

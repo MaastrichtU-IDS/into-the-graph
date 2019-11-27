@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -85,6 +85,7 @@ class Describe extends Component {
     describeGraphClasses: []
   }
 
+  // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
     // Not working:
     // this.setState({ describeUri: this.params.get('uri') });
