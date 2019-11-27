@@ -446,60 +446,8 @@ export function DescribeGraphPanel(props) {
               </TabPanel>
             ) }
           </Tabs>
-
-          {/* Tab Header */}
-          {/* <AppBar position="static" color="inherit">
-            <Tabs value={value} onChange={handleChange} aria-label="describe URI tabs"
-            indicatorColor="primary" textColor="primary" centered>
-              
-              {props.datasetHash.asSubjectCount !== 0 && ( <Tab className={classes.noCap} {...a11yProps(0)}
-                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asSubjectCount} color="primary" max={999}>
-                    As subject
-              </Badge>}/> ) }
-
-              {props.datasetHash.asPredicateCount !== 0 && (<Tab className={classes.noCap} {...a11yProps(1)}
-                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asPredicateCount} color="primary" max={999}>
-                    As predicate
-                </Badge>} />) }
-              
-              {props.datasetHash.asObjectCount !== 0 && ( <Tab className={classes.noCap} {...a11yProps(0)}
-                  label={<Badge className={classes.badgePadding} badgeContent={props.datasetHash.asObjectCount} color="primary" max={999}>
-                    As object
-                </Badge>}/> ) }
-              
-            </Tabs>
-          </AppBar> */}
-
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )
 }
-
-
-// Tabs setup
-// function TabPanel(props) {
-//   const { children, value, index, ...other } = props;
-//   return (
-//     <Typography
-//       component="div"
-//       role="tabpanel"
-//       hidden={value !== index}
-//       id={`simple-tabpanel-${index}`}
-//       aria-labelledby={`simple-tab-${index}`}
-//       {...other}>
-//       <Box p={3}>{children}</Box>
-//     </Typography>
-//   );
-// }
-// TabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.any.isRequired,
-//   value: PropTypes.any.isRequired,
-// };
-// function a11yProps(index) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     'aria-controls': `simple-tabpanel-${index}`,
-//   };
-// }
