@@ -17,6 +17,9 @@ import Badge from '@material-ui/core/Badge';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import { LinkDescribe } from "./link_describe";
 
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -277,8 +280,22 @@ export function DescribeGraphPanel(props) {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
+          <Tabs>
+            <TabList>
+              <Tab>Title 1</Tab>
+              <Tab>Title 2</Tab>
+            </TabList>
+
+            <TabPanel>
+              <h2>Any content 1</h2>
+            </TabPanel>
+            <TabPanel>
+              <h2>Any content 2</h2>
+            </TabPanel>
+          </Tabs>
+
           {/* Tab Header */}
-          <AppBar position="static" color="inherit">
+          {/* <AppBar position="static" color="inherit">
             <Tabs value={value} onChange={handleChange} aria-label="describe URI tabs"
             indicatorColor="primary" textColor="primary" centered>
               
@@ -298,70 +315,8 @@ export function DescribeGraphPanel(props) {
                 </Badge>}/> ) }
               
             </Tabs>
-          </AppBar>
+          </AppBar> */}
 
-          {/* Subject tabs content */}
-          {props.datasetHash.asSujectCount !== 0 && ( <TabPanel value={value} index={subjectTabIndex}>
-            {/* {tabCount = tabCount + 1} */}
-            <Grid container spacing={3} alignItems="center">
-              {console.log(props)}
-              {/* Iterate over properties in a graph */}
-              {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
-                let addShowMore = '';
-                // Add button to show more statements if more that 5 for smae property
-                if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
-                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
-                  // onClick={props.datasetHash.showExtra[propertyUri] = false}>
-                  // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                  onClick={(e) => showMoreStatements(propertyUri)}
-                  >
-                    Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
-                  </Button>  );
-                } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
-                  addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
-                    Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
-                  </Button>  );
-                }
-
-                // Display property / values for the described subject URI
-                return <React.Fragment>
-                  <Grid key={key} item xs={6} className={classes.alignRight}>
-                    <LinkDescribe variant='body2' uri={propertyUri}/>
-                  </Grid>
-                  <Grid item xs={6} className={classes.alignLeft}>
-                    {/* loop for property values in this grid cell */}
-                    <Paper className={classes.paperPadding}>
-                      {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
-                        let addDivider = '';
-                        if (key != 0) {
-                          addDivider = ( <Divider variant="middle" className={classes.divider}/> );
-                        }
-                        return <React.Fragment>
-                          {addDivider}
-                          <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
-                        </React.Fragment>
-                      })}
-                      {addShowMore}
-                    </Paper>
-                  </Grid>
-                </React.Fragment>})}
-              </Grid>
-            </TabPanel> ) 
-            }
-          
-          {/* Predicate tabs content */}
-          {props.datasetHash.asPredicateCount !== 0 && ( <TabPanel value={value} index={predicateTabIndex}>
-            {/* {tabCount = tabCount + 1} */}
-            Predicate panel
-          </TabPanel> ) }
-          
-          {/* Object tabs content */}
-          {props.datasetHash.asOjectCount !== 0 && ( <TabPanel value={value} index={objectTabIndex}>
-            
-            {console.log('Value: ' + value)}
-            {console.log('Index: ' + (tabCount-1))}
-            Object panel
-          </TabPanel> ) }
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
@@ -370,28 +325,28 @@ export function DescribeGraphPanel(props) {
 
 
 // Tabs setup
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}>
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-}
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
+//   return (
+//     <Typography
+//       component="div"
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`simple-tabpanel-${index}`}
+//       aria-labelledby={`simple-tab-${index}`}
+//       {...other}>
+//       <Box p={3}>{children}</Box>
+//     </Typography>
+//   );
+// }
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.any.isRequired,
+//   value: PropTypes.any.isRequired,
+// };
+// function a11yProps(index) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     'aria-controls': `simple-tabpanel-${index}`,
+//   };
+// }
