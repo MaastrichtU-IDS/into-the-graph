@@ -185,6 +185,7 @@ class Describe extends Component {
         <div className='mainContainer'>
           <LinkDescribe uri={this.state.describeUri} variant='h4' passClass={classes.font300}/>
           <br/>
+          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
           {/* TODO: Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
             return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
