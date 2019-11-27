@@ -282,16 +282,32 @@ export function DescribeGraphPanel(props) {
         <div className='flexGrow'>
           <Tabs>
             <TabList>
-              <Tab>Title 1</Tab>
-              <Tab>Title 2</Tab>
+              {props.datasetHash.asSubjectCount !== 0 && ( 
+                <Tab>As subject</Tab>
+              ) }
+              {props.datasetHash.asPredicateCount !== 0 && ( 
+                <Tab>As predicate</Tab>
+              ) }
+              {props.datasetHash.asObjectCount !== 0 && ( 
+                <Tab>As object</Tab>
+              ) }
             </TabList>
 
-            <TabPanel>
-              <h2>Any content 1</h2>
-            </TabPanel>
-            <TabPanel>
-              <h2>Any content 2</h2>
-            </TabPanel>
+            {props.datasetHash.asSubjectCount !== 0 && ( 
+              <TabPanel>
+                <h2>Any content 1</h2>
+              </TabPanel>
+            ) }
+            {props.datasetHash.asPredicateCount !== 0 && ( 
+              <TabPanel>
+                <h2>Any content 2</h2>
+              </TabPanel>
+            ) }
+            {props.datasetHash.asObjectCount !== 0 && ( 
+              <TabPanel>
+                <h2>Any content 3</h2>
+              </TabPanel>
+            ) }
           </Tabs>
 
           {/* Tab Header */}
