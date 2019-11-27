@@ -54,5 +54,13 @@ docker build -t linked-data-browser .
 docker run --rm -it -p 3000:80 linked-data-browser
 ```
 
-* Access on http://localhost:3000/
+> Access on http://localhost:3000/
+
+### Restart on IDS server
+
+```bash
+./restart_docker.sh
+```
+
+> Access on http://ld-browser.137.120.31.101.nip.io
 
