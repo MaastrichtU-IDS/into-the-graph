@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -19,6 +17,8 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 
 import { LinkDescribe } from "./link_describe";
 
@@ -47,6 +47,10 @@ const styles = theme => ({
   },
   alignLeft: {
     textAlign: 'left'
+  },
+  blueBackground: {
+    color: 'white',
+    backgroundColor: theme.palette.primary.main,
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -250,7 +254,7 @@ export function DescribeGraphPanel(props) {
   let subjectTabIndex = null;
   let predicateTabIndex = null;
   let objectTabIndex = null;
-  let tabCount = 0
+  let tabCount = 0 
   console.log("before props.datasetHash.asSujectCount");
   console.log(JSON.stringify(props));
   console.log(props);
@@ -274,7 +278,8 @@ export function DescribeGraphPanel(props) {
     <ExpansionPanel defaultExpanded>
       {console.log('in expansion panel')}
       {console.log(props)}
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
+      {/* <ExpansionPanelSummary  color="primary" expandIcon={<ExpandMoreIcon />} */}
+      <ExpansionPanelSummary className={classes.blueBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
         <Typography variant="h6">{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
@@ -383,9 +388,6 @@ export function DescribeGraphPanel(props) {
 
             {props.datasetHash.asObjectCount !== 0 && ( 
               <TabPanel>
-                <h2>Object panel (todo)</h2>
-                <p>my object uri IS property OF subject</p>
-
                 <Grid container spacing={3} alignItems="center">
                   {console.log(props)}
                   {/* Iterate over properties in a graph */}
