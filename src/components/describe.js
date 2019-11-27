@@ -26,6 +26,9 @@ import { LinkDescribe } from "./link_describe";
 // import { BrowserRouter } from "react-router-dom";
 
 const styles = theme => ({
+  italic: {
+    fontStyle: 'italic'
+  },
   menuButton: {
     color: '#fafafa',
     marginRight: '1em',
@@ -414,7 +417,7 @@ export function DescribeGraphPanel(props) {
                         <LinkDescribe variant='body2' uri={props.describeUri}/>
                       </Grid>
                       <Grid key={key} item xs={1}>
-                        <span>is</span>
+                        <span className={classes.italic}>is</span>
                       </Grid>
                       <Grid key={key} item xs={4}>
                         <Paper className={classes.paperPadding}>
@@ -422,7 +425,7 @@ export function DescribeGraphPanel(props) {
                         </Paper>
                       </Grid>
                       <Grid key={key} item xs={1}>
-                        <span>of</span>
+                        <span className={classes.italic}>of</span>
                       </Grid>
                       <Grid item xs={4} className={classes.alignLeft}>
                         {/* loop for property values in this grid cell */}
