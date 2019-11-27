@@ -44,7 +44,7 @@ export default function NavBar() {
             </Link>
             <div className="flexGrow"></div>
             <Button className={classes.menuButton} target="_blank"
-            href="https://github.com/MaastrichtU-IDS/into-the-graph">
+            href="https://github.com/MaastrichtU-IDS/linked-data-browser">
               <Icon>code</Icon>
               &nbsp;Source on GitHub
             </Button>
