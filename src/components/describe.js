@@ -408,13 +408,19 @@ export function DescribeGraphPanel(props) {
 
                     // Display property / values for the described SUBJECT URI
                     return <React.Fragment>
-                      <Grid key={key} item xs={4} className={classes.alignRight}>
+                      <Grid key={key} item xs={2}>
                         <LinkDescribe variant='body2' uri={props.describeUri}/>
                       </Grid>
-                      <Grid key={key} item xs={4} className={classes.alignRight}>
-                        <span>is </span>
-                        <LinkDescribe variant='body2' uri={propertyUri}/>
-                        <span>of </span>
+                      <Grid key={key} item xs={1}>
+                        <span>is</span>
+                      </Grid>
+                      <Grid key={key} item xs={4}>
+                        <Paper className={classes.paperPadding}>
+                          <LinkDescribe variant='body2' uri={propertyUri}/>
+                        </Paper>
+                      </Grid>
+                      <Grid key={key} item xs={1}>
+                        <span>of</span>
                       </Grid>
                       <Grid item xs={4} className={classes.alignLeft}>
                         {/* loop for property values in this grid cell */}
