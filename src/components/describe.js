@@ -295,17 +295,60 @@ export function DescribeGraphPanel(props) {
 
             {props.datasetHash.asSubjectCount !== 0 && ( 
               <TabPanel>
-                <h2>Any content 1</h2>
+                <Grid container spacing={3} alignItems="center">
+                  {console.log(props)}
+                  {/* Iterate over properties in a graph */}
+                  {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
+                    let addShowMore = '';
+                    // Add button to show more statements if more that 5 for smae property
+                    if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
+                      addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
+                      // onClick={props.datasetHash.showExtra[propertyUri] = false}>
+                      // onClick={showMoreStatements(props.datasetHash, propertyUri)}
+                      onClick={(e) => showMoreStatements(propertyUri)}
+                      >
+                        Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                      </Button>  );
+                    } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
+                      addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
+                        Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                      </Button>  );
+                    }
+
+                    // Display property / values for the described subject URI
+                    return <React.Fragment>
+                      <Grid key={key} item xs={6} className={classes.alignRight}>
+                        <LinkDescribe variant='body2' uri={propertyUri}/>
+                      </Grid>
+                      <Grid item xs={6} className={classes.alignLeft}>
+                        {/* loop for property values in this grid cell */}
+                        <Paper className={classes.paperPadding}>
+                          {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
+                            let addDivider = '';
+                            if (key != 0) {
+                              addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                            }
+                            return <React.Fragment>
+                              {addDivider}
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
+                            </React.Fragment>
+                          })}
+                          {addShowMore}
+                        </Paper>
+                      </Grid>
+                    </React.Fragment>})
+                  }
+                </Grid>
               </TabPanel>
             ) }
             {props.datasetHash.asPredicateCount !== 0 && ( 
               <TabPanel>
-                <h2>Any content 2</h2>
+                <h2>Predicate panel (todo)</h2>
               </TabPanel>
             ) }
             {props.datasetHash.asObjectCount !== 0 && ( 
               <TabPanel>
-                <h2>Any content 3</h2>
+                <h2>Object panel (todo)</h2>
               </TabPanel>
             ) }
           </Tabs>
