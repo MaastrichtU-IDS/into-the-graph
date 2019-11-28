@@ -121,93 +121,98 @@ class Describe extends Component {
   componentDidMount() {
     // Not working:
     // this.setState({ describeUri: this.params.get('uri') });
-    console.log('describeUri');
-    console.log(this.state.describeUri);
-    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + this.getDescribeQuery(this.state.describeUri))
-      .then(res => {
-        const sparqlResultArray = res.data.results.bindings;
-        let describeHash = {};
-        let describeGraphClasses = [];
 
-        // Build describe object
-        // {graph1: {asSubject: {property1: [object1, object2]}, asObject: {property1: [subject1]}}}
-        sparqlResultArray.forEach((sparqlResultRow, index) => {
-          // SPO case. Described URI is the subject
-          if (!('subject' in sparqlResultRow)) {
-            if (!(sparqlResultRow.graph.value in describeHash)) {
-              describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
-              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
-            }
-            if (!(sparqlResultRow.predicate.value in describeHash[sparqlResultRow.graph.value].asSubject)) {
-              describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
-              describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value] = [];
-              describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.predicate.value] = false;
-            }
-            if (describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].length < 5) {
-              describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
-            } else {
-              // We store in another key the extra statements (when more than 5), to display them when asked
-              describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value]
-              .push(sparqlResultRow.object.value);
-            }
-            describeHash[sparqlResultRow.graph.value].asSubjectCount++;
-          }
+    if (this.state.describeUri.startsWith('http')) {
+      console.log('describeUri');
+      console.log(this.state.describeUri);
+      axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + this.getDescribeQuery(this.state.describeUri))
+        .then(res => {
+          const sparqlResultArray = res.data.results.bindings;
+          let describeHash = {};
+          let describeGraphClasses = [];
 
-          // OPS case. Described URI is the object
-          if (!('object' in sparqlResultRow)) {
-            if (!(sparqlResultRow.graph.value in describeHash)) {
-              describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
-              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+          // Build describe object
+          // {graph1: {asSubject: {property1: [object1, object2]}, asObject: {property1: [subject1]}}}
+          sparqlResultArray.forEach((sparqlResultRow, index) => {
+            // SPO case. Described URI is the subject
+            if (!('subject' in sparqlResultRow)) {
+              if (!(sparqlResultRow.graph.value in describeHash)) {
+                describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+                asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+                asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+              }
+              if (!(sparqlResultRow.predicate.value in describeHash[sparqlResultRow.graph.value].asSubject)) {
+                describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
+                describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value] = [];
+                describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.predicate.value] = false;
+              }
+              if (describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].length < 5) {
+                describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
+              } else {
+                // We store in another key the extra statements (when more than 5), to display them when asked
+                describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value]
+                .push(sparqlResultRow.object.value);
+              }
+              describeHash[sparqlResultRow.graph.value].asSubjectCount++;
             }
-            if (!(sparqlResultRow.predicate.value in describeHash[sparqlResultRow.graph.value].asObject)) {
-              describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
-              describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value] = [];
-              describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.predicate.value] = false;
-            }
-            if (describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].length < 5) {
-              describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].push(sparqlResultRow.subject.value);
-            } else {
-              describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value]
-              .push(sparqlResultRow.subject.value);
-            }
-            describeHash[sparqlResultRow.graph.value].asObjectCount++;
-          }
 
-          // Described URI is the predicate (OSO?)
-          if (!('predicate' in sparqlResultRow)) {
-            if (!(sparqlResultRow.graph.value in describeHash)) {
-              describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
-              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+            // OPS case. Described URI is the object
+            if (!('object' in sparqlResultRow)) {
+              if (!(sparqlResultRow.graph.value in describeHash)) {
+                describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+                asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+                asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+              }
+              if (!(sparqlResultRow.predicate.value in describeHash[sparqlResultRow.graph.value].asObject)) {
+                describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
+                describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value] = [];
+                describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.predicate.value] = false;
+              }
+              if (describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].length < 5) {
+                describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].push(sparqlResultRow.subject.value);
+              } else {
+                describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value]
+                .push(sparqlResultRow.subject.value);
+              }
+              describeHash[sparqlResultRow.graph.value].asObjectCount++;
             }
-            if (!(sparqlResultRow.subject.value in describeHash[sparqlResultRow.graph.value].asPredicate)) {
-              describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
-              describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value] = [];
-              describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.subject.value] = false;
-            }
-            if (describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].length < 5) {
-              describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].push(sparqlResultRow.object.value);
-            } else {
-              describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value]
-              .push(sparqlResultRow.object.value);
-            }
-            describeHash[sparqlResultRow.graph.value].asPredicateCount++;
-          }
 
-          // Only get classes for the graph
-          if (!('graph' in sparqlResultRow)) {
-            describeGraphClasses.push(sparqlResultRow.object.value);
-          }
+            // Described URI is the predicate (OSO?)
+            if (!('predicate' in sparqlResultRow)) {
+              if (!(sparqlResultRow.graph.value in describeHash)) {
+                describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+                asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+                asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+              }
+              if (!(sparqlResultRow.subject.value in describeHash[sparqlResultRow.graph.value].asPredicate)) {
+                describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
+                describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value] = [];
+                describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.subject.value] = false;
+              }
+              if (describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].length < 5) {
+                describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].push(sparqlResultRow.object.value);
+              } else {
+                describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value]
+                .push(sparqlResultRow.object.value);
+              }
+              describeHash[sparqlResultRow.graph.value].asPredicateCount++;
+            }
+
+            // Only get classes for the graph
+            if (!('graph' in sparqlResultRow)) {
+              describeGraphClasses.push(sparqlResultRow.object.value);
+            }
+        })
+        console.log('describe object:');
+        console.log(describeHash);
+        console.log('describe classes as graph:');
+        console.log(describeGraphClasses);
+        this.setState({ describeGraphClasses });
+        this.setState({ describeHash });
       })
-      console.log('describe object:');
-      console.log(describeHash);
-      console.log('describe classes as graph:');
-      console.log(describeGraphClasses);
-      this.setState({ describeGraphClasses });
-      this.setState({ describeHash });
-    })
+    } else {
+      // TODO: do full text search
+    }
   }
 
   // START HTML
