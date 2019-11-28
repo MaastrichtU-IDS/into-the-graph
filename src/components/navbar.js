@@ -100,10 +100,11 @@ class NavBar extends Component {
 
               {/* <Icon>search</Icon> */}
               {/* <TextField onChange={this.handleChange} label="Search" color='secondary' /> */}
-            <Paper component="form" className={classes.paperSearch}>
+            <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
               <InputBase
                 className={classes.input}
                 placeholder="Search URI"
+                onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
               />
               <IconButton type="submit" className={classes.iconButton} aria-label="search">
