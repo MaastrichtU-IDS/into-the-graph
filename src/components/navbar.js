@@ -1,11 +1,12 @@
 import React from "react";
-// import React, { Component } from "react";
-// import Typography from '@material-ui/core/Typography'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/styles';
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
+
+// import React, { Component } from "react";
+// import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
