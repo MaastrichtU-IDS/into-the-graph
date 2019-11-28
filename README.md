@@ -8,7 +8,7 @@ Statistics can simply be computed and inserted in one docker command. Follow [th
 
 A few things to know:
 
-* Runs on http://graphdb.dumontierlab.com/repositories/ncats-red-kg by default.
+* Runs on http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar by default.
 * Can be changed to any SPARQL endpoint, but URL needs to be changed in the JavaScript before [Docker](https://docs.docker.com/install/) build at the moment.
 * The RDF bulk download links are generated for a [RDF4J server](https://rdf4j.eclipse.org/documentation/server-workbench-console/), they will not work for any other triplestores (to be fixed).
 

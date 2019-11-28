@@ -54,7 +54,7 @@ const styles = theme => ({
 
 function displayDate(dateToDisplay) {
   if (dateToDisplay) {
-    const parsedDate = new Date(dateToDisplay);
+    const parsedDate = new Date(dateToDisplay.value);
     return parsedDate.getFullYear() + '-'
     + (parsedDate.getMonth() + 1).toString() + '-' + parsedDate.getDate().toString();
   } else {
@@ -67,13 +67,13 @@ class DatasetsOverview extends Component {
 
   componentDidMount() {
 
-    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + encodeURIComponent(this.statsOverviewQuery))
+    axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
         $(this.refs.statsOverview).DataTable();
       });
 
-    axios.get(`http://graphdb.dumontierlab.com/repositories/ncats-red-kg?query=` + encodeURIComponent(this.entitiesRelationsQuery))
+    axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
         this.setState( { entitiesRelations: res.data.results.bindings } );
         $(this.refs.entitiesRelations).DataTable();
@@ -114,7 +114,7 @@ class DatasetsOverview extends Component {
           {this.state.statsOverview.map((row) => {
             return <tr>
               <td>{row.graph.value}</td>
-              <td>{displayDate(row.dateGenerated.value)}</td>
+              <td>{displayDate(row.dateGenerated)}</td>
               <td>{row.statements.value}</td>
               <td>{row.entities.value}</td>
               <td>{row.properties.value}</td>

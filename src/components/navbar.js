@@ -84,7 +84,7 @@ class NavBar extends Component {
                 &nbsp;Run SPARQL queries
               </Button>
             </Link>
-            <Link to="/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4600">
+            <Link to="/describe?uri=http:%2F%2Fbio2rdf.org%2Fdrugbank_resource:f9e3bfa310df6a9054278bc8f2cc8c8d">
               <Button className={classes.menuButton}>
                 <Icon>format_list_bulleted</Icon>
                 &nbsp;Describe URIs
