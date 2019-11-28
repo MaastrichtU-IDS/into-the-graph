@@ -284,7 +284,7 @@ export function DescribeGraphPanel(props) {
       {/* <ExpansionPanelSummary  color="primary" expandIcon={<ExpandMoreIcon />} */}
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
-        <Typography variant="h6">{props.datasetUri}</Typography>
+        <Typography variant="h6"><i>In graph </i>{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
