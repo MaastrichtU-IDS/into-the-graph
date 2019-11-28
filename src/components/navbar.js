@@ -8,9 +8,9 @@ import Icon from '@material-ui/core/Icon';
 // import React, { Component } from "react";
 // import Typography from '@material-ui/core/Typography'
 
+// background: '#fafafa'
 const useStyles = makeStyles(theme => ({
   menuButton: {
-    // background: '#fafafa'
     color: '#fafafa',
     marginRight: '1em',
     marginLeft: '1em',
