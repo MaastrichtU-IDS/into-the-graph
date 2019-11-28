@@ -1,6 +1,7 @@
 import React, { Component } from "react"; 
 import { withStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
@@ -40,6 +41,7 @@ const styles = theme => ({
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
+    margin: theme.spacing(4, 4),
   },
   badgePadding: {
     padding: theme.spacing(0, 2),
@@ -154,19 +156,16 @@ class DatasetsOverview extends Component {
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Graphs overview
         </Typography>
-        <Card className='mainContainer'>
-          <CardContent>
-            {statsOverviewTable}
-          </CardContent>
-        </Card>
+        <Paper elevation='2' className={'mainContainer', classes.paperPadding}>
+          {statsOverviewTable}
+        </Paper>
+        <br/>
         <Typography variant="h4" className={classes.font300}>
           Explore entities and relations
         </Typography>
-        <Card className='mainContainer'>
-          <CardContent>
-            {entitiesRelationsTable}
-          </CardContent>
-        </Card>
+        <Paper elevation='2' className={'mainContainer', classes.paperPadding}>
+          {entitiesRelationsTable}
+        </Paper>
       </Container>);
   }
 
