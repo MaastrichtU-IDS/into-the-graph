@@ -88,12 +88,34 @@ class Describe extends Component {
     // })
   }
 
-
   state = {
     describeUri: this.params.get('uri'),
     describeHash: {}, 
     describeGraphClasses: []
   }
+
+  // Reload page when URI change (not working)
+  // static getDerivedStateFromProps(nextProps, prevState){
+  //   if(nextProps.describeUri !== prevState.describeUri){
+  //     return { describeUri: nextProps.describeUri};
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // if(prevProps.describeUri !== this.state.describeUri){
+  //   if(this.props.describeUri !== prevState.describeUri){
+  //      //fetchnewProduct and set state to reload
+  //     //  this.forceUpdate();
+  //     console.log('staate');
+  //     console.log(this.state);
+  //     this.setState({
+  //       describeUri: this.props.describeUri,
+  //       describeHash: {}, 
+  //       describeGraphClasses: []
+  //     });
+  //   }
+  // }
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
