@@ -55,9 +55,13 @@ const styles = theme => ({
 })
 
 function displayDate(dateToDisplay) {
-  const parsedDate = new Date(dateToDisplay);
-  return parsedDate.getFullYear() + '-'
-  + (parsedDate.getMonth() + 1).toString() + '-' + parsedDate.getDate().toString();
+  if (dateToDisplay) {
+    const parsedDate = new Date(dateToDisplay);
+    return parsedDate.getFullYear() + '-'
+    + (parsedDate.getMonth() + 1).toString() + '-' + parsedDate.getDate().toString();
+  } else {
+    return 'Not provided';
+  }
 }
 
 class DatasetsOverview extends Component {
@@ -111,7 +115,7 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.statsOverview.map((row, key) => {
             return <tr>
-              <td>{row.source.value}</td>
+              <td>{row.graph.value}</td>
               <td>{displayDate(row.dateGenerated.value)}</td>
               <td>{row.statements.value}</td>
               <td>{row.entities.value}</td>
@@ -139,7 +143,7 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.entitiesRelations.map((row, key) => {
             return <tr>
-              <td>{row.source.value}</td>
+              <td>{row.graph.value}</td>
               <td>{row.classCount1.value}</td>
               <td><LinkDescribe uri={row.class1.value} variant='body2'/></td>
               <td><LinkDescribe uri={row.relationWith.value} variant='body2'/></td>
@@ -179,22 +183,24 @@ class DatasetsOverview extends Component {
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+  SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?g {
-      ?dataset a dctypes:Dataset ;
-        dct:description ?description ;
-        foaf:page ?homepage ;
-        idot:preferredPrefix ?source .
-      ?version dct:isVersionOf ?dataset ;
-        dcat:distribution ?rdfDistribution .
-      ?rdfDistribution a void:Dataset ;
-        dcat:accessURL ?graph ;
+      OPTIONAL {
+        ?dataset a dctypes:Dataset ;
+          dct:description ?description ;
+          foaf:page ?homepage .
+        ?version dct:isVersionOf ?dataset ;
+          dcat:distribution ?graph .
+      }
+      ?graph a void:Dataset ;
         void:triples ?statements ;
         void:entities ?entities ;
-        void:properties ?properties ;
-        dct:issued ?dateGenerated .
-      ?rdfDistribution void:classPartition [
+        void:properties ?properties .
+      OPTIONAL {
+        ?graph dct:issued ?dateGenerated .
+      }
+      ?graph void:classPartition [
         void:class rdfs:Class ;
         void:distinctSubjects ?classes
       ] .
@@ -211,16 +217,11 @@ class DatasetsOverview extends Component {
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?source ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+  SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
   WHERE {
     GRAPH ?g {
-      ?dataset a dctypes:Dataset ;
-        idot:preferredPrefix ?source .
-      ?version dct:isVersionOf ?dataset ;
-        dcat:distribution ?rdfDistribution .
-      ?rdfDistribution a void:Dataset ;
-        dcat:accessURL ?graph .
-      ?rdfDistribution void:propertyPartition [
+      ?graph a void:Dataset .
+      ?graph void:propertyPartition [
           void:property ?relationWith ;
           void:classPartition [
               void:class ?class1 ;
