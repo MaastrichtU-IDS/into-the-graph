@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
 
-import {AppBar, Toolbar, Button, 
+import {AppBar, Toolbar, Button, Grid,
   Input, InputLabel, InputAdornment, TextField} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
+import SearchField from "./search_field";
 // import SearchBar from 'material-ui-search-bar'
 
 // import React, { Component } from "react";
@@ -17,6 +18,9 @@ const styles = theme => ({
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none'
+  },
+  whiteColor: {
+    color: '#fafafa'
   }
 })
  
@@ -68,16 +72,37 @@ class NavBar extends Component {
             </Link>
             <Link to="/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4600">
               <Button className={classes.menuButton}>
-                {/* <Icon>search</Icon> */}
                 <Icon>format_list_bulleted</Icon>
                 &nbsp;Describe URIs
               </Button>
             </Link>
             <div className="flexGrow"></div>
-            <form noValidate autoComplete="off" onSubmit={this.submitSearch}>
-              <TextField onChange={this.handleChange} placeholder="Search" />
+
+              {/* <Icon>search</Icon> */}
+              {/* <TextField onChange={this.handleChange} label="Search" color='secondary' /> */}
+            <SearchField></SearchField>
+            {/* <div className={classes.menuButton}>
+              <Grid container alignItems="flex-end">
+                <Grid item>
+                  <Icon>search</Icon>
+                </Grid>
+                <Grid item>
+                  <form noValidate autoComplete="off" onSubmit={this.submitSearch} >
+                    <TextField onChange={this.handleChange} label="Search"
+                    color='secondary' // White when focus
+                    className={classes.whiteColor}
+                    InputLabelProps={{
+                      className: classes.whiteColor
+                    }}
+                    InputProps={{
+                      className: classes.whiteColor
+                    }} />
+                  </form>
+                </Grid>
+              </Grid>
+            </div> */}
+              {/* <TextField onChange={this.handleChange} placeholder="Search" /> */}
               {/* value={this.state.value} */}
-            </form>
             {/* <SearchBar
               // onChange={(e) => this.setState(e.target.value)}
               // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}

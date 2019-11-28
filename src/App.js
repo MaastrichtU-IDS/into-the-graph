@@ -13,8 +13,10 @@ import DatasetsOverviewComponent from './components/datasets_overview';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
+import grey from '@material-ui/core/colors/grey';
 
 // Change theme color and typography here
 const theme = createMuiTheme({
@@ -22,7 +24,8 @@ const theme = createMuiTheme({
     primary: { light: '#eceff1', main: blue[600], dark: blue[900] },
     // Same color as Angular into-the-graph
     // primary: { light: blue[50], main: blue[700], dark: blue[900] },
-    secondary: green,
+    secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
+    // white: 
   },
   status: {
     danger: orange,
