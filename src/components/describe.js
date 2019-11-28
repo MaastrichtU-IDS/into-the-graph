@@ -52,9 +52,8 @@ const styles = theme => ({
     textAlign: 'left'
   },
   greyBackground: {
-    backgroundColor: '#f5f5f5'
+    backgroundColor: theme.palette.primary.light
     // color: 'white',
-    // backgroundColor: theme.palette.primary.main,
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
