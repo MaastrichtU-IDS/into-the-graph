@@ -49,7 +49,7 @@ class App extends Component {
               <Route exact path='/sparql' component={SparqlComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
             </Switch>
-          <Footer />
+            <Footer />
           </div>
           </BrowserRouter>
         </MuiThemeProvider>
