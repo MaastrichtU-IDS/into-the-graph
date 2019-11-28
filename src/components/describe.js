@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import Badge from '@material-ui/core/Badge';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
@@ -78,7 +74,7 @@ class Describe extends Component {
     this.showMoreHandler = this.showMoreHandler.bind(this)
   }
 
-  showMoreHandler(graphUri, propertyUri, showMore) {
+  showMoreHandler(graphUri, propertyUri) {
     // We should set state here but how to do it properly?
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
     this.state.describeHash[graphUri].showExtra[propertyUri] = true;
@@ -133,7 +129,7 @@ class Describe extends Component {
 
           // Build describe object
           // {graph1: {asSubject: {property1: [object1, object2]}, asObject: {property1: [subject1]}}}
-          sparqlResultArray.forEach((sparqlResultRow, index) => {
+          sparqlResultArray.forEach((sparqlResultRow) => {
             // SPO case. Described URI is the subject
             if (!('subject' in sparqlResultRow)) {
               if (!(sparqlResultRow.graph.value in describeHash)) {
@@ -266,7 +262,7 @@ export default withStyles(styles)(Describe);
 
 // Display the panels showing s,p,o for each graph 
 export function DescribeGraphPanel(props) {
-  const [value, setValue] = React.useState(0);
+  const [, setValue] = React.useState(0);
   const { classes } = props;
 
   function showMoreStatements(propertyUri) {
@@ -277,9 +273,6 @@ export function DescribeGraphPanel(props) {
     // And it doesn't pick up changes. So we will need to convert it to Component...
   }
 
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
 
   console.log('datasetHash before expansion panel:');
   console.log(props.datasetHash);
@@ -320,7 +313,7 @@ export function DescribeGraphPanel(props) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
                       // onClick={props.datasetHash.showExtra[propertyUri] = false}>
                       // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                      onClick={(e) => showMoreStatements(propertyUri)}
+                      onClick={() => showMoreStatements(propertyUri)}
                       >
                         Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                       </Button>  );
@@ -408,7 +401,7 @@ export function DescribeGraphPanel(props) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
                       // onClick={props.datasetHash.showExtra[propertyUri] = false}>
                       // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                      onClick={(e) => showMoreStatements(propertyUri)}
+                      onClick={() => showMoreStatements(propertyUri)}
                       >
                         Show {props.datasetHash.asObjectExtra[propertyUri].length} statements
                       </Button>  );

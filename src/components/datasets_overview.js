@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
 import { LinkDescribe } from "./link_describe";
 
@@ -113,7 +111,7 @@ class DatasetsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.statsOverview.map((row, key) => {
+          {this.state.statsOverview.map((row) => {
             return <tr>
               <td>{row.graph.value}</td>
               <td>{displayDate(row.dateGenerated.value)}</td>
@@ -141,7 +139,7 @@ class DatasetsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.entitiesRelations.map((row, key) => {
+          {this.state.entitiesRelations.map((row) => {
             return <tr>
               <td>{row.graph.value}</td>
               <td>{row.classCount1.value}</td>
@@ -160,14 +158,14 @@ class DatasetsOverview extends Component {
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Graphs overview
         </Typography>
-        <Paper elevation='2' className={'mainContainer', classes.paperPadding}>
+        <Paper elevation={2} className={'mainContainer', classes.paperPadding}>
           {statsOverviewTable}
         </Paper>
         <br/>
         <Typography variant="h4" className={classes.font300}>
           Explore entities and relations
         </Typography>
-        <Paper elevation='2' className={'mainContainer', classes.paperPadding}>
+        <Paper elevation={2} className={'mainContainer', classes.paperPadding}>
           {entitiesRelationsTable}
         </Paper>
       </Container>);

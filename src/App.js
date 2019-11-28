@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-//import ReactDOM from 'react-dom';
+// TODO: which one to keep?
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
+//import ReactDOM from 'react-dom';
 
 import './App.css';
 import NavBar from './components/navbar';
