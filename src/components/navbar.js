@@ -53,7 +53,7 @@ class NavBar extends Component {
             <SearchBar
               onChange={() => console.log('onChange')}
               // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
-              onRequestSearch={() => this.props.history.push('/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601')}
+              onRequestSearch={(value) => this.props.history.push('/describe?uri=' + value)}
               // onRequestSearch={() => console.log(this.props)}
               style={{
                 margin: '0 auto',
