@@ -4,8 +4,15 @@ import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
 
 import {AppBar, Toolbar, Button, Grid,
   Input, InputLabel, InputAdornment, TextField} from '@material-ui/core';
+
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+
 import Icon from '@material-ui/core/Icon';
-import SearchField from "./search_field";
 // import SearchBar from 'material-ui-search-bar'
 
 // import React, { Component } from "react";
@@ -21,7 +28,20 @@ const styles = theme => ({
   },
   whiteColor: {
     color: '#fafafa'
-  }
+  },
+  paperSearch: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    // width: 400,
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 5,
+  },
 })
  
 // export default function NavBar() {
@@ -80,7 +100,16 @@ class NavBar extends Component {
 
               {/* <Icon>search</Icon> */}
               {/* <TextField onChange={this.handleChange} label="Search" color='secondary' /> */}
-            <SearchField></SearchField>
+            <Paper component="form" className={classes.paperSearch}>
+              <InputBase
+                className={classes.input}
+                placeholder="Search URI"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+              <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                <SearchIcon />
+              </IconButton>
+            </Paper>
             {/* <div className={classes.menuButton}>
               <Grid container alignItems="flex-end">
                 <Grid item>
