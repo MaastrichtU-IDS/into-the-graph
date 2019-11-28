@@ -39,6 +39,8 @@ class NavBar extends Component {
     console.log(this.state.searchText);
     // const searchText = this.refs.searchText.value;
     console.log(event);
+    this.props.history.push('/describe?uri=' + this.state.searchText)
+    // return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>
   }
 
   handleChange = (event) => {
