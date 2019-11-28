@@ -30,6 +30,7 @@ const styles = theme => ({
   },
   input: {
     marginLeft: theme.spacing(1),
+    fontSize: '1rem',
     flex: 1,
   },
   iconButton: {
