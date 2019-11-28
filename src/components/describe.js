@@ -51,9 +51,10 @@ const styles = theme => ({
   alignLeft: {
     textAlign: 'left'
   },
-  blueBackground: {
-    color: 'white',
-    backgroundColor: theme.palette.primary.main,
+  greyBackground: {
+    backgroundColor: '#f5f5f5'
+    // color: 'white',
+    // backgroundColor: theme.palette.primary.main,
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -284,7 +285,7 @@ export function DescribeGraphPanel(props) {
       {console.log('in expansion panel')}
       {console.log(props)}
       {/* <ExpansionPanelSummary  color="primary" expandIcon={<ExpandMoreIcon />} */}
-      <ExpansionPanelSummary className={classes.blueBackground} expandIcon={<ExpandMoreIcon />}
+      <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
         <Typography variant="h6">{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
