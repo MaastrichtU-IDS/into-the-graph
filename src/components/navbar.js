@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
 
-import {AppBar, Toolbar, Button} from '@material-ui/core';
+import {AppBar, Toolbar, Button, 
+  Input, InputLabel, InputAdornment, TextField} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
-import SearchBar from 'material-ui-search-bar'
+// import SearchBar from 'material-ui-search-bar'
 
 // import React, { Component } from "react";
 // import Typography from '@material-ui/core/Typography'
@@ -21,7 +22,28 @@ const styles = theme => ({
  
 // export default function NavBar() {
 class NavBar extends Component {
-  state = {}
+  state = { searchText: '' }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: ''
+    }
+  }
+
+  // submitSearch(event){
+  submitSearch  = (event) => {
+    event.preventDefault();
+    // const searchText = this.state.searchText;
+    console.log('submitted');
+    console.log(this.state.searchText);
+    // const searchText = this.refs.searchText.value;
+    console.log(event);
+  }
+
+  handleChange = (event) => {
+    this.setState({searchText: event.target.value});
+  }
   
   render() {
     const { classes } = this.props;
@@ -50,7 +72,11 @@ class NavBar extends Component {
               </Button>
             </Link>
             <div className="flexGrow"></div>
-            <SearchBar
+            <form noValidate autoComplete="off" onSubmit={this.submitSearch}>
+              <TextField onChange={this.handleChange} placeholder="Search" />
+              {/* value={this.state.value} */}
+            </form>
+            {/* <SearchBar
               // onChange={(e) => this.setState(e.target.value)}
               // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
               onRequestSearch={(value) => this.props.history.push('/describe?uri=' + value)}
@@ -59,7 +85,7 @@ class NavBar extends Component {
                 margin: '0 auto',
                 maxWidth: 800
               }}
-            />
+            /> */}
             <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/linked-data-browser">
               <Icon>code</Icon>

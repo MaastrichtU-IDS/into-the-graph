@@ -69,9 +69,9 @@ class Describe extends Component {
   params = new URLSearchParams(location.search);
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.showMoreHandler = this.showMoreHandler.bind(this)
+    this.showMoreHandler = this.showMoreHandler.bind(this);
   }
 
   showMoreHandler(graphUri, propertyUri) {
