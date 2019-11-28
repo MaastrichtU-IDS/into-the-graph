@@ -15,14 +15,14 @@ const useStyles = makeStyles(theme => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    // width: 400,
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
   },
   iconButton: {
-    padding: 10,
+    padding: 5,
   },
   divider: {
     height: 28,
@@ -35,21 +35,21 @@ export default function SearchField() {
 
   return (
     <Paper component="form" className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
+      {/* <IconButton className={classes.iconButton} aria-label="menu">
         <MenuIcon />
-      </IconButton>
+      </IconButton> */}
       <InputBase
         className={classes.input}
-        placeholder="Search Google Maps"
+        placeholder="Search URI"
         inputProps={{ 'aria-label': 'search google maps' }}
       />
       <IconButton type="submit" className={classes.iconButton} aria-label="search">
         <SearchIcon />
       </IconButton>
-      <Divider className={classes.divider} orientation="vertical" />
+      {/* <Divider className={classes.divider} orientation="vertical" />
       <IconButton color="primary" className={classes.iconButton} aria-label="directions">
         <DirectionsIcon />
-      </IconButton>
+      </IconButton> */}
     </Paper>
   );
 }
