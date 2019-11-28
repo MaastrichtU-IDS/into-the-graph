@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-import { Redirect, Link } from "react-router-dom";
+import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
@@ -21,7 +21,7 @@ const styles = theme => ({
  
 // export default function NavBar() {
 class NavBar extends Component {
-  // const classes = useStyles();
+  state = {}
   
   render() {
     const { classes } = this.props;
@@ -52,7 +52,9 @@ class NavBar extends Component {
             <div className="flexGrow"></div>
             <SearchBar
               onChange={() => console.log('onChange')}
-              onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
+              // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
+              onRequestSearch={() => this.props.history.push('/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601')}
+              // onRequestSearch={() => console.log(this.props)}
               style={{
                 margin: '0 auto',
                 maxWidth: 800
@@ -68,4 +70,4 @@ class NavBar extends Component {
       </React.Fragment>
     );
   }
-} export default withStyles(styles)(NavBar);
+}  export default withRouter((withStyles(styles)(NavBar))) ;
