@@ -51,7 +51,7 @@ class NavBar extends Component {
             </Link>
             <div className="flexGrow"></div>
             <SearchBar
-              // onChange={(e) => this.setState(e.target.value)}
+              onChange={(e) => this.setState(e.target.value)}
               // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
               onRequestSearch={(value) => this.props.history.push('/describe?uri=' + value)}
               // onRequestSearch={() => console.log(this.props)}
