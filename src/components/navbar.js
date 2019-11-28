@@ -2,20 +2,14 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
 
-import {AppBar, Toolbar, Button, Grid,
-  Input, InputLabel, InputAdornment, TextField} from '@material-ui/core';
-
+import {AppBar, Toolbar, Button} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import Icon from '@material-ui/core/Icon';
-// import SearchBar from 'material-ui-search-bar'
 
-// import React, { Component } from "react";
 // import Typography from '@material-ui/core/Typography'
 
 // background: '#fafafa'
@@ -33,7 +27,6 @@ const styles = theme => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    // width: 400,
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -97,9 +90,7 @@ class NavBar extends Component {
               </Button>
             </Link>
             <div className="flexGrow"></div>
-
-              {/* <Icon>search</Icon> */}
-              {/* <TextField onChange={this.handleChange} label="Search" color='secondary' /> */}
+            {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
               <InputBase
                 className={classes.input}
@@ -111,38 +102,6 @@ class NavBar extends Component {
                 <SearchIcon />
               </IconButton>
             </Paper>
-            {/* <div className={classes.menuButton}>
-              <Grid container alignItems="flex-end">
-                <Grid item>
-                  <Icon>search</Icon>
-                </Grid>
-                <Grid item>
-                  <form noValidate autoComplete="off" onSubmit={this.submitSearch} >
-                    <TextField onChange={this.handleChange} label="Search"
-                    color='secondary' // White when focus
-                    className={classes.whiteColor}
-                    InputLabelProps={{
-                      className: classes.whiteColor
-                    }}
-                    InputProps={{
-                      className: classes.whiteColor
-                    }} />
-                  </form>
-                </Grid>
-              </Grid>
-            </div> */}
-              {/* <TextField onChange={this.handleChange} placeholder="Search" /> */}
-              {/* value={this.state.value} */}
-            {/* <SearchBar
-              // onChange={(e) => this.setState(e.target.value)}
-              // onRequestSearch={() => {return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>}}
-              onRequestSearch={(value) => this.props.history.push('/describe?uri=' + value)}
-              // onRequestSearch={() => console.log(this.props)}
-              style={{
-                margin: '0 auto',
-                maxWidth: 800
-              }}
-            /> */}
             <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/linked-data-browser">
               <Icon>code</Icon>
