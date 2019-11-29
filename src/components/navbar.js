@@ -71,7 +71,7 @@ class NavBar extends Component {
 
     return (
       <React.Fragment>
-        <AppBar title="linked-data-browser" position="static">
+        <AppBar title="linked-data-browser" position='sticky'>
           <Toolbar>
             <Link to="/">
               <Button className={classes.menuButton}>
