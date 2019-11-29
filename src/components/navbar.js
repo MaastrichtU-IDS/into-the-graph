@@ -18,7 +18,8 @@ const styles = theme => ({
     color: '#fafafa',
     marginRight: '1em',
     marginLeft: '1em',
-    textTransform: 'none'
+    textTransform: 'none',
+    textDecoration: 'none'
   },
   whiteColor: {
     color: '#fafafa'

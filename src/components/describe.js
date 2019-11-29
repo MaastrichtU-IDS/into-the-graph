@@ -225,9 +225,22 @@ class Describe extends Component {
             datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
           })}
 
-          {this.state.describeGraphClasses.map(function(dataset, index){
-            return <span key={index}>{dataset}</span>;
-          })}
+          {/* Show classes for the described URI as a graph */}
+          {this.state.describeGraphClasses.length > 0 &&
+            <ExpansionPanel defaultExpanded>
+              <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
+                id="panel1a-header" aria-controls="panel1a-content">
+                <Typography variant="h6">As a graph (classes)</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div className='flexGrow'>
+                  {this.state.describeGraphClasses.map(function(dataset, index){
+                    return <span key={index}>{dataset}</span>;
+                  })}
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          }
         </div>
       </Container>
   }
