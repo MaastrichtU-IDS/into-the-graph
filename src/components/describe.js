@@ -233,11 +233,19 @@ class Describe extends Component {
                 <Typography variant="h6">As a graph (classes)</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <div className='flexGrow'>
-                  {this.state.describeGraphClasses.map(function(dataset, index){
-                    return <span key={index}>{dataset}</span>;
-                  })}
-                </div>
+                  <Grid container spacing={3} alignItems="center">
+                    {this.state.describeGraphClasses.map(function(dataset, index){
+                      return <React.Fragment>
+                        <Grid key={index} item xs={0} md={2}></Grid>
+                        <Grid key={index} item xs={12} md={8}>
+                          <Paper className={classes.paperPadding}>
+                            <LinkDescribe variant='body2' uri={dataset}/>
+                          </Paper>
+                        </Grid>
+                        <Grid key={index} item xs={0} md={2}></Grid>
+                      </React.Fragment> 
+                    })}
+                  </Grid>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           }
