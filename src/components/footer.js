@@ -48,11 +48,11 @@ export default function Footer() {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body2">
-            Except where otherwise noted, content on this site is licensed under&nbsp;
+            The code of this site is licensed under the&nbsp;
             <Link color="inherit" href="https://github.com/MaastrichtU-IDS/linked-data-browser/blob/master/LICENSE">
               MIT license
             </Link>
-            .
+            <br/>License of the displayed data is defined by the provider
           </Typography>
           <Copyright />
         </Container>
