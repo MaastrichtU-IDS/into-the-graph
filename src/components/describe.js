@@ -87,7 +87,8 @@ class Describe extends Component {
   state = {
     describeUri: this.params.get('uri'),
     describeHash: {}, 
-    describeGraphClasses: []
+    describeGraphClasses: [],
+    searchResults: []
   }
 
   // Reload page when URI change (not working)
@@ -208,6 +209,18 @@ class Describe extends Component {
       })
     } else {
       // TODO: do full text search
+      axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + this.getSearchQuery(this.state.describeUri))
+        .then(res => {
+          const sparqlResultArray = res.data.results.bindings;
+          let searchResults = [];
+          sparqlResultArray.forEach((sparqlResultRow) => {
+            searchResults.push({
+              searchUri: sparqlResultRow.searchUri.value , 
+              searchLabel: sparqlResultRow.searchLabel.value
+            })
+          })
+          this.setState({ searchResults });
+        })
     }
   }
 
@@ -249,6 +262,34 @@ class Describe extends Component {
               </ExpansionPanelDetails>
             </ExpansionPanel>
           }
+
+          {/* Show results of full text search query (if not http) */}
+          {this.state.searchResults.length > 0 &&
+            <ExpansionPanel defaultExpanded>
+              <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
+                id="panel1a-header" aria-controls="panel1a-content">
+                <Typography variant="h6">Search results</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                  <Grid container spacing={3} alignItems="center">
+                    {this.state.searchResults.map(function(searchResult, index){
+                      return <React.Fragment>
+                        <Grid key={index} item xs={0} md={2}></Grid>
+                        <Grid key={index} item xs={6} md={4}>
+                          <Paper className={classes.paperPadding}>
+                            <Typography variant="body2">{searchResult.searchLabel}</Typography>
+                          </Paper>
+                        </Grid>
+                        <Grid key={index} item xs={6} md={4}>
+                          <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
+                        </Grid>
+                        <Grid key={index} item xs={0} md={2}></Grid>
+                      </React.Fragment> 
+                    })}
+                  </Grid>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          }
         </div>
       </Container>
   }
@@ -276,6 +317,20 @@ class Describe extends Component {
       }
     } LIMIT 1000`);
   }
+
+  getSearchQuery(textToSearch) {
+    return encodeURIComponent(`SELECT ?searchUri ?searchLabel WHERE {
+      ?searchUri ?p ?searchLabel .
+      VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+      FILTER(isLiteral(?searchLabel))
+      FILTER contains(?searchLabel, "` + textToSearch + `")
+      } LIMIT 5`);
+  }
+  // GraphDB search index query
+  // PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+  // SELECT ?searchResult {
+  //   ?searchResult luc:labelIndex "*` + this.searchText + `*"
+  // }
 } 
 export default withStyles(styles)(Describe);
 
