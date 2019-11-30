@@ -87,8 +87,7 @@ class Sparql extends Component {
   }
 
   render () {
-    const { classes } = this.props;
-
+    // const { classes } = this.props;
     return <Container maxWidth="xl">
         <Card className='mainContainer' style={{textAlign: 'left'}}>
           <CardContent>
