@@ -77,7 +77,11 @@ class Describe extends Component {
   showMoreHandler(graphUri, propertyUri) {
     // We should set state here but how to do it properly?
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
-    this.state.describeHash[graphUri].showExtra[propertyUri] = true;
+    // this.state.describeHash[graphUri].showExtra[propertyUri] = true;
+    this.setState((state) => {
+      state.describeHash[graphUri].showExtra[propertyUri] = true
+      return {describeHash: state.describeHash};
+    });
     console.log('showMoreHandler');
     // this.setState({
       
@@ -344,7 +348,7 @@ export default withStyles(styles)(Describe);
 
 // Display the panels showing s,p,o for each graph 
 export function DescribeGraphPanel(props) {
-  const [, setValue] = React.useState(0);
+  // const [, setValue] = React.useState(0);
   const { classes } = props;
 
   function showMoreStatements(propertyUri) {
@@ -391,7 +395,7 @@ export function DescribeGraphPanel(props) {
                   {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                     let addShowMore = '';
                     // Add button to show more statements if more that 5 for same property
-                    if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
+                    if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === false) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
                       // onClick={props.datasetHash.showExtra[propertyUri] = false}>
                       // onClick={showMoreStatements(props.datasetHash, propertyUri)}
@@ -399,7 +403,7 @@ export function DescribeGraphPanel(props) {
                       >
                         Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                       </Button>  );
-                    } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
+                    } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
                         Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                       </Button>  );
@@ -415,7 +419,7 @@ export function DescribeGraphPanel(props) {
                         <Paper className={classes.paperPadding}>
                           {Object.keys(props.datasetHash.asSubject[propertyUri]).map((valueIndex, key) => {
                             let addDivider = '';
-                            if (key != 0) {
+                            if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
                             return <React.Fragment>
@@ -454,7 +458,7 @@ export function DescribeGraphPanel(props) {
                         <Paper className={classes.paperPadding}>
                           {Object.keys(props.datasetHash.asPredicate[subjectUri]).map((valueIndex, key) => {
                             let addDivider = '';
-                            if (key != 0) {
+                            if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
                             return <React.Fragment>
@@ -479,7 +483,7 @@ export function DescribeGraphPanel(props) {
                   {Object.keys(props.datasetHash.asObject).map((propertyUri, key) => {
                     let addShowMore = '';
                     // Add button to show more statements if more that 5 for same property
-                    if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == false) {
+                    if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === false) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary"
                       // onClick={props.datasetHash.showExtra[propertyUri] = false}>
                       // onClick={showMoreStatements(props.datasetHash, propertyUri)}
@@ -487,7 +491,7 @@ export function DescribeGraphPanel(props) {
                       >
                         Show {props.datasetHash.asObjectExtra[propertyUri].length} statements
                       </Button>  );
-                    } else if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] == true) {
+                    } else if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
                       addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
                         Hide {props.datasetHash.asObjectExtra[propertyUri].length} statements
                       </Button>  );
@@ -514,7 +518,7 @@ export function DescribeGraphPanel(props) {
                         <Paper className={classes.paperPadding}>
                           {Object.keys(props.datasetHash.asObject[propertyUri]).map((valueIndex, key) => {
                             let addDivider = '';
-                            if (key != 0) {
+                            if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
                             return <React.Fragment>
