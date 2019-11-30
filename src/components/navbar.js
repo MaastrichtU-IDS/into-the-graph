@@ -96,7 +96,7 @@ class NavBar extends Component {
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
               <InputBase
                 className={classes.input}
-                placeholder="Search URI"
+                placeholder="Search"
                 onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
               />
