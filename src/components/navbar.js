@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter, BrowserRouter as Redirect, Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
