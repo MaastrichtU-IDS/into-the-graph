@@ -158,14 +158,14 @@ class DatasetsOverview extends Component {
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Graphs overview
         </Typography>
-        <Paper elevation={2} className={'mainContainer', classes.paperPadding}>
+        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
           {statsOverviewTable}
         </Paper>
         <br/>
         <Typography variant="h4" className={classes.font300}>
           Explore entities and relations
         </Typography>
-        <Paper elevation={2} className={'mainContainer', classes.paperPadding}>
+        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
           {entitiesRelationsTable}
         </Paper>
       </Container>);
