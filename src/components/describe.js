@@ -274,16 +274,14 @@ class Describe extends Component {
                   <Grid container spacing={3} alignItems="center">
                     {this.state.searchResults.map(function(searchResult, index){
                       return <React.Fragment>
-                        <Grid key={index} item xs={0} md={2}></Grid>
-                        <Grid key={index} item xs={6} md={4}>
+                        <Grid key={index} item xs={6}>
                           <Paper className={classes.paperPadding}>
                             <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
                           </Paper>
                         </Grid>
-                        <Grid key={index} item xs={6} md={4}>
+                        <Grid key={index} item xs={6}>
                           <Typography variant="body2">{searchResult.searchLabel}</Typography>
                         </Grid>
-                        <Grid key={index} item xs={0} md={2}></Grid>
                       </React.Fragment> 
                     })}
                   </Grid>
