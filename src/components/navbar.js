@@ -107,7 +107,7 @@ class NavBar extends Component {
             <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/linked-data-browser">
               <Icon>code</Icon>
-              &nbsp;Source on GitHub
+              &nbsp;GitHub
             </Button>
           </Toolbar>
         </AppBar>
