@@ -13,10 +13,9 @@ import DatasetsOverviewComponent from './components/datasets_overview';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 import grey from '@material-ui/core/colors/grey';
+// import blueGrey from '@material-ui/core/colors/blueGrey';
 
 // Change theme color and typography here
 const theme = createMuiTheme({
