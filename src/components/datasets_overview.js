@@ -94,15 +94,15 @@ class DatasetsOverview extends Component {
 
   render() {
     const { classes } = this.props;
-    let statsOverviewTable = '';
+    let statsOverviewTable;
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
     if (this.state.statsOverview.length > 0) {
       statsOverviewTable = ( <table table ref="statsOverview" className="row-border">
         <thead>
           <tr>
-            <th>Dataset</th>
-            <th>date generated</th>
+            <th>Graph</th>
+            <th>Date generated</th>
             <th># of triples</th>
             <th># of entities</th>
             <th># of properties</th>
@@ -125,12 +125,12 @@ class DatasetsOverview extends Component {
         </tbody>
       </table> )
     }
-    let entitiesRelationsTable = '';
+    let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
       entitiesRelationsTable = ( <table table ref="entitiesRelations" className="row-border">
         <thead>
           <tr>
-            <th>Dataset</th>
+            <th>Graph</th>
             <th># of instance of subject</th>
             <th>Subject class</th>
             <th>Have relation with</th>
