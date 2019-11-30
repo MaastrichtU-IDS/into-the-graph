@@ -277,11 +277,11 @@ class Describe extends Component {
                         <Grid key={index} item xs={0} md={2}></Grid>
                         <Grid key={index} item xs={6} md={4}>
                           <Paper className={classes.paperPadding}>
-                            <Typography variant="body2">{searchResult.searchLabel}</Typography>
+                            <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
                           </Paper>
                         </Grid>
                         <Grid key={index} item xs={6} md={4}>
-                          <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
+                          <Typography variant="body2">{searchResult.searchLabel}</Typography>
                         </Grid>
                         <Grid key={index} item xs={0} md={2}></Grid>
                       </React.Fragment> 
