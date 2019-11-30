@@ -295,25 +295,33 @@ class Describe extends Component {
   getDescribeQuery(uriToDescribe) {
     return encodeURIComponent(`SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
       {
+        SELECT * {
           GRAPH ?graph {
             <` + uriToDescribe + `> ?predicate ?object .
           }
+        } LIMIT 500
       } UNION {
+        SELECT * {
           GRAPH ?graph {
             ?subject ?predicate <` + uriToDescribe + `> .
           }
+        } LIMIT 500
       } UNION {
-        GRAPH ?graph {
-          ?subject <` + uriToDescribe + `> ?object .
-        }
+        SELECT * {
+          GRAPH ?graph {
+            ?subject <` + uriToDescribe + `> ?object .
+          }
+        } LIMIT 500
       } UNION {
-        GRAPH <` + uriToDescribe + `> {
-          [] a ?object .
-          BIND("dummy subject" AS ?subject)
-          BIND("dummy predicate" AS ?predicate)
-        }
+        SELECT * {
+          GRAPH <` + uriToDescribe + `> {
+            [] a ?object .
+            BIND("dummy subject" AS ?subject)
+            BIND("dummy predicate" AS ?predicate)
+          }
+        } LIMIT 500
       }
-    } LIMIT 1000`);
+    }`);
   }
 
   getSearchQuery(textToSearch) {
