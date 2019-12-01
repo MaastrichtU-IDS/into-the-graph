@@ -84,8 +84,14 @@ class Describe extends Component {
     // We should set state here but how to do it properly?
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
     // this.state.describeHash[graphUri].showExtra[propertyUri] = true;
+    
     this.setState((state) => {
-      state.describeHash[graphUri].showExtra[propertyUri] = true
+      if (state.describeHash[graphUri].showExtra[propertyUri] === true) {
+        // Hide extra statements
+        state.describeHash[graphUri].showExtra[propertyUri] = false;
+      } else {
+        state.describeHash[graphUri].showExtra[propertyUri] = true;
+      }
       return {describeHash: state.describeHash};
     });
     console.log('showMoreHandler');
@@ -421,7 +427,8 @@ export function DescribeGraphPanel(props) {
                       </Button>  );
                     } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
                       addShowMore = ( <React.Fragment>
-                        <Button variant="contained" size="small" className={classes.showMoreButton} color="primary">
+                        <Button variant="contained" size="small" className={classes.showMoreButton}
+                        color="primary" onClick={() => showMoreStatements(propertyUri)}>
                           Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                         </Button>
                         {/* Use the same snippet as for regular display */}
@@ -435,10 +442,10 @@ export function DescribeGraphPanel(props) {
                             <LinkDescribe variant='body2' uri={props.datasetHash.asSubjectExtra[propertyUri][valueIndex]}/>
                           </React.Fragment>
                         })}
-                        <Button variant="contained" size="small" className={classes.showMoreButton} color="primary">
+                        <Button variant="contained" size="small" className={classes.showMoreButton} 
+                        color="primary" onClick={() => showMoreStatements(propertyUri)}>
                           Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                         </Button>
-                        {/* {addShowMore} */}
                       </React.Fragment>  );
                     }
 
