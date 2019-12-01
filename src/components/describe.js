@@ -6,6 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -55,7 +56,7 @@ const styles = theme => ({
     padding: theme.spacing(2, 2),
   },
   badgePadding: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
   },
   divider: {
     margin: theme.spacing(1, 1),
@@ -377,13 +378,25 @@ export function DescribeGraphPanel(props) {
           <Tabs>
             <TabList>
               {props.datasetHash.asSubjectCount !== 0 && ( 
-                <Tab>As subject</Tab>
+                <Tab>
+                  <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asSubjectCount}>
+                    As subject
+                  </Badge>
+                </Tab>
               ) }
               {props.datasetHash.asPredicateCount !== 0 && ( 
-                <Tab>As predicate</Tab>
+                <Tab>
+                  <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asPredicateCount}>
+                    As predicate
+                  </Badge>
+                </Tab>
               ) }
-              {props.datasetHash.asObjectCount !== 0 && ( 
-                <Tab>As object</Tab>
+              {props.datasetHash.asObjectCount !== 0 && (
+                <Tab>
+                  <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asObjectCount}>
+                    As object
+                  </Badge>
+                </Tab>
               ) }
             </TabList>
 
