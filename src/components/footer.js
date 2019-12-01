@@ -43,7 +43,7 @@ export default function Footer() {
     // <div className={classes.root}>
     //   <CssBaseline />
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
           <Typography variant="body2">
             The code of this site is licensed under the&nbsp;
             <Link color="inherit" href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
