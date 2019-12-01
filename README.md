@@ -1,14 +1,14 @@
-# Linked Data Browser
+# into-the-graph
 
-The linked-data-browser has been developped and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
+Lightweight RDF linked data browser supporting graphs. It has been developped and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
 
 > Explore the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
 
-Linked Data Browser built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data in a SPARQL endpoint (preferably deployed using [RDF4J server](https://rdf4j.eclipse.org/documentation/server-workbench-console/)).
+Into-the-graph is built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data in a SPARQL endpoint (preferably deployed using [RDF4J server](https://rdf4j.eclipse.org/documentation/server-workbench-console/)).
 
-This Linked Data Browser gives you access to a [YASGUI](http://doc.yasgui.org/) SPARQL endpoint and enables you to browse the triplestores statements easily.  The app will extract metadata and provide insights about the content of your triplestore's graphs using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
+This RDF linked data browser gives you access to a [YASGUI](http://doc.yasgui.org/) SPARQL endpoint and enables you to browse the triplestore statements easily.  The app will extract metadata and provide insights about the content of your triplestore's graphs using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
-Statistics can simply be computed and inserted in one docker command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to do so.
+> HCLS descriptive statistics can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it.
 
 A few things to know:
 
@@ -49,13 +49,13 @@ npm run build
 ### Build
 
 ```powershell
-docker build -t linked-data-browser .
+docker build -t into-the-graph .
 ```
 
 ### Run
 
 ```shell
-docker run --rm -it -p 3000:80 linked-data-browser
+docker run --rm -it -p 3000:80 into-the-graph
 ```
 
 > Access on http://localhost:3000/
@@ -66,5 +66,5 @@ docker run --rm -it -p 3000:80 linked-data-browser
 ./restart_docker.sh
 ```
 
-> Access on http://ld-browser.137.120.31.101.nip.io
+> Access on http://into-bio2rdf.137.120.31.101.nip.io
 
