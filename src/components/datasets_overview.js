@@ -185,14 +185,11 @@ class DatasetsOverview extends Component {
 
   statsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
-  PREFIX bl: <http://w3id.org/biolink/vocab/>
   PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-  PREFIX idot: <http://identifiers.org/idot/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
   PREFIX void: <http://rdfs.org/ns/void#>
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?g {

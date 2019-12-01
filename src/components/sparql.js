@@ -22,22 +22,29 @@ class Sparql extends Component {
 
   statisticsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-PREFIX idot: <http://identifiers.org/idot/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
-SELECT distinct ?source ?statements ?entities ?properties ?classes ?graph
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
 WHERE {
   GRAPH ?g {
-    ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
-    ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-    ?rdfDistribution a void:Dataset ;
-      dcat:accessURL ?graph ;
+    OPTIONAL {
+      ?dataset a dctypes:Dataset ;
+        dct:description ?description ;
+        foaf:page ?homepage .
+      ?version dct:isVersionOf ?dataset ;
+        dcat:distribution ?graph .
+    }
+    ?graph a void:Dataset ;
       void:triples ?statements ;
       void:entities ?entities ;
       void:properties ?properties .
-    ?rdfDistribution void:classPartition [
+    OPTIONAL {
+      ?graph dct:issued ?dateGenerated .
+    }
+    ?graph void:classPartition [
       void:class rdfs:Class ;
       void:distinctSubjects ?classes
     ] .
@@ -45,24 +52,13 @@ WHERE {
 } ORDER BY DESC(?statements)`;
 
   entitiesRelationsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-PREFIX idot: <http://identifiers.org/idot/>
-PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
-SELECT distinct ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
   GRAPH ?g {
-    ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
-    ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-    ?rdfDistribution a void:Dataset ;
-      dcat:accessURL ?graph .
-    ?rdfDistribution void:classPartition [
-      void:class rdfs:Class ;
-      void:distinctSubjects ?classes
-    ] .
-    ?rdfDistribution void:propertyPartition [
+    ?graph a void:Dataset .
+    ?graph void:propertyPartition [
         void:property ?relationWith ;
         void:classPartition [
             void:class ?class1 ;
@@ -73,10 +69,10 @@ WHERE {
           void:distinctObjects ?classCount2 ;
     ]] .
   }
-} ORDER BY ?source DESC(?classCount1) DESC(?classCount2)`;
+} ORDER BY DESC(?classCount1)`;
   
   componentDidMount() {
-    YASGUI.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/test';
+    YASGUI.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
     // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
     const yasgui = YASGUI(document.getElementById('yasguiDiv'));
     yasgui.addTab('statisticsTab');
