@@ -418,14 +418,13 @@ export function DescribeGraphPanel(props) {
                     let addShowMore = '';
                     // Add button to show more statements if more that 5 for same property
                     if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === false) {
-                      addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} color="primary"
-                      // onClick={props.datasetHash.showExtra[propertyUri] = false}>
-                      // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                      onClick={() => showMoreStatements(propertyUri)}
-                      >
+                      addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} 
+                      color="primary" onClick={() => showMoreStatements(propertyUri)}>
                         Show {props.datasetHash.asSubjectExtra[propertyUri].length} more statements
                       </Button>  );
+
                     } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
+                      // Show extra statements
                       addShowMore = ( <React.Fragment>
                         <Button variant="contained" size="small" className={classes.showMoreButton}
                         color="primary" onClick={() => showMoreStatements(propertyUri)}>
@@ -524,17 +523,34 @@ export function DescribeGraphPanel(props) {
                     let addShowMore = '';
                     // Add button to show more statements if more that 5 for same property
                     if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === false) {
-                      addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} color="primary"
-                      // onClick={props.datasetHash.showExtra[propertyUri] = false}>
-                      // onClick={showMoreStatements(props.datasetHash, propertyUri)}
-                      onClick={() => showMoreStatements(propertyUri)}
-                      >
-                        Show {props.datasetHash.asObjectExtra[propertyUri].length} statements
+                      addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} 
+                      color="primary" onClick={() => showMoreStatements(propertyUri)}>
+                        Show {props.datasetHash.asObjectExtra[propertyUri].length} more statements
                       </Button>  );
+
                     } else if (props.datasetHash.asObjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
-                      addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} color="primary">
-                        Hide {props.datasetHash.asObjectExtra[propertyUri].length} statements
-                      </Button>  );
+                      // Show extra statements
+                      addShowMore = ( <React.Fragment>
+                        <Button variant="contained" size="small" className={classes.showMoreButton}
+                        color="primary" onClick={() => showMoreStatements(propertyUri)}>
+                          Hide {props.datasetHash.asObjectExtra[propertyUri].length} statements
+                        </Button>
+                        {/* Use the same snippet as for regular display */}
+                        {Object.keys(props.datasetHash.asObjectExtra[propertyUri]).map((valueIndex, key) => {
+                          let addDivider = '';
+                          if (key !== 0) {
+                            addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                          }
+                          return <React.Fragment key={key}>
+                            {addDivider}
+                            <LinkDescribe variant='body2' uri={props.datasetHash.asObjectExtra[propertyUri][valueIndex]}/>
+                          </React.Fragment>
+                        })}
+                        <Button variant="contained" size="small" className={classes.showMoreButton} 
+                        color="primary" onClick={() => showMoreStatements(propertyUri)}>
+                          Hide {props.datasetHash.asObjectExtra[propertyUri].length} statements
+                        </Button>
+                      </React.Fragment>  );
                     }
 
                     // Display property / values for the described SUBJECT URI
