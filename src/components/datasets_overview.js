@@ -155,16 +155,18 @@ class DatasetsOverview extends Component {
     // Now render the tables!
     return (
       <Container maxWidth="xl">
-        <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '50px'}}>
-          The various graphs statistics have been generated following the&nbsp;
-          <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
-          .
-        </Typography>
-        <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '10px'}}>
-          They can be easily precomputed and inserted in your triplestore using a simple docker contains.
-          Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
-          className={classes.uriLink} target="_blank">those instructions</a> to run it. 
-        </Typography>
+        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
+          <Typography variant="body2" className={classes.hclsNotice}>
+            The various graphs statistics have been generated following the&nbsp;
+            <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
+            .
+          </Typography>
+          <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '10px'}}>
+            They can be easily precomputed and inserted in your triplestore using a simple docker contains.
+            Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
+            className={classes.uriLink} target="_blank">those instructions</a> to run it. 
+          </Typography>
+        </Paper>
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Graphs overview
         </Typography>
