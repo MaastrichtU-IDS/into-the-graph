@@ -2,21 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 
 // import CssBaseline from '@material-ui/core/CssBaseline';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://maastrichtuniversity.nl/ids">
-        Institute of Data Science at Maastricht University
-      </Link>{' '}
-      {'2019-2020.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +15,22 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
   },
+  darkLink: {
+    textDecoration: 'none',
+    color: 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.light,
+      textDecoration: 'none',
+    },
+  },
+  whiteLink: {
+    textDecoration: 'none',
+    color: 'inherit',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+      textDecoration: 'none',
+    },
+  },
   footer: {
     padding: theme.spacing(2),
     marginTop: 'auto',
@@ -35,6 +38,20 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary.main,
   },
 }));
+
+function Copyright() {
+  const classes = useStyles();
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <a className={classes.darkLink} target="_blank"
+      href="https://maastrichtuniversity.nl/ids">
+        Institute of Data Science at Maastricht University
+      </a>{' '}
+      {'2019-2020.'}
+    </Typography>
+  );
+}
 
 export default function Footer() {
   const classes = useStyles();
@@ -46,9 +63,10 @@ export default function Footer() {
         <Container maxWidth="md">
           <Typography variant="body2">
             The code of this site is licensed under the&nbsp;
-            <Link color="inherit" href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
+            <a className={classes.whiteLink} target="_blank"
+            href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
               MIT license
-            </Link>
+            </a>
             <br/>License of the displayed data is defined by the SPARQL endpoint provider
           </Typography>
           <Copyright />
