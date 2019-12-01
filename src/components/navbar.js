@@ -19,6 +19,10 @@ const styles = theme => ({
     textTransform: 'none',
     textDecoration: 'none'
   },
+  linkButton: {
+    textTransform: 'none',
+    textDecoration: 'none'
+  },
   whiteColor: {
     color: '#fafafa'
   },
@@ -65,19 +69,20 @@ class NavBar extends Component {
       <React.Fragment>
         <AppBar title="into-the-graph" position='sticky'>
           <Toolbar>
-            <Link to="/">
+            <Link to="/" className={classes.linkButton}>
               <Button className={classes.menuButton}>
               <Icon>explore</Icon>
                 &nbsp;Explore datasets
               </Button>
             </Link>
-            <Link to="/sparql">
+            <Link to="/sparql" className={classes.linkButton}>
               <Button className={classes.menuButton}>
                 <Icon>share</Icon>
                 &nbsp;Run SPARQL queries
               </Button>
             </Link>
-            <Link to="/describe?uri=http:%2F%2Fbio2rdf.org%2Fdrugbank_resource:f9e3bfa310df6a9054278bc8f2cc8c8d">
+            <Link to="/describe?uri=http:%2F%2Fbio2rdf.org%2Fdrugbank_resource:f9e3bfa310df6a9054278bc8f2cc8c8d"
+            className={classes.linkButton}>
               <Button className={classes.menuButton}>
                 <Icon>format_list_bulleted</Icon>
                 &nbsp;Describe URIs
