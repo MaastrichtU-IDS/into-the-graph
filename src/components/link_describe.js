@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
     '& :hover': {
       color: theme.palette.primary.main,
     },
+    overflowWrap: 'break-word'
   }
 }));
 
@@ -42,7 +43,8 @@ export function LinkDescribe(props) {
     return (
       <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
         {console.log(props.fontWeight)}
-        <Typography variant={props.variant} className={props.passClass}>
+        <Typography variant={props.variant} className={props.passClass}
+        style={{overflowWrap: 'break-word'}}>
           {shortenUri(props.uri)}
         </Typography>
       </a>
@@ -50,7 +52,8 @@ export function LinkDescribe(props) {
   }
   return (
     // For non URI
-    <Typography variant={props.variant} className={props.passClass} style={{textAlign: 'left'}}>
+    <Typography variant={props.variant} className={props.passClass} 
+    style={{textAlign: 'left', overflowWrap: 'break-word'}}>
       {props.uri}
     </Typography>
   )
