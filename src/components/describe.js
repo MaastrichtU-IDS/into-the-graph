@@ -420,7 +420,7 @@ export function DescribeGraphPanel(props) {
                           Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
                         </Button>
                         {/* Use the same snippet */}
-                        <Paper key={key} className={classes.paperPadding}>
+                        {/* <Paper key={key} className={classes.paperPadding}>
                           {Object.keys(props.datasetHash.asSubjectExtra[propertyUri]).map((valueIndex, key) => {
                             let addDivider = '';
                             if (key !== 0) {
@@ -432,7 +432,7 @@ export function DescribeGraphPanel(props) {
                             </React.Fragment>
                           })}
                           {addShowMore}
-                        </Paper>
+                        </Paper> */}
                       </React.Fragment>  );
                     }
 
