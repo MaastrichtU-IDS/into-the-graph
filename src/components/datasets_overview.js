@@ -111,8 +111,8 @@ class DatasetsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.statsOverview.map((row) => {
-            return <tr>
+          {this.state.statsOverview.map((row, key) => {
+            return <tr key={key}>
               <td>{row.graph.value}</td>
               <td>{displayDate(row.dateGenerated)}</td>
               <td>{row.statements.value}</td>
@@ -139,8 +139,8 @@ class DatasetsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.entitiesRelations.map((row) => {
-            return <tr>
+          {this.state.entitiesRelations.map((row, key) => {
+            return <tr key={key}>
               <td>{row.graph.value}</td>
               <td>{row.classCount1.value}</td>
               <td><LinkDescribe uri={row.class1.value} variant='body2'/></td>
@@ -232,7 +232,6 @@ class DatasetsOverview extends Component {
     }
   } ORDER BY DESC(?classCount1)`;
 }
-
 export default withStyles(styles) (DatasetsOverview);
 
 // Turgay snippet:
@@ -245,11 +244,8 @@ export default withStyles(styles) (DatasetsOverview);
 //   this.x =6
 //   setInterval(()=> {
 //     const {x, state: { data, number }} = this;
-
 //     console.log(x, data, number)
-
 //     //const data = this.state.data;
-
 //     data.push(number)
 //     this.setState({data})
 //   }, 1000)

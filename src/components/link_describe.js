@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 export function LinkDescribe(props) {
   const classes = useStyles();
 
+  // TODO: use centralized service (prefixcommons/prefix.cc?)
   const prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
     biolink: 'https://w3id.org/biolink/vocab/',
@@ -42,7 +43,6 @@ export function LinkDescribe(props) {
     // Process URIs
     return (
       <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
-        {console.log(props.fontWeight)}
         <Typography variant={props.variant} className={props.passClass}
         style={{overflowWrap: 'break-word'}}>
           {shortenUri(props.uri)}

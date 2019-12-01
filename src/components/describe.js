@@ -55,7 +55,6 @@ const styles = theme => ({
   },
   greyBackground: {
     backgroundColor: theme.palette.primary.light
-    // color: 'white',
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
@@ -81,10 +80,6 @@ class Describe extends Component {
   }
 
   showMoreHandler(graphUri, propertyUri) {
-    // We should set state here but how to do it properly?
-    // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
-    // this.state.describeHash[graphUri].showExtra[propertyUri] = true;
-    
     this.setState((state) => {
       if (state.describeHash[graphUri].showExtra[propertyUri] === true) {
         // Hide extra statements
@@ -94,8 +89,6 @@ class Describe extends Component {
       }
       return {describeHash: state.describeHash};
     });
-    console.log('showMoreHandler');
-    console.log(this.state);
   }
 
   state = {
@@ -118,7 +111,7 @@ class Describe extends Component {
   //   if(this.props.describeUri !== prevState.describeUri){
   //      //fetchnewProduct and set state to reload
   //     //  this.forceUpdate();
-  //     console.log('staate');
+  //     console.log('state in componentDidUpdate');
   //     console.log(this.state);
   //     this.setState({
   //       describeUri: this.props.describeUri,
@@ -130,12 +123,7 @@ class Describe extends Component {
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
-    // Not working:
-    // this.setState({ describeUri: this.params.get('uri') });
-
     if (this.state.describeUri.startsWith('http')) {
-      console.log('describeUri');
-      console.log(this.state.describeUri);
       axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + this.getDescribeQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
@@ -214,15 +202,13 @@ class Describe extends Component {
               describeGraphClasses.push(sparqlResultRow.object.value);
             }
         })
-        console.log('describe object:');
-        console.log(describeHash);
-        console.log('describe classes as graph:');
-        console.log(describeGraphClasses);
         this.setState({ describeGraphClasses });
         this.setState({ describeHash });
+        console.log('State after componentDidMount in describe:');
+        console.log(this.state);
       })
     } else {
-      // TODO: do full text search
+      // Full text search
       axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + this.getSearchQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
@@ -246,7 +232,6 @@ class Describe extends Component {
           <LinkDescribe uri={this.state.describeUri} variant='h4' passClass={classes.font300}/>
           <br/>
           {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
-          {/* TODO: Warning: Each child in a list should have a unique "key" prop. Check the render method of `DescribeGraphPanel` */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
             return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
             datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
@@ -355,29 +340,17 @@ class Describe extends Component {
 export default withStyles(styles)(Describe);
 
 
-
 // Display the panels showing s,p,o for each graph 
 export function DescribeGraphPanel(props) {
-  // const [, setValue] = React.useState(0);
   const { classes } = props;
 
   function showMoreStatements(propertyUri) {
     props.showMoreHandler(props.datasetUri, propertyUri, true)
-    // props.datasetHash.showExtra[propertyUri] = true;
-    console.log('clicked');
-    // Ok apparently we cannot change state of parent component in function
-    // And it doesn't pick up changes. So we will need to convert it to Component...
   }
 
-
-  console.log('datasetHash before expansion panel:');
-  console.log(props.datasetHash);
   // Define tab header here to hide them if no results for this tab
   return (
     <ExpansionPanel defaultExpanded>
-      {console.log('in expansion panel')}
-      {console.log(props)}
-      {/* <ExpansionPanelSummary  color="primary" expandIcon={<ExpandMoreIcon />} */}
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
         <Typography variant="h6"><i>In graph </i>{props.datasetUri}</Typography>
@@ -412,7 +385,6 @@ export function DescribeGraphPanel(props) {
             {props.datasetHash.asSubjectCount !== 0 && ( 
               <TabPanel>
                 <Grid container spacing={3} alignItems="center">
-                  {console.log(props)}
                   {/* Iterate over properties in a graph */}
                   {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                     let addShowMore = '';
@@ -478,7 +450,6 @@ export function DescribeGraphPanel(props) {
             {props.datasetHash.asPredicateCount !== 0 && ( 
               <TabPanel>
                 <Grid container spacing={3} alignItems="center">
-                  {console.log(props)}
                   {/* Iterate over predicates in the graph */}
                   {Object.keys(props.datasetHash.asPredicate).map((subjectUri, key) => {
                     
@@ -505,7 +476,6 @@ export function DescribeGraphPanel(props) {
                               <LinkDescribe variant='body2' uri={props.datasetHash.asPredicate[subjectUri][valueIndex]}/>
                             </React.Fragment>
                           })}
-                          {/* {addShowMore} */}
                         </Paper>
                       </Grid>
                     </React.Fragment>})
@@ -517,7 +487,6 @@ export function DescribeGraphPanel(props) {
             {props.datasetHash.asObjectCount !== 0 && ( 
               <TabPanel>
                 <Grid container spacing={3} alignItems="center">
-                  {console.log(props)}
                   {/* Iterate over properties in a graph */}
                   {Object.keys(props.datasetHash.asObject).map((propertyUri, key) => {
                     let addShowMore = '';

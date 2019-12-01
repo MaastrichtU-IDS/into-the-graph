@@ -53,13 +53,7 @@ class NavBar extends Component {
   // submitSearch(event){
   submitSearch  = (event) => {
     event.preventDefault();
-    // const searchText = this.state.searchText;
-    console.log('submitted');
-    console.log(this.state.searchText);
-    // const searchText = this.refs.searchText.value;
-    console.log(event);
     this.props.history.push('/describe?uri=' + this.state.searchText)
-    // return <Redirect to='/describe?uri=http:%2F%2Fidentifiers.org%2FHGNC:4601'/>
   }
 
   handleChange = (event) => {
