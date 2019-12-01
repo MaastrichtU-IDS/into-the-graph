@@ -97,8 +97,4 @@ class Sparql extends Component {
       </Container>
   }
 }
-
 export default withStyles(styles)(Sparql);
-
-
- 

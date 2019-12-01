@@ -108,4 +108,5 @@ class NavBar extends Component {
       </React.Fragment>
     );
   }
-}  export default withRouter((withStyles(styles)(NavBar))) ;
+}
+export default withRouter((withStyles(styles)(NavBar))) ;

@@ -66,7 +66,6 @@ class DatasetsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
-
     axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
@@ -78,7 +77,6 @@ class DatasetsOverview extends Component {
         this.setState( { entitiesRelations: res.data.results.bindings } );
         $(this.refs.entitiesRelations).DataTable();
       });
-
   }
 
   componentWillUnmount(){
@@ -107,7 +105,6 @@ class DatasetsOverview extends Component {
             <th># of entities</th>
             <th># of properties</th>
             <th># of classes</th>
-            {/* <th>Download as RDF/XML</th> */}
           </tr>
         </thead>
         <tbody>
@@ -119,7 +116,6 @@ class DatasetsOverview extends Component {
               <td>{row.entities.value}</td>
               <td>{row.properties.value}</td>
               <td>{row.classes.value}</td>
-              {/* <td>Download</td> */}
             </tr>;
           })}
         </tbody>
