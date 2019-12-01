@@ -18,7 +18,6 @@ import { LinkDescribe } from "./link_describe";
 
 // import Tabs from '@material-ui/core/Tabs';
 // import Tab from '@material-ui/core/Tab';
-
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import { BrowserRouter } from "react-router-dom";
 
@@ -229,7 +228,7 @@ class Describe extends Component {
     const { classes } = this.props;
     return <Container>
         <div className='mainContainer'>
-          <LinkDescribe uri={this.state.describeUri} variant='h4' passClass={classes.font300}/>
+          <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
           <br/>
           {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
           {Object.keys(this.state.describeHash).map((datasetUri, key) => {
