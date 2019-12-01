@@ -156,7 +156,7 @@ class DatasetsOverview extends Component {
     return (
       <Container maxWidth="xl">
         <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '50px'}}>
-          The various graphs statistiscs have been generated following the&nbsp;
+          The various graphs statistics have been generated following the&nbsp;
           <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
           .
         </Typography>
