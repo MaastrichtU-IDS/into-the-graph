@@ -14,7 +14,7 @@ function Copyright() {
         Institute of Data Science at Maastricht University
       </Link>{' '}
       {'2019-2020.'}
-      {/* <Link color="inherit" href="https://github.com/MaastrichtU-IDS/linked-data-browser/blob/master/LICENSE">
+      {/* <Link color="inherit" href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
         MIT license
       </Link> */}
     </Typography>
@@ -49,7 +49,7 @@ export default function Footer() {
         <Container maxWidth="sm">
           <Typography variant="body2">
             The code of this site is licensed under the&nbsp;
-            <Link color="inherit" href="https://github.com/MaastrichtU-IDS/linked-data-browser/blob/master/LICENSE">
+            <Link color="inherit" href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
               MIT license
             </Link>
             <br/>License of the displayed data is defined by the provider

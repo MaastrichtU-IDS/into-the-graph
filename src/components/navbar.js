@@ -65,7 +65,7 @@ class NavBar extends Component {
 
     return (
       <React.Fragment>
-        <AppBar title="linked-data-browser" position='sticky'>
+        <AppBar title="into-the-graph" position='sticky'>
           <Toolbar>
             <Link to="/">
               <Button className={classes.menuButton}>
@@ -99,7 +99,7 @@ class NavBar extends Component {
               </IconButton>
             </Paper>
             <Button className={classes.menuButton} target="_blank"
-            href="https://github.com/MaastrichtU-IDS/linked-data-browser">
+            href="https://github.com/MaastrichtU-IDS/into-the-graph">
               <Icon>code</Icon>
               &nbsp;GitHub
             </Button>
