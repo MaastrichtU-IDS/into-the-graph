@@ -84,9 +84,7 @@ class Describe extends Component {
       return {describeHash: state.describeHash};
     });
     console.log('showMoreHandler');
-    // this.setState({
-      
-    // })
+    console.log(this.state);
   }
 
   state = {
@@ -252,15 +250,15 @@ class Describe extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                   <Grid container spacing={3} alignItems="center">
-                    {this.state.describeGraphClasses.map(function(dataset, index){
-                      return <React.Fragment>
-                        <Grid key={index} item xs={0} md={2}></Grid>
-                        <Grid key={index} item xs={12} md={8}>
+                    {this.state.describeGraphClasses.map(function(dataset, key){
+                      return <React.Fragment key={key}>
+                        <Grid item xs={0} md={2}></Grid>
+                        <Grid item xs={12} md={8}>
                           <Paper className={classes.paperPadding}>
                             <LinkDescribe variant='body2' uri={dataset}/>
                           </Paper>
                         </Grid>
-                        <Grid key={index} item xs={0} md={2}></Grid>
+                        <Grid item xs={0} md={2}></Grid>
                       </React.Fragment> 
                     })}
                   </Grid>
@@ -277,14 +275,14 @@ class Describe extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                   <Grid container spacing={3} alignItems="center">
-                    {this.state.searchResults.map(function(searchResult, index){
-                      return <React.Fragment>
-                        <Grid key={index} item xs={6}>
+                    {this.state.searchResults.map(function(searchResult, key){
+                      return <React.Fragment key={key}>
+                        <Grid item xs={6}>
                           <Paper className={classes.paperPadding}>
                             <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
                           </Paper>
                         </Grid>
-                        <Grid key={index} item xs={6}>
+                        <Grid item xs={6}>
                           <Typography variant="body2">{searchResult.searchLabel}</Typography>
                         </Grid>
                       </React.Fragment> 
@@ -414,17 +412,33 @@ export function DescribeGraphPanel(props) {
                       // onClick={showMoreStatements(props.datasetHash, propertyUri)}
                       onClick={() => showMoreStatements(propertyUri)}
                       >
-                        Show {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                        Show {props.datasetHash.asSubjectExtra[propertyUri].length} more statements
                       </Button>  );
                     } else if (props.datasetHash.asSubjectExtra[propertyUri].length > 0 && props.datasetHash.showExtra[propertyUri] === true) {
-                      addShowMore = ( <Button variant="contained" size="small" className={classes.noCap} color="primary">
-                        Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
-                      </Button>  );
+                      addShowMore = ( <React.Fragment>
+                        <Button variant="contained" size="small" className={classes.noCap} color="primary">
+                          Hide {props.datasetHash.asSubjectExtra[propertyUri].length} statements
+                        </Button>
+                        {/* Use the same snippet */}
+                        <Paper key={key} className={classes.paperPadding}>
+                          {Object.keys(props.datasetHash.asSubjectExtra[propertyUri]).map((valueIndex, key) => {
+                            let addDivider = '';
+                            if (key !== 0) {
+                              addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                            }
+                            return <React.Fragment key={key}>
+                              {addDivider}
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]}/>
+                            </React.Fragment>
+                          })}
+                          {addShowMore}
+                        </Paper>
+                      </React.Fragment>  );
                     }
 
                     // Display property / values for the described SUBJECT URI
-                    return <React.Fragment>
-                      <Grid key={key} item xs={6} className={classes.alignRight}>
+                    return <React.Fragment key={key}>
+                      <Grid item xs={6} className={classes.alignRight}>
                         <LinkDescribe variant='body2' uri={propertyUri}/>
                       </Grid>
                       <Grid item xs={6} className={classes.alignLeft}>
@@ -435,9 +449,9 @@ export function DescribeGraphPanel(props) {
                             if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
-                            return <React.Fragment>
+                            return <React.Fragment key={key}>
                               {addDivider}
-                              <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]} key={key}/>
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asSubject[propertyUri][valueIndex]}/>
                             </React.Fragment>
                           })}
                           {addShowMore}
@@ -457,13 +471,13 @@ export function DescribeGraphPanel(props) {
                   {Object.keys(props.datasetHash.asPredicate).map((subjectUri, key) => {
                     
                     // Display subject / predicate / objects for the described PREDICATE URI
-                    return <React.Fragment>
-                      <Grid key={key} item xs={4} className={classes.alignRight}>
+                    return <React.Fragment key={key}>
+                      <Grid item xs={4} className={classes.alignRight}>
                         <Paper className={classes.paperPadding}>
                           <LinkDescribe variant='body2' uri={subjectUri}/>
                         </Paper>
                       </Grid>
-                      <Grid key={key} item xs={4} >
+                      <Grid item xs={4} >
                         <LinkDescribe variant='body2' uri={props.describeUri}/>
                       </Grid>
                       <Grid item xs={4} className={classes.alignLeft}>
@@ -474,9 +488,9 @@ export function DescribeGraphPanel(props) {
                             if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
-                            return <React.Fragment>
+                            return <React.Fragment key={key}>
                               {addDivider}
-                              <LinkDescribe variant='body2' uri={props.datasetHash.asPredicate[subjectUri][valueIndex]} key={key}/>
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asPredicate[subjectUri][valueIndex]}/>
                             </React.Fragment>
                           })}
                           {/* {addShowMore} */}
@@ -511,19 +525,19 @@ export function DescribeGraphPanel(props) {
                     }
 
                     // Display property / values for the described SUBJECT URI
-                    return <React.Fragment>
-                      <Grid key={key} item xs={2}>
+                    return <React.Fragment key={key}>
+                      <Grid item xs={2}>
                         <LinkDescribe variant='body2' uri={props.describeUri}/>
                       </Grid>
-                      <Grid key={key} item xs={1}>
+                      <Grid item xs={1}>
                         <span className={classes.italic}>is</span>
                       </Grid>
-                      <Grid key={key} item xs={4}>
+                      <Grid item xs={4}>
                         <Paper className={classes.paperPadding}>
                           <LinkDescribe variant='body2' uri={propertyUri}/>
                         </Paper>
                       </Grid>
-                      <Grid key={key} item xs={1}>
+                      <Grid item xs={1}>
                         <span className={classes.italic}>of</span>
                       </Grid>
                       <Grid item xs={4} className={classes.alignLeft}>
@@ -534,9 +548,9 @@ export function DescribeGraphPanel(props) {
                             if (key !== 0) {
                               addDivider = ( <Divider variant="middle" className={classes.divider}/> );
                             }
-                            return <React.Fragment>
+                            return <React.Fragment key={key}>
                               {addDivider}
-                              <LinkDescribe variant='body2' uri={props.datasetHash.asObject[propertyUri][valueIndex]} key={key}/>
+                              <LinkDescribe variant='body2' uri={props.datasetHash.asObject[propertyUri][valueIndex]}/>
                             </React.Fragment>
                           })}
                           {addShowMore}
