@@ -98,7 +98,7 @@ class DatasetsOverview extends Component {
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
     if (this.state.statsOverview.length > 0) {
-      statsOverviewTable = ( <table table ref="statsOverview" className="row-border">
+      statsOverviewTable = ( <table table="true" ref="statsOverview" className="row-border">
         <thead>
           <tr>
             <th>Graph</th>
@@ -127,7 +127,7 @@ class DatasetsOverview extends Component {
     }
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
-      entitiesRelationsTable = ( <table table ref="entitiesRelations" className="row-border">
+      entitiesRelationsTable = ( <table table="true" ref="entitiesRelations" className="row-border">
         <thead>
           <tr>
             <th>Graph</th>
