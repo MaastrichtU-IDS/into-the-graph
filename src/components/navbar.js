@@ -7,12 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-
 import Icon from '@material-ui/core/Icon';
 
 // import Typography from '@material-ui/core/Typography'
 
-// background: '#fafafa'
 const styles = theme => ({
   menuButton: {
     color: '#fafafa',
