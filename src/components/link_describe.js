@@ -19,15 +19,16 @@ export function LinkDescribe(props) {
 
   // TODO: use centralized service (prefixcommons/prefix.cc?)
   const prefixRegistry = {
-    bl: 'http://w3id.org/biolink/vocab/',
-    biolink: 'https://w3id.org/biolink/vocab/',
+    bl: 'https://w3id.org/biolink/vocab/',
+    biolink: 'http://w3id.org/biolink/vocab/',
+    bio2rdf: 'http://bio2rdf.org/',
     d2s: 'https://w3id.org/d2s/',
     rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
     dc: 'http://purl.org/dc/elements/1.1/',
     obo: 'http://purl.obolibrary.org/obo/',
     owl: 'http://www.w3.org/2002/07/owl#',
-    ido: 'https://identifiers.org/',
+    ido: 'https://identifiers.org/'
   };
 
   function shortenUri(uriToShorten) {
