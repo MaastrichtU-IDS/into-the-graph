@@ -21,7 +21,7 @@ import grey from '@material-ui/core/colors/grey';
 const theme = createMuiTheme({
   palette: {
     primary: { light: '#eceff1', main: blue[700], dark: blue[900] },
-    // Same color as Angular into-the-graph: blue[700]
+    // Same color as Angular into-the-graph: blue[700] / #1976d2
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
     // white: 
