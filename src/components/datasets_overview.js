@@ -53,22 +53,6 @@ const styles = theme => ({
   hclsNotice: {
     fontWeight: 300,
     textAlign: "left"
-  },
-  datatable: {
-    width: '100%',
-    tableLayout: 'fixed',
-    'th': {
-      whiteSpace: 'normal',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
-      wordBreak: 'break-all'
-    },
-    'td': {
-      whiteSpace: 'normal',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden',
-      wordBreak: 'break-all'
-    }
   }
 })
 
@@ -116,8 +100,7 @@ class DatasetsOverview extends Component {
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
     if (this.state.statsOverview.length > 0) {
-      statsOverviewTable = ( <table table="true" ref="statsOverview" 
-      className={classes.datatable}>
+      statsOverviewTable = ( <table table="true" ref="statsOverview">
         <thead>
           <tr>
             <th>Graph</th>
@@ -144,9 +127,8 @@ class DatasetsOverview extends Component {
     }
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
-      entitiesRelationsTable = ( <table table="true" ref="entitiesRelations" 
-      // Default class: className="row-border"
-      className={classes.datatable}>
+      entitiesRelationsTable = ( <table table="true" ref="entitiesRelations">
+      {/* Default class: className="row-border" */}
         <thead>
           <tr>
             <th>Graph</th>

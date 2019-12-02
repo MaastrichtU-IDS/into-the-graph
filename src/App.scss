@@ -14,6 +14,25 @@
   margin-bottom: 40px; 
 }
 
+// Data table fix to avoid overflow
+.dataTable {
+  width: 100%;
+  table-layout: fixed;
+}
+.dataTable th {
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+.dataTable td {
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+
 // Make tabs look like Material UI
 .react-tabs__tab-list {
   border-bottom: 1px solid #eceff1 !important;
