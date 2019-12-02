@@ -56,8 +56,19 @@ const styles = theme => ({
   },
   datatable: {
     width: '100%',
-    tableLayout: 'fixed'
-    // Prevent overflow of table out of div
+    tableLayout: 'fixed',
+    'th': {
+      whiteSpace: 'normal',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      wordBreak: 'break-all'
+    },
+    'td': {
+      whiteSpace: 'normal',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      wordBreak: 'break-all'
+    }
   }
 })
 
