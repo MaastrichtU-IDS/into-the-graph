@@ -14,22 +14,6 @@
   margin-bottom: 40px; 
 }
 
-#StatsTable {
-  width: 100% !important;
-  table-layout: fixed !important; // This one prevent overflow of table!
-}
-#StatsTable th {
-  width: auto !important;
-  white-space: nowrap !important;
-  text-overflow: ellipsis !important;
-  overflow: hidden !important
-}
-#StatsTable td{
-  width: auto !important;
-  text-overflow: ellipsis !important;
-  overflow: hidden !important;
-}
-
 // Make tabs look like Material UI
 .react-tabs__tab-list {
   border-bottom: 1px solid #eceff1 !important;

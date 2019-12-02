@@ -56,19 +56,8 @@ const styles = theme => ({
   },
   datatable: {
     width: '100%',
-    maxWidth: '100%',
-    'th': {
-      width: "auto",
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden'
-    },
-    'td': {
-      width: "auto",
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-      overflow: 'hidden'
-    }
+    tableLayout: 'fixed'
+    // Prevent overflow of table out of div
   }
 })
 
@@ -89,21 +78,13 @@ class DatasetsOverview extends Component {
     axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
-        $(this.refs.statsOverview).DataTable(
-          {
-            "autoWidth": false
-          }
-        );
+        $(this.refs.statsOverview).DataTable();
       });
 
     axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
         this.setState( { entitiesRelations: res.data.results.bindings } );
-        $(this.refs.entitiesRelations).DataTable(
-          {
-            "autoWidth": false
-          }
-        );
+        $(this.refs.entitiesRelations).DataTable();
       });
   }
 
@@ -153,8 +134,8 @@ class DatasetsOverview extends Component {
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
       entitiesRelationsTable = ( <table table="true" ref="entitiesRelations" 
-      // className="row-border"
-      className={classes.datatable} id='StatsTable'>
+      // Default class: className="row-border"
+      className={classes.datatable}>
         <thead>
           <tr>
             <th>Graph</th>
