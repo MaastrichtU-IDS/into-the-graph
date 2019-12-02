@@ -53,6 +53,22 @@ const styles = theme => ({
   hclsNotice: {
     fontWeight: 300,
     textAlign: "left"
+  },
+  datatable: {
+    width: '100%',
+    maxWidth: '100%',
+    'th': {
+      width: "auto",
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden'
+    },
+    'td': {
+      width: "auto",
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden'
+    }
   }
 })
 
@@ -73,13 +89,21 @@ class DatasetsOverview extends Component {
     axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
-        $(this.refs.statsOverview).DataTable();
+        $(this.refs.statsOverview).DataTable(
+          {
+            "autoWidth": false
+          }
+        );
       });
 
     axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
         this.setState( { entitiesRelations: res.data.results.bindings } );
-        $(this.refs.entitiesRelations).DataTable();
+        $(this.refs.entitiesRelations).DataTable(
+          {
+            "autoWidth": false
+          }
+        );
       });
   }
 
@@ -100,7 +124,8 @@ class DatasetsOverview extends Component {
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
     if (this.state.statsOverview.length > 0) {
-      statsOverviewTable = ( <table table="true" ref="statsOverview" className="row-border">
+      statsOverviewTable = ( <table table="true" ref="statsOverview" 
+      className={classes.datatable}>
         <thead>
           <tr>
             <th>Graph</th>
@@ -127,7 +152,9 @@ class DatasetsOverview extends Component {
     }
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
-      entitiesRelationsTable = ( <table table="true" ref="entitiesRelations" className="row-border">
+      entitiesRelationsTable = ( <table table="true" ref="entitiesRelations" 
+      // className="row-border"
+      className={classes.datatable} id='StatsTable'>
         <thead>
           <tr>
             <th>Graph</th>
