@@ -25,10 +25,22 @@ A few things to know:
 ### Install dependencies
 
 ```shell
+# New way
+yarn install
+
+# Old way
 npm install
 ```
 
 ### Starts the development server
+
+#### Use Webpack and Expo
+
+```bash
+yarn web
+```
+
+#### Old way
 
 ```shell
 npm start
@@ -42,10 +54,33 @@ npm start
 > echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 > ```
 
+* Using Expo (for Webpack)
+
+```bash
+expo start --web
+```
+
 ### Bundles the app to static files for production
 
 ```shell
 npm run build
+```
+
+### Use Webpack
+
+#### Install
+
+```bash
+npm i --save react-native
+npm i expo --save-dev
+```
+
+> Maybe also `yarn add expo` or `npm install -g expo-cli`
+
+#### Start development
+
+```bash
+expo start --web
 ```
 
 ## Docker
@@ -72,3 +107,22 @@ docker run --rm -it -p 3000:80 into-the-graph
 
 > Access on http://into-bio2rdf.137.120.31.101.nip.io
 
+### Publish using Expo
+
+```bash
+# On laptop
+docker run --tty --interactive \
+    --workdir /srv \
+    --volume /home/emonet/develop/into-the-graph:/srv \
+    --env EXPO_CLI_USERNAME=vemonet \
+    --env EXPO_CLI_PASSWORD=password \
+    bycedric/expo-cli publish
+    
+# Bash commands directly
+docker run --tty --interactive \
+    --workdir /srv \
+    --volume /data/publish-expo/into-the-graph:/srv \
+    --env EXPO_CLI_USERNAME=vemonet \
+    --env EXPO_CLI_PASSWORD=password \
+    bycedric/expo-cli bash
+```
