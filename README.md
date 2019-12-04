@@ -20,7 +20,7 @@ A few things to know:
 
   > Search for `http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar` in the repo.
 
-## Development
+# Development
 
 ### Install dependencies
 
@@ -30,6 +30,9 @@ yarn install
 
 # Old way
 npm install
+
+# Add package to dev
+yarn add serve --dev
 ```
 
 ### Starts the development server
@@ -109,20 +112,16 @@ docker run --rm -it -p 3000:80 into-the-graph
 
 ### Publish using Expo
 
+On Docker: use `yarn start` to build using `serve`
+
+> Build folder in `web-build`.
+
 ```bash
-# On laptop
+# To remove:
 docker run --tty --interactive \
     --workdir /srv \
     --volume /home/emonet/develop/into-the-graph:/srv \
     --env EXPO_CLI_USERNAME=vemonet \
     --env EXPO_CLI_PASSWORD=password \
     bycedric/expo-cli publish
-    
-# Bash commands directly
-docker run --tty --interactive \
-    --workdir /srv \
-    --volume /data/publish-expo/into-the-graph:/srv \
-    --env EXPO_CLI_USERNAME=vemonet \
-    --env EXPO_CLI_PASSWORD=password \
-    bycedric/expo-cli bash
 ```
