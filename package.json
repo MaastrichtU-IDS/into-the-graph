@@ -32,6 +32,7 @@
     "start": "serve -s web-build",
     "web": "expo start --web",
     "dev": "yarn web",
+    "build": "expo build:web",
     "eject": "expo eject",
     "test": "jest"
   }
