@@ -32,12 +32,12 @@ yarn install
 npm install
 
 # Add package to dev
-yarn add serve --dev
+yarn add my-package --dev
 ```
 
 ### Starts the development server
 
-#### Use Webpack and Expo
+#### Use Webpack and Expo (recommended)
 
 ```bash
 yarn web
@@ -112,16 +112,25 @@ docker run --rm -it -p 3000:80 into-the-graph
 
 ### Publish using Expo
 
+See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
+
 On Docker: use `yarn start` to build using `serve`
 
-> Build folder in `web-build`.
+> First you need to have your app built in the `web-build` folder.
+
+> Using [bycedric/expo-cli](https://hub.docker.com/r/bycedric/expo-cli) Docker image.
 
 ```bash
+docker build -t expo-into-the-graph .
+docker run -it --name into-the-graph expo-into-the-graph
+
 # To remove:
 docker run --tty --interactive \
     --workdir /srv \
-    --volume /home/emonet/develop/into-the-graph:/srv \
+    --volume $HOME/into-the-graph:/srv \
     --env EXPO_CLI_USERNAME=vemonet \
     --env EXPO_CLI_PASSWORD=password \
     bycedric/expo-cli publish
 ```
+
+> Don't forget to change the path to the git repository (`$HOME` at the moment).

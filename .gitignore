@@ -20,3 +20,4 @@ src/**/*.css
 
 package-lock.json
 .expo
+web-build

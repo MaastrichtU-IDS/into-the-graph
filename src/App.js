@@ -47,7 +47,7 @@ class App extends Component {
           <BrowserRouter>
           {/* Of course this doesn't work */}
           <div style={{minHeight: '100vh'}}>
-            <NavBar/>
+            <NavBar />
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route exact path='/sparql' component={SparqlComponent} />
