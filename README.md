@@ -33,17 +33,21 @@ yarn add my-package --dev
 
 ### Start the development server
 
-Use Expo (recommended)
-
-```bash
-expo start --web
-```
-
-Or directly use Yarn
+Use Yarn (recommended)
 
 ```bash
 yarn web
 ```
+
+> Access on http://localhost:19006
+
+Or Expo
+
+```bash
+expo web
+```
+
+> Access on http://localhost:19006
 
 ## Docker
 
@@ -110,3 +114,4 @@ npm start
 ```shell
 npm run build
 ```
+
