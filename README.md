@@ -41,7 +41,7 @@ yarn web
 
 > Access on http://localhost:19006
 
-Or Expo
+Or Expo (test if one work better for your machine)
 
 ```bash
 expo web
@@ -49,7 +49,7 @@ expo web
 
 > Access on http://localhost:19006
 
-## Docker
+# Docker
 
 ### Build
 
@@ -73,7 +73,7 @@ docker run --rm -it -p 3000:80 into-the-graph
 
 > Access at http://localhost:3000
 
-## Publish using Expo (not tested)
+# Publish using Expo (not tested)
 
 See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
 
