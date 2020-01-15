@@ -6,8 +6,6 @@ COPY package.json package.json
 COPY yarn.lock yarn.lock
 RUN yarn && mkdir /webapp && mv ./node_modules ./webapp
 
-# RUN npm i expo-cli
-
 WORKDIR /webapp
 COPY . .
 
