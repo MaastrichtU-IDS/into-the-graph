@@ -25,65 +25,24 @@ A few things to know:
 ### Install dependencies
 
 ```shell
-# New way
-yarn install
-
-# Old way
-npm install
+yarn
 
 # Add package to dev
 yarn add my-package --dev
 ```
 
-### Starts the development server
+### Start the development server
 
-#### Use Webpack and Expo (recommended)
+Use Expo (recommended)
+
+```bash
+expo start --web
+```
+
+Or directly use Yarn
 
 ```bash
 yarn web
-```
-
-#### Old way
-
-```shell
-npm start
-```
-
-> Known issues:
->
-> * Error: `System limit for number of file watchers reached`
->
-> ```bash
-> echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-> ```
-
-* Using Expo (for Webpack)
-
-```bash
-expo start --web
-```
-
-### Bundles the app to static files for production
-
-```shell
-npm run build
-```
-
-### Use Webpack
-
-#### Install
-
-```bash
-npm i --save react-native
-npm i expo --save-dev
-```
-
-> Maybe also `yarn add expo` or `npm install -g expo-cli`
-
-#### Start development
-
-```bash
-expo start --web
 ```
 
 ## Docker
@@ -102,28 +61,23 @@ docker run --rm -it -p 3000:80 into-the-graph
 
 > Access on http://localhost:3000/
 
-### Restart on IDS server
+### Restart script
 
 ```bash
 ./restart_docker.sh
 ```
 
-> Access on http://into-bio2rdf.137.120.31.101.nip.io
+> Access at http://localhost:3000
 
-### Publish using Expo
+## Publish using Expo (not tested)
 
 See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
 
-On Docker: use `yarn start` to build using `serve`
+Using [bycedric/expo-cli](https://hub.docker.com/r/bycedric/expo-cli) Docker image. On Docker: use `yarn start` to build using `serve`
 
 > First you need to have your app built in the `web-build` folder.
 
-> Using [bycedric/expo-cli](https://hub.docker.com/r/bycedric/expo-cli) Docker image.
-
 ```bash
-docker build -t expo-into-the-graph .
-docker run -it --name into-the-graph expo-into-the-graph
-
 # To remove:
 docker run --tty --interactive \
     --workdir /srv \
@@ -134,3 +88,25 @@ docker run --tty --interactive \
 ```
 
 > Don't forget to change the path to the git repository (`$HOME` at the moment).
+
+## Old way (npm)
+
+### Start development server
+
+```shell
+npm start
+```
+
+> Known issues:
+>
+> * Error: `System limit for number of file watchers reached`
+>
+> ```bash
+> echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+> ```
+
+### Bundles the app to static files for production
+
+```shell
+npm run build
+```
