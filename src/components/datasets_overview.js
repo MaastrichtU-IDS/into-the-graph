@@ -165,7 +165,7 @@ class DatasetsOverview extends Component {
           <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '10px'}}>
             They can be easily precomputed and inserted in your triplestore using a simple docker container.
             Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
-            className={classes.uriLink} target="_blank">those instructions</a> to run it. 
+            className={classes.uriLink} target="_blank">those instructions</a> to compute them. 
           </Typography>
         </Paper>
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
