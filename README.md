@@ -51,19 +51,31 @@ expo web
 
 # Docker
 
-### Build
+### Use the DockerHub build
 
-```powershell
-docker build -t into-the-graph .
-```
-
-### Run
+You can use the prebuilt image available on [DockerHub](https://hub.docker.com/repository/docker/umids/into-the-graph).
 
 ```shell
-docker run --rm -it -p 3000:80 into-the-graph
+# Pull
+docker pull umids:into-the-graph
+
+# Run
+docker run --rm -it -p 8082:80 umids:into-the-graph
 ```
 
-> Access on http://localhost:3000/
+> Access on http://localhost:8082/
+
+### Do a local build
+
+Or build it locally, eventually after changing `settings.json` and `queries`.
+
+```powershell
+# Build
+docker build -t into-the-graph .
+
+# Run
+docker run --rm -it -p 8082:80 into-the-graph
+```
 
 ### Restart script
 
@@ -92,26 +104,3 @@ docker run --tty --interactive \
 ```
 
 > Don't forget to change the path to the git repository (`$HOME` at the moment).
-
-## Old way (npm)
-
-### Start development server
-
-```shell
-npm start
-```
-
-> Known issues:
->
-> * Error: `System limit for number of file watchers reached`
->
-> ```bash
-> echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-> ```
-
-### Bundles the app to static files for production
-
-```shell
-npm run build
-```
-
