@@ -4,3 +4,8 @@ body {
   text-align: center;
   font-family: 'Open Sans';
 }
+
+// Fix font in yasgui editor
+.CodeMirror {
+  font-family: "Open Sans";
+}
