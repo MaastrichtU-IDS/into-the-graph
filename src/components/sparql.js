@@ -108,14 +108,14 @@ WHERE {
     if (Object.keys(yasgui._tabs).length < 3) {
       yasgui.addTab(
         true, // set as active tab
-        { ...Yasgui.Tab.getDefaults(), name: "Graphs statistics",
-        query: this.statisticsQuery }
+        { ...Yasgui.Tab.getDefaults(), id: "graphsOverview", name: "Graphs statistics" }
       );
+      yasgui.getTab("graphsOverview").setQuery(this.statisticsQuery);
       yasgui.addTab(
         true, // set as active tab
-        { ...Yasgui.Tab.getDefaults(), name: "Explore entities relations",
-        query: this.entitiesRelationsQuery }
+        { ...Yasgui.Tab.getDefaults(), id: "entitiesRelations", name: "Explore entities relations" }
       );
+      yasgui.getTab("entitiesRelations").setQuery(this.entitiesRelationsQuery);
     }
   }
 
