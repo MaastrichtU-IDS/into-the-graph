@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
+import Iframe from 'react-iframe'
+
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import Iframe from 'react-iframe'
 
 const styles = theme => ({
   menuButton: {
@@ -25,7 +26,7 @@ class Comunica extends Component {
     const { classes } = this.props;
     return <Iframe url="http://query.linkeddatafragments.org/"
     width="100%"
-    height="70%"
+    height="100%"
     id="myId"
     className="myClassname"
     display="initial"

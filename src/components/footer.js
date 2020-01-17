@@ -59,7 +59,7 @@ export default function Footer() {
   return (
     // <div className={classes.root}>
     //   <CssBaseline />
-      <footer className={classes.footer} style={{ position: 'fixed', bottom: 0}}>
+      <footer className={classes.footer}>
         <Container maxWidth="md">
           <Typography variant="body2">
             The code of this site is licensed under the&nbsp;
