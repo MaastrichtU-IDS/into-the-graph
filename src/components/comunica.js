@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Iframe from 'react-iframe'
 
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-
 const styles = theme => ({
   menuButton: {
     color: '#fafafa',
