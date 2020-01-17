@@ -24,10 +24,12 @@ class Comunica extends Component {
     return <Iframe url="http://query.linkeddatafragments.org/"
     width="100%"
     height="100%"
-    id="myId"
-    className="myClassname"
+    id="iFrameComunica"
+    className="iFrameComunica"
     display="initial"
-    position="relative"/>
+    position="relative"
+    // scrolling="no" 
+    frameBorder="0"/>
   }
 }
 export default withStyles(styles)(Comunica);
