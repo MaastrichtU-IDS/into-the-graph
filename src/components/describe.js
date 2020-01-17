@@ -97,29 +97,6 @@ class Describe extends Component {
     searchResults: []
   }
 
-  // Reload page when URI change (not working)
-  // static getDerivedStateFromProps(nextProps, prevState){
-  //   if(nextProps.describeUri !== prevState.describeUri){
-  //     return { describeUri: nextProps.describeUri};
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   // if(prevProps.describeUri !== this.state.describeUri){
-  //   if(this.props.describeUri !== prevState.describeUri){
-  //      //fetchnewProduct and set state to reload
-  //     //  this.forceUpdate();
-  //     console.log('state in componentDidUpdate');
-  //     console.log(this.state);
-  //     this.setState({
-  //       describeUri: this.props.describeUri,
-  //       describeHash: {}, 
-  //       describeGraphClasses: []
-  //     });
-  //   }
-  // }
-
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
     if (this.state.describeUri.startsWith('http')) {
