@@ -46,7 +46,7 @@ class App extends Component {
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
-          <div style={{width: '100%'}}>
+          <div style={{width: '100%', height: '100%'}}>
             <NavBar />
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />

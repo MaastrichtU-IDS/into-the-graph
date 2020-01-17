@@ -25,8 +25,7 @@ class Comunica extends Component {
     const { classes } = this.props;
     return <Iframe url="http://query.linkeddatafragments.org/"
     width="100%"
-    height="100vh"
-    // minHeight="100%"
+    height="70%"
     id="myId"
     className="myClassname"
     display="initial"
