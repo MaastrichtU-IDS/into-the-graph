@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Icon from '@material-ui/core/Icon';
 
+import $ from 'jquery';
+
 // import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
@@ -56,6 +58,7 @@ class NavBar extends Component {
   submitSearch  = (event) => {
     event.preventDefault();
     this.props.history.push('/describe?uri=' + this.state.searchText)
+    location.reload();
   }
 
   handleChange = (event) => {
