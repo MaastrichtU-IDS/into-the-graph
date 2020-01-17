@@ -274,19 +274,19 @@ class Describe extends Component {
           GRAPH ?graph {
             <` + uriToDescribe + `> ?predicate ?object .
           }
-        } LIMIT 500
+        } LIMIT 1000
       } UNION {
         SELECT * {
           GRAPH ?graph {
             ?subject ?predicate <` + uriToDescribe + `> .
           }
-        } LIMIT 500
+        } LIMIT 1000
       } UNION {
         SELECT * {
           GRAPH ?graph {
             ?subject <` + uriToDescribe + `> ?object .
           }
-        } LIMIT 500
+        } LIMIT 1000
       } UNION {
         SELECT * {
           GRAPH <` + uriToDescribe + `> {
@@ -294,7 +294,7 @@ class Describe extends Component {
             BIND("dummy subject" AS ?subject)
             BIND("dummy predicate" AS ?predicate)
           }
-        } LIMIT 500
+        } LIMIT 1000
       }
     }`);
   }
