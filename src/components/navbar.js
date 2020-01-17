@@ -78,12 +78,6 @@ class NavBar extends Component {
                 &nbsp;Explore datasets
               </Button>
             </Link>
-            <Link to="/sparql" className={classes.linkButton}>
-              <Button className={classes.menuButton}>
-                <Icon>share</Icon>
-                &nbsp;Run SPARQL queries
-              </Button>
-            </Link>
             <Link to="/describe?uri=http://bio2rdf.org/drugbank:DB00001"
             className={classes.linkButton}>
               <Button className={classes.menuButton}>
@@ -91,11 +85,17 @@ class NavBar extends Component {
                 &nbsp;Describe URIs
               </Button>
             </Link>
+            <Link to="/sparql" className={classes.linkButton}>
+              <Button className={classes.menuButton}>
+                <Icon>share</Icon>
+                &nbsp;Run SPARQL queries
+              </Button>
+            </Link>
             <Link to="/comunica"
             className={classes.linkButton}>
               <Button className={classes.menuButton}>
                 <Icon>settings_ethernet</Icon>
-                &nbsp;Comunica
+                &nbsp;Query with Comunica
               </Button>
             </Link>
             <div className="flexGrow"></div>

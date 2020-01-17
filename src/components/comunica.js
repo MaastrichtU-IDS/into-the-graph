@@ -23,9 +23,10 @@ class Comunica extends Component {
 
   render () {
     const { classes } = this.props;
-    return <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
-    width="450px"
-    height="450px"
+    return <Iframe url="http://query.linkeddatafragments.org/"
+    width="100%"
+    height="100vh"
+    // minHeight="100%"
     id="myId"
     className="myClassname"
     display="initial"
