@@ -4,8 +4,6 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
 import "@triply/yasgui/build/yasgui.min.css";
-// import YASGUI from 'yasgui/dist/yasgui.bundled.min.js';
-// import 'yasgui/dist/yasgui.min.css'
 
 const styles = theme => ({
   menuButton: {
@@ -91,6 +89,9 @@ WHERE {
       // Configuring which endpoints appear in the endpoint catalogue list
       // endpointCatalogueOptions.getData = () => {}
     }
+    // Yasgui.defaults = yasguiConfig;
+    // Yasgui.Yasqe.defaults = yasguiConfig;
+
     Yasgui.defaults.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
     Yasgui.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
     Yasgui.Yasqe.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
@@ -101,19 +102,21 @@ WHERE {
       ];
     };
 
-    // Yasgui.defaults = yasguiConfig;
-    // Yasgui.Yasqe.defaults = yasguiConfig;
-
-    // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
-    // const yasgui = YASGUI(document.getElementById('yasguiDiv'));
     const yasgui = new Yasgui(document.getElementById('yasguiDiv'));
-    // yasgui.addTab('statisticsTab');
-    // yasgui.selectTab('statisticsTab').rename('Graphs statistics');
-    // yasgui.selectTab('statisticsTab').setQuery(this.statisticsQuery);
-    // yasgui.addTab('entitiesRelationsTab');
-    // yasgui.selectTab('entitiesRelationsTab').rename('Explore entities relations');
-    // yasgui.selectTab('entitiesRelationsTab').setQuery(this.entitiesRelationsQuery);
-    // yasgui.config.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+
+    // Only add HCLS stats tabs if less than 3 tabs
+    if (Object.keys(yasgui._tabs).length < 3) {
+      yasgui.addTab(
+        true, // set as active tab
+        { ...Yasgui.Tab.getDefaults(), name: "Graphs statistics",
+        query: this.statisticsQuery }
+      );
+      yasgui.addTab(
+        true, // set as active tab
+        { ...Yasgui.Tab.getDefaults(), name: "Explore entities relations",
+        query: this.entitiesRelationsQuery }
+      );
+    }
   }
 
   render () {
