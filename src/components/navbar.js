@@ -19,7 +19,8 @@ const styles = theme => ({
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontSize: '15px'
   },
   linkButton: {
     textTransform: 'none',
