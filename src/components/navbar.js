@@ -91,6 +91,13 @@ class NavBar extends Component {
                 &nbsp;Describe URIs
               </Button>
             </Link>
+            <Link to="/comunica"
+            className={classes.linkButton}>
+              <Button className={classes.menuButton}>
+                <Icon>settings_ethernet</Icon>
+                &nbsp;Comunica
+              </Button>
+            </Link>
             <div className="flexGrow"></div>
             {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>

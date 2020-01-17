@@ -10,6 +10,7 @@ import Footer from './components/footer';
 import SparqlComponent from './components/sparql';
 import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/datasets_overview';
+import ComunicaComponent from './components/comunica';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -51,6 +52,7 @@ class App extends Component {
               <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route exact path='/sparql' component={SparqlComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
+              <Route exact path='/comunica' component={ComunicaComponent} />
             </Switch>
             <Footer />
           </div>
