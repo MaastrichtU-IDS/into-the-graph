@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import YASGUI from 'yasgui/dist/yasgui.bundled.min.js';
-import 'yasgui/dist/yasgui.min.css'
+import Yasgui from "@triply/yasgui";
+import "@triply/yasgui/build/yasgui.min.css";
+// import YASGUI from 'yasgui/dist/yasgui.bundled.min.js';
+// import 'yasgui/dist/yasgui.min.css'
 
 const styles = theme => ({
   menuButton: {
@@ -72,15 +74,45 @@ WHERE {
 } ORDER BY DESC(?classCount1)`;
   
   componentDidMount() {
-    YASGUI.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    // Documentation: https://triply.cc/docs/yasgui-api
+    // Yasgui.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    const yasguiConfig = {
+      requestConfig: {
+        endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+        //Example of using a getter function to define the headers field:
+        // headers: () => ({
+        //   'key': 'value'
+        // }),
+        method: 'POST',
+      },
+      // Allow resizing of the Yasqe editor
+      resizeable: true,
+      // Whether to autofocus on Yasqe on page load
+      autofocus: true,
+      // Use the default endpoint when a new tab is opened
+      copyEndpointOnNewTab: false
+      // Configuring which endpoints appear in the endpoint catalogue list
+      // endpointCatalogueOptions.getData: () => {
+      //     return [
+      //       { endpoint: "https://dbpedia.org/sparql" },
+      //       { endpoint: "https://query.wikidata.org" }
+      //     ];
+    }
+
+    // Yasgui.defaults = yasguiConfig;
+    // Yasgui.Yasqe.defaults = yasguiConfig;
+    // Yasgui.Yasr.defaults = yasguiConfig;
+
     // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
-    const yasgui = YASGUI(document.getElementById('yasguiDiv'));
-    yasgui.addTab('statisticsTab');
-    yasgui.selectTab('statisticsTab').rename('Graphs statistics');
-    yasgui.selectTab('statisticsTab').setQuery(this.statisticsQuery);
-    yasgui.addTab('entitiesRelationsTab');
-    yasgui.selectTab('entitiesRelationsTab').rename('Explore entities relations');
-    yasgui.selectTab('entitiesRelationsTab').setQuery(this.entitiesRelationsQuery);
+    // const yasgui = YASGUI(document.getElementById('yasguiDiv'));
+    const yasgui = new Yasgui(document.getElementById('yasguiDiv'));
+    // yasgui.addTab('statisticsTab');
+    // yasgui.selectTab('statisticsTab').rename('Graphs statistics');
+    // yasgui.selectTab('statisticsTab').setQuery(this.statisticsQuery);
+    // yasgui.addTab('entitiesRelationsTab');
+    // yasgui.selectTab('entitiesRelationsTab').rename('Explore entities relations');
+    // yasgui.selectTab('entitiesRelationsTab').setQuery(this.entitiesRelationsQuery);
+    // yasgui.config = yasguiConfig;
   }
 
   render () {
