@@ -74,34 +74,35 @@ WHERE {
 } ORDER BY DESC(?classCount1)`;
   
   componentDidMount() {
+    
     // Documentation: https://triply.cc/docs/yasgui-api
-    // Yasgui.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
     const yasguiConfig = {
       requestConfig: {
         endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+        method: 'POST',
         //Example of using a getter function to define the headers field:
         // headers: () => ({
         //   'key': 'value'
         // }),
-        method: 'POST',
       },
-      // Allow resizing of the Yasqe editor
-      resizeable: true,
-      // Whether to autofocus on Yasqe on page load
-      autofocus: true,
-      // Use the default endpoint when a new tab is opened
-      copyEndpointOnNewTab: false
+      // resizeable: true,  // Allow resizing of the Yasqe editor
+      // autofocus: true, // Whether to autofocus on Yasqe on page load
+      // copyEndpointOnNewTab: false  // Use the default endpoint when a new tab is opened
       // Configuring which endpoints appear in the endpoint catalogue list
-      // endpointCatalogueOptions.getData: () => {
-      //     return [
-      //       { endpoint: "https://dbpedia.org/sparql" },
-      //       { endpoint: "https://query.wikidata.org" }
-      //     ];
+      // endpointCatalogueOptions.getData = () => {}
     }
+    Yasgui.defaults.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    Yasgui.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    Yasgui.Yasqe.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    Yasgui.defaults.endpointCatalogueOptions.getData = () => {
+      return [
+        { endpoint: "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar" },
+        { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" }
+      ];
+    };
 
     // Yasgui.defaults = yasguiConfig;
     // Yasgui.Yasqe.defaults = yasguiConfig;
-    // Yasgui.Yasr.defaults = yasguiConfig;
 
     // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
     // const yasgui = YASGUI(document.getElementById('yasguiDiv'));
@@ -112,7 +113,7 @@ WHERE {
     // yasgui.addTab('entitiesRelationsTab');
     // yasgui.selectTab('entitiesRelationsTab').rename('Explore entities relations');
     // yasgui.selectTab('entitiesRelationsTab').setQuery(this.entitiesRelationsQuery);
-    // yasgui.config = yasguiConfig;
+    // yasgui.config.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
   }
 
   render () {
