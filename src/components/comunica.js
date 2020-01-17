@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Iframe from 'react-iframe'
 
@@ -20,16 +21,17 @@ class Comunica extends Component {
   componentDidMount() { }
 
   render () {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return <Iframe url="http://query.linkeddatafragments.org/"
-    width="100%"
-    height="100%"
-    id="iFrameComunica"
-    className="iFrameComunica"
-    display="initial"
-    position="relative"
-    // scrolling="no" 
-    frameBorder="0"/>
+      width="100%"
+      // TODO: properly fix height to avoid double scroll
+      height="180%"
+      id="iFrameComunica"
+      className="iFrameComunica"
+      display="initial"
+      position="relative"
+      scrolling="no" 
+      frameBorder="0"/>
   }
 }
 export default withStyles(styles)(Comunica);
