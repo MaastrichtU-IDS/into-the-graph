@@ -22,5 +22,6 @@
     "obo":         "http://purl.obolibrary.org/obo/",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/"
-  }
+  },
+  "search_query": "SELECT ?searchUri ?searchLabel WHERE {?searchUri ?p ?searchLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?searchLabel)) FILTER contains(?searchLabel, '$TEXT_TO_SEARCH')} LIMIT 2"
 }

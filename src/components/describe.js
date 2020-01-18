@@ -292,17 +292,28 @@ class Describe extends Component {
   }
 
   getSearchQuery(textToSearch) {
-    return encodeURIComponent(`SELECT ?searchUri ?searchLabel WHERE {
-      ?searchUri ?p ?searchLabel .
-      VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-      FILTER(isLiteral(?searchLabel))
-      FILTER contains(?searchLabel, "` + textToSearch + `")
-      } LIMIT 5`);
+    let searchQuery = Config.search_query;
+    if (searchQuery) {
+      // If defined in settings.json
+      // Results are provided through ?searchUri and ?searchLabel
+      // Use $TEXT_TO_SEARCH as search variable to replace
+      searchQuery = searchQuery.replace('$TEXT_TO_SEARCH', textToSearch)
+    } else {
+      // Default search query, if no query provided
+      searchQuery = `SELECT ?searchUri ?searchLabel WHERE {
+        ?searchUri ?p ?searchLabel .
+        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+        FILTER(isLiteral(?searchLabel))
+        FILTER contains(?searchLabel, "$TEXT_TO_SEARCH")
+        } LIMIT 5`.replace('$TEXT_TO_SEARCH', textToSearch)
+    }
+    return encodeURIComponent(searchQuery);
   }
   // GraphDB search index query
   // PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
-  // SELECT ?searchResult {
-  //   ?searchResult luc:labelIndex "*` + this.searchText + `*"
+  // SELECT ?searchUri ?searchLabel {
+  //   ?searchUri luc:labelIndex "*$TEXT_TO_SEARCH*" .
+  //   ?searchUri luc:labelIndex ?searchLabel .
   // }
 } 
 export default withStyles(styles)(Describe);
