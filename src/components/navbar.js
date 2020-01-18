@@ -95,7 +95,7 @@ class NavBar extends Component {
             <Link to="/comunica"
             className={classes.linkButton}>
               <Button className={classes.menuButton}>
-                <Icon>settings_ethernet</Icon>
+                <Icon>language</Icon>
                 &nbsp;Query with Comunica
               </Button>
             </Link>
