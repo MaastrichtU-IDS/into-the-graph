@@ -1,6 +1,6 @@
 {
   "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar",
-  "comunica_url": "http://localhost:3000",
+  "comunica_url": "http://query.linkeddatafragments.org/",
   "default_describe_uri": "http://bio2rdf.org/drugbank:DB00001",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
