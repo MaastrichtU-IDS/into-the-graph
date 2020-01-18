@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+var Config = require('Config')
+
 const useStyles = makeStyles(theme => ({
   uriLink: {
     textDecoration: 'none',
@@ -18,18 +20,7 @@ export function LinkDescribe(props) {
   const classes = useStyles();
 
   // TODO: use centralized service (prefixcommons/prefix.cc?)
-  const prefixRegistry = {
-    bl: 'https://w3id.org/biolink/vocab/',
-    biolink: 'http://w3id.org/biolink/vocab/',
-    bio2rdf: 'http://bio2rdf.org/',
-    d2s: 'https://w3id.org/d2s/',
-    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
-    dc: 'http://purl.org/dc/elements/1.1/',
-    obo: 'http://purl.obolibrary.org/obo/',
-    owl: 'http://www.w3.org/2002/07/owl#',
-    ido: 'https://identifiers.org/'
-  };
+  const prefixRegistry = Config.prefixes;
 
   function shortenUri(uriToShorten) {
     for (const prefix in prefixRegistry) {
