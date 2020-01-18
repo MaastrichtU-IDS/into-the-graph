@@ -120,6 +120,12 @@ Convenience script to `git pull`, `docker build` and restart docker.
 
 This feature is just a test,only try it if you know what you are doing!
 
+Install `expo-cli`
+
+```bash
+npm install -g expo-cli
+```
+
 See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
 
 Using [bycedric/expo-cli](https://hub.docker.com/r/bycedric/expo-cli) Docker image. On Docker: use `yarn start` to build using `serve`
