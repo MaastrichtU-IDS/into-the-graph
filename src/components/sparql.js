@@ -75,9 +75,6 @@ WHERE {
   
   componentDidMount() {
     // Documentation: https://triply.cc/docs/yasgui-api
-    
-    console.log("fetchData");
-    console.log(Config.sparql_endpoint);
 
     // const yasguiConfig = {
     //   requestConfig: {
@@ -110,7 +107,10 @@ WHERE {
       ];
     };
 
-    Yasr.defaults.prefixes = Config.prefixes;
+    // Define Yasr prefixes don't change the namespaces resolved in the results
+    Yasgui.Yasr.defaults.prefixes = Config.prefixes;
+    Yasgui.defaults.yasr.prefixes = Config.prefixes;
+    console.log(Yasgui);
 
     const yasgui = new Yasgui(document.getElementById('yasguiDiv'));
 
