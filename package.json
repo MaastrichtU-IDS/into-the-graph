@@ -4,6 +4,14 @@
   "private": true,
   "author": "Vincent Emonet",
   "license": "MIT",
+  "scripts": {
+    "start": "serve -s web-build",
+    "web": "expo start --web",
+    "dev": "yarn web",
+    "build": "expo build:web",
+    "eject": "expo eject",
+    "test": "jest"
+  },
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.2.1",
@@ -25,13 +33,5 @@
     "serve": "^11.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
-  },
-  "scripts": {
-    "start": "serve -s web-build",
-    "web": "expo start --web",
-    "dev": "yarn web",
-    "build": "expo build:web",
-    "eject": "expo eject",
-    "test": "jest"
   }
 }
