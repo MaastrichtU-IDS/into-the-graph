@@ -72,15 +72,16 @@ The following parameters can be changed in [settings.json](https://github.com/Ma
 
   * e.g. http://graphdb.dumontierlab.com/repositories/ncats-red-kg
 
-* `comunica_url`: Comunica widget URL that will be displayed as an iFrame
+* `comunica_url`: Comunica widget URL that will be displayed as an iFrame in the Comunica page
 
   * e.g. http://query.linkeddatafragments.org/
+  * Deploy your own instance of [comunica-sparql-widget](https://github.com/vemonet/jQuery-Widget.js) using Docker.
 
 * `default_describe_uri`: default URI used in the link to the Describe page in the navbar
 
   * e.g. http://identifiers.org/HGNC:8777
 
-* `prefixes`: dictionary of prefixes and the corresponding namespace used to resolved URIs in the web UI
+* `prefixes`: dictionary of prefixes and the corresponding namespaces used to resolve URIs in the web UI
 
 * `search_query`: the SPARQL query used when doing a search (allow to define SPARQL query using custom search indexes)
 
