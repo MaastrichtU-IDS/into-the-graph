@@ -61,11 +61,10 @@ const styles = theme => ({
 })
 
 class Describe extends Component {
-  params = new URLSearchParams(location.search);
+  params = new URLSearchParams(this.props.location.search + this.props.location.hash);
 
   constructor(props) {
     super(props);
-
     this.showMoreHandler = this.showMoreHandler.bind(this);
   }
 
