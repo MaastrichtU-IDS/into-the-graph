@@ -67,6 +67,7 @@ export default function Footer() {
               MIT license
             </a>
             <br/>License of the displayed data is defined by the SPARQL endpoint provider
+            {/* <img src={require('../assets/images/mit_license.png')} /> */}
           </Typography>
           <Copyright />
         </Container>
