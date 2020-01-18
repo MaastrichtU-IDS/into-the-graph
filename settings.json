@@ -1,4 +1,5 @@
 {
   "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar",
+  "comunica_url": "http://localhost:3000",
   "default_describe_uri": "http://bio2rdf.org/drugbank:DB00001"
 }

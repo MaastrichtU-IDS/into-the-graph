@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Iframe from 'react-iframe'
 
+var Config = require('Config')
+
 const styles = theme => ({
   menuButton: {
     color: '#fafafa',
@@ -21,7 +23,7 @@ class Comunica extends Component {
 
   render () {
     // const { classes } = this.props;
-    return <Iframe url="http://query.linkeddatafragments.org/"
+    return <Iframe url={Config.comunica_url}
       width="100%"
       // TODO: properly fix height to avoid double scroll
       height="180%"
