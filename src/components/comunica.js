@@ -1,9 +1,14 @@
+// import * as React from "react";
+// import * as Iframe from "react-iframe";
+
 import React, { Component } from "react";
-import { withStyles } from '@material-ui/core/styles';
 import Iframe from 'react-iframe'
 
-var Config = require('Config')
+var Config = require('Config');
 
+// export interface ComunicaProps { compiler: string; framework: string; }
+// export class Comunica extends React.Component<ComunicaProps, {}> {
+  
 class Comunica extends Component {
   
   render () {
@@ -17,7 +22,7 @@ class Comunica extends Component {
       display="initial"
       position="relative"
       scrolling="no" 
-      frameBorder="0"/>
+      frameBorder="0" />
   }
 }
 export default (Comunica);
