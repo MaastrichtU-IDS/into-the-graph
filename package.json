@@ -5,10 +5,12 @@
   "author": "Vincent Emonet",
   "license": "MIT",
   "scripts": {
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "yarn run build-css && node-sass src/ -o src/ --watch --recursive",
     "start": "serve -s web-build",
     "web": "expo start --web",
-    "dev": "yarn web",
-    "build": "expo build:web",
+    "dev": "yarn run build-css && yarn web",
+    "build": "yarn run build-css && expo build:web",
     "eject": "expo eject",
     "test": "jest"
   },
@@ -30,6 +32,7 @@
     "datatables.net": "^1.10.19",
     "expo": "^36.0.2",
     "expo-cli": "^3.11.7",
+    "node-sass": "^4.13.1",
     "serve": "^11.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
