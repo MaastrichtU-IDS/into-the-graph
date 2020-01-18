@@ -8,22 +8,12 @@ This RDF linked data browser features:
 
 * A [YASGUI](http://doc.yasgui.org/) SPARQL endpoint.
 * A [Comunica widget](http://query.linkeddatafragments.org/) to query Linked Data Fragments with SPARQL and GraphQL.
-* A web-based browser to browse the triplestore statements easily.
+* A web-based UI to browse the triplestore statements easily.
 * Insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
-> [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/) can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it.
+> [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/) for a graph can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it.
 
-### Things to know
-
-* Runs on http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar by default.
-
-* Can be changed to any SPARQL endpoint, but URL needs to be changed in the JavaScript before [Docker](https://docs.docker.com/install/) build at the moment. See [related issue](https://github.com/MaastrichtU-IDS/into-the-graph/issues/8) for more details.
-
-  > Search for `http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar` in the repo.
-
-### The Data2Services framework
-
-It has been developped and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. 
+This service has been developed and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. 
 
 [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
 
@@ -34,7 +24,7 @@ It has been developped and used as part of the [Data2Services](http://d2s.semant
 ### Install dependencies
 
 ```shell
-yarn
+yarn install
 
 # Add package to dev
 yarn add my-package --dev
@@ -42,21 +32,11 @@ yarn add my-package --dev
 
 ### Start the development server
 
-Use Yarn (recommended)
-
 ```bash
 yarn web
 ```
 
-> Access on http://localhost:19006
-
-Or Expo (test if one work better for your machine)
-
-```bash
-expo web
-```
-
-> Access on http://localhost:19006
+> Access at http://localhost:19006
 
 # Docker
 
@@ -66,17 +46,17 @@ You can use the prebuilt image available on [DockerHub](https://hub.docker.com/r
 
 ```shell
 # Pull
-docker pull umids:into-the-graph
+docker pull umids/into-the-graph
 
 # Run
-docker run --rm -it -p 8082:80 umids:into-the-graph
+docker run --rm -it -p 8082:80 umids/into-the-graph
 ```
 
-> Access on http://localhost:8082/
+> Access at http://localhost:8082/
 
 ### Do a local build
 
-Or build it locally, eventually after changing [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) to change various parameters.
+Or build it locally, various parameters can be changed before build in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json).
 
 ```powershell
 # Build
@@ -89,28 +69,55 @@ docker run --rm -it -p 8082:80 into-the-graph
 The following parameters can be changed in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json):
 
 * `sparql_endpoint`: the SPARQL endpoint to browse
-* `comunica_url`: Comunica widget URL that will be displayed as an iFrame (original: http://query.linkeddatafragments.org/)
+
+  * e.g. http://graphdb.dumontierlab.com/repositories/ncats-red-kg
+
+* `comunica_url`: Comunica widget URL that will be displayed as an iFrame
+
+  * e.g. http://query.linkeddatafragments.org/
+
 * `default_describe_uri`: default URI used in the link to the Describe page in the navbar
+
+  * e.g. http://identifiers.org/HGNC:8777
+
 * `prefixes`: dictionary of prefixes and the corresponding namespace used to resolved URIs in the web UI
+
 * `search_query`: the SPARQL query used when doing a search (allow to define SPARQL query using custom search indexes)
+
   * The SPARQL query should return `?searchUri` and `?searchLabel` as results of the search
   * Use `$TEXT_TO_SEARCH` to define the emplacement for the search text in the query
+  * e.g. query using [GraphDB full-text search](http://graphdb.ontotext.com/documentation/free/full-text-search.html):
 
-**TODO**: pass [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) at runtime:
+  ```SPARQL
+  PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
+  SELECT ?searchUri ?searchLabel {
+    ?searchUri luc:labelIndex "*$TEXT_TO_SEARCH*" .
+    ?searchUri luc:labelIndex ?searchLabel .
+  }
+  ```
+
+  > Note: in `settings.json` the query needs to be on one line.
+
+**TODO**: pass [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) at runtime
 
 ```bash
+# Something like
 docker run -v $(pwd)/settings.json:/usr/share/nginx/html/settings.json --rm -it -p 8082:80 into-the-graph
 ```
 
 ### Restart script
 
+Convenience script to `git pull`, `docker build` and restart docker.
+
 ```bash
 ./restart_docker.sh
 ```
 
-> Access at http://localhost:3000
+> Access at http://localhost:8082
 
-# Publish using Expo (not tested)
+# Publish using Expo (experimental)
+
+This feature is just a test,only try it if you know what you are doing!
 
 See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
 
