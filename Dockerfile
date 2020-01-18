@@ -4,7 +4,7 @@ FROM node:12 as builder
 # Should only reinstall npms if package.json or yarn.lock change
 COPY package.json package.json
 COPY yarn.lock yarn.lock
-RUN yarn && mkdir /webapp && mv ./node_modules ./webapp
+RUN yarn --network-timeout 100000 && mkdir /webapp && mv ./node_modules ./webapp
 
 WORKDIR /webapp
 COPY . .
