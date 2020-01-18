@@ -16,6 +16,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { LinkDescribe } from "./link_describe";
 
+var Config = require('Config')
+
 const styles = theme => ({
   italic: {
     fontStyle: 'italic'
@@ -90,7 +92,7 @@ class Describe extends Component {
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
     if (this.state.describeUri.startsWith('http')) {
-      axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + this.getDescribeQuery(this.state.describeUri))
+      axios.get(Config.sparql_endpoint + `?query=` + this.getDescribeQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let describeHash = {};
@@ -175,7 +177,7 @@ class Describe extends Component {
       })
     } else {
       // Full text search
-      axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + this.getSearchQuery(this.state.describeUri))
+      axios.get(Config.sparql_endpoint + `?query=` + this.getSearchQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let searchResults = [];

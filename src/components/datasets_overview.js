@@ -1,12 +1,14 @@
 import React, { Component } from "react"; 
 import { withStyles } from '@material-ui/styles';
+import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { LinkDescribe } from "./link_describe";
 
+var Config = require('Config')
+
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
-import { Typography } from "@material-ui/core";
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 // Shoud also work:
@@ -67,13 +69,13 @@ class DatasetsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
-    axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.statsOverviewQuery))
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.statsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
         $(this.refs.statsOverview).DataTable();
       });
 
-    axios.get(`http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar?query=` + encodeURIComponent(this.entitiesRelationsQuery))
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
         this.setState( { entitiesRelations: res.data.results.bindings } );
         $(this.refs.entitiesRelations).DataTable();

@@ -11,6 +11,8 @@ import Icon from '@material-ui/core/Icon';
 
 import $ from 'jquery';
 
+var Config = require('Config')
+
 // import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
@@ -79,7 +81,7 @@ class NavBar extends Component {
                 &nbsp;Explore datasets
               </Button>
             </Link>
-            <Link to="/describe?uri=http://bio2rdf.org/drugbank:DB00001"
+            <Link to={"/describe?uri=" + Config.default_describe_uri}
             className={classes.linkButton}>
               <Button className={classes.menuButton}>
                 <Icon>format_list_bulleted</Icon>

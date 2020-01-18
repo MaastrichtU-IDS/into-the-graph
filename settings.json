@@ -1,3 +1,4 @@
 {
-  "sparql": "https://bio2rdf.org/sparql"
+  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar",
+  "default_describe_uri": "http://bio2rdf.org/drugbank:DB00001"
 }

@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
 import "@triply/yasgui/build/yasgui.min.css";
+
 var Config = require('Config')
 
 const styles = theme => ({
@@ -76,11 +77,11 @@ WHERE {
     // Documentation: https://triply.cc/docs/yasgui-api
     
     console.log("fetchData");
-    console.log(Config.sparql);
+    console.log(Config.sparql_endpoint);
 
     // const yasguiConfig = {
     //   requestConfig: {
-    //     endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+    //     endpoint: 'Config.sparql_endpoint',
     //     method: 'POST',
     //     //Example of using a getter function to define the headers field:
     //     // headers: () => ({
@@ -96,13 +97,16 @@ WHERE {
     // Yasgui.defaults = yasguiConfig;
     // Yasgui.Yasqe.defaults = yasguiConfig;
 
-    Yasgui.defaults.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
-    Yasgui.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
-    Yasgui.Yasqe.defaults.requestConfig.endpoint = 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar';
+    Yasgui.defaults.endpoint = Config.sparql_endpoint;
+    Yasgui.defaults.requestConfig.endpoint = Config.sparql_endpoint;
+    Yasgui.Yasqe.defaults.requestConfig.endpoint = Config.sparql_endpoint;
+    // TODO: fix this, and add catalog in settings.xml
+    // const catalogEndpoint = { endpoint: Config.sparql_endpoint }
     Yasgui.defaults.endpointCatalogueOptions.getData = () => {
       return [
         { endpoint: "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar" },
-        { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" }
+        { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" },
+        { endpoint: "https://bio2rdf.org/sparql" }
       ];
     };
 
