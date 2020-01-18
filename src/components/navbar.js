@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
 
 import $ from 'jquery';
@@ -73,33 +74,41 @@ class NavBar extends Component {
 
     return (
       <React.Fragment>
-        <AppBar title="into-the-graph" position='sticky'>
+        <AppBar title="" position='sticky'>
           <Toolbar>
             <Link to="/" className={classes.linkButton}>
-              <Button className={classes.menuButton}>
-              <Icon>explore</Icon>
-                &nbsp;Explore datasets
-              </Button>
+              <Tooltip title="Explore the content of the triplestore and its graph using the HCLS descriptive statistics">
+                <Button className={classes.menuButton}>
+                <Icon>explore</Icon>
+                  &nbsp;Explore datasets
+                </Button>
+              </Tooltip>
             </Link>
             <Link to={"/describe?uri=" + Config.default_describe_uri}
             className={classes.linkButton}>
-              <Button className={classes.menuButton}>
-                <Icon>format_list_bulleted</Icon>
-                &nbsp;Describe URIs
-              </Button>
+              <Tooltip title="Get all informations about an URI in the triplestore">
+                <Button className={classes.menuButton}>
+                  <Icon>format_list_bulleted</Icon>
+                  &nbsp;Describe URIs
+                </Button>
+              </Tooltip>
             </Link>
             <Link to="/sparql" className={classes.linkButton}>
-              <Button className={classes.menuButton}>
-                <Icon>share</Icon>
-                &nbsp;Run SPARQL queries
-              </Button>
+              <Tooltip title="Query the triplestore using the popular YASGUI SPARQL editor">
+                <Button className={classes.menuButton}>
+                  <Icon>share</Icon>
+                  &nbsp;Run SPARQL queries
+                </Button>
+              </Tooltip>
             </Link>
             <Link to="/comunica"
             className={classes.linkButton}>
-              <Button className={classes.menuButton}>
-                <Icon>language</Icon>
-                &nbsp;Query with Comunica
-              </Button>
+              <Tooltip title="Query the triplestore and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
+                <Button className={classes.menuButton}>
+                  <Icon>language</Icon>
+                  &nbsp;Query with Comunica
+                </Button>
+              </Tooltip>
             </Link>
             <div className="flexGrow"></div>
             {/* Search box */}
