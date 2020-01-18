@@ -10,11 +10,11 @@ module.exports = async function(env, argv) {
   //   favicon: "./web/favicon.ico"
   // })]
   // Don't display warning in asset size limit
-  config.performance = {
-    hints : false,
-    // maxEntrypointSize: 512000,
-    // maxAssetSize: 512000
-  };
+  // config.performance = {
+  //   hints : false,
+  //   maxEntrypointSize: 512000,
+  //   maxAssetSize: 512000
+  // };
   // config.entry = [
   //   './settings.json',
   // ];
