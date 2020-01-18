@@ -1,4 +1,7 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 // var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -33,24 +36,36 @@ module.exports = async function(env, argv) {
   config.module = {
     rules: [
       {
-        test: /\.ts(x?)$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader"
-          }
-        ]
+        use: {
+          loader: 'babel-loader'
+        },
       },
+      // {
+      //   test: /\.ts(x?)$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     {
+      //       loader: "ts-loader"
+      //     }
+      //   ]
+      // },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader"
-      },
+      // {
+      //   enforce: "pre",
+      //   test: /\.js$/,
+      //   loader: "source-map-loader"
+      // },
       { test: /\.css$/, use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' }
         ] 
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+        // exclude: /node_modules/,
+        use: ['file-loader?name=[name].[ext]'] // ?name=[name].[ext] is only necessary to preserve the original file name
       }
     ]
   };
