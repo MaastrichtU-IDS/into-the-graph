@@ -76,7 +76,7 @@ docker run --rm -it -p 8082:80 umids:into-the-graph
 
 ### Do a local build
 
-Or build it locally, eventually after changing `settings.json` and `queries`.
+Or build it locally, eventually after changing [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) to set your SPARQL endpoint.
 
 ```powershell
 # Build
@@ -86,13 +86,11 @@ docker build -t into-the-graph .
 docker run --rm -it -p 8082:80 into-the-graph
 ```
 
-**TODO**: pass settings at runtime:
+**TODO**: pass [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) at runtime:
 
 ```bash
 docker run -v $(pwd)/settings.json:/usr/share/nginx/html/settings.json --rm -it -p 8082:80 into-the-graph
 ```
-
-
 
 ### Restart script
 
