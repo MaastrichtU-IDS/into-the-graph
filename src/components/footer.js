@@ -57,6 +57,9 @@ export default function Footer() {
   return (
       <footer className={classes.footer}>
         <Container maxWidth="md">
+          <a href="https://github.com/MaastrichtU-IDS/into-the-graph" target="_blank">
+            <img alt="GitHub repository" src="https://img.shields.io/github/stars/MaastrichtU-IDS/into-the-graph?label=into-the-graph&style=social"/>
+          </a>
           <Typography variant="body2">
             The code of this site is licensed under the&nbsp;
             <a className={classes.whiteLink} target="_blank"

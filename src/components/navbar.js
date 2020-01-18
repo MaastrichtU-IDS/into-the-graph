@@ -112,11 +112,11 @@ class NavBar extends Component {
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <Button className={classes.menuButton} target="_blank"
+            {/* <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/into-the-graph">
               <Icon>code</Icon>
               &nbsp;GitHub
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
       </React.Fragment>
