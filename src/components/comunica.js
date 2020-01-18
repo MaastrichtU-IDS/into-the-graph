@@ -4,23 +4,8 @@ import Iframe from 'react-iframe'
 
 var Config = require('Config')
 
-const styles = theme => ({
-  menuButton: {
-    color: '#fafafa',
-    marginRight: '1em',
-    marginLeft: '1em',
-    textTransform: 'none'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-  }
-})
-
 class Comunica extends Component {
-  state = {}
   
-  componentDidMount() { }
-
   render () {
     // const { classes } = this.props;
     return <Iframe url={Config.comunica_url}
@@ -35,4 +20,4 @@ class Comunica extends Component {
       frameBorder="0"/>
   }
 }
-export default withStyles(styles)(Comunica);
+export default (Comunica);
