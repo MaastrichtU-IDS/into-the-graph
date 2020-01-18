@@ -3,13 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-// import CssBaseline from '@material-ui/core/CssBaseline';
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    // minHeight: '100vh',
+    // minHeight: '100%',
   },
   main: {
     marginTop: theme.spacing(8),
@@ -57,8 +55,6 @@ export default function Footer() {
   const classes = useStyles();
 
   return (
-    // <div className={classes.root}>
-    //   <CssBaseline />
       <footer className={classes.footer}>
         <Container maxWidth="md">
           <Typography variant="body2">
@@ -72,6 +68,5 @@ export default function Footer() {
           <Copyright />
         </Container>
       </footer>
-    // </div>
   );
 }

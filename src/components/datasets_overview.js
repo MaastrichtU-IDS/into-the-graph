@@ -21,9 +21,6 @@ const styles = theme => ({
     marginLeft: '1em',
     textTransform: 'none'
   },
-  noCap: {
-    textTransform: 'none'
-  },
   uriLink: {
     textDecoration: 'none',
     color: theme.palette.primary.main,

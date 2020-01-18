@@ -16,11 +16,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { LinkDescribe } from "./link_describe";
 
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
-
 const styles = theme => ({
   italic: {
     fontStyle: 'italic'
@@ -34,10 +29,6 @@ const styles = theme => ({
   showMoreButton: {
     textTransform: 'none',
     margin: theme.spacing(2),
-  },
-  noCap: {
-    // TODO: remove?
-    textTransform: 'none'
   },
   uriLink: {
     textDecoration: 'none',
