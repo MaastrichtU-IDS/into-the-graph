@@ -28,6 +28,7 @@ module.exports = async function(env, argv) {
       // Add '.ts' and '.tsx' as resolvable extensions.
       extensions: [".ts", ".tsx", ".js"]
   };
+  // config.include = __dirname + "/src/";
 
   config.module = {
     rules: [
@@ -45,6 +46,11 @@ module.exports = async function(env, argv) {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader"
+      },
+      { test: /\.css$/, use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ] 
       }
     ]
   };

@@ -40,7 +40,7 @@ const theme = createMuiTheme({
 });
 
 // Routing happens here
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <React.Fragment>
@@ -62,4 +62,4 @@ class App extends Component {
     );
   }
 }
-export default (App);
+// export default (App);
