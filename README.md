@@ -33,7 +33,7 @@ yarn add my-package --dev
 ### Start the development server
 
 ```bash
-yarn web
+yarn dev
 ```
 
 > Access at http://localhost:19006
