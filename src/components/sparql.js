@@ -72,23 +72,23 @@ WHERE {
 } ORDER BY DESC(?classCount1)`;
   
   componentDidMount() {
-    
     // Documentation: https://triply.cc/docs/yasgui-api
-    const yasguiConfig = {
-      requestConfig: {
-        endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
-        method: 'POST',
-        //Example of using a getter function to define the headers field:
-        // headers: () => ({
-        //   'key': 'value'
-        // }),
-      },
-      // resizeable: true,  // Allow resizing of the Yasqe editor
-      // autofocus: true, // Whether to autofocus on Yasqe on page load
-      // copyEndpointOnNewTab: false  // Use the default endpoint when a new tab is opened
-      // Configuring which endpoints appear in the endpoint catalogue list
-      // endpointCatalogueOptions.getData = () => {}
-    }
+    
+    // const yasguiConfig = {
+    //   requestConfig: {
+    //     endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+    //     method: 'POST',
+    //     //Example of using a getter function to define the headers field:
+    //     // headers: () => ({
+    //     //   'key': 'value'
+    //     // }),
+    //   },
+    //   resizeable: true,  // Allow resizing of the Yasqe editor
+    //   autofocus: true, // Whether to autofocus on Yasqe on page load
+    //   copyEndpointOnNewTab: false  // Use the default endpoint when a new tab is opened
+    //   // Configuring which endpoints appear in the endpoint catalogue list
+    //   // endpointCatalogueOptions.getData = () => {}
+    // }
     // Yasgui.defaults = yasguiConfig;
     // Yasgui.Yasqe.defaults = yasguiConfig;
 
