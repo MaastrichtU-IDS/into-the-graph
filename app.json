@@ -2,7 +2,8 @@
     "expo": {
       "name": "Into the Graph",
       "slug": "into-the-graph",
-      "sdkVersion": "35.0.0",
+      "version": "0.0.1",
+      "sdkVersion": "36.0.0",
       "privacy": "unlisted",
       "platforms": [
         "web"
