@@ -76,7 +76,7 @@ docker run --rm -it -p 8082:80 umids:into-the-graph
 
 ### Do a local build
 
-Or build it locally, eventually after changing [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) to set your SPARQL endpoint.
+Or build it locally, eventually after changing [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) to change various parameters.
 
 ```powershell
 # Build
@@ -85,6 +85,16 @@ docker build -t into-the-graph .
 # Run
 docker run --rm -it -p 8082:80 into-the-graph
 ```
+
+The following parameters can be changed in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json):
+
+* `sparql_endpoint`: the SPARQL endpoint to browse
+* `comunica_url`: Comunica widget URL that will be displayed as an iFrame (original: http://query.linkeddatafragments.org/)
+* `default_describe_uri`: default URI used in the link to the Describe page in the navbar
+* `prefixes`: dictionary of prefixes and the corresponding namespace used to resolved URIs in the web UI
+* `search_query`: the SPARQL query used when doing a search (allow to define SPARQL query using custom search indexes)
+  * The SPARQL query should return `?searchUri` and `?searchLabel` as results of the search
+  * Use `$TEXT_TO_SEARCH` to define the emplacement for the search text in the query
 
 **TODO**: pass [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) at runtime:
 
