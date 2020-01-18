@@ -77,16 +77,16 @@ class NavBar extends Component {
         <AppBar title="" position='sticky'>
           <Toolbar>
             <Link to="/" className={classes.linkButton}>
-              <Tooltip title="Explore the content of the triplestore and its graph using the HCLS descriptive statistics">
+              <Tooltip title="Explore the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
                 <Icon>explore</Icon>
                   &nbsp;Explore datasets
                 </Button>
-              </Tooltip>
+              </Tooltip>  
             </Link>
             <Link to={"/describe?uri=" + Config.default_describe_uri}
             className={classes.linkButton}>
-              <Tooltip title="Get all informations about an URI in the triplestore">
+              <Tooltip title="Get all informations about an URI from the triplestore">
                 <Button className={classes.menuButton}>
                   <Icon>format_list_bulleted</Icon>
                   &nbsp;Describe URIs
@@ -94,7 +94,7 @@ class NavBar extends Component {
               </Tooltip>
             </Link>
             <Link to="/sparql" className={classes.linkButton}>
-              <Tooltip title="Query the triplestore using the popular YASGUI SPARQL editor">
+              <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
                 <Button className={classes.menuButton}>
                   <Icon>share</Icon>
                   &nbsp;Run SPARQL queries
