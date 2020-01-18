@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
 import "@triply/yasgui/build/yasgui.min.css";
+var Config = require('Config')
 
 const styles = theme => ({
   menuButton: {
@@ -74,6 +75,9 @@ WHERE {
   componentDidMount() {
     // Documentation: https://triply.cc/docs/yasgui-api
     
+    console.log("fetchData");
+    console.log(Config.sparql);
+
     // const yasguiConfig = {
     //   requestConfig: {
     //     endpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',

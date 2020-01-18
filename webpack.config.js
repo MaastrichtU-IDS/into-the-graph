@@ -15,5 +15,12 @@ module.exports = async function(env, argv) {
     // maxEntrypointSize: 512000,
     // maxAssetSize: 512000
   };
+  // config.entry = [
+  //   './settings.json',
+  // ];
+  const production = true;
+  config.externals = {
+    'Config': JSON.stringify(production ? require('./settings.json') : require('./settings.dev.json'))
+  }
   return config;
 };

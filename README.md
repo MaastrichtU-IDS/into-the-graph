@@ -1,24 +1,33 @@
 # Lightweight RDF linked data browser
 
-Browse a RDF triplestore by providing the SPARQL endpoint URL, browser supports graphs, includes a YASGUI editor and provide insights using precomputed [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/). 
-
-It has been developped and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
-
-> Explore the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
+Browse a RDF triplestore by providing the SPARQL endpoint URL. The browser supports graphs, includes a YASGUI editor, and provides insights using precomputed [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/). 
 
 Into-the-graph is built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data from any SPARQL endpoint (better performance using [RDF4J server](https://rdf4j.eclipse.org/documentation/server-workbench-console/)).
 
-This RDF linked data browser gives you access to a [YASGUI](http://doc.yasgui.org/) SPARQL endpoint and enables you to browse the triplestore statements easily.  The app will extract metadata and provide insights about the content of your triplestore's graphs using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
+This RDF linked data browser features:
+
+* A [YASGUI](http://doc.yasgui.org/) SPARQL endpoint.
+* A [Comunica widget](http://query.linkeddatafragments.org/) to query Linked Data Fragments with SPARQL and GraphQL.
+* A web-based browser to browse the triplestore statements easily.
+* Insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
 > [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/) can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it.
 
-A few things to know:
+### Things to know
 
 * Runs on http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar by default.
 
-* Can be changed to any SPARQL endpoint, but URL needs to be changed in the JavaScript before [Docker](https://docs.docker.com/install/) build at the moment.
+* Can be changed to any SPARQL endpoint, but URL needs to be changed in the JavaScript before [Docker](https://docs.docker.com/install/) build at the moment. See [related issue](https://github.com/MaastrichtU-IDS/into-the-graph/issues/8) for more details.
 
   > Search for `http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar` in the repo.
+
+### The Data2Services framework
+
+It has been developped and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. 
+
+[Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
+
+> Checkout the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
 
 # Development
 
@@ -76,6 +85,14 @@ docker build -t into-the-graph .
 # Run
 docker run --rm -it -p 8082:80 into-the-graph
 ```
+
+**TODO**: pass settings at runtime:
+
+```bash
+docker run -v $(pwd)/settings.json:/usr/share/nginx/html/settings.json --rm -it -p 8082:80 into-the-graph
+```
+
+
 
 ### Restart script
 
