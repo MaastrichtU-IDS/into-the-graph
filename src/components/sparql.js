@@ -110,6 +110,8 @@ WHERE {
       ];
     };
 
+    Yasr.defaults.prefixes = Config.prefixes;
+
     const yasgui = new Yasgui(document.getElementById('yasguiDiv'));
 
     // Only add HCLS stats tabs if less than 3 tabs
