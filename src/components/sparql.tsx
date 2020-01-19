@@ -22,7 +22,7 @@ const styles = ({ spacing }: Theme) => createStyles({
   }
 });
 
-type SparqlProps = {
+interface SparqlProps {
   classes: any
 }
 

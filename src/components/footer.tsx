@@ -38,7 +38,8 @@ const styles = ({ spacing, palette }: Theme) => createStyles({
   },
 });
 
-type Props = {
+// type Props = {
+interface Props {
   classes: any
 }
 
