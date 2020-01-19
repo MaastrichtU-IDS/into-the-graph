@@ -29,9 +29,6 @@ const styles = theme => ({
     textTransform: 'none',
     textDecoration: 'none'
   },
-  whiteColor: {
-    color: theme.palette.secondary.main,
-  },
   paperSearch: {
     padding: '2px 4px',
     display: 'flex',

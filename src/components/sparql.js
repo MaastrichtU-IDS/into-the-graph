@@ -8,12 +8,6 @@ import "@triply/yasgui/build/yasgui.min.css";
 var Config = require('Config')
 
 const styles = theme => ({
-  menuButton: {
-    color: theme.palette.secondary.main,
-    marginRight: '1em',
-    marginLeft: '1em',
-    textTransform: 'none'
-  },
   paperPadding: {
     padding: theme.spacing(2, 2),
   }
