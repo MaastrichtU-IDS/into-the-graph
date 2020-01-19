@@ -4,7 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 //import ReactDOM from 'react-dom';
 
-import './App.css';
+// import './App.css';
+// import * as css from './App.css'
+const css = require('./App.css')
+
 import NavBar from './components/navbar';
 import Footer from './components/footer';
 import SparqlComponent from './components/sparql';
@@ -14,9 +17,9 @@ import ComunicaComponent from './components/comunica';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import orange from '@material-ui/core/colors/orange';
 import grey from '@material-ui/core/colors/grey';
 // import blueGrey from '@material-ui/core/colors/blueGrey';
+// import orange from '@material-ui/core/colors/orange';
 
 // Change theme color and typography here
 const theme = createMuiTheme({
@@ -46,7 +49,7 @@ export class App extends React.Component {
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
-          <div style={{width: '100%', height: '100%'}}>
+          <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
