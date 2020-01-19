@@ -183,8 +183,8 @@ class Describe extends Component {
           let searchResults = [];
           sparqlResultArray.forEach((sparqlResultRow) => {
             searchResults.push({
-              searchUri: sparqlResultRow.searchUri.value , 
-              searchLabel: sparqlResultRow.searchLabel.value
+              foundUri: sparqlResultRow.foundUri.value , 
+              foundLabel: sparqlResultRow.foundLabel.value
             })
           })
           this.setState({ searchResults });
@@ -243,11 +243,11 @@ class Describe extends Component {
                       return <React.Fragment key={key}>
                         <Grid item xs={6}>
                           <Paper className={classes.paperPadding}>
-                            <LinkDescribe variant='body2' uri={searchResult.searchUri}/>
+                            <LinkDescribe variant='body2' uri={searchResult.foundUri}/>
                           </Paper>
                         </Grid>
                         <Grid item xs={6}>
-                          <Typography variant="body2">{searchResult.searchLabel}</Typography>
+                          <Typography variant="body2">{searchResult.foundLabel}</Typography>
                         </Grid>
                       </React.Fragment> 
                     })}
@@ -295,25 +295,25 @@ class Describe extends Component {
     let searchQuery = Config.search_query;
     if (searchQuery) {
       // If defined in settings.json
-      // Results are provided through ?searchUri and ?searchLabel
+      // Results are provided through ?foundUri and ?foundLabel
       // Use $TEXT_TO_SEARCH as search variable to replace
       searchQuery = searchQuery.replace('$TEXT_TO_SEARCH', textToSearch)
     } else {
       // Default search query, if no query provided
-      searchQuery = `SELECT ?searchUri ?searchLabel WHERE {
-        ?searchUri ?p ?searchLabel .
+      searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+        ?foundUri ?p ?foundLabel .
         VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-        FILTER(isLiteral(?searchLabel))
-        FILTER contains(?searchLabel, "$TEXT_TO_SEARCH")
+        FILTER(isLiteral(?foundLabel))
+        FILTER contains(?foundLabel, "$TEXT_TO_SEARCH")
         } LIMIT 5`.replace('$TEXT_TO_SEARCH', textToSearch)
     }
     return encodeURIComponent(searchQuery);
   }
   // GraphDB search index query
   // PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
-  // SELECT ?searchUri ?searchLabel {
-  //   ?searchUri luc:labelIndex "*$TEXT_TO_SEARCH*" .
-  //   ?searchUri luc:labelIndex ?searchLabel .
+  // SELECT ?foundUri ?foundLabel {
+  //   ?foundUri luc:foundIndex "*$TEXT_TO_SEARCH*" .
+  //   ?foundUri luc:foundIndex ?foundLabel .
   // }
 } 
 export default withStyles(styles)(Describe);
