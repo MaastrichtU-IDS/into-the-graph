@@ -6,19 +6,17 @@ body {
   padding: 0;
   text-align: center;
 }
+.flexGrow {
+  flex-grow: 1;
+}
+.mainContainer {
+  margin-top: 40px;
+  margin-bottom: 40px; 
+}
 
 // Fix font in yasgui editor
 .CodeMirror {
   font-family: "Open Sans" !important;
-}
-
-.flexGrow {
-  flex-grow: 1;
-}
-
-.mainContainer {
-  margin-top: 40px;
-  margin-bottom: 40px; 
 }
 
 // Data table fix to avoid overflow
@@ -38,7 +36,6 @@ body {
   overflow: hidden;
   word-break: break-word;
 }
-
 
 // Make tabs look like Material UI
 .react-tabs__tab-list {
