@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { withStyles, createStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";

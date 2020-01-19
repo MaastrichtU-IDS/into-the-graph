@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { withStyles, createStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
