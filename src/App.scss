@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: 'Open Sans';
+}
+
+// Fix font in yasgui editor
+.CodeMirror {
+  font-family: "Open Sans" !important;
+}
+
 .flexGrow {
   flex-grow: 1;
 }
