@@ -1,23 +1,24 @@
-import React from 'react';
+import * as React from 'react';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-const useStyles = makeStyles(theme => ({
+const styles = ({ spacing, palette }: Theme) => createStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
     // minHeight: '100%',
   },
   main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
+    marginTop: spacing(8),
+    marginBottom: spacing(2),
   },
   darkLink: {
     textDecoration: 'none',
     color: 'inherit',
     '&:hover': {
-      color: theme.palette.primary.light,
+      color: palette.primary.light,
       textDecoration: 'none',
     },
   },
@@ -25,22 +26,24 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     color: 'inherit',
     '&:hover': {
-      color: theme.palette.primary.dark,
+      color: palette.primary.dark,
       textDecoration: 'none',
     },
   },
   footer: {
-    padding: theme.spacing(2),
+    padding: spacing(2),
     marginTop: 'auto',
     color: 'white',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: palette.primary.main,
   },
-}));
+});
 
-function Copyright() {
-  const classes = useStyles();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
+type Props = {
+  classes: any
+}
+
+const Copyright = withStyles(styles)(({ classes }: Props) => (
+  <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <a className={classes.darkLink} target="_blank"
       href="https://maastrichtuniversity.nl/ids">
@@ -48,12 +51,9 @@ function Copyright() {
       </a>{' '}
       {'2019-2020.'}
     </Typography>
-  );
-}
+));
 
-export default function Footer() {
-  const classes = useStyles();
-
+function Footer({classes}: Props) {
   return (
       <footer className={classes.footer}>
         <Container maxWidth="md">
@@ -74,3 +74,4 @@ export default function Footer() {
       </footer>
   );
 }
+export default withStyles(styles)(Footer)
