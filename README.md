@@ -91,9 +91,9 @@ The following parameters can be changed in [settings.json](https://github.com/Ma
 
   ```SPARQL
   PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
-  SELECT ?searchUri ?searchLabel {
-    ?searchUri luc:labelIndex "*$TEXT_TO_SEARCH*" .
-    ?searchUri luc:labelIndex ?searchLabel .
+  SELECT ?foundUri ?foundLabel {
+    ?foundUri luc:labelIndex "*$TEXT_TO_SEARCH*" .
+    ?foundUri luc:labelIndex ?foundLabel .
   }
   ```
 
