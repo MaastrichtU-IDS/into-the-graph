@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { withStyles } from '@material-ui/core/styles';
+import * as React from "react";
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { withStyles, createStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
@@ -7,20 +8,25 @@ import "@triply/yasgui/build/yasgui.min.css";
 
 var Config = require('Config')
 
-const styles = theme => ({
+const styles = ({ spacing }: Theme) => createStyles({
   menuButton: {
     color: '#fafafa',
     marginRight: '1em',
     marginLeft: '1em',
-    textTransform: 'none'
+    textTransform: 'none',
+    // backgroundColor: palette.background.default,
+    // color: palette.primary.main,
   },
   paperPadding: {
-    padding: theme.spacing(2, 2),
+    padding: spacing(2, 2),
   }
-})
+});
 
-class Sparql extends Component {
-  state = {}
+type SparqlProps = {
+  classes: any
+}
+
+class Sparql extends React.Component<SparqlProps> {
 
   statisticsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -94,7 +100,6 @@ WHERE {
     // Yasgui.defaults = yasguiConfig;
     // Yasgui.Yasqe.defaults = yasguiConfig;
 
-    Yasgui.defaults.endpoint = Config.sparql_endpoint;
     Yasgui.defaults.requestConfig.endpoint = Config.sparql_endpoint;
     Yasgui.Yasqe.defaults.requestConfig.endpoint = Config.sparql_endpoint;
     // TODO: fix this, and add catalog in settings.xml
@@ -112,7 +117,7 @@ WHERE {
     Yasgui.defaults.yasr.prefixes = Config.prefixes;
     console.log(Yasgui);
 
-    const yasgui = new Yasgui(document.getElementById('yasguiDiv'));
+    const yasgui = new Yasgui(document.getElementById('yasguiDiv'), Yasgui.defaults);
 
     // Only add HCLS stats tabs if less than 3 tabs
     if (Object.keys(yasgui._tabs).length < 3) {
@@ -131,6 +136,7 @@ WHERE {
 
   render () {
     const { classes } = this.props;
+    
     return <Container maxWidth="xl">
         <Paper elevation={2} style={{textAlign: 'left'}}
         className={['mainContainer', classes.paperPadding].join(' ')}>

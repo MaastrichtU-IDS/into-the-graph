@@ -11,7 +11,7 @@ import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/datasets_overview';
 import ComunicaComponent from './components/comunica';
 
-const css = require('./App.css')
+const css = require('./App.css');
 // import * as css from './App.css'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
