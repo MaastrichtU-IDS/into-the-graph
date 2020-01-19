@@ -5,7 +5,10 @@ const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 module.exports = async function(env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
   // Customize the config before returning it (example here)
-  
+  // config.entry = [
+  //   './src/index.j',
+  // ];
+
   // config.plugins = [new HtmlWebpackPlugin({
   //   favicon: "./web/favicon.ico"
   // })]
@@ -15,9 +18,6 @@ module.exports = async function(env, argv) {
   //   maxEntrypointSize: 512000,
   //   maxAssetSize: 512000
   // };
-  // config.entry = [
-  //   './settings.json',
-  // ];
   const production = true;
   config.externals = {
     'Config': JSON.stringify(production ? require('./settings.json') : require('./settings.dev.json'))
