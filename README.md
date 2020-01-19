@@ -85,7 +85,7 @@ The following parameters can be changed in [settings.json](https://github.com/Ma
 
 * `search_query`: the SPARQL query used when doing a search (allow to define SPARQL query using custom search indexes)
 
-  * The SPARQL query should return `?searchUri` and `?searchLabel` as results of the search
+  * The SPARQL query should return `?foundUri` and `?foundLabel` as results of the search
   * Use `$TEXT_TO_SEARCH` to define the emplacement for the search text in the query
   * e.g. query using [GraphDB full-text search](http://graphdb.ontotext.com/documentation/free/full-text-search.html):
 
