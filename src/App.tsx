@@ -4,16 +4,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 //import ReactDOM from 'react-dom';
 
-// import './App.css';
-// import * as css from './App.css'
-const css = require('./App.css')
-
 import NavBar from './components/navbar';
 import Footer from './components/footer';
 import SparqlComponent from './components/sparql';
 import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/datasets_overview';
 import ComunicaComponent from './components/comunica';
+
+const css = require('./App.css')
+// import * as css from './App.css'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -28,11 +27,7 @@ const theme = createMuiTheme({
     // Same color as Angular into-the-graph: blue[700] / #1976d2
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
-    // white: 
   },
-  // status: {
-  //   danger: orange,
-  // },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
     "fontSize": 16,
