@@ -22,22 +22,9 @@ const styles = theme => ({
   italic: {
     fontStyle: 'italic'
   },
-  menuButton: {
-    color: '#fafafa',
-    marginRight: '1em',
-    marginLeft: '1em',
-    textTransform: 'none'
-  },
   showMoreButton: {
     textTransform: 'none',
     margin: theme.spacing(2),
-  },
-  uriLink: {
-    textDecoration: 'none',
-    color: 'rgba(0, 0, 0, 0.87)',
-    '& :hover': {
-      color: '#2196f3',
-    },
   },
   alignRight: {
     textAlign: 'right'

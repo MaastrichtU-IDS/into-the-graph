@@ -18,7 +18,7 @@ var Config = require('Config')
 
 const styles = theme => ({
   menuButton: {
-    color: '#fafafa',
+    color: theme.palette.secondary.main,
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none',
@@ -30,7 +30,7 @@ const styles = theme => ({
     textDecoration: 'none'
   },
   whiteColor: {
-    color: '#fafafa'
+    color: theme.palette.secondary.main,
   },
   paperSearch: {
     padding: '2px 4px',
