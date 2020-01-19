@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { LinkDescribe } from "./link_describe";
+import { LinkDescribe } from "./LinkDescribe";
 
 var Config = require('Config')
 

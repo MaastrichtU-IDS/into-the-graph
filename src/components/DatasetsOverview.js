@@ -4,12 +4,12 @@ import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import { LinkDescribe } from "./link_describe";
+import { LinkDescribe } from "./LinkDescribe";
 
 var Config = require('Config')
 
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
-const $ = require('jquery');
+import $ from 'jquery';
 $.DataTable = require('datatables.net');
 // Shoud also work:
 // import $ from 'jquery'

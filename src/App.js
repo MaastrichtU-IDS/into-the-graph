@@ -9,7 +9,7 @@ import NavBar from './components/navbar';
 import Footer from './components/footer';
 import SparqlComponent from './components/sparql';
 import DescribeComponent from './components/describe';
-import DatasetsOverviewComponent from './components/datasets_overview';
+import DatasetsOverviewComponent from './components/DatasetsOverview';
 import ComunicaComponent from './components/comunica';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
