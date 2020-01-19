@@ -14,9 +14,9 @@ import ComunicaComponent from './components/comunica';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import orange from '@material-ui/core/colors/orange';
 import grey from '@material-ui/core/colors/grey';
 // import blueGrey from '@material-ui/core/colors/blueGrey';
+// import orange from '@material-ui/core/colors/orange';
 
 // Change theme color and typography here
 const theme = createMuiTheme({
@@ -27,9 +27,9 @@ const theme = createMuiTheme({
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
     // white: 
   },
-  status: {
-    danger: orange,
-  },
+  // status: {
+  //   danger: orange,
+  // },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
     "fontSize": 16,
@@ -46,7 +46,7 @@ class App extends Component {
       <React.Fragment>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
-          <div style={{width: '100%', height: '100%'}}>
+          <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
