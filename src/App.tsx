@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 // TODO: which one to keep?
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -27,9 +27,9 @@ const theme = createMuiTheme({
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
     // white: 
   },
-  status: {
-    danger: orange,
-  },
+  // status: {
+  //   danger: orange,
+  // },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
     "fontSize": 16,
@@ -40,7 +40,7 @@ const theme = createMuiTheme({
 });
 
 // Routing happens here
-export class App extends Component {
+export class App extends React.Component {
   render() {
     return (
       <React.Fragment>
