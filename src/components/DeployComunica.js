@@ -3,7 +3,7 @@ import Iframe from 'react-iframe'
 
 var Config = require('Config')
 
-class Comunica extends Component {
+class DeployComunica extends Component {
   
   render () {
     // const { classes } = this.props;
@@ -19,4 +19,4 @@ class Comunica extends Component {
       frameBorder="0"/>
   }
 }
-export default (Comunica);
+export default (DeployComunica);

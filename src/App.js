@@ -8,9 +8,9 @@ import './App.css';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
 import DeployYasguiComponent from './components/DeployYasgui';
+import DeployComunicaComponent from './components/DeployComunica';
 import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/DatasetsOverview';
-import ComunicaComponent from './components/comunica';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -52,7 +52,7 @@ class App extends Component {
               <Route exact path='/' component={DatasetsOverviewComponent} />
               <Route exact path='/sparql' component={DeployYasguiComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
-              <Route exact path='/comunica' component={ComunicaComponent} />
+              <Route exact path='/comunica' component={DeployComunicaComponent} />
             </Switch>
             <Footer />
           </div>
