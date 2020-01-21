@@ -192,7 +192,7 @@ class DatasetsOverview extends Component {
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
-    GRAPH ?g {
+    GRAPH ?graph {
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:description ?description ;
@@ -200,17 +200,21 @@ class DatasetsOverview extends Component {
         ?version dct:isVersionOf ?dataset ;
           dcat:distribution ?graph .
       }
-      ?graph a void:Dataset ;
-        void:triples ?statements ;
-        void:entities ?entities ;
-        void:properties ?properties .
+      OPTIONAL {
+        ?graph a void:Dataset ;
+          void:triples ?statements ;
+          void:entities ?entities ;
+          void:properties ?properties .
+      }
       OPTIONAL {
         ?graph dct:issued ?dateGenerated .
       }
-      ?graph void:classPartition [
-        void:class rdfs:Class ;
-        void:distinctSubjects ?classes
-      ] .
+      OPTIONAL {
+        ?graph void:classPartition [
+          void:class rdfs:Class ;
+          void:distinctSubjects ?classes
+        ] .
+      }
     }
   } ORDER BY DESC(?statements)`;
 
@@ -226,7 +230,7 @@ class DatasetsOverview extends Component {
   PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
   WHERE {
-    GRAPH ?g {
+    GRAPH ?graph {
       ?graph a void:Dataset .
       ?graph void:propertyPartition [
           void:property ?relationWith ;
