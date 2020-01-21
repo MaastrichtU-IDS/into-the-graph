@@ -1,7 +1,6 @@
 {
-  "sparql_endpoint": "http://localhost:8890/sparql",
+  "sparql_endpoint": "http://localhost:7200/repositories/test",
   "comunica_url": "http://query.linkeddatafragments.org/",
-  "default_describe_uri": "http://bio2rdf.org/drugbank:DB00001",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
@@ -23,5 +22,5 @@
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 2"
+  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 4"
 }
