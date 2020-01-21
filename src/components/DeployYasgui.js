@@ -13,7 +13,7 @@ const styles = theme => ({
   }
 })
 
-class Sparql extends Component {
+class DeployYasgui extends Component {
 
   statisticsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
@@ -74,7 +74,7 @@ class Sparql extends Component {
       ]] .
     }
   } ORDER BY DESC(?classCount1)`;
-  
+
   componentDidMount() {
     // Documentation: https://triply.cc/docs/yasgui-api
 
@@ -143,4 +143,4 @@ class Sparql extends Component {
       </Container>
   }
 }
-export default withStyles(styles)(Sparql);
+export default withStyles(styles)(DeployYasgui);

@@ -12,10 +12,6 @@ import Icon from '@material-ui/core/Icon';
 
 import $ from 'jquery';
 
-var Config = require('Config')
-
-// import Typography from '@material-ui/core/Typography'
-
 const styles = theme => ({
   menuButton: {
     color: theme.palette.secondary.main,
@@ -81,7 +77,7 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>  
             </Link>
-            <Link to={"/describe?uri=" + Config.default_describe_uri}
+            <Link to={"/describe?uri="}
             className={classes.linkButton}>
               <Tooltip title="Get all informations about an URI from the triplestore">
                 <Button className={classes.menuButton}>
