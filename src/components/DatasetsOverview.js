@@ -65,6 +65,14 @@ function displayDate(dateToDisplay) {
   }
 }
 
+function displayTableCell(stringToDisplay) {
+  if (stringToDisplay) {
+    return stringToDisplay.value;
+  } else {
+    return 'Not computed';
+  }
+}
+
 class DatasetsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
@@ -115,10 +123,10 @@ class DatasetsOverview extends Component {
             return <tr key={key}>
               <td>{row.graph.value}</td>
               <td>{displayDate(row.dateGenerated)}</td>
-              <td>{row.statements.value}</td>
-              <td>{row.entities.value}</td>
-              <td>{row.properties.value}</td>
-              <td>{row.classes.value}</td>
+              <td>{displayTableCell(row.statements)}</td>
+              <td>{displayTableCell(row.entities)}</td>
+              <td>{displayTableCell(row.properties)}</td>
+              <td>{displayTableCell(row.classes)}</td>
             </tr>;
           })}
         </tbody>
@@ -193,6 +201,7 @@ class DatasetsOverview extends Component {
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?graph {
+      [] ?dummyProp [] .
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:description ?description ;
