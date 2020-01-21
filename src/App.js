@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
-import SparqlComponent from './components/sparql';
+import SparqlYasguiComponent from './components/SparqlYasgui';
 import DescribeComponent from './components/describe';
 import DatasetsOverviewComponent from './components/DatasetsOverview';
 import ComunicaComponent from './components/comunica';
@@ -50,7 +50,7 @@ class App extends Component {
             <NavBar />
             <Switch>
               <Route exact path='/' component={DatasetsOverviewComponent} />
-              <Route exact path='/sparql' component={SparqlComponent} />
+              <Route exact path='/sparql' component={SparqlYasguiComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
               <Route exact path='/comunica' component={ComunicaComponent} />
             </Switch>
