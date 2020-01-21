@@ -200,8 +200,7 @@ class DatasetsOverview extends Component {
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
-    GRAPH ?graph {
-      [] ?dummyProp [] .
+    GRAPH ?metadataGraph {
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:description ?description ;
@@ -209,12 +208,10 @@ class DatasetsOverview extends Component {
         ?version dct:isVersionOf ?dataset ;
           dcat:distribution ?graph .
       }
-      OPTIONAL {
-        ?graph a void:Dataset ;
-          void:triples ?statements ;
-          void:entities ?entities ;
-          void:properties ?properties .
-      }
+      ?graph a void:Dataset ;
+        void:triples ?statements ;
+        void:entities ?entities ;
+        void:properties ?properties .
       OPTIONAL {
         ?graph dct:issued ?dateGenerated .
       }
@@ -239,7 +236,7 @@ class DatasetsOverview extends Component {
   PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
   WHERE {
-    GRAPH ?graph {
+    GRAPH ?metadataGraph {
       ?graph a void:Dataset .
       ?graph void:propertyPartition [
           void:property ?relationWith ;
