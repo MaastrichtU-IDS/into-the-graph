@@ -96,7 +96,9 @@ WHERE {
       return [
         { endpoint: "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar" },
         { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" },
-        { endpoint: "https://bio2rdf.org/sparql" }
+        { endpoint: "https://bio2rdf.org/sparql" },
+        { endpoint: "http://localhost:8890/sparql" },
+        { endpoint: "http://localhost:7200/repositories/test" }
       ];
     };
 
