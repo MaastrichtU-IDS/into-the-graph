@@ -13,7 +13,7 @@ const styles = theme => ({
   }
 })
 
-class SparqlYasgui extends Component {
+class DeployYasgui extends Component {
 
   statisticsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -146,4 +146,4 @@ GRAPH ?graph {
       </Container>
   }
 }
-export default withStyles(styles)(SparqlYasgui);
+export default withStyles(styles)(DeployYasgui);
