@@ -48,10 +48,6 @@ const styles = theme => ({
   },
   font300: {
     fontWeight: 300
-  },
-  hclsNotice: {
-    fontWeight: 300,
-    textAlign: "left"
   }
 })
 
@@ -159,17 +155,23 @@ class DatasetsOverview extends Component {
           })}
         </tbody>
       </table> )
+    } else {
+      entitiesRelationsTable = ( 
+        <Typography variant="body2">
+          No HCLS descriptive statistics have been found for entities relations.
+        </Typography>
+      )
     }
     // Now render the tables!
     return (
       <Container maxWidth="xl">
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
-          <Typography variant="body2" className={classes.hclsNotice}>
+          <Typography variant="body2">
             Graphs statistics have been generated following the&nbsp;
             <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
             .
           </Typography>
-          <Typography variant="body2" className={classes.hclsNotice} style={{marginTop: '10px'}}>
+          <Typography variant="body2" style={{marginTop: '10px'}}>
             They can be easily precomputed and inserted in your triplestore using a simple docker container.
             Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
             className={classes.uriLink} target="_blank">those instructions</a> to compute them. 
