@@ -121,7 +121,7 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.statsOverview.map((row, key) => {
             return <tr key={key}>
-              <td>{row.graph.value}</td>
+              <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
               <td>{displayDate(row.dateGenerated)}</td>
               <td>{displayTableCell(row.statements)}</td>
               <td>{displayTableCell(row.entities)}</td>
@@ -149,7 +149,7 @@ class DatasetsOverview extends Component {
         <tbody>
           {this.state.entitiesRelations.map((row, key) => {
             return <tr key={key}>
-              <td>{row.graph.value}</td>
+              <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
               <td>{row.classCount1.value}</td>
               <td><LinkDescribe uri={row.class1.value} variant='body2'/></td>
               <td><LinkDescribe uri={row.relationWith.value} variant='body2'/></td>
