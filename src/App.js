@@ -27,9 +27,6 @@ const theme = createMuiTheme({
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
     // white: 
   },
-  // status: {
-  //   danger: orange,
-  // },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
     "fontSize": 16,
