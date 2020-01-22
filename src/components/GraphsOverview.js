@@ -81,17 +81,14 @@ class GraphsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
+    // First get the graphs overview with HCLS metadata
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.graphsOverviewQuery))
       .then(res => {
-        // this.setState( { statsOverview: res.data.results.bindings } );
         var graphWithHcls = res.data.results.bindings;
-        console.log("Graph with HCLS");
-        console.log(graphWithHcls);
+        // then get all graphs, even with no metadata
         axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
           .then(res => {
             var allGraphsResults = res.data.results.bindings;
-            console.log("allGraphsResults");
-            console.log(allGraphsResults);
             var allGraphsWithoutHcls;
             // Filter HCLS graphs out of the results to get all graphs
             if (graphWithHcls.length > 0) {
@@ -100,7 +97,7 @@ class GraphsOverview extends Component {
                     return allGraphsRow.graph.value !== hclsGraphRow.graph.value;
                 });
               })
-              console.log(allGraphsWithoutHcls);
+              // Add graphs without hcls (just filtered), to the graphWithHcls var
               allGraphsWithoutHcls.map((graphRow) => {
                 graphWithHcls.push({ graph: graphRow.graph})
               })
@@ -108,8 +105,6 @@ class GraphsOverview extends Component {
               // If no graph with HCLS metadata then take directly the allGraphs array
               graphWithHcls = allGraphsResults;
             }
-            console.log("graphWithHcls");
-            console.log(graphWithHcls);
             this.setState( { statsOverview: graphWithHcls } );
             $(this.refs.statsOverview).DataTable();
           });
@@ -156,8 +151,6 @@ class GraphsOverview extends Component {
           {this.state.statsOverview.map((row, key) => {
             return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
               <tr>
-                {console.log("row.graph")}
-                {console.log(row.graph)}
                 <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
                 <td>{displayDate(row.dateGenerated)}</td>
                 <td>{displayTableCell(row.statements)}</td>
