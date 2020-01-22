@@ -69,7 +69,7 @@ function displayTableCell(stringToDisplay) {
   }
 }
 
-class DatasetsOverview extends Component {
+class GraphsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
@@ -258,7 +258,7 @@ class DatasetsOverview extends Component {
     }
   } ORDER BY DESC(?classCount1)`;
 }
-export default withStyles(styles) (DatasetsOverview);
+export default withStyles(styles) (GraphsOverview);
 
 // Turgay snippet:
 // state ={
