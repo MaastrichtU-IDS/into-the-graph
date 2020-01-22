@@ -78,14 +78,14 @@ function displayDescription(nameToDisplay, descriptionToDisplay) {
 }
 
 class GraphsOverview extends Component {
-  state = {statsOverview: [], entitiesRelations:[]}
+  state = {graphsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
     // First get the graphs overview with HCLS metadata
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.graphsOverviewQuery))
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.hclsOverviewQuery))
       .then(res => {
         var graphWithHcls = res.data.results.bindings;
-        // then get all graphs, even with no metadata
+        // Then get all graphs, even with no metadata
         axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
           .then(res => {
             var allGraphsResults = res.data.results.bindings;
@@ -105,11 +105,11 @@ class GraphsOverview extends Component {
               // If no graph with HCLS metadata then take directly the allGraphs array
               graphWithHcls = allGraphsResults;
             }
-            this.setState( { statsOverview: graphWithHcls } );
-            $(this.refs.statsOverview).DataTable();
+            this.setState( { graphsOverview: graphWithHcls } );
+            $(this.refs.graphsOverview).DataTable();
           });
 
-        // $(this.refs.statsOverview).DataTable();
+        // $(this.refs.graphsOverview).DataTable();
       });
 
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
@@ -132,11 +132,11 @@ class GraphsOverview extends Component {
 
   render() {
     const { classes } = this.props;
-    let statsOverviewTable;
+    let graphsOverviewTable;
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
-    if (this.state.statsOverview.length > 0) {
-      statsOverviewTable = ( <table table="true" ref="statsOverview">
+    if (this.state.graphsOverview.length > 0) {
+      graphsOverviewTable = ( <table table="true" ref="graphsOverview">
         <thead>
           <tr>
             <th>Graph</th>
@@ -148,7 +148,7 @@ class GraphsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.statsOverview.map((row, key) => {
+          {this.state.graphsOverview.map((row, key) => {
             return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
               <tr>
                 <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
@@ -204,7 +204,7 @@ class GraphsOverview extends Component {
           Graphs overview
         </Typography>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
-          {statsOverviewTable}
+          {graphsOverviewTable}
         </Paper>
         <br/>
         <Typography variant="h4" className={classes.font300}>
@@ -235,7 +235,7 @@ class GraphsOverview extends Component {
     }
   }`
 
-  graphsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  hclsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX dctypes: <http://purl.org/dc/dcmitype/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
