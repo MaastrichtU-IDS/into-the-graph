@@ -24,9 +24,6 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
 WHERE {
-  GRAPH ?graph {
-    [] ?dummyProp [] .
-  }
   GRAPH ?metadataGraph {
     OPTIONAL {
       ?dataset a dctypes:Dataset ;
@@ -42,7 +39,7 @@ WHERE {
         void:properties ?properties .
     }
     OPTIONAL {
-      ?graph dct:created ?dateGenerated .
+      ?graph dct:issued ?dateGenerated .
     }
     OPTIONAL {
       ?graph void:classPartition [
