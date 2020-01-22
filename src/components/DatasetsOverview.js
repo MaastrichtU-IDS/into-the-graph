@@ -204,6 +204,8 @@ class DatasetsOverview extends Component {
   WHERE {
     GRAPH ?graph {
       [] ?dummyProp [] .
+    }
+    GRAPH ?metadataGraph {
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:description ?description ;
@@ -218,7 +220,7 @@ class DatasetsOverview extends Component {
           void:properties ?properties .
       }
       OPTIONAL {
-        ?graph dct:issued ?dateGenerated .
+        ?graph dct:created ?dateGenerated .
       }
       OPTIONAL {
         ?graph void:classPartition [
@@ -241,17 +243,17 @@ class DatasetsOverview extends Component {
   PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
   WHERE {
-    GRAPH ?graph {
-      ?graph a void:Dataset .
-      ?graph void:propertyPartition [
-          void:property ?relationWith ;
-          void:classPartition [
-              void:class ?class1 ;
-              void:distinctSubjects ?classCount1 ;
-          ];
-          void-ext:objectClassPartition [
-            void:class ?class2 ;
-            void:distinctObjects ?classCount2 ;
+  GRAPH ?metadataGraph {
+    ?graph a void:Dataset .
+    ?graph void:propertyPartition [
+      void:property ?relationWith ;
+      void:classPartition [
+        void:class ?class1 ;
+        void:distinctSubjects ?classCount1 ;
+      ];
+      void-ext:objectClassPartition [
+      void:class ?class2 ;
+      void:distinctObjects ?classCount2 ;
       ]] .
     }
   } ORDER BY DESC(?classCount1)`;
