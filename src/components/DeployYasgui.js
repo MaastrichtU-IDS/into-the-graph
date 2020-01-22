@@ -15,7 +15,7 @@ const styles = theme => ({
 
 class DeployYasgui extends Component {
 
-  statisticsQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  graphOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -130,7 +130,7 @@ GRAPH ?metadataGraph {
         true, // set as active tab
         { ...Yasgui.Tab.getDefaults(), id: "graphsOverview", name: "Graphs statistics" }
       );
-      yasgui.getTab("graphsOverview").setQuery(this.statisticsQuery);
+      yasgui.getTab("graphsOverview").setQuery(this.graphOverviewQuery);
       yasgui.addTab(
         true, // set as active tab
         { ...Yasgui.Tab.getDefaults(), id: "entitiesRelations", name: "Explore entities relations" }
