@@ -159,8 +159,8 @@ class Describe extends Component {
         })
         this.setState({ describeGraphClasses });
         this.setState({ describeHash });
-        console.log('State after componentDidMount in describe:');
-        console.log(this.state);
+        // console.log('State after componentDidMount in describe:');
+        // console.log(this.state);
       })
     } else {
       // Full text search
@@ -280,7 +280,14 @@ class Describe extends Component {
 
   getSearchQuery(textToSearch) {
     let searchQuery = Config.search_query;
-    if (searchQuery) {
+    if (textToSearch === "") {
+      searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+        ?foundUri ?p ?foundLabel .
+        OPTIONAL {?foundUri a ?type}
+        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+        FILTER(isLiteral(?foundLabel))
+        } LIMIT 10`
+    } else if (searchQuery) {
       // If defined in settings.json
       // Results are provided through ?foundUri and ?foundLabel
       // Use $TEXT_TO_SEARCH as search variable to replace
