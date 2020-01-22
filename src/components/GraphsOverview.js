@@ -97,10 +97,14 @@ class GraphsOverview extends Component {
                     return allGraphsRow.graph.value !== hclsGraphRow.graph.value;
                 });
               })
+              console.log("allGraphsWithoutHcls");
+              console.log(allGraphsWithoutHcls);
               // Add graphs without hcls (just filtered), to the graphWithHcls var
               allGraphsWithoutHcls.map((graphRow) => {
                 graphWithHcls.push({ graph: graphRow.graph})
               })
+              console.log("graphWithHcls");
+              console.log(graphWithHcls);
             } else {
               // If no graph with HCLS metadata then take directly the allGraphs array
               graphWithHcls = allGraphsResults;
