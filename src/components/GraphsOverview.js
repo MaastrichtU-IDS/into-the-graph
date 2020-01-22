@@ -69,7 +69,7 @@ function displayTableCell(stringToDisplay) {
   }
 }
 
-class DatasetsOverview extends Component {
+class GraphsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
@@ -165,18 +165,6 @@ class DatasetsOverview extends Component {
     // Now render the tables!
     return (
       <Container maxWidth="xl">
-        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
-          <Typography variant="body2">
-            Graphs statistics have been generated following the&nbsp;
-            <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
-            .
-          </Typography>
-          <Typography variant="body2" style={{marginTop: '10px'}}>
-            They can be easily precomputed and inserted in your triplestore using a simple docker container.
-            Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
-            className={classes.uriLink} target="_blank">those instructions</a> to compute them. 
-          </Typography>
-        </Paper>
         <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
           Graphs overview
         </Typography>
@@ -190,6 +178,18 @@ class DatasetsOverview extends Component {
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
           {entitiesRelationsTable}
         </Paper>
+        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
+          <Typography variant="body2">
+            Graphs statistics have been generated following the&nbsp;
+            <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
+            .
+          </Typography>
+          <Typography variant="body2" style={{marginTop: '10px'}}>
+            They can be easily precomputed and inserted in your triplestore using a simple docker container.
+            Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
+            className={classes.uriLink} target="_blank">those instructions</a> to compute them. 
+          </Typography>
+        </Paper>
       </Container>);
   }
 
@@ -202,6 +202,9 @@ class DatasetsOverview extends Component {
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
+    GRAPH ?graph {
+      [] ?dummyProp [] .
+    }
     GRAPH ?metadataGraph {
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
@@ -210,12 +213,14 @@ class DatasetsOverview extends Component {
         ?version dct:isVersionOf ?dataset ;
           dcat:distribution ?graph .
       }
-      ?graph a void:Dataset ;
-        void:triples ?statements ;
-        void:entities ?entities ;
-        void:properties ?properties .
       OPTIONAL {
-        ?graph dct:issued ?dateGenerated .
+        ?graph a void:Dataset ;
+          void:triples ?statements ;
+          void:entities ?entities ;
+          void:properties ?properties .
+      }
+      OPTIONAL {
+        ?graph dct:created ?dateGenerated .
       }
       OPTIONAL {
         ?graph void:classPartition [
@@ -238,22 +243,22 @@ class DatasetsOverview extends Component {
   PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
   WHERE {
-    GRAPH ?metadataGraph {
-      ?graph a void:Dataset .
-      ?graph void:propertyPartition [
-          void:property ?relationWith ;
-          void:classPartition [
-              void:class ?class1 ;
-              void:distinctSubjects ?classCount1 ;
-          ];
-          void-ext:objectClassPartition [
-            void:class ?class2 ;
-            void:distinctObjects ?classCount2 ;
+  GRAPH ?metadataGraph {
+    ?graph a void:Dataset .
+    ?graph void:propertyPartition [
+      void:property ?relationWith ;
+      void:classPartition [
+        void:class ?class1 ;
+        void:distinctSubjects ?classCount1 ;
+      ];
+      void-ext:objectClassPartition [
+      void:class ?class2 ;
+      void:distinctObjects ?classCount2 ;
       ]] .
     }
   } ORDER BY DESC(?classCount1)`;
 }
-export default withStyles(styles) (DatasetsOverview);
+export default withStyles(styles) (GraphsOverview);
 
 // Turgay snippet:
 // state ={

@@ -7,10 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
+import GraphsOverviewComponent from './components/GraphsOverview';
 import DeployYasguiComponent from './components/DeployYasgui';
 import DeployComunicaComponent from './components/DeployComunica';
 import DescribeComponent from './components/describe';
-import DatasetsOverviewComponent from './components/DatasetsOverview';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -25,7 +25,6 @@ const theme = createMuiTheme({
     // Same color as Angular into-the-graph: blue[700] / #1976d2
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
-    // white: 
   },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
@@ -46,7 +45,7 @@ class App extends Component {
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
             <Switch>
-              <Route exact path='/' component={DatasetsOverviewComponent} />
+              <Route exact path='/' component={GraphsOverviewComponent} />
               <Route exact path='/sparql' component={DeployYasguiComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
               <Route exact path='/comunica' component={DeployComunicaComponent} />
