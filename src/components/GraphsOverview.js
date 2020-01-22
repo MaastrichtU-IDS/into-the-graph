@@ -83,8 +83,38 @@ class GraphsOverview extends Component {
   componentDidMount() {
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.graphsOverviewQuery))
       .then(res => {
-        this.setState( { statsOverview: res.data.results.bindings } );
-        $(this.refs.statsOverview).DataTable();
+        // this.setState( { statsOverview: res.data.results.bindings } );
+        var graphWithHcls = res.data.results.bindings;
+        console.log("Graph with HCLS");
+        console.log(graphWithHcls);
+        axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
+          .then(res => {
+            var allGraphsResults = res.data.results.bindings;
+            console.log("allGraphsResults");
+            console.log(allGraphsResults);
+            var allGraphsWithoutHcls;
+            // Filter HCLS graphs out of the results to get all graphs
+            if (graphWithHcls.length > 0) {
+              graphWithHcls.map((hclsGraphRow) => {
+                allGraphsWithoutHcls = allGraphsResults.filter(function( allGraphsRow ) {
+                    return allGraphsRow.graph.value !== hclsGraphRow.graph.value;
+                });
+              })
+              console.log(allGraphsWithoutHcls);
+              allGraphsWithoutHcls.map((graphRow) => {
+                graphWithHcls.push({ graph: graphRow.graph})
+              })
+            } else {
+              // If no graph with HCLS metadata then take directly the allGraphs array
+              graphWithHcls = allGraphsResults;
+            }
+            console.log("graphWithHcls");
+            console.log(graphWithHcls);
+            this.setState( { statsOverview: graphWithHcls } );
+            $(this.refs.statsOverview).DataTable();
+          });
+
+        // $(this.refs.statsOverview).DataTable();
       });
 
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
@@ -124,8 +154,10 @@ class GraphsOverview extends Component {
         </thead>
         <tbody>
           {this.state.statsOverview.map((row, key) => {
-            return <Tooltip title={displayDescription(row.name, row.description)}>
-              <tr key={key}>
+            return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
+              <tr>
+                {console.log("row.graph")}
+                {console.log(row.graph)}
                 <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
                 <td>{displayDate(row.dateGenerated)}</td>
                 <td>{displayTableCell(row.statements)}</td>
@@ -203,6 +235,13 @@ class GraphsOverview extends Component {
       </Container>);
   }
 
+  getAllGraphsQuery = `SELECT DISTINCT ?graph
+  WHERE {
+    GRAPH ?graph {
+      [] ?dummyProp [] .
+    }
+  }`
+
   graphsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX dctypes: <http://purl.org/dc/dcmitype/>
@@ -212,10 +251,8 @@ class GraphsOverview extends Component {
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   SELECT DISTINCT ?graph ?name ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
-    GRAPH ?graph {
-      [] ?dummyProp [] .
-    }
     GRAPH ?metadataGraph {
+      ?graph a void:Dataset .
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:title ?name ;
@@ -225,8 +262,7 @@ class GraphsOverview extends Component {
           dcat:distribution ?graph .
       }
       OPTIONAL {
-        ?graph a void:Dataset ;
-          void:triples ?statements ;
+        ?graph void:triples ?statements ;
           void:entities ?entities ;
           void:properties ?properties .
       }
