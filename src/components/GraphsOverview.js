@@ -73,7 +73,7 @@ class GraphsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.statsOverviewQuery))
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.graphsOverviewQuery))
       .then(res => {
         this.setState( { statsOverview: res.data.results.bindings } );
         $(this.refs.statsOverview).DataTable();
@@ -193,7 +193,7 @@ class GraphsOverview extends Component {
       </Container>);
   }
 
-  statsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  graphsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX dctypes: <http://purl.org/dc/dcmitype/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
