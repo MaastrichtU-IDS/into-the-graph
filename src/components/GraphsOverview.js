@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 
@@ -68,6 +69,13 @@ function displayTableCell(stringToDisplay) {
     return 'Not computed';
   }
 }
+function displayDescription(nameToDisplay, descriptionToDisplay) {
+  if (nameToDisplay || descriptionToDisplay) {
+    return [nameToDisplay.value, descriptionToDisplay.value].join(': ');
+  } else {
+    return 'Description not provided';
+  }
+}
 
 class GraphsOverview extends Component {
   state = {statsOverview: [], entitiesRelations:[]}
@@ -116,14 +124,16 @@ class GraphsOverview extends Component {
         </thead>
         <tbody>
           {this.state.statsOverview.map((row, key) => {
-            return <tr key={key}>
-              <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-              <td>{displayDate(row.dateGenerated)}</td>
-              <td>{displayTableCell(row.statements)}</td>
-              <td>{displayTableCell(row.entities)}</td>
-              <td>{displayTableCell(row.properties)}</td>
-              <td>{displayTableCell(row.classes)}</td>
-            </tr>;
+            return <Tooltip title={displayDescription(row.name, row.description)}>
+              <tr key={key}>
+                <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
+                <td>{displayDate(row.dateGenerated)}</td>
+                <td>{displayTableCell(row.statements)}</td>
+                <td>{displayTableCell(row.entities)}</td>
+                <td>{displayTableCell(row.properties)}</td>
+                <td>{displayTableCell(row.classes)}</td>
+              </tr>
+            </Tooltip>;
           })}
         </tbody>
       </table> )
@@ -200,7 +210,7 @@ class GraphsOverview extends Component {
   PREFIX void: <http://rdfs.org/ns/void#>
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+  SELECT DISTINCT ?graph ?name ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?graph {
       [] ?dummyProp [] .
@@ -208,6 +218,7 @@ class GraphsOverview extends Component {
     GRAPH ?metadataGraph {
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
+          dct:title ?name ;
           dct:description ?description ;
           foaf:page ?homepage .
         ?version dct:isVersionOf ?dataset ;
