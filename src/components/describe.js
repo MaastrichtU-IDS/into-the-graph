@@ -159,8 +159,8 @@ class Describe extends Component {
         })
         this.setState({ describeGraphClasses });
         this.setState({ describeHash });
-        console.log('State after componentDidMount in describe:');
-        console.log(this.state);
+        // console.log('State after componentDidMount in describe:');
+        // console.log(this.state);
       })
     } else {
       // Full text search
@@ -186,18 +186,12 @@ class Describe extends Component {
         <div className='mainContainer'>
           <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
           <br/>
-          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
-          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
-            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
-            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
-          })}
-
           {/* Show classes for the described URI as a graph */}
           {this.state.describeGraphClasses.length > 0 &&
             <ExpansionPanel defaultExpanded>
               <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
                 id="panel1a-header" aria-controls="panel1a-content">
-                <Typography variant="h6">As a graph (classes)</Typography>
+                <Typography variant="body1">As a graph (classes)</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                   <Grid container spacing={3} alignItems="center">
@@ -216,6 +210,12 @@ class Describe extends Component {
               </ExpansionPanelDetails>
             </ExpansionPanel>
           }
+
+          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
+          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
+            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
+            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
+          })}
 
           {/* Show results of full text search query (if not http) */}
           {this.state.searchResults.length > 0 &&
@@ -280,7 +280,18 @@ class Describe extends Component {
 
   getSearchQuery(textToSearch) {
     let searchQuery = Config.search_query;
-    if (searchQuery) {
+    if (textToSearch === "") {
+      // searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+      //   ?foundUri ?p ?foundLabel .
+      //   VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+      //   FILTER(isLiteral(?foundLabel))
+      //   } LIMIT 30`
+      searchQuery = `SELECT distinct ?foundUri ?foundLabel WHERE {
+        [] a ?foundUri .
+        ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .
+        } LIMIT 20
+      `
+    } else if (searchQuery) {
       // If defined in settings.json
       // Results are provided through ?foundUri and ?foundLabel
       // Use $TEXT_TO_SEARCH as search variable to replace
@@ -319,7 +330,7 @@ export function DescribeGraphPanel(props) {
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
-        <Typography variant="h6"><i>In graph </i>{props.datasetUri}</Typography>
+        <Typography variant="body1"><i>In graph </i>{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>

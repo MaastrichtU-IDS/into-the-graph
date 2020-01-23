@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 
@@ -68,15 +69,51 @@ function displayTableCell(stringToDisplay) {
     return 'Not computed';
   }
 }
+function displayDescription(nameToDisplay, descriptionToDisplay) {
+  if (nameToDisplay || descriptionToDisplay) {
+    return [nameToDisplay.value, descriptionToDisplay.value].join(': ');
+  } else {
+    return 'Description not provided';
+  }
+}
 
 class GraphsOverview extends Component {
-  state = {statsOverview: [], entitiesRelations:[]}
+  state = {graphsOverview: [], entitiesRelations:[]}
 
   componentDidMount() {
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.graphsOverviewQuery))
+    // First get the graphs overview with HCLS metadata
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.hclsOverviewQuery))
       .then(res => {
-        this.setState( { statsOverview: res.data.results.bindings } );
-        $(this.refs.statsOverview).DataTable();
+        var graphWithHcls = res.data.results.bindings;
+        // Then get all graphs, even with no metadata
+        axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
+          .then(res => {
+            var allGraphsResults = res.data.results.bindings;
+            var allGraphsWithoutHcls;
+            // Filter HCLS graphs out of the results to get all graphs
+            if (graphWithHcls.length > 0) {
+              graphWithHcls.map((hclsGraphRow) => {
+                allGraphsWithoutHcls = allGraphsResults.filter(function( allGraphsRow ) {
+                    return allGraphsRow.graph.value !== hclsGraphRow.graph.value;
+                });
+              })
+              console.log("allGraphsWithoutHcls");
+              console.log(allGraphsWithoutHcls);
+              // Add graphs without hcls (just filtered), to the graphWithHcls var
+              allGraphsWithoutHcls.map((graphRow) => {
+                graphWithHcls.push({ graph: graphRow.graph})
+              })
+              console.log("graphWithHcls");
+              console.log(graphWithHcls);
+            } else {
+              // If no graph with HCLS metadata then take directly the allGraphs array
+              graphWithHcls = allGraphsResults;
+            }
+            this.setState( { graphsOverview: graphWithHcls } );
+            $(this.refs.graphsOverview).DataTable();
+          });
+
+        // $(this.refs.graphsOverview).DataTable();
       });
 
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
@@ -99,11 +136,11 @@ class GraphsOverview extends Component {
 
   render() {
     const { classes } = this.props;
-    let statsOverviewTable;
+    let graphsOverviewTable;
     // We don't render the table before the data has been retrieved
     // To avoid No data in table message
-    if (this.state.statsOverview.length > 0) {
-      statsOverviewTable = ( <table table="true" ref="statsOverview">
+    if (this.state.graphsOverview.length > 0) {
+      graphsOverviewTable = ( <table table="true" ref="graphsOverview">
         <thead>
           <tr>
             <th>Graph</th>
@@ -115,15 +152,17 @@ class GraphsOverview extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.statsOverview.map((row, key) => {
-            return <tr key={key}>
-              <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-              <td>{displayDate(row.dateGenerated)}</td>
-              <td>{displayTableCell(row.statements)}</td>
-              <td>{displayTableCell(row.entities)}</td>
-              <td>{displayTableCell(row.properties)}</td>
-              <td>{displayTableCell(row.classes)}</td>
-            </tr>;
+          {this.state.graphsOverview.map((row, key) => {
+            return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
+              <tr>
+                <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
+                <td>{displayDate(row.dateGenerated)}</td>
+                <td>{displayTableCell(row.statements)}</td>
+                <td>{displayTableCell(row.entities)}</td>
+                <td>{displayTableCell(row.properties)}</td>
+                <td>{displayTableCell(row.classes)}</td>
+              </tr>
+            </Tooltip>;
           })}
         </tbody>
       </table> )
@@ -169,7 +208,7 @@ class GraphsOverview extends Component {
           Graphs overview
         </Typography>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
-          {statsOverviewTable}
+          {graphsOverviewTable}
         </Paper>
         <br/>
         <Typography variant="h4" className={classes.font300}>
@@ -193,26 +232,29 @@ class GraphsOverview extends Component {
       </Container>);
   }
 
-  graphsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  getAllGraphsQuery = `SELECT DISTINCT ?graph WHERE { GRAPH ?graph {?s ?p ?o} }`
+
+  hclsOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX dctypes: <http://purl.org/dc/dcmitype/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
   PREFIX void: <http://rdfs.org/ns/void#>
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+  SELECT DISTINCT ?graph ?name ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?metadataGraph {
+      ?graph a void:Dataset .
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
+          dct:title ?name ;
           dct:description ?description ;
           foaf:page ?homepage .
         ?version dct:isVersionOf ?dataset ;
           dcat:distribution ?graph .
       }
       OPTIONAL {
-        ?graph a void:Dataset ;
-          void:triples ?statements ;
+        ?graph void:triples ?statements ;
           void:entities ?entities ;
           void:properties ?properties .
       }

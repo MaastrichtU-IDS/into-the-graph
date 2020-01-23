@@ -110,7 +110,8 @@ GRAPH ?metadataGraph {
         { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" },
         { endpoint: "https://bio2rdf.org/sparql" },
         { endpoint: "http://localhost:8890/sparql" },
-        { endpoint: "http://localhost:7200/repositories/test" }
+        { endpoint: "http://localhost:7200/repositories/test" },
+        { endpoint: "http://localhost:8082/bigdata/sparql" }
       ];
     };
 
