@@ -204,14 +204,14 @@ class GraphsOverview extends Component {
     // Now render the tables!
     return (
       <Container maxWidth="xl">
-        <Typography variant="h4" className={classes.font300} style={{marginTop: '50px'}}>
+        <Typography variant="h5" className={classes.font300} style={{marginTop: '40px'}}>
           Graphs overview
         </Typography>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
           {graphsOverviewTable}
         </Paper>
         <br/>
-        <Typography variant="h4" className={classes.font300}>
+        <Typography variant="h5" className={classes.font300}>
           Explore entities and relations
         </Typography>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
