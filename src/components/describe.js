@@ -185,6 +185,23 @@ class Describe extends Component {
     return <Container>
         <div className='mainContainer'>
           <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
+          {/* <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
+            (click)="accordion.openAll(); allExpanded = true">
+              <mat-icon mat-list-icon>expand_more</mat-icon>
+              Expand All
+            </button>
+            <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == true"
+            (click)="accordion.closeAll(); allExpanded = false">
+              <mat-icon mat-list-icon>expand_less</mat-icon>
+              Collapse All
+            </button> */}
+          <div style={{textAlign: 'right'}}>
+            <Button variant="contained" size="small" className={classes.showMoreButton} 
+              color="primary" onClick={() => console.log('tyrtg')}>
+                {/* color="primary" onClick={() => showMoreStatements(propertyUri)}> */}
+              Collapse all
+            </Button>
+          </div>
           <br/>
           {/* Show classes for the described URI as a graph */}
           {this.state.describeGraphClasses.length > 0 &&
@@ -326,11 +343,10 @@ export function DescribeGraphPanel(props) {
   }
 
   // Define tab header here to hide them if no results for this tab
-  return (
-    <ExpansionPanel defaultExpanded>
+  return (<ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
-        <Typography variant="body1" style={{userSelect: 'all'}}><i>In graph </i>{props.datasetUri}</Typography>
+      <Typography variant="body1" onClick={event => event.stopPropagation()} style={{userSelect: 'text', cursor: 'text'}}><i>In graph </i>{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
