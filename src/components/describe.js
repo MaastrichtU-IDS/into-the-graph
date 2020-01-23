@@ -330,7 +330,7 @@ export function DescribeGraphPanel(props) {
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
-        <Typography variant="body1"><i>In graph </i>{props.datasetUri}</Typography>
+        <Typography variant="body1" style={{userSelect: 'all'}}><i>In graph </i>{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
