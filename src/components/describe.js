@@ -186,18 +186,12 @@ class Describe extends Component {
         <div className='mainContainer'>
           <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
           <br/>
-          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
-          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
-            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
-            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
-          })}
-
           {/* Show classes for the described URI as a graph */}
           {this.state.describeGraphClasses.length > 0 &&
             <ExpansionPanel defaultExpanded>
               <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
                 id="panel1a-header" aria-controls="panel1a-content">
-                <Typography variant="h6">As a graph (classes)</Typography>
+                <Typography variant="body1">As a graph (classes)</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                   <Grid container spacing={3} alignItems="center">
@@ -216,6 +210,12 @@ class Describe extends Component {
               </ExpansionPanelDetails>
             </ExpansionPanel>
           }
+
+          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
+          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
+            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
+            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
+          })}
 
           {/* Show results of full text search query (if not http) */}
           {this.state.searchResults.length > 0 &&
@@ -330,7 +330,7 @@ export function DescribeGraphPanel(props) {
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
         id="panel1a-header" aria-controls="panel1a-content">
-        <Typography variant="h6"><i>In graph </i>{props.datasetUri}</Typography>
+        <Typography variant="body1"><i>In graph </i>{props.datasetUri}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className='flexGrow'>
