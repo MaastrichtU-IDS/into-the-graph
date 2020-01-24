@@ -185,16 +185,6 @@ class Describe extends Component {
     return <Container>
         <div className='mainContainer'>
           <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
-          {/* <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
-            (click)="accordion.openAll(); allExpanded = true">
-              <mat-icon mat-list-icon>expand_more</mat-icon>
-              Expand All
-            </button>
-            <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == true"
-            (click)="accordion.closeAll(); allExpanded = false">
-              <mat-icon mat-list-icon>expand_less</mat-icon>
-              Collapse All
-            </button> */}
           <div style={{textAlign: 'right'}}>
             <Button variant="contained" size="small" className={classes.showMoreButton} 
               color="primary" onClick={() => console.log('tyrtg')}>
