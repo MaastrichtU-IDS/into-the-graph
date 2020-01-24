@@ -185,13 +185,13 @@ class Describe extends Component {
     return <Container>
         <div className='mainContainer'>
           <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
-          <div style={{textAlign: 'right'}}>
+          {/* <div style={{textAlign: 'right'}}>
             <Button variant="contained" size="small" className={classes.showMoreButton} 
               color="primary" onClick={() => console.log('tyrtg')}>
-                {/* color="primary" onClick={() => showMoreStatements(propertyUri)}> */}
+                color="primary" onClick={() => showMoreStatements(propertyUri)}>
               Collapse all
             </Button>
-          </div>
+          </div> */}
           <br/>
           {/* Show classes for the described URI as a graph */}
           {this.state.describeGraphClasses.length > 0 &&
@@ -201,7 +201,7 @@ class Describe extends Component {
                 <Typography variant="body1">As a graph (classes)</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                  <Grid container spacing={3} alignItems="center">
+                  <Grid container spacing={2} alignItems="center">
                     {this.state.describeGraphClasses.map(function(dataset, key){
                       return <React.Fragment key={key}>
                         <Grid item xs={0} md={2}></Grid>
@@ -367,7 +367,7 @@ export function DescribeGraphPanel(props) {
 
             {props.datasetHash.asSubjectCount !== 0 && ( 
               <TabPanel>
-                <Grid container spacing={3} alignItems="center">
+                <Grid container spacing={2} alignItems="center">
                   {/* Iterate over properties in a graph */}
                   {Object.keys(props.datasetHash.asSubject).map((propertyUri, key) => {
                     let addShowMore = '';
@@ -432,7 +432,7 @@ export function DescribeGraphPanel(props) {
 
             {props.datasetHash.asPredicateCount !== 0 && ( 
               <TabPanel>
-                <Grid container spacing={3} alignItems="center">
+                <Grid container spacing={2} alignItems="center">
                   {/* Iterate over predicates in the graph */}
                   {Object.keys(props.datasetHash.asPredicate).map((subjectUri, key) => {
                     
@@ -469,7 +469,7 @@ export function DescribeGraphPanel(props) {
 
             {props.datasetHash.asObjectCount !== 0 && ( 
               <TabPanel>
-                <Grid container spacing={3} alignItems="center">
+                <Grid container spacing={2} alignItems="center">
                   {/* Iterate over properties in a graph */}
                   {Object.keys(props.datasetHash.asObject).map((propertyUri, key) => {
                     let addShowMore = '';
