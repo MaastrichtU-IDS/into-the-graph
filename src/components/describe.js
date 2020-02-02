@@ -288,16 +288,11 @@ class Describe extends Component {
   getSearchQuery(textToSearch) {
     let searchQuery = Config.search_query;
     if (textToSearch === "") {
-      // searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
-      //   ?foundUri ?p ?foundLabel .
-      //   VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-      //   FILTER(isLiteral(?foundLabel))
-      //   } LIMIT 30`
-      searchQuery = `SELECT distinct ?foundUri ?foundLabel WHERE {
-        [] a ?foundUri .
-        ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .
-        } LIMIT 20
-      `
+      searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+        ?foundUri ?p ?foundLabel .
+        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+        } LIMIT 20`
+        // FILTER(isLiteral(?foundLabel))
     } else if (searchQuery) {
       // If defined in settings.json
       // Results are provided through ?foundUri and ?foundLabel
