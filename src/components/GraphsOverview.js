@@ -89,21 +89,15 @@ class GraphsOverview extends Component {
         axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
           .then(res => {
             var allGraphsResults = res.data.results.bindings;
-            var allGraphsWithoutHcls;
-            // Filter HCLS graphs out of the results to get all graphs
-            console.log("graphWithHcls");
-            console.log(graphWithHcls);
-            console.log("allGraphsResults");
-            console.log(allGraphsResults);
+
             if (graphWithHcls.length > 0) {
+              // Iterate over every graphs returned
+              // if not in results with hcls, then we add it to graphWithHcls
               allGraphsResults.map((allGraphsRow) => {
-                // Iterate over every graphs returned
-                // if not in results with hcls, then we add it to graphWithHcls
                 var notFoundInHclsGraphs = true;
                 graphWithHcls.map((hclsGraphRow) => {
                   if (hclsGraphRow.graph.value === allGraphsRow.graph.value) {
                     notFoundInHclsGraphs = false;
-                    // break;
                   }
                 })
                 if (notFoundInHclsGraphs) {
