@@ -39,7 +39,7 @@ WHERE {
         void:properties ?properties .
     }
     OPTIONAL {
-      ?graph dct:issued ?dateGenerated .
+      ?graph dct:created ?dateGenerated .
     }
     OPTIONAL {
       ?graph void:classPartition [

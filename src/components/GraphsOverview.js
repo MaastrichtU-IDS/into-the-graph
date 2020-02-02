@@ -91,19 +91,27 @@ class GraphsOverview extends Component {
             var allGraphsResults = res.data.results.bindings;
             var allGraphsWithoutHcls;
             // Filter HCLS graphs out of the results to get all graphs
+            console.log("graphWithHcls");
+            console.log(graphWithHcls);
+            console.log("allGraphsResults");
+            console.log(allGraphsResults);
             if (graphWithHcls.length > 0) {
-              graphWithHcls.map((hclsGraphRow) => {
-                allGraphsWithoutHcls = allGraphsResults.filter(function( allGraphsRow ) {
-                    return allGraphsRow.graph.value !== hclsGraphRow.graph.value;
-                });
+              allGraphsResults.map((allGraphsRow) => {
+                // Iterate over every graphs returned
+                // if not in results with hcls, then we add it to graphWithHcls
+                var notFoundInHclsGraphs = true;
+                graphWithHcls.map((hclsGraphRow) => {
+                  if (hclsGraphRow.graph.value === allGraphsRow.graph.value) {
+                    notFoundInHclsGraphs = false;
+                    // break;
+                  }
+                })
+                if (notFoundInHclsGraphs) {
+                  graphWithHcls.push({ graph: allGraphsRow.graph})
+                }
+                
               })
-              console.log("allGraphsWithoutHcls");
-              console.log(allGraphsWithoutHcls);
-              // Add graphs without hcls (just filtered), to the graphWithHcls var
-              allGraphsWithoutHcls.map((graphRow) => {
-                graphWithHcls.push({ graph: graphRow.graph})
-              })
-              console.log("graphWithHcls");
+              console.log("graphWithHcls final");
               console.log(graphWithHcls);
             } else {
               // If no graph with HCLS metadata then take directly the allGraphs array
@@ -259,7 +267,7 @@ class GraphsOverview extends Component {
           void:properties ?properties .
       }
       OPTIONAL {
-        ?graph dct:issued ?dateGenerated .
+        ?graph dct:created ?dateGenerated .
       }
       OPTIONAL {
         ?graph void:classPartition [
