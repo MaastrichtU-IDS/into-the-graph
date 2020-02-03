@@ -1,6 +1,8 @@
 {
   "name": "into-the-graph",
   "version": "0.1.0",
+  "description": "Visualize and browse the content of your RDF triplestore using HCLS statistics and SPARQL queries",
+  "homepage": "https://github.com/MaastrichtU-IDS/into-the-graph",
   "private": true,
   "author": "Vincent Emonet",
   "license": "MIT",
@@ -30,8 +32,14 @@
     "datatables.net": "^1.10.19",
     "expo": "^36.0.2",
     "expo-cli": "^3.11.7",
-    "react-native": "^0.61.5", 
     "node-sass": "^4.13.1",
+    "react-native": "^0.61.5",
     "serve": "^11.2.0"
-  }
+  },
+  "keywords": [
+    "sparql",
+    "rdf",
+    "react",
+    "materialui"
+  ]
 }
