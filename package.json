@@ -5,6 +5,13 @@
   "private": true,
   "author": "Vincent Emonet",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaastrichtU-IDS/into-the-graph.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MaastrichtU-IDS/into-the-graph/issues"
+  },
   "scripts": {
     "build-css": "node-sass src/ -o src/",
     "watch-css": "yarn run build-css && node-sass src/ -o src/ --watch --recursive",
