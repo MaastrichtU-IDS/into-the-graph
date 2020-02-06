@@ -13,7 +13,7 @@
     "dct":         "http://purl.org/dc/terms/",
     "dctypes":     "http://purl.org/dc/dcmitype/",
     "foaf":        "http://xmlns.com/foaf/0.1/",
-    "idot":        "https://identifiers.org/idot/",
+    "idot":        "http://identifiers.org/idot/",
     "dcat":        "http://www.w3.org/ns/dcat#",
     "void":        "http://rdfs.org/ns/void#",
     "void-ext":    "http://ldf.fi/void-ext#",
