@@ -90,16 +90,7 @@ class NavBar extends Component {
               <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
                 <Button className={classes.menuButton}>
                   <Icon>share</Icon>
-                  &nbsp;Run SPARQL queries
-                </Button>
-              </Tooltip>
-            </Link>
-            <Link to="/comunica"
-            className={classes.linkButton}>
-              <Tooltip title="Query the triplestore and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
-                <Button className={classes.menuButton}>
-                  <Icon>language</Icon>
-                  &nbsp;Query with Comunica
+                  &nbsp;SPARQL query
                 </Button>
               </Tooltip>
             </Link>
@@ -109,6 +100,15 @@ class NavBar extends Component {
                 <Button className={classes.menuButton}>
                   <Icon>http</Icon>
                   &nbsp;API
+                </Button>
+              </Tooltip>
+            </Link>
+            <Link to="/comunica"
+            className={classes.linkButton}>
+              <Tooltip title="Query the triplestore and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
+                <Button className={classes.menuButton}>
+                  <Icon>language</Icon>
+                  &nbsp;Comunica
                 </Button>
               </Tooltip>
             </Link>
