@@ -103,6 +103,15 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>
             </Link>
+            <Link to="/api"
+            className={classes.linkButton}>
+              <Tooltip title="A HTTP Swagger API to easily query the different classes and concepts in the triplestore.">
+                <Button className={classes.menuButton}>
+                  <Icon>http</Icon>
+                  &nbsp;API
+                </Button>
+              </Tooltip>
+            </Link>
             <div className="flexGrow"></div>
             {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
