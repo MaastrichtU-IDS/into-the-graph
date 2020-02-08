@@ -36,7 +36,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.light
   },
   paperPadding: {
-    padding: theme.spacing(2, 2),
+    padding: theme.spacing(1, 1.5),
   },
   badgePadding: {
     padding: theme.spacing(0, 1),
