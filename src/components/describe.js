@@ -184,7 +184,7 @@ class Describe extends Component {
     const { classes } = this.props;
     return <Container>
         <div className='mainContainer'>
-          <Typography variant="h5" className={classes.font300}>{this.state.describeUri}</Typography>
+          <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
           {/* <div style={{textAlign: 'right'}}>
             <Button variant="contained" size="small" className={classes.showMoreButton} 
               color="primary" onClick={() => console.log('tyrtg')}>
@@ -198,7 +198,7 @@ class Describe extends Component {
             <ExpansionPanel defaultExpanded>
               <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
                 id="panel1a-header" aria-controls="panel1a-content">
-                <Typography variant="body1">As a graph (classes)</Typography>
+                <Typography variant="body2">As a graph (contains classes)</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                   <Grid container spacing={2} alignItems="center">
