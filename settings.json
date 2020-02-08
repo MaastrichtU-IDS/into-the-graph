@@ -1,7 +1,7 @@
 {
-  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/ncats-red-kg",
+  "sparql_endpoint": "https://dbpedia.org/sparql",
   "comunica_url": "http://query.linkeddatafragments.org/",
-  "swagger_api_url": "http://localhost:8080/swagger-ui.html",
+  "swagger_api_url": "http://node000002.cluster.ids.unimaas.nl:8080/swagger-ui.html",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",

@@ -340,21 +340,21 @@ export function DescribeGraphPanel(props) {
               {props.datasetHash.asSubjectCount !== 0 && ( 
                 <Tab>
                   <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asSubjectCount}>
-                    As subject
+                    <Typography variant="body2">As subject</Typography>
                   </Badge>
                 </Tab>
               ) }
               {props.datasetHash.asPredicateCount !== 0 && ( 
                 <Tab>
                   <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asPredicateCount}>
-                    As predicate
+                    <Typography variant="body2">As predicate</Typography>
                   </Badge>
                 </Tab>
               ) }
               {props.datasetHash.asObjectCount !== 0 && (
                 <Tab>
                   <Badge className={classes.badgePadding} color="primary" badgeContent={props.datasetHash.asObjectCount}>
-                    As object
+                    <Typography variant="body2">As object</Typography>
                   </Badge>
                 </Tab>
               ) }
