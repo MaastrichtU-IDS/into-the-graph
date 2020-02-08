@@ -199,7 +199,7 @@ class GraphsOverview extends Component {
     } else {
       entitiesRelationsTable = ( 
         <Typography variant="body2">
-          No HCLS descriptive statistics have been found for entities relations.
+          No HCLS descriptive statistics found for entities relations 🚧
         </Typography>
       )
     }
@@ -221,7 +221,7 @@ class GraphsOverview extends Component {
         </Paper>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
           <Typography variant="body2">
-            Graphs statistics have been generated following the&nbsp;
+            Graphs statistics are generated following the&nbsp;
             <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>
             .
           </Typography>

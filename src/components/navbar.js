@@ -77,7 +77,7 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>  
             </Link>
-            <Link to={"/describe?uri="}
+            {/* <Link to={"/describe?uri="}
             className={classes.linkButton}>
               <Tooltip title="Get all informations about an URI from the triplestore">
                 <Button className={classes.menuButton}>
@@ -85,7 +85,7 @@ class NavBar extends Component {
                   &nbsp;Describe URIs
                 </Button>
               </Tooltip>
-            </Link>
+            </Link> */}
             <Link to="/sparql" className={classes.linkButton}>
               <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
                 <Button className={classes.menuButton}>
