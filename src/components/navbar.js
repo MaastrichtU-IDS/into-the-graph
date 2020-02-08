@@ -70,10 +70,10 @@ class NavBar extends Component {
         <AppBar title="" position='sticky'>
           <Toolbar>
             <Link to="/" className={classes.linkButton}>
-              <Tooltip title="Explore the content of the triplestore and its graphs using the HCLS descriptive statistics">
+              <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
                 <Icon>explore</Icon>
-                  &nbsp;Explore datasets
+                  &nbsp;Graphs overview
                 </Button>
               </Tooltip>  
             </Link>
@@ -117,7 +117,7 @@ class NavBar extends Component {
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
               <InputBase
                 className={classes.input}
-                placeholder="Search"
+                placeholder="Search triplestore"
                 onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
               />
