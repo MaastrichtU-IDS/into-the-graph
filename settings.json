@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "https://dbpedia.org/sparql",
+  "sparql_endpoint": "https://bio2rdf.org/sparql",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://node000002.cluster.ids.unimaas.nl:8080/swagger-ui.html",
   "prefixes": {
