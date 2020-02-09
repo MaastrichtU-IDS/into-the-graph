@@ -1,5 +1,5 @@
 ## Build the website
-FROM node:12
+FROM node:12-alpine
 
 # Should only reinstall npms if package.json or yarn.lock change
 COPY package.json package.json
