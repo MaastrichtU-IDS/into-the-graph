@@ -16,6 +16,7 @@
     "build-css": "node-sass src/ -o src/",
     "watch-css": "yarn run build-css && node-sass src/ -o src/ --watch --recursive",
     "start": "serve -s web-build",
+    "prod": "expo start --no-dev --minify --offline --non-interactive",
     "web": "expo start --web",
     "dev": "yarn run build-css && yarn web",
     "build": "yarn run build-css && expo build:web",
@@ -40,7 +41,9 @@
     "expo-cli": "^3.11.7",
     "node-sass": "^4.13.1",
     "react-native": "^0.61.5",
-    "serve": "^11.2.0"
+    "serve": "^11.2.0",
+    "babel-preset-expo": "~8.0.0",
+    "@babel/core": "^7.0.0"
   },
   "keywords": [
     "sparql",

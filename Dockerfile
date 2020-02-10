@@ -13,7 +13,11 @@ COPY . .
 # Artifacts goes to /build folder
 RUN yarn build
 
+## Use serve:
 CMD ["yarn", "start"]
+
+## Use expo start --no-dev --minify
+# CMD ["yarn", "prod"]
 
 EXPOSE 5000
 
