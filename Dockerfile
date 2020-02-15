@@ -12,7 +12,7 @@ RUN yarn
 COPY . .
 
 # Artifacts goes to /build folder
-# RUN yarn build
+RUN yarn build
 
 ## Use serve:
 CMD ["yarn", "serve"]

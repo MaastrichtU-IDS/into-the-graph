@@ -30,7 +30,7 @@ yarn install
 yarn add my-package --dev
 
 # Upgrade packages
-yarn 
+yarn upgrade --latest
 ```
 
 ### Start the development server
