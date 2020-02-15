@@ -2,22 +2,20 @@
 FROM node:12-alpine
 # FROM node:12 as builder
 
+WORKDIR /webapp
+
 # Should only reinstall npms if package.json or yarn.lock change
 COPY package.json package.json
 COPY yarn.lock yarn.lock
-RUN yarn && mkdir /webapp && mv ./node_modules ./webapp
+RUN yarn
 
-WORKDIR /webapp
 COPY . .
 
 # Artifacts goes to /build folder
-RUN yarn build
+# RUN yarn build
 
 ## Use serve:
-CMD ["yarn", "start"]
-
-## Use expo start --no-dev --minify
-# CMD ["yarn", "prod"]
+CMD ["yarn", "serve"]
 
 EXPOSE 5000
 
@@ -31,6 +29,8 @@ EXPOSE 5000
 
 # # Copy build folder from 'builder' to the default nginx public folder
 # RUN rm -rf /usr/share/nginx/html/*
-# COPY --from=builder /webapp/web-build/ /usr/share/nginx/html
+# COPY --from=builder /webapp/dist/ /usr/share/nginx/html
 
 # CMD ["nginx", "-g", "daemon off;"]
+
+# EXPOSE 80

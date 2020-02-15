@@ -1,1 +1,5 @@
 web-build
+node_modules
+.expo
+build
+dist

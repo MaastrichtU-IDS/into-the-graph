@@ -28,6 +28,9 @@ yarn install
 
 # Add package to dev
 yarn add my-package --dev
+
+# Upgrade packages
+yarn 
 ```
 
 ### Start the development server
