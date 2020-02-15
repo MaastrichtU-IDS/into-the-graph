@@ -52,7 +52,7 @@ You can use the prebuilt image available on [DockerHub](https://hub.docker.com/r
 docker pull umids/into-the-graph
 
 # Run
-docker run --rm -it -p 8082:80 umids/into-the-graph
+docker run --rm -it -p 8082:5000 umids/into-the-graph
 ```
 
 > Access at http://localhost:8082/
@@ -66,7 +66,7 @@ Or build it locally, various parameters can be changed before build in [settings
 docker build -t into-the-graph .
 
 # Run
-docker run --rm -it -p 8082:80 into-the-graph
+docker run --rm -it -p 8082:5000 into-the-graph
 ```
 
 The following parameters can be changed in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json):
