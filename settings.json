@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "https://localhost:7200/repositories/test",
+  "sparql_endpoint": "http://localhost:7200/repositories/test",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://localhost:8080/swagger-ui.html",
   "prefixes": {
