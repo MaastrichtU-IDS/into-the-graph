@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@expo/webpack-config": "^0.10.4",
+    "@expo/webpack-config": "^0.11.1",
     "babel-preset-expo": "~8.0.0",
     "datatables.net": "^1.10.19",
     "expo": "^36.0.2",
