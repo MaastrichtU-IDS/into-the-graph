@@ -31,7 +31,7 @@ export function LinkDescribe(props) {
     return uriToShorten;
   }
 
-  if (props.uri.startsWith('http://') || props.uri.startsWith('https://')) {
+  if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(props.uri)) {
     // Process URIs
     return (
       <a href={'/describe?uri=' + props.uri} className={classes.uriLink}>
