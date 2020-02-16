@@ -78,7 +78,8 @@ class Describe extends Component {
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
-    if (this.state.describeUri.startsWith('http')) {
+    // if (this.state.describeUri.startsWith('http')) {
+    if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(this.state.describeUri)) {
       axios.get(Config.sparql_endpoint + `?query=` + this.getDescribeQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
@@ -254,35 +255,49 @@ class Describe extends Component {
   }
 
   getDescribeQuery(uriToDescribe) {
-    return encodeURIComponent(`SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
-      {
-        SELECT * {
+    var describeQuery;
+    if(uriToDescribe.startsWith('node')) {
+      // Case it is a blank node
+      uriToDescribe = "_:" + uriToDescribe
+      describeQuery = `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
           GRAPH ?graph {
-            <` + uriToDescribe + `> ?predicate ?object .
+            ` + uriToDescribe + ` ?predicate ?object .
           }
-        } LIMIT 1000
-      } UNION {
-        SELECT * {
-          GRAPH ?graph {
-            ?subject ?predicate <` + uriToDescribe + `> .
-          }
-        } LIMIT 1000
-      } UNION {
-        SELECT * {
-          GRAPH ?graph {
-            ?subject <` + uriToDescribe + `> ?object .
-          }
-        } LIMIT 1000
-      } UNION {
-        SELECT * {
-          GRAPH <` + uriToDescribe + `> {
-            [] a ?object .
-            BIND("dummy subject" AS ?subject)
-            BIND("dummy predicate" AS ?predicate)
-          }
-        } LIMIT 1000
-      }
-    }`);
+        } LIMIT 1000`
+    } else {
+      // Regular URI
+      uriToDescribe = "<" + uriToDescribe + ">"
+      describeQuery = `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
+        {
+          SELECT * {
+            GRAPH ?graph {
+              ` + uriToDescribe + ` ?predicate ?object .
+            }
+          } LIMIT 1000
+        } UNION {
+          SELECT * {
+            GRAPH ?graph {
+              ?subject ?predicate ` + uriToDescribe + ` .
+            }
+          } LIMIT 1000
+        } UNION {
+          SELECT * {
+            GRAPH ?graph {
+              ?subject ` + uriToDescribe + ` ?object .
+            }
+          } LIMIT 1000
+        } UNION {
+          SELECT * {
+            GRAPH ` + uriToDescribe + ` {
+              [] a ?object .
+              BIND("dummy subject" AS ?subject)
+              BIND("dummy predicate" AS ?predicate)
+            }
+          } LIMIT 1000
+        }
+      }`
+    }
+    return encodeURIComponent(describeQuery);
   }
 
   getSearchQuery(textToSearch) {
