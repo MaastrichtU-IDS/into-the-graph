@@ -199,7 +199,7 @@ class GraphsOverview extends Component {
     } else {
       entitiesRelationsTable = ( 
         <Typography variant="body2">
-          No HCLS descriptive statistics found for entities relations 🚧
+          No HCLS descriptive statistics found for entities relations 🔬
         </Typography>
       )
     }
