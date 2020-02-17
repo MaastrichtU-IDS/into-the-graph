@@ -50,7 +50,7 @@ class App extends Component {
               <Route exact path='/' component={GraphsOverviewComponent} />
               <Route exact path='/sparql' component={DeployYasguiComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
-              <Route exact path='/comunica' component={DeployComunicaComponent} />
+              <Route exact path='/archives' component={DeployComunicaComponent} />
               <Route exact path='/api' component={DeploySwaggerApi} />
               <Route exact path='/download' component={DeployFilebrowser} />
             </Switch>
