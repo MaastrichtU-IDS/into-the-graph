@@ -31,17 +31,17 @@
     "react-dom": "^16.12.0",
     "react-iframe": "^1.8.0",
     "react-router-dom": "^5.1.2",
-    "react-tabs": "^3.0.0"
+    "react-native": "^0.61.5",
+    "react-tabs": "^3.0.0",
+    "expo": "^36.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@expo/webpack-config": "^0.11.1",
     "babel-preset-expo": "~8.0.0",
     "datatables.net": "^1.10.19",
-    "expo": "^36.0.2",
     "expo-cli": "^3.13.1",
     "node-sass": "^4.13.1",
-    "react-native": "^0.61.5",
     "serve": "^11.2.0"
   },
   "keywords": [
