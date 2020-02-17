@@ -112,6 +112,15 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>
             </Link>
+            <Link to="/download"
+            className={classes.linkButton}>
+              <Tooltip title="Download RDF dumps of the triplestore graphs.">
+                <Button className={classes.menuButton}>
+                  <Icon>cloud_download</Icon>
+                  &nbsp;Download
+                </Button>
+              </Tooltip>
+            </Link>
             <div className="flexGrow"></div>
             {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>

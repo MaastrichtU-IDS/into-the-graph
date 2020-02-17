@@ -11,6 +11,7 @@ import GraphsOverviewComponent from './components/GraphsOverview';
 import DeployYasguiComponent from './components/DeployYasgui';
 import DeployComunicaComponent from './components/DeployComunica';
 import DeploySwaggerApi from './components/DeploySwaggerApi';
+import DeployFilebrowser from './components/DeployFilebrowser';
 import DescribeComponent from './components/describe';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -51,6 +52,7 @@ class App extends Component {
               <Route exact path='/describe' component={DescribeComponent} />
               <Route exact path='/comunica' component={DeployComunicaComponent} />
               <Route exact path='/api' component={DeploySwaggerApi} />
+              <Route exact path='/download' component={DeployFilebrowser} />
             </Switch>
             <Footer />
           </div>

@@ -2,6 +2,7 @@
   "sparql_endpoint": "http://localhost:7200/repositories/test",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://localhost:8080/swagger-ui.html",
+  "download_filebrowser_url": "http://localhost:8081/#/",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
