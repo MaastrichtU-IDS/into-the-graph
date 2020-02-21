@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 
@@ -78,7 +79,10 @@ function displayDescription(nameToDisplay, descriptionToDisplay) {
 }
 
 class GraphsOverview extends Component {
-  state = {graphsOverview: [], entitiesRelations:[]}
+  state = {
+    graphsOverview: [], 
+    entitiesRelations:[]
+  }
 
   componentDidMount() {
     // First get the graphs overview with HCLS metadata
@@ -168,6 +172,8 @@ class GraphsOverview extends Component {
           })}
         </tbody>
       </table> )
+    } else {
+      graphsOverviewTable = <CircularProgress />
     }
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
