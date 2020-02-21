@@ -334,6 +334,8 @@ class Describe extends Component {
   //   ?foundUri luc:foundIndex "*$TEXT_TO_SEARCH*" .
   //   ?foundUri luc:foundIndex ?foundLabel .
   // }
+  // DBpedia Virtuoso search index query
+  // SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains '$TEXT_TO_SEARCH' . } LIMIT 100
 } 
 export default withStyles(styles)(Describe);
 
