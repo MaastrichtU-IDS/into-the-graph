@@ -187,9 +187,12 @@ class GraphsOverview extends Component {
     } else {
       graphsOverviewTable = ( 
         <Typography variant="body2">
-          Issue retrieving the graph 🚫<br/>
-          It might be due to CORS restrictions of the triplestore.<br/>
-          Try <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" target='_blank'>installing an addon</a> to enable CORS in your browser.
+          Issue querying the SPARQL endpoint 🚫<br/>
+          This could be due to CORS restrictions of the endpoint.<br/>
+          You can try installing an add-on to enable CORS in your browser (available for&nbsp;
+          <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
+            Firefox</a> or&nbsp;
+            <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" className={classes.uriLink} target='_blank'>Chrome</a>).
         </Typography>
       )
     }
