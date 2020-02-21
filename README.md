@@ -1,6 +1,8 @@
-# Lightweight RDF linked data browser
+# Lightweight linked data browser
 
-Browse a RDF triplestore by providing the SPARQL endpoint URL. The browser supports graphs, includes a YASGUI editor, and provides insights using precomputed [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/). 
+The motivation behind this linked data browser was to provide a fast [RDF](https://www.w3.org/RDF/) browser that just need a SPARQL endpoint URL to give a comfortable experience when exploring the triplestore. This browser supports graphs natively (n-quads), which most RDF linked data browser don't, this gives a net gain of 33% of informations for each statement 📈 
+
+Browse a RDF triplestore by providing the SPARQL endpoint URL. The browser includes a YASGUI editor, allows to define a custom search query to uses your triplestore index, and provides insights using precomputed [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/). 
 
 Into-the-graph is built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data from any SPARQL endpoint (better performance using [RDF4J server](https://rdf4j.eclipse.org/documentation/server-workbench-console/)).
 

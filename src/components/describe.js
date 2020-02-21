@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -55,6 +56,7 @@ class Describe extends Component {
   constructor(props) {
     super(props);
     this.showMoreHandler = this.showMoreHandler.bind(this);
+    this.state.isLoading = true;
   }
 
   showMoreHandler(graphUri, propertyUri) {
@@ -160,6 +162,7 @@ class Describe extends Component {
         })
         this.setState({ describeGraphClasses });
         this.setState({ describeHash });
+        this.setState({ isLoading: false });
         // console.log('State after componentDidMount in describe:');
         // console.log(this.state);
       })
@@ -176,6 +179,7 @@ class Describe extends Component {
             })
           })
           this.setState({ searchResults });
+          this.setState({ isLoading: false });
         })
     }
   }
@@ -183,7 +187,7 @@ class Describe extends Component {
   // START HTML
   render () {
     const { classes } = this.props;
-    return <Container>
+    return this.state.isLoading ? <CircularProgress /> : <Container>
         <div className='mainContainer'>
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
           {/* <div style={{textAlign: 'right'}}>
