@@ -81,7 +81,8 @@ function displayDescription(nameToDisplay, descriptionToDisplay) {
 class GraphsOverview extends Component {
   state = {
     graphsOverview: [], 
-    entitiesRelations:[]
+    entitiesRelations:[],
+    graphsLoading: true
   }
 
   componentDidMount() {
@@ -116,10 +117,19 @@ class GraphsOverview extends Component {
               graphWithHcls = allGraphsResults;
             }
             this.setState( { graphsOverview: graphWithHcls } );
+            this.setState({ graphsLoading: false });
             $(this.refs.graphsOverview).DataTable();
+          })
+          .catch(error => {
+            console.log(error)
+            this.setState({ graphsLoading: false });
           });
 
         // $(this.refs.graphsOverview).DataTable();
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({ graphsLoading: false });
       });
 
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
@@ -172,8 +182,16 @@ class GraphsOverview extends Component {
           })}
         </tbody>
       </table> )
-    } else {
+    } else if (this.state.graphsLoading == true) {
       graphsOverviewTable = <CircularProgress />
+    } else {
+      graphsOverviewTable = ( 
+        <Typography variant="body2">
+          Issue retrieving the graph 🚫<br/>
+          It might be due to CORS restrictions of the triplestore.<br/>
+          Try <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" target='_blank'>installing an addon</a> to enable CORS in your browser.
+        </Typography>
+      )
     }
     let entitiesRelationsTable;
     if (this.state.entitiesRelations.length > 0) {
