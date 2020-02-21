@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "https://bio2rdf.org/sparql",
+  "sparql_endpoint": "http://dbpedia.org/sparql",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://api.137.120.31.102.nip.io/swagger-ui.html",
   "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
@@ -11,6 +11,10 @@
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
     "bio2rdf":     "http://bio2rdf.org/",
+    "dbo":         "http://dbpedia.org/ontology/",
+    "dbp":         "http://dbpedia.org/property/",
+    "wd":          "http://www.wikidata.org/entity/",
+    "wdt":         "http://www.wikidata.org/prop/direct/",
     "dc":          "http://purl.org/dc/elements/1.1/",
     "dct":         "http://purl.org/dc/terms/",
     "dctypes":     "http://purl.org/dc/dcmitype/",
@@ -22,7 +26,8 @@
     "obo":         "http://purl.obolibrary.org/obo/",
     "ncit":        "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
-    "schema":      "http://schema.org/"
+    "schema":      "http://schema.org/",
+    "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 4"
+  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains '$TEXT_TO_SEARCH' . } LIMIT 200"
 }

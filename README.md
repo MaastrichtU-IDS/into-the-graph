@@ -117,6 +117,32 @@ Convenience script to `git pull`, `docker build` and restart docker.
 
 > Access at http://localhost:8082
 
+
+
+# Search queries
+
+Optimized search query for different triplestores.
+
+### Generic
+
+Support the [BioLink model](https://biolink.github.io/biolink-model/) (get [rdfs:label](http://www.w3.org/2000/01/rdf-schema#label) and [bl:name](https://biolink.github.io/biolink-model/docs/name.html))
+
+```SPARQL
+SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5
+```
+
+### GraphDB
+
+```SPARQL
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundUri luc:foundIndex "*$TEXT_TO_SEARCH*" . ?foundUri luc:foundIndex ?foundLabel . }
+```
+
+### DBpedia Virtuoso
+
+```SPARQL
+SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains '$TEXT_TO_SEARCH' . } LIMIT 200
+```
+
 # Publish using Expo (experimental)
 
 This feature is just a test,only try it if you know what you are doing!
