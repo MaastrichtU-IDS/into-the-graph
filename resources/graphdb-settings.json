@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "http://opencitations.net/index/sparql",
+  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/trek",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://api.137.120.31.102.nip.io/swagger-ui.html",
   "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
@@ -29,5 +29,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://purl.org/spar/cito/hasCitationCreationDate> <http://purl.org/spar/cito/hasCitationTimeSpan>} . FILTER(str(?foundLabel) =  '$TEXT_TO_SEARCH')} LIMIT 5"
+  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundUri luc:searchIndex '*$TEXT_TO_SEARCH*' . ?foundUri luc:searchIndex ?foundLabel . } LIMIT 100"
 }
