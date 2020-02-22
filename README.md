@@ -136,13 +136,7 @@ SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http:
 See [GraphDB full text search documentation](http://graphdb.ontotext.com/documentation/free/full-text-search.html) to create a search index (uses [Apache Lucene](https://lucene.apache.org/core/) under the hood).
 
 ```SPARQL
-PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundUri luc:searchIndex "*$TEXT_TO_SEARCH*" . ?foundUri luc:searchIndex ?foundLabel . } LIMIT 100
-```
-
-Order by Lucene score
-
-```SPARQL
-PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundUri luc:searchIndex "*$TEXT_TO_SEARCH*" . ?foundUri luc:searchIndex ?foundLabel ; luc:score ?score } ORDER BY ?score LIMIT 100
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' . ?foundUri ?p ?foundLabel . } LIMIT 100
 ```
 
 ### DBpedia Virtuoso
