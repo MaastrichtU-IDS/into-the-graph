@@ -37,7 +37,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.light
   },
   paperPadding: {
-    padding: theme.spacing(1, 1.5),
+    padding: theme.spacing(1, 1.5)
   },
   badgePadding: {
     padding: theme.spacing(0, 1),
@@ -47,6 +47,13 @@ const styles = theme => ({
   },
   divider: {
     margin: theme.spacing(1, 1),
+  },
+  uriLink: {
+    textDecoration: 'none',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
   font300: {
     fontWeight: 300
@@ -60,6 +67,7 @@ class Describe extends Component {
     super(props);
     this.showMoreHandler = this.showMoreHandler.bind(this);
     this.state.isLoading = true;
+    this.state.requestError = false;
   }
 
   showMoreHandler(graphUri, propertyUri) {
@@ -169,6 +177,11 @@ class Describe extends Component {
         // console.log('State after componentDidMount in describe:');
         // console.log(this.state);
       })
+      .catch(error => {
+        console.log(error)
+        this.setState({ requestError: true });
+        this.setState({ isLoading: false });
+      })
     } else {
       // Full text search
       axios.get(Config.sparql_endpoint + `?query=` + this.getSearchQuery(this.state.describeUri))
@@ -182,6 +195,11 @@ class Describe extends Component {
             })
           })
           this.setState({ searchResults });
+          this.setState({ isLoading: false });
+        })
+        .catch(error => {
+          console.log(error)
+          this.setState({ requestError: true });
           this.setState({ isLoading: false });
         })
     }
@@ -257,6 +275,17 @@ class Describe extends Component {
               </ExpansionPanelDetails>
             </ExpansionPanel>
           }
+
+          {/* Show error message (if request fails) */}
+          {this.state.requestError && (
+            <Paper elevation={2} className={classes.paperPadding}>
+              <Typography variant="body2">
+                The request to the SPARQL endpoint failed, try to <a href="" className={classes.uriLink}>reload the page ♻️</a><br/>
+                Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
+                  enable CORS requests</a> in your browser.
+              </Typography>
+            </Paper>
+          )}
         </div>
       </Container>
   }

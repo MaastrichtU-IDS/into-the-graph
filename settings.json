@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "http://dbpedia.org/sparql",
+  "sparql_endpoint": "https://bio2rdf.org/sparql",
   "comunica_url": "",
   "swagger_api_url": "",
   "download_filebrowser_url": "",
@@ -29,5 +29,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://purl.org/spar/cito/hasCitationCreationDate> <http://purl.org/spar/cito/hasCitationTimeSpan>} . FILTER(str(?foundLabel) =  '$TEXT_TO_SEARCH')} LIMIT 5"
+  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains \"'$TEXT_TO_SEARCH*'\" . } LIMIT 200"
 }
