@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
 
 import $ from 'jquery';
+var Config = require('Config')
 
 const styles = theme => ({
   menuButton: {
@@ -94,33 +95,39 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>
             </Link>
-            <Link to="/api"
-            className={classes.linkButton}>
-              <Tooltip title="A HTTP Swagger API to easily query the different classes and concepts in the triplestore.">
-                <Button className={classes.menuButton}>
-                  <Icon>http</Icon>
-                  &nbsp;API
-                </Button>
-              </Tooltip>
-            </Link>
-            <Link to="/archives"
-            className={classes.linkButton}>
-              <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
-                <Button className={classes.menuButton}>
-                  <Icon>unarchive</Icon>
-                  &nbsp;Archives
-                </Button>
-              </Tooltip>
-            </Link>
-            <Link to="/download"
-            className={classes.linkButton}>
-              <Tooltip title="Download RDF dumps of the triplestore graphs.">
-                <Button className={classes.menuButton}>
-                  <Icon>cloud_download</Icon>
-                  &nbsp;Download
-                </Button>
-              </Tooltip>
-            </Link>
+            {Config.swagger_api_url && ( 
+              <Link to="/api"
+              className={classes.linkButton}>
+                <Tooltip title="A HTTP Swagger API to easily query the different classes and concepts in the triplestore.">
+                  <Button className={classes.menuButton}>
+                    <Icon>http</Icon>
+                    &nbsp;API
+                  </Button>
+                </Tooltip>
+              </Link>
+            )}
+            {Config.comunica_url && ( 
+              <Link to="/archives"
+              className={classes.linkButton}>
+                <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
+                  <Button className={classes.menuButton}>
+                    <Icon>unarchive</Icon>
+                    &nbsp;Archives
+                  </Button>
+                </Tooltip>
+              </Link>
+            )}
+            {Config.download_filebrowser_url && ( 
+              <Link to="/download"
+              className={classes.linkButton}>
+                <Tooltip title="Download RDF dumps of the triplestore graphs.">
+                  <Button className={classes.menuButton}>
+                    <Icon>cloud_download</Icon>
+                    &nbsp;Download
+                  </Button>
+                </Tooltip>
+              </Link>
+            )}
             <div className="flexGrow"></div>
             {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
