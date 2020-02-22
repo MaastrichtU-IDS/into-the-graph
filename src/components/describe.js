@@ -310,11 +310,20 @@ class Describe extends Component {
   getSearchQuery(textToSearch) {
     let searchQuery = Config.search_query;
     if (textToSearch === "") {
-      searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
-        ?foundUri ?p ?foundLabel .
-        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-        } LIMIT 20`
-        // FILTER(isLiteral(?foundLabel))
+      // If no text provided we use a default search query to get interesting concepts 
+      // in the knowledge graph. A custom default query can be set in settings.json
+      let defaultSearchQuery = Config.default_search_query;
+      if (defaultSearchQuery) {
+        searchQuery = defaultSearchQuery;
+      } else {
+        // If no custom query defined in settings.json
+        searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+          ?foundUri ?p ?foundLabel .
+          VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+          FILTER(isLiteral(?foundLabel))
+          FILTER(isIRI(?foundUri))
+          } LIMIT 20`
+      }
     } else if (searchQuery) {
       // If defined in settings.json
       // Results are provided through ?foundUri and ?foundLabel
@@ -331,14 +340,6 @@ class Describe extends Component {
     }
     return encodeURIComponent(searchQuery);
   }
-  // GraphDB search index query
-  // PREFIX luc: <http://www.ontotext.com/owlim/lucene#>
-  // SELECT ?foundUri ?foundLabel {
-  //   ?foundUri luc:foundIndex "*$TEXT_TO_SEARCH*" .
-  //   ?foundUri luc:foundIndex ?foundLabel .
-  // }
-  // DBpedia Virtuoso search index query
-  // SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains '$TEXT_TO_SEARCH' . } LIMIT 100
 } 
 export default withStyles(styles)(Describe);
 
