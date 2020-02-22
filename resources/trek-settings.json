@@ -29,5 +29,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' . ?foundUri ?p ?foundLabel . } LIMIT 100"
+  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 100"
 }

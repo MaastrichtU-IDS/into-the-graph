@@ -139,6 +139,12 @@ See [GraphDB full text search documentation](http://graphdb.ontotext.com/documen
 PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' . ?foundUri ?p ?foundLabel . } LIMIT 100
 ```
 
+Order by Lucene score
+
+```SPARQL
+PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 100
+```
+
 ### DBpedia Virtuoso
 
 ```SPARQL
