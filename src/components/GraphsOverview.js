@@ -255,7 +255,7 @@ class GraphsOverview extends Component {
           <Typography variant="body2" style={{marginTop: '10px'}}>
             They can be easily precomputed and inserted in your triplestore running a simple docker container.
             Follow <a href="https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats"
-            className={classes.uriLink} target="_blank">those instructions</a> to compute statistics about your graph. 
+            className={classes.uriLink} target="_blank">those instructions</a> to compute statistics about your graphs. 
           </Typography>
         </Paper>
       </Container>);
