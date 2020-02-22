@@ -7,8 +7,8 @@ class DeployComunica extends Component {
   render () {
     return <iframe src={Config.comunica_url}
         width="100%"
-        height='200%'
-        scrolling="no" 
+        height='89%'
+        scrolling="yes" 
         frameBorder="0"
       />
   }

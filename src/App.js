@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import NavBar from './components/navbar';
-import Footer from './components/footer';
 import GraphsOverviewComponent from './components/GraphsOverview';
 import DeployYasguiComponent from './components/DeployYasgui';
 import DeployComunicaComponent from './components/DeployComunica';
@@ -54,7 +53,6 @@ class App extends Component {
               <Route exact path='/api' component={DeploySwaggerApi} />
               <Route exact path='/download' component={DeployFilebrowser} />
             </Switch>
-            <Footer />
           </div>
           </BrowserRouter>
         </MuiThemeProvider>

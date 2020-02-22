@@ -16,6 +16,7 @@ import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { LinkDescribe } from "./LinkDescribe";
+import Footer from './footer';
 
 var Config = require('Config')
 
@@ -208,7 +209,8 @@ class Describe extends Component {
   // START HTML
   render () {
     const { classes } = this.props;
-    return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <Container>
+    return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <React.Fragment>
+      <Container>
         <div className='mainContainer'>
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
           {/* <div style={{textAlign: 'right'}}>
@@ -288,6 +290,8 @@ class Describe extends Component {
           )}
         </div>
       </Container>
+      <Footer />
+    </React.Fragment>
   }
 
   getDescribeQuery(uriToDescribe) {

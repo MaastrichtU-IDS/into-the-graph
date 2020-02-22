@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
+import Footer from './footer';
 
 var Config = require('Config')
 
@@ -231,7 +232,7 @@ class GraphsOverview extends Component {
       )
     }
     // Now render the tables!
-    return (
+    return (<React.Fragment>
       <Container maxWidth="xl">
         <Typography variant="h5" className={classes.font300} style={{marginTop: '40px'}}>
           Graphs overview
@@ -258,7 +259,9 @@ class GraphsOverview extends Component {
             className={classes.uriLink} target="_blank">those instructions</a> to compute statistics about your graphs. 
           </Typography>
         </Paper>
-      </Container>);
+      </Container>
+      <Footer />
+    </React.Fragment>);
   }
 
   getAllGraphsQuery = `SELECT DISTINCT ?graph WHERE { GRAPH ?graph {?s ?p ?o} }`

@@ -14,8 +14,8 @@ class DeploySwaggerApi extends Component {
         // TODO: find ideal fix to resize iframe dynamically with content? 
         // iFrameResizer didn't work
         width='100%'
-        height='800%'
-        scrolling='no' 
+        height='89%'
+        scrolling='yes' 
         frameBorder='0'
       />;
   }
