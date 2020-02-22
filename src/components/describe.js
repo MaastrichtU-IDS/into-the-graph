@@ -42,6 +42,9 @@ const styles = theme => ({
   badgePadding: {
     padding: theme.spacing(0, 1),
   },
+  loadSpinner: {
+    padding: theme.spacing(10, 10),
+  },
   divider: {
     margin: theme.spacing(1, 1),
   },
@@ -187,7 +190,7 @@ class Describe extends Component {
   // START HTML
   render () {
     const { classes } = this.props;
-    return this.state.isLoading ? <CircularProgress /> : <Container>
+    return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <Container>
         <div className='mainContainer'>
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
           {/* <div style={{textAlign: 'right'}}>

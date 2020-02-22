@@ -146,8 +146,10 @@ SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-sch
 ### OpenCitation
 
 ```SPARQL
-SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://purl.org/spar/cito/hasCitationCreationDate> <http://purl.org/spar/cito/hasCitationTimeSpan>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 10
+SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://purl.org/spar/cito/hasCitationCreationDate> <http://purl.org/spar/cito/hasCitationTimeSpan>} . FILTER(str(?foundLabel) =  '$TEXT_TO_SEARCH')} LIMIT 5
 ```
+
+> Text operations really slow on OpenCitation SPARQL, so we do a full match (for date mainly).
 
 # Publish using Expo (experimental)
 
