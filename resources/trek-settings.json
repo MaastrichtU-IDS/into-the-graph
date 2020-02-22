@@ -29,5 +29,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5"
+  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' . ?foundUri ?p ?foundLabel . } LIMIT 100"
 }
