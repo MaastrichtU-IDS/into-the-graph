@@ -10,7 +10,7 @@ class DeployFilebrowser extends Component {
     return <Iframe url={Config.download_filebrowser_url}
       width="100%"
       // TODO: properly fix height to avoid double scroll
-      height="200%"
+      height="800%"
       id="iFrameFilebrowser"
       className="iFrameFilebrowser"
       display="initial"
