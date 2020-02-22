@@ -318,7 +318,7 @@ class Describe extends Component {
       } else {
         // If no custom query defined in settings.json
         searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
-          ?foundUri ?p ?foundLabel .
+          ?foundUri a ?type ; ?p ?foundLabel .
           VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
           FILTER(isLiteral(?foundLabel))
           FILTER(isIRI(?foundUri))
