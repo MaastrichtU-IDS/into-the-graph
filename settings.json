@@ -1,7 +1,7 @@
 {
-  "sparql_endpoint": "https://bio2rdf.org/sparql",
-  "comunica_url": "",
-  "swagger_api_url": "",
+  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/trek",
+  "comunica_url": "http://query.linkeddatafragments.org/",
+  "swagger_api_url": "http://api.137.120.31.102.nip.io/swagger-ui.html",
   "download_filebrowser_url": "https://download.bio2rdf.org/#/",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -29,5 +29,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains \"'$TEXT_TO_SEARCH*'\" . } LIMIT 200"
+  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5"
 }
