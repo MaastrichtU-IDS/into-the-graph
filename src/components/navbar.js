@@ -118,24 +118,24 @@ class NavBar extends Component {
               </Link>
             )}
             {Config.download_filebrowser_url && ( 
-              <a href={Config.download_filebrowser_url}
-              className={classes.linkButton} target='_blank'>
-                <Tooltip title="Download RDF dumps of the triplestore graphs.">
-                  <Button className={classes.menuButton}>
-                    <Icon>cloud_download</Icon>
-                    &nbsp;Download
-                  </Button>
-                </Tooltip>
-              </a>
-              // <Link to="/download"
-              // className={classes.linkButton}>
+              // <a href={Config.download_filebrowser_url}
+              // className={classes.linkButton} target='_blank'>
               //   <Tooltip title="Download RDF dumps of the triplestore graphs.">
               //     <Button className={classes.menuButton}>
               //       <Icon>cloud_download</Icon>
               //       &nbsp;Download
               //     </Button>
               //   </Tooltip>
-              // </Link>
+              // </a>
+              <Link to="/download"
+              className={classes.linkButton}>
+                <Tooltip title="Download RDF dumps of the triplestore graphs.">
+                  <Button className={classes.menuButton}>
+                    <Icon>cloud_download</Icon>
+                    &nbsp;Download
+                  </Button>
+                </Tooltip>
+              </Link>
             )}
             <div className="flexGrow"></div>
             {/* Search box */}
