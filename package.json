@@ -1,7 +1,7 @@
 {
   "name": "into-the-graph",
   "version": "0.1.0",
-  "description": "Visualize and browse the content of your RDF triplestore using HCLS statistics and SPARQL queries",
+  "description": "Visualize, search and browse the content of your RDF triplestore using various interfaces (graphical, SPARQL, REST API).",
   "private": true,
   "author": "Vincent Emonet",
   "license": "MIT",
@@ -46,6 +46,8 @@
   "keywords": [
     "sparql",
     "rdf",
+    "linked data",
+    "browser",
     "react",
     "materialui"
   ]
