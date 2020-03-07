@@ -10,6 +10,7 @@
     "skos":        "http://www.w3.org/2004/02/skos/core#",
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
+    "omop":        "http://api.ohdsi.org/WebAPI/vocabulary/concept/",
     "bio2rdf":     "http://bio2rdf.org/",
     "dbo":         "http://dbpedia.org/ontology/",
     "dbp":         "http://dbpedia.org/property/",

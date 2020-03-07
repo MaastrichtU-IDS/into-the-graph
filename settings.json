@@ -1,8 +1,8 @@
 {
-  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/trek",
-  "comunica_url": "http://query.linkeddatafragments.org/",
-  "swagger_api_url": "http://api.137.120.31.102.nip.io/swagger-ui.html",
-  "download_filebrowser_url": "https://download.bio2rdf.org/#/",
+  "sparql_endpoint": "http://localhost:8082/bigdata/sparql",
+  "comunica_url": "",
+  "swagger_api_url": "",
+  "download_filebrowser_url": "",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
@@ -10,6 +10,7 @@
     "skos":        "http://www.w3.org/2004/02/skos/core#",
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
+    "omop":        "http://api.ohdsi.org/WebAPI/vocabulary/concept/",
     "bio2rdf":     "http://bio2rdf.org/",
     "dbo":         "http://dbpedia.org/ontology/",
     "dbp":         "http://dbpedia.org/property/",
