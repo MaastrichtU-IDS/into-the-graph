@@ -1,7 +1,7 @@
 {
-  "sparql_endpoint": "http://localhost:8082/bigdata/sparql",
+  "sparql_endpoint": "http://localhost:8890/sparql",
   "comunica_url": "",
-  "swagger_api_url": "",
+  "swagger_api_url": "http://localhost:8080",
   "download_filebrowser_url": "",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

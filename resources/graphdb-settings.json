@@ -1,8 +1,8 @@
 {
-  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/trek",
-  "comunica_url": "http://query.linkeddatafragments.org/",
-  "swagger_api_url": "http://api.137.120.31.102.nip.io/swagger-ui.html",
-  "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
+  "sparql_endpoint": "http://localhost:7200/repositories/test",
+  "comunica_url": "http://localhost:8084/",
+  "swagger_api_url": "http://localhost:8080/swagger-ui.html",
+  "download_filebrowser_url": "http://localhost:8081/#/",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
@@ -30,5 +30,5 @@
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
   },
-  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 100"
+  "search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5"
 }
