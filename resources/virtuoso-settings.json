@@ -11,7 +11,7 @@
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
     "omop":        "http://api.ohdsi.org/WebAPI/vocabulary/concept/",
-    "cohd":        "https://w3id.org/biolink/cohd/",
+    "cohd":        "https://w3id.org/trek/cohd/",
     "bio2rdf":     "http://bio2rdf.org/",
     "dbo":         "http://dbpedia.org/ontology/",
     "dbp":         "http://dbpedia.org/property/",
