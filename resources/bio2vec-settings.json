@@ -1,5 +1,5 @@
 {
-  "sparql_endpoint": "https://graphdb.dumontierlab.com/repositories/bio2vec",
+  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/bio2vec",
   "comunica_url": "http://query.linkeddatafragments.org/",
   "swagger_api_url": "http://bio2vec-api.137.120.31.102.nip.io/swagger-ui.html",
   "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
