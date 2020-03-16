@@ -3,6 +3,7 @@
   "comunica_url": "http://localhost:8084/",
   "swagger_api_url": "http://localhost:8080/swagger-ui.html",
   "download_filebrowser_url": "http://localhost:8081/#/",
+  "graphs_overview": "hcls",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",

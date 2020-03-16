@@ -3,6 +3,7 @@
   "comunica_url": "http://comunica.137.120.31.102.nip.io/#/",
   "swagger_api_url": "http://api.trek.semanticscience.org/swagger-ui.html",
   "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
+  "graphs_overview": "hcls",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
