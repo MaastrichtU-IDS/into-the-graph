@@ -87,46 +87,20 @@ class GraphsOverview extends Component {
   }
 
   componentDidMount() {
+    var graphsOverviewSparql = null;
     // First get the graphs overview with HCLS metadata
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.hclsOverviewQuery))
+    if (Config.graphs_overview === "hcls") {
+      graphsOverviewSparql = this.hclsOverviewQuery
+    } else {
+      // If "all" usually
+      graphsOverviewSparql = this.getAllGraphsQuery
+    }
+    console.log(graphsOverviewSparql);
+    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
-        var graphWithHcls = res.data.results.bindings;
-        // Then get all graphs, even with no metadata
-        axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.getAllGraphsQuery))
-          .then(res => {
-            var allGraphsResults = res.data.results.bindings;
-
-            if (graphWithHcls.length > 0) {
-              // Iterate over every graphs returned
-              // if not in results with hcls, then we add it to graphWithHcls
-              allGraphsResults.map((allGraphsRow) => {
-                var notFoundInHclsGraphs = true;
-                graphWithHcls.map((hclsGraphRow) => {
-                  if (hclsGraphRow.graph.value === allGraphsRow.graph.value) {
-                    notFoundInHclsGraphs = false;
-                  }
-                })
-                if (notFoundInHclsGraphs) {
-                  graphWithHcls.push({ graph: allGraphsRow.graph})
-                }
-                
-              })
-              console.log("graphWithHcls final");
-              console.log(graphWithHcls);
-            } else {
-              // If no graph with HCLS metadata then take directly the allGraphs array
-              graphWithHcls = allGraphsResults;
-            }
-            this.setState( { graphsOverview: graphWithHcls } );
-            this.setState({ graphsLoading: false });
-            $(this.refs.graphsOverview).DataTable();
-          })
-          .catch(error => {
-            console.log(error)
-            this.setState({ graphsLoading: false });
-          });
-
-        // $(this.refs.graphsOverview).DataTable();
+        this.setState( { graphsOverview: res.data.results.bindings } );
+        this.setState({ graphsLoading: false });
+        $(this.refs.graphsOverview).DataTable();
       })
       .catch(error => {
         console.log(error)
