@@ -53,41 +53,44 @@ class Settings extends Component {
     const { classes } = this.props;
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
-          <Container>
-            <form onSubmit={this.handleSubmit}>
-              <FormControl className={classes.settingsForm}>
-                <TextField
-                  id="outlined-sparql-endpoint"
-                  label="SPARQL endpoint URL"
-                  defaultValue={triplestore.sparql_endpoint}
-                  placeholder="SPARQL endpoint URL"
-                  // onChange={handleChange}
-                  variant="outlined"
-                  inputRef={this.formSparqlEndpoint}
-                />
-                <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
-                <TextField
-                  id="outlined-graphs-overview"
-                  label="Graphs overview query type"
-                  defaultValue={triplestore.graphs_overview}
-                  placeholder="Graphs overview query type"
-                  variant="outlined"
-                  inputRef={this.formGraphsOverview}
-                />
-                {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
-                <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
-                  placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
-                <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
-                <Button type="submit"
-                variant="contained" size="small" 
-                className={classes.saveButton} 
-                // onClick={() => showMoreStatements(propertyUri)}
-                color="primary" >
-                  Save settings for this session  
-                </Button>
-              </FormControl>
-            </form>
-          </Container>
+          <React.Fragment>
+            <Container>
+              <form onSubmit={this.handleSubmit}>
+                <FormControl className={classes.settingsForm}>
+                  <TextField
+                    id="outlined-sparql-endpoint"
+                    label="SPARQL endpoint URL"
+                    defaultValue={triplestore.sparql_endpoint}
+                    placeholder="SPARQL endpoint URL"
+                    // onChange={handleChange}
+                    variant="outlined"
+                    inputRef={this.formSparqlEndpoint}
+                  />
+                  <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+                  <TextField
+                    id="outlined-graphs-overview"
+                    label="Graphs overview query type"
+                    defaultValue={triplestore.graphs_overview}
+                    placeholder="Graphs overview query type"
+                    variant="outlined"
+                    inputRef={this.formGraphsOverview}
+                  />
+                  {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
+                  <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
+                    placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
+                  <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+                  <Button type="submit"
+                  variant="contained" size="small" 
+                  className={classes.saveButton} 
+                  // onClick={() => showMoreStatements(propertyUri)}
+                  color="primary" >
+                    Save settings for this session  
+                  </Button>
+                </FormControl>
+              </form>
+            </Container>
+            <Footer />
+          </React.Fragment>
         )}
     </TriplestoreContext.Consumer>);
   }
