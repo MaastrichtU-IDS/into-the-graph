@@ -93,7 +93,7 @@ class GraphsOverview extends Component {
   componentDidMount() {
     var graphsOverviewSparql = null;
     // First get the graphs overview with HCLS metadata
-    if (Config.graphs_overview === "hcls") {
+    if (this.context.triplestore.graphs_overview === "hcls") {
       graphsOverviewSparql = this.hclsOverviewQuery
     } else {
       // If "all" usually
@@ -101,7 +101,7 @@ class GraphsOverview extends Component {
     }
     console.log(this.context.triplestore);
 
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
+    axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
         this.setState( { graphsOverview: res.data.results.bindings } );
         this.setState({ graphsLoading: false });
@@ -112,7 +112,7 @@ class GraphsOverview extends Component {
         this.setState({ graphsLoading: false });
       });
 
-    axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
+    axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
         this.setState( { entitiesRelations: res.data.results.bindings } );
         $(this.refs.entitiesRelations).DataTable();
