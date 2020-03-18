@@ -91,7 +91,7 @@ class App extends Component {
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
             <Switch >
-              <div style={{flexGrow: 1, marginLeft: this.state.triplestore.drawer_width}}>
+              <div style={{flexGrow: 1,  height: '100%', marginLeft: this.state.triplestore.drawer_width}}>
                 <Route exact path='/' component={GraphsOverviewComponent} />
                 <Route exact path='/sparql' component={DeployYasguiComponent} />
                 <Route exact path='/describe' component={DescribeComponent} />

@@ -29,8 +29,8 @@ import $ from 'jquery';
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
+  listItem: {
+    color: theme.palette.secondary.dark,
   },
   appBar: {
     // transition: theme.transitions.create(['margin', 'width'], {
@@ -272,21 +272,74 @@ class NavBar extends Component {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+        {/* <Link to="/" className={classes.linkButton}>
+              <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
+                <Button className={classes.menuButton}>
+                <Icon>explore</Icon>
+                  &nbsp;Graphs overview
+                </Button>
+              </Tooltip>  
+            </Link> */}
+          {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => ( */}
+          {/* <ListItem button component="Link" to="/" key='Graphs overview'> */}
+          <Link to="/" className={classes.linkButton}>
+          <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
+            <ListItem button className={classes.listItem} key='Graphs overview'>
+                <ListItemIcon><Icon>explore</Icon></ListItemIcon>
+                <ListItemText primary='Graphs overview' color='primary' />
             </ListItem>
-          ))}
+          </Tooltip> 
+          </Link>
+
+          <Link to="/sparql" className={classes.linkButton}>
+            <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
+              <ListItem button className={classes.listItem} key='SPARQL'>
+                  <ListItemIcon><Icon>share</Icon></ListItemIcon>
+                  <ListItemText primary='SPARQL'  />
+              </ListItem>
+            </Tooltip> 
+          </Link>
+          {this.context.triplestore.openapi_url && ( 
+            <Link to="/api" className={classes.linkButton}>
+              <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
+                <ListItem button className={classes.listItem} key='SPARQL'>
+                    <ListItemIcon><Icon>http</Icon></ListItemIcon>
+                    <ListItemText primary='Open API'  />
+                </ListItem>
+              </Tooltip> 
+            </Link>
+          )}
+          {this.context.triplestore.comunica_url && ( 
+            <Link to="/archives" className={classes.linkButton}>
+              <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget.">
+                <ListItem button className={classes.listItem} key='SPARQL'>
+                    <ListItemIcon><Icon>unarchive</Icon></ListItemIcon>
+                    <ListItemText primary='Archives'  />
+                </ListItem>
+              </Tooltip> 
+            </Link>
+          )}
+          {this.context.triplestore.filebrowser_url && ( 
+            <a href={this.context.triplestore.filebrowser_url} target='_blank' className={classes.linkButton}>
+              <Tooltip title="Download RDF dumps of the triplestore graphs.">
+                <ListItem button className={classes.listItem} key='SPARQL'>
+                    <ListItemIcon><Icon>cloud_download</Icon></ListItemIcon>
+                    <ListItemText primary='Download'  />
+                </ListItem>
+              </Tooltip> 
+            </a>
+          )}
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <Link to="/settings" className={classes.linkButton}>
+            <Tooltip title={this.context.triplestore.sparql_endpoint}>
+              <ListItem button className={classes.listItem} key='SPARQL'>
+                  <ListItemIcon><Icon>settings</Icon></ListItemIcon>
+                  <ListItemText primary='Settings'  />
+              </ListItem>
+            </Tooltip> 
+          </Link>
         </List>
       </Drawer>
       </React.Fragment>
