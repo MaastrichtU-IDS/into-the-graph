@@ -127,6 +127,7 @@ class Settings extends Component {
                     placeholder="Open API URL"
                     variant="outlined"
                     inputRef={this.formOpenapiUrl}
+                    size='small'
                   />
                   <TextField
                     id="textfield-comunica-url"
@@ -135,6 +136,7 @@ class Settings extends Component {
                     placeholder="Comunica widget URL (Archives)"
                     variant="outlined"
                     inputRef={this.formComunicaUrl}
+                    size='small'
                   />
                   <TextField
                     id="textfield-filebrowser-url"
@@ -143,6 +145,7 @@ class Settings extends Component {
                     placeholder="Filebrowser URL"
                     variant="outlined"
                     inputRef={this.formFilebrowserUrl}
+                    size='small'
                   />
                   <TextField
                     id="textfield-search-query"
