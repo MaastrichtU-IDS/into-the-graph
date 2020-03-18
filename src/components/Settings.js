@@ -61,10 +61,14 @@ class Settings extends Component {
   };
 
   handleAutocomplete = (searchText) => {
-    if (searchText.target.value) {
-      this.setState({ sparql_endpoint_autocomplete: searchText.target.value})
+    if (searchText){
+      if (searchText.target.value) {
+        this.setState({ sparql_endpoint_autocomplete: searchText.target.value})
+      } else {
+        this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+      }
     } else {
-      this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+      this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
     }
   }
 
@@ -113,6 +117,7 @@ class Settings extends Component {
                       onInputChange={this.handleAutocomplete.bind(this)}
                       id="autocomplete-sparql-endpoint"
                       options={sparqlEndointList}
+                      value={this.context.triplestore.sparql_endpoint}
                       freeSolo={true}
                       includeInputInList={true}
                       ListboxProps={{
