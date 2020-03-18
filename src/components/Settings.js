@@ -30,8 +30,8 @@ const styles = theme => ({
     textTransform: 'none',
     margin: theme.spacing(4),
   },
-  fullWidth: {
-    width: '100%'
+  formWidth: {
+    minWidth: '600px'
   },
   alignCenter: {
     textAlign: 'center'
@@ -77,15 +77,14 @@ class Settings extends Component {
             <Container >
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
-                {/* <FormControl className={classes.settingsForm}> */}
                   <FormControl className={classes.settingsForm} >
                     <TextField
                       id="outlined-sparql-endpoint"
                       label="SPARQL endpoint URL"
-                      // className={classes.fullWidth}
+                      // TODO: better handle form width
+                      className={classes.formWidth}
                       defaultValue={triplestore.sparql_endpoint}
                       placeholder="SPARQL endpoint URL"
-                      // onChange={handleChange}
                       variant="outlined"
                       inputRef={this.formSparqlEndpoint}
                       autoFocus='true'
@@ -96,7 +95,6 @@ class Settings extends Component {
                       // size='small'
                       // fullWidth='false'
                     />
-                  {/* </FormControl> */}
                   {/* Commented, due to margin not properly working */}
                   {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText> */}
                   <FormControl variant="outlined">
@@ -109,8 +107,7 @@ class Settings extends Component {
                       defaultValue={triplestore.graphs_overview}
                       inputRef={this.formGraphsOverview}
                       MenuProps={{
-                        // className: classes.alignCenter,
-                        style: {textAlign: 'center'}
+                        className: classes.alignCenter
                       }}
                       autoWidth='true'
                     >
