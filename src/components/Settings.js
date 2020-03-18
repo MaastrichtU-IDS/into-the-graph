@@ -288,7 +288,7 @@ class Settings extends Component {
                   </Button>
                   <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
                     <Alert severity="success">
-                      The new settings has been saved
+                      Settings has been saved
                     </Alert>
                   </Snackbar>
                 </FormControl>

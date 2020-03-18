@@ -66,7 +66,6 @@ class App extends Component {
     } else {
       // Default settings
       triplestoreState = { 
-        drawer_width: '240px',
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
         openapi_url: 'http://api.trek.semanticscience.org/',
@@ -78,6 +77,7 @@ class App extends Component {
     }
     this.state = {
       triplestore: triplestoreState,
+      drawer_width: '240px',
       setTriplestore: this.setTriplestore,
     };
     console.log(this.state);
@@ -91,7 +91,7 @@ class App extends Component {
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
             <Switch >
-              <div style={{flexGrow: 1,  height: '100%', marginLeft: this.state.triplestore.drawer_width}}>
+              <div style={{flexGrow: 1,  height: '100%', marginLeft: this.state.drawer_width}}>
                 <Route exact path='/' component={GraphsOverviewComponent} />
                 <Route exact path='/sparql' component={DeployYasguiComponent} />
                 <Route exact path='/describe' component={DescribeComponent} />

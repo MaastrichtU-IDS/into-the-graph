@@ -156,7 +156,7 @@ class NavBar extends Component {
               aria-label="open drawer"
               onClick={this.handleDrawerOpen}
               edge="start"
-              style={{marginLeft: this.context.triplestore.drawer_width}}
+              style={{marginLeft: this.context.drawer_width}}
               className={clsx(classes.menuButton, this.state.open )}
               // && classes.hide
             >
