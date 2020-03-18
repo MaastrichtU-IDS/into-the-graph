@@ -77,7 +77,7 @@ class App extends Component {
         openapi_url: '',
         comunica_url: 'http://query.linkeddatafragments.org/',
         filebrowser_url: '',
-        search_query: "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5",
+        search_query: "SELECT ?foundUri ?foundLabel WHERE {\n&nbsp;&nbsp;?foundUri ?p ?foundLabel .\n  VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n  FILTER(isLiteral(?foundLabel))\n  FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5",
       }
     }
     this.state = {

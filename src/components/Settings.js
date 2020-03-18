@@ -129,15 +129,15 @@ class Settings extends Component {
                     id="textfield-openapi-url"
                     label="Open API URL"
                     defaultValue={triplestore.openapi_url}
-                    placeholder="Comunica widget URL"
+                    placeholder="Open API URL"
                     variant="outlined"
                     inputRef={this.formOpenapiUrl}
                   />
                   <TextField
                     id="textfield-comunica-url"
-                    label="Comunica widget URL"
+                    label="Comunica widget URL (Archives)"
                     defaultValue={triplestore.comunica_url}
-                    placeholder="Comunica widget URL"
+                    placeholder="Comunica widget URL (Archives)"
                     variant="outlined"
                     inputRef={this.formComunicaUrl}
                   />
@@ -156,6 +156,8 @@ class Settings extends Component {
                     placeholder="Search query"
                     variant="outlined"
                     inputRef={this.formSearchQuery}
+                    multiline={true}
+                    size='small'
                   />
                   {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
                   <Button type="submit"
