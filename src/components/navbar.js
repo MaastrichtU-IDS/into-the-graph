@@ -150,6 +150,13 @@ class NavBar extends Component {
                 <SearchIcon />
               </IconButton>
             </Paper>
+            <Link to="/settings" className={classes.linkButton}>
+              <Tooltip title="Change the app settings, such as the SPARLQL endpoint URL">
+                <Button className={classes.menuButton}>
+                  <Icon>settings</Icon>
+                </Button>
+              </Tooltip>
+            </Link>
             {/* <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/into-the-graph">
               <Icon>code</Icon>

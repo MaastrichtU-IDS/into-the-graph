@@ -13,6 +13,7 @@ import DeployComunicaComponent from './components/DeployComunica';
 import DeploySwaggerApi from './components/DeploySwaggerApi';
 import DeployFilebrowser from './components/DeployFilebrowser';
 import DescribeComponent from './components/describe';
+import Settings from './components/Settings';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
@@ -79,6 +80,7 @@ class App extends Component {
               <Route exact path='/archives' component={DeployComunicaComponent} />
               <Route exact path='/api' component={DeploySwaggerApi} />
               <Route exact path='/download' component={DeployFilebrowser} />
+              <Route exact path='/settings' component={Settings} />
             </Switch>
           </div>
           </BrowserRouter>
