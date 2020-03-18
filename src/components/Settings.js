@@ -119,6 +119,8 @@ class Settings extends Component {
       'http://localhost:8082/bigdata/sparql',
       // 'https://query.wikidata.org/sparql',
     ]
+    const example_search_graphdb = 'PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex "$TEXT_TO_SEARCH*" ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200';
+    const example_search_virtuoso = 'SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains "$TEXT_TO_SEARCH*" .\n} LIMIT 200';
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
@@ -247,7 +249,7 @@ class Settings extends Component {
                       id="search-graphdb" 
                       label="Search query for Ontotext GraphDB" 
                       variant="outlined" multiline={true}
-                      value='PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex "$TEXT_TO_SEARCH*" ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 200'
+                      value={example_search_graphdb}
                       size='small'
                       InputProps={{
                         className: classes.smallerFont
@@ -261,7 +263,7 @@ class Settings extends Component {
                       id="search-virtuoso" 
                       label="Search query for OpenLink Virtuoso" 
                       variant="outlined" multiline={true}
-                      value='SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains "$TEXT_TO_SEARCH*" . } LIMIT 200'
+                      value={example_search_virtuoso}
                       size='small'
                       InputProps={{
                         className: classes.smallerFont
@@ -277,8 +279,8 @@ class Settings extends Component {
                   color="primary" >
                     Save settings for this session  
                   </Button>
-                  <Snackbar open={this.state.open} autoHideDuration={5000}>
-                    <Alert onClose={this.handleClose} severity="success">
+                  <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
+                    <Alert severity="success">
                       The new settings has been saved
                     </Alert>
                   </Snackbar>
