@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TriplestoreContext from '../TriplestoreContext';
 import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
@@ -28,6 +29,10 @@ const styles = theme => ({
       margin: theme.spacing(1),
       marginTop: '40px'
     },
+  },
+  saveButton: {
+    textTransform: 'none',
+    margin: theme.spacing(4),
   },
   menuButton: {
     color: theme.palette.secondary.main,
@@ -68,34 +73,49 @@ class Settings extends Component {
 
   static contextType = TriplestoreContext;
 
+  handleSubmit(event) {
+    alert('Le nom a été soumis');
+    console.log('yeaa');
+    event.preventDefault();
+  }
+
   render() {
     const { classes } = this.props;
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <Container>
-            <FormControl className={classes.settingsForm}>
-              <TextField
-                id="outlined-sparql-endpoint"
-                label="SPARQL endpoint URL"
-                defaultValue={triplestore.sparql_endpoint}
-                placeholder="SPARQL endpoint URL"
-                // onChange={handleChange}
-                variant="outlined"
-              />
-              <FormHelperText id="my-helper-text">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
-              <TextField
-                id="outlined-graphs-overview"
-                label="Graphs overview query type"
-                defaultValue={triplestore.graphs_overview}
-                placeholder="Graphs overview query type"
-                // onChange={handleChange}
-                variant="outlined"
-              />
-              {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
-              <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
-                placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
-              <FormHelperText id="my-helper-text">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
-            </FormControl>
+            <form onSubmit={this.handleSubmit}>
+              <FormControl className={classes.settingsForm}>
+                <TextField
+                  id="outlined-sparql-endpoint"
+                  label="SPARQL endpoint URL"
+                  defaultValue={triplestore.sparql_endpoint}
+                  placeholder="SPARQL endpoint URL"
+                  // onChange={handleChange}
+                  variant="outlined"
+                />
+                <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+                <TextField
+                  id="outlined-graphs-overview"
+                  label="Graphs overview query type"
+                  defaultValue={triplestore.graphs_overview}
+                  placeholder="Graphs overview query type"
+                  // onChange={handleChange}
+                  variant="outlined"
+                />
+                {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
+                <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
+                  placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
+                <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+                <Button type="submit"
+                variant="contained" size="small" 
+                className={classes.saveButton} 
+                // onClick={() => showMoreStatements(propertyUri)}
+                color="primary" >
+                  Save settings for this session  
+                </Button>
+              </FormControl>
+            </form>
           </Container>
         )}
     </TriplestoreContext.Consumer>);
