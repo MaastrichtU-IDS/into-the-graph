@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import TriplestoreContext from '../TriplestoreContext';
+import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -13,9 +14,9 @@ import Footer from './footer';
 
 var Config = require('Config')
 
-import 'datatables.net-dt/css/jquery.dataTables.min.css'
-import $ from 'jquery';
-$.DataTable = require('datatables.net');
+// import 'datatables.net-dt/css/jquery.dataTables.min.css'
+// import $ from 'jquery';
+// $.DataTable = require('datatables.net');
 // Shoud also work:
 // import $ from 'jquery'
 // import DataTable from 'datatables.net'
@@ -68,10 +69,16 @@ class Settings extends Component {
         <div>
           <button
             onClick={setTriplestore}>
-            Toggle Theme
+            Toggle Triplestore
           </button>
-          {/* <p>{triplestore}</p> */}
+          {/* <p>{triplestore.sparql_endpoint}</p> */}
           {console.log(triplestore)}
+          <FormControl>
+            <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
+            <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
+              placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" />
+            <FormHelperText id="my-helper-text">The SPARQL endpoint URL used to resolve URIs in this into-the-graph app.</FormHelperText>
+          </FormControl>
         </div>
       )}
     </TriplestoreContext.Consumer>);
