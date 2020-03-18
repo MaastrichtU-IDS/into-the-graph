@@ -74,9 +74,17 @@ class Settings extends Component {
           {/* <p>{triplestore.sparql_endpoint}</p> */}
           {console.log(triplestore)}
           <FormControl>
-            <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
+            <TextField
+              id="outlined-sparql-endpoint"
+              label="SPARQL endpoint URL"
+              defaultValue={triplestore.sparql_endpoint}
+              placeholder="SPARQL endpoint URL"
+              // onChange={handleChange}
+              variant="outlined"
+            />
+            {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
             <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
-              placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" />
+              placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
             <FormHelperText id="my-helper-text">The SPARQL endpoint URL used to resolve URIs in this into-the-graph app.</FormHelperText>
           </FormControl>
         </div>
