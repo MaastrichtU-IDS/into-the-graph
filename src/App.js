@@ -56,20 +56,14 @@ class App extends Component {
        } 
       })
       localStorage.setItem("intothegraphSettings", JSON.stringify(triplestore_config));
-      console.log('update localStorage');
-      console.log(localStorage.getItem("intothegraphSettings"));
     };
 
     const localStorageConfig = localStorage.getItem("intothegraphSettings");
     let triplestoreState = {}
     // Get settings from local storage (more persistent)
     if (localStorageConfig) {
-      triplestoreState = JSON.parse(localStorageConfig);
-      console.log('localstore');
-      console.log(triplestoreState);
-      
+      triplestoreState = JSON.parse(localStorageConfig);      
     } else {
-      console.log('no local');
       // Default settings
       triplestoreState = { 
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
@@ -83,20 +77,8 @@ class App extends Component {
     this.state = {
       triplestore: triplestoreState,
       setTriplestore: this.setTriplestore,
-      // localStorage: localStorage.getItem("intothegraphSettings"),
     };
-    console.log('check localStorage');
-    console.log(localStorage.getItem("intothegraphSettings"));
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.value !== prevState.value) {
-  //     // Whatever storage mechanism you end up deciding to use.
-  //     localStorage.setItem("intothegraphSettings")
-  //     console.log('update localStorage');
-  //     console.log(localStorage.getItem("intothegraphSettings"));
-  //   }
-  // }
 
   render() {
     return (

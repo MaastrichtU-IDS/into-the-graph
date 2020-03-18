@@ -1,8 +1,6 @@
 import React, { Component } from "react"; 
 import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
-import TriplestoreContext from '../TriplestoreContext';
-
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -10,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
+import TriplestoreContext from '../TriplestoreContext';
 
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
 import $ from 'jquery';

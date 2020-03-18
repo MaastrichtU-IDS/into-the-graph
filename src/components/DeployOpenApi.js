@@ -30,7 +30,7 @@ class DeployOpenApi extends Component {
 
   //   return <IframeResizer 
   //      heightCalculationMethod="bodyScroll"
-  //      src={Config.swagger_api_url}
+  //      src={Config.openapi_url}
   //     //  style={{ height: '100%', width:'100%' }}
   //     //  iframeResizerOptions={{ checkOrigin: false }}
   //     />

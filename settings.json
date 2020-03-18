@@ -1,9 +1,5 @@
 {
-  "sparql_endpoint": "http://graphdb.dumontierlab.com/repositories/trek",
-  "comunica_url": "http://comunica.137.120.31.102.nip.io/#/",
-  "swagger_api_url": "http://api.trek.semanticscience.org/swagger-ui.html",
-  "download_filebrowser_url": "http://download.137.120.31.102.nip.io/#/",
-  "graphs_overview": "hcls",
+  "default_search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri a ?type ; ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER(isIRI(?foundUri)) } LIMIT 20",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
@@ -31,6 +27,5 @@
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/",
     "cito":        "http://purl.org/spar/cito/"
-  },
-  "search_query": "PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 100"
+  }
 }

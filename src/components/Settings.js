@@ -7,23 +7,17 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import Paper from '@material-ui/core/Paper';
 import TriplestoreContext from '../TriplestoreContext';
 import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import axios from 'axios';
-import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
 
 const styles = theme => ({
   settingsForm: {
     // width: '100%',
-    textAlign: 'center',
-    '& .MuiTextField-root': {
-      margin: theme.spacing(4),
-      marginTop: '40px'
+    // textAlign: 'center',
+    '& .MuiFormControl-root': {
+      margin: theme.spacing(2),
     },
   },
   saveButton: {
@@ -76,7 +70,6 @@ class Settings extends Component {
       search_query: this.formSearchQuery.current.value, 
     });
     this.setState({ open: true });
-    // alert('saved alert');
   }
 
   render() {
@@ -84,7 +77,9 @@ class Settings extends Component {
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
-            <Container >
+            <Container
+              // style={{marginTop: '40px'}}
+            >
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
                   <FormControl className={classes.settingsForm} >
@@ -116,9 +111,9 @@ class Settings extends Component {
                       label="Graphs overview query type"
                       defaultValue={triplestore.graphs_overview}
                       inputRef={this.formGraphsOverview}
-                      MenuProps={{
-                        className: classes.alignCenter
-                      }}
+                      // MenuProps={{
+                      //   className: classes.alignCenter
+                      // }}
                       autoWidth={true}
                     >
                       <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
