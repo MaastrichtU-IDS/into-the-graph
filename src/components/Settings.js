@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TriplestoreContext from '../TriplestoreContext';
 import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
@@ -39,30 +40,42 @@ function Alert(props) {
 class Settings extends Component {
 
   static contextType = TriplestoreContext;
-  state = {open: false};
+
+  state = {open: false, 
+    sparql_endpoint_autocomplete: ''};
 
   constructor(props) {
     super(props);
+    // console.log(this.context)
     this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
     this.formOpenapiUrl = React.createRef(); 
     this.formComunicaUrl = React.createRef(); 
     this.formFilebrowserUrl = React.createRef(); 
     this.formSearchQuery = React.createRef(); 
+    // this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
  }
 
   handleClose = (event, reason) => {
     this.setState({ open: false});
   };
 
+  handleAutocomplete = (searchText) => {
+    console.log(searchText.target);
+    console.log(searchText.target.innerText);
+    console.log('tagret');
+    this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+  }
+
   // handleSubmit  = (event) => {
   handleSubmit  = (event, setTriplestore) => {
     event.preventDefault();
     console.log('saved');
-    console.log(this.formSparqlEndpoint.current.value);
+    console.log(this.state.sparql_endpoint_autocomplete);
     console.log(this.formGraphsOverview.current.value);
     setTriplestore({
-      sparql_endpoint: this.formSparqlEndpoint.current.value, 
+      // sparql_endpoint: this.formSparqlEndpoint.current.value, 
+      sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
       graphs_overview: this.formGraphsOverview.current.value,
       openapi_url: this.formOpenapiUrl.current.value, 
       comunica_url: this.formComunicaUrl.current.value,
@@ -74,6 +87,20 @@ class Settings extends Component {
 
   render() {
     const { classes } = this.props;
+    // const sparqlEndointList = [
+    //   { title: 'DBpedia Virtuoso', value: 'http://dbpedia.org/sparql' },
+    //   { title: 'Bio2RDF Virtuoso', value: 'https://bio2rdf.org/sparql' },
+    //   { title: 'NCATS Translator TReK', value: 'http://graphdb.dumontierlab.com/repositories/trek' },
+    //   { title: 'NCATS Translator TReK', value: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
+    //   { title: 'Bio2RDF v5', value: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
+    // ]
+    const sparqlEndointList = [
+      { label: 'DBpedia Virtuoso', title: 'http://dbpedia.org/sparql' },
+      { label: 'Bio2RDF Virtuoso', title: 'https://bio2rdf.org/sparql' },
+      { label: 'NCATS Translator TReK', title: 'http://graphdb.dumontierlab.com/repositories/trek' },
+      { label: 'NCATS Translator TReK', title: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
+      { label: 'Bio2RDF v5', title: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
+    ]
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
@@ -83,7 +110,17 @@ class Settings extends Component {
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
                   <FormControl className={classes.settingsForm} >
-                    <TextField
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this)}
+                      id="autocomplete-sparql-endpoint"
+                      options={sparqlEndointList}
+                      ref={this.formSparqlEndpoint}
+                      getOptionLabel={option => option.title}
+                      // style={{ width: 300 }}
+                      renderInput={params => <TextField {...params} 
+                        label="SPARQL endpoint URL" variant="outlined" />}
+                    />
+                    {/* <TextField
                       id="outlined-sparql-endpoint"
                       label="SPARQL endpoint URL"
                       // TODO: better handle form width
@@ -99,7 +136,7 @@ class Settings extends Component {
                       // }}
                       // size='small'
                       // fullWidth={true}
-                    />
+                    /> */}
                   {/* Commented, due to margin not properly working */}
                   {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText> */}
                   <FormControl variant="outlined">
