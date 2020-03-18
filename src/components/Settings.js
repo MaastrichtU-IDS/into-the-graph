@@ -30,8 +30,14 @@ const styles = theme => ({
     textTransform: 'none',
     margin: theme.spacing(4),
   },
-  fullWidth: {
-    width: '100%'
+  formTextField: {
+    width: '100%',
+  },
+  smallFont: {
+    fontSize: '16px',
+  },
+  smallerFont: {
+    fontSize: '14px',
   },
   alignLeft: {
     textAlign: 'left'
@@ -101,12 +107,18 @@ class Settings extends Component {
     //   { title: 'Bio2RDF v5', value: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
     // ]
     const sparqlEndointList = [
-      'http://dbpedia.org/sparql',
-      'https://bio2rdf.org/sparql',
       'http://graphdb.dumontierlab.com/repositories/trek',
+      'http://graphdb.dumontierlab.com/repositories/bio2vec',
       'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
       'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
-      'https://query.wikidata.org/sparql',
+      'https://bio2rdf.org/sparql',
+      'http://dbpedia.org/sparql',
+      'http://opencitations.net/index/sparql',
+      'http://opencitations.net/sparql',
+      'http://localhost:7200/repositories/demo',
+      'http://localhost:8890/sparql',
+      'http://localhost:8082/bigdata/sparql',
+      // 'https://query.wikidata.org/sparql',
     ]
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
@@ -147,13 +159,13 @@ class Settings extends Component {
                       defaultValue={triplestore.graphs_overview}
                       inputRef={this.formGraphsOverview}
                       MenuProps={{
-                        className: classes.fullWidth
+                        className: classes.formTextField
                       }}
                       // SelectDisplayProps={{
-                      //   className: classes.fullWidth
+                      //   className: classes.formTextField
                       // }}
                       // InputProps={{
-                      //   className: classes.fullWidth
+                      //   className: classes.formTextField
                       // }}
                       autoWidth={true}
                     >
@@ -170,6 +182,12 @@ class Settings extends Component {
                     variant="outlined"
                     inputRef={this.formOpenapiUrl}
                     size='small'
+                    InputProps={{
+                      className: classes.smallerFont
+                    }}
+                    InputLabelProps={{
+                      className: classes.smallerFont
+                    }}
                   />
                   <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to query the SPARQL endpoint (require to be BioLink-compliant)</FormHelperText>
                   <TextField
@@ -180,6 +198,12 @@ class Settings extends Component {
                     variant="outlined"
                     inputRef={this.formComunicaUrl}
                     size='small'
+                    InputProps={{
+                      className: classes.smallerFont
+                    }}
+                    InputLabelProps={{
+                      className: classes.smallerFont
+                    }}
                   />
                   <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
                   <TextField
@@ -190,6 +214,12 @@ class Settings extends Component {
                     variant="outlined"
                     inputRef={this.formFilebrowserUrl}
                     size='small'
+                    InputProps={{
+                      className: classes.smallerFont
+                    }}
+                    InputLabelProps={{
+                      className: classes.smallerFont
+                    }}
                   />
                   <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
                   <TextField
@@ -201,10 +231,46 @@ class Settings extends Component {
                     inputRef={this.formSearchQuery}
                     multiline={true}
                     size='small'
+                    InputProps={{
+                      className: classes.smallerFont
+                    }}
+                    InputLabelProps={{
+                      className: classes.smallerFont
+                    }}
                   />
-                  <FormHelperText id="helper-graphs-overview">
+                  <FormHelperText id="helper-search-virtuoso" >
                     SPARQL query used when searching in the navbar search box.
-                    It should return a ?foundUri and a ?foundLabel
+                    It should return a ?foundUri and a ?foundLabel.
+                    <br/>
+                    You can use those examples queries for GraphDB or Virtuoso Search Index (needs to be enabled in the triplestore):
+                    <TextField 
+                      className={classes.formTextField}
+                      id="search-graphdb" 
+                      label="Search query for Ontotext GraphDB" 
+                      variant="outlined" multiline={true}
+                      value='PREFIX luc: <http://www.ontotext.com/owlim/lucene#> SELECT ?foundUri ?foundLabel { ?foundLabel luc:searchIndex "$TEXT_TO_SEARCH*" ; luc:score ?score . ?foundUri ?p ?foundLabel . } ORDER BY ?score LIMIT 200'
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
+                    <TextField 
+                      className={classes.formTextField}
+                      id="search-virtuoso" 
+                      label="Search query for Virtuoso" 
+                      variant="outlined" multiline={true}
+                      value='SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains "$TEXT_TO_SEARCH*" . } LIMIT 200'
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
                   </FormHelperText>
                   <Button type="submit"
                   variant="contained" size="small" 
