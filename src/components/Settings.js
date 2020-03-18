@@ -134,8 +134,9 @@ class Settings extends Component {
       // 'https://semantic.eea.europa.eu/sparql',
       // 'http://void.rkbexplorer.com/sparql/',
     ]
-    const example_search_graphdb = 'PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex "$TEXT_TO_SEARCH*" ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200';
-    const example_search_virtuoso = 'SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains "$TEXT_TO_SEARCH*" .\n} LIMIT 200';
+    const example_search_graphdb = "PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200";
+    const example_search_virtuoso = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains '$TEXT_TO_SEARCH' .\n} LIMIT 200";
+    const example_search_default = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri ?p ?foundLabel .\n    VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n    FILTER(isLiteral(?foundLabel))\n    FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')\n} LIMIT 5";
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
@@ -258,10 +259,10 @@ class Settings extends Component {
                     </Typography>
                     <TextField
                       id="textfield-search-query"
-                      label="Search query"
+                      label="Search query in use"
                       className={classes.fullWidth}
                       defaultValue={triplestore.search_query}
-                      placeholder="Search query"
+                      placeholder="Search query in use"
                       variant="outlined"
                       inputRef={this.formSearchQuery}
                       multiline={true}
@@ -298,6 +299,20 @@ class Settings extends Component {
                         label="Search query for OpenLink Virtuoso" 
                         variant="outlined" multiline={true}
                         value={example_search_virtuoso}
+                        size='small'
+                        InputProps={{
+                          className: classes.smallerFont
+                        }}
+                        InputLabelProps={{
+                          className: classes.smallerFont
+                        }}
+                      />
+                    <TextField 
+                        className={classes.fullWidth}
+                        id="search-default" 
+                        label="Default search query" 
+                        variant="outlined" multiline={true}
+                        value={example_search_default}
                         size='small'
                         InputProps={{
                           className: classes.smallerFont
