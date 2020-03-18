@@ -20,7 +20,7 @@ const styles = theme => ({
     marginLeft: '1em',
     textTransform: 'none',
     textDecoration: 'none',
-    fontSize: '15px'
+    fontSize: '14px'
   },
   linkButton: {
     textTransform: 'none',
@@ -33,7 +33,7 @@ const styles = theme => ({
   },
   input: {
     marginLeft: theme.spacing(1),
-    fontSize: '1rem',
+    fontSize: '14px',
     flex: 1,
   },
   iconButton: {
@@ -71,7 +71,7 @@ class NavBar extends Component {
     return (
       <React.Fragment>
         <AppBar title="" position='sticky'>
-          <Toolbar>
+          <Toolbar variant='dense'>
             <Link to="/" className={classes.linkButton}>
               <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
