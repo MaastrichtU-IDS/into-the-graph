@@ -26,7 +26,26 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import $ from 'jquery';
 
+const drawerWidth = 240;
+
 const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   menuButton: {
     color: theme.palette.secondary.main,
     marginRight: '1em',
@@ -52,11 +71,48 @@ const styles = theme => ({
   iconButton: {
     padding: 5,
   },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
 })
  
 // export default function NavBar() {
 class NavBar extends Component {
-  state = { searchText: '' }
+  state = { 
+    searchText: '',
+    open: true
+  }
 
   static contextType = TriplestoreContext;
 
@@ -66,6 +122,14 @@ class NavBar extends Component {
       searchText: ''
     }
   }
+
+  handleDrawerOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleDrawerClose = () => {
+    this.setState({open: false});
+  };
 
   // submitSearch(event){
   submitSearch  = (event) => {
@@ -83,14 +147,16 @@ class NavBar extends Component {
 
     return (
       <React.Fragment>
-        <AppBar title="" position='sticky'>
+        <AppBar title="" position='sticky' className={classes.appBar}>
           <Toolbar variant='dense'>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              // onClick={handleDrawerOpen}
+              onClick={this.handleDrawerOpen}
               edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
+              style={{marginLeft: this.context.triplestore.drawer_width}}
+              className={clsx(classes.menuButton, open )}
+              // && classes.hide
             >
               <MenuIcon />
             </IconButton>
@@ -188,6 +254,40 @@ class NavBar extends Component {
             </Button> */}
           </Toolbar>
         </AppBar>
+        <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={this.handleDrawerClose}>
+            <ChevronLeftIcon />
+            {/* <ChevronRightIcon /> */}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
       </React.Fragment>
     );
   }

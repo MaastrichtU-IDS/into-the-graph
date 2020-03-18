@@ -35,7 +35,7 @@ const theme = createMuiTheme({
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 500
-   }
+  },
 });
 
 // Routing happens here
@@ -66,6 +66,7 @@ class App extends Component {
     } else {
       // Default settings
       triplestoreState = { 
+        drawer_width: '240px',
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
         openapi_url: 'http://api.trek.semanticscience.org/',
@@ -79,6 +80,7 @@ class App extends Component {
       triplestore: triplestoreState,
       setTriplestore: this.setTriplestore,
     };
+    console.log(this.state);
   }
 
   render() {
@@ -88,14 +90,16 @@ class App extends Component {
           <BrowserRouter>
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
             <NavBar />
-            <Switch>
-              <Route exact path='/' component={GraphsOverviewComponent} />
-              <Route exact path='/sparql' component={DeployYasguiComponent} />
-              <Route exact path='/describe' component={DescribeComponent} />
-              <Route exact path='/archives' component={DeployComunicaComponent} />
-              <Route exact path='/api' component={DeployOpenApi} />
-              <Route exact path='/download' component={DeployFilebrowser} />
-              <Route exact path='/settings' component={Settings} />
+            <Switch >
+              <div style={{flexGrow: 1, marginLeft: this.state.triplestore.drawer_width}}>
+                <Route exact path='/' component={GraphsOverviewComponent} />
+                <Route exact path='/sparql' component={DeployYasguiComponent} />
+                <Route exact path='/describe' component={DescribeComponent} />
+                <Route exact path='/archives' component={DeployComunicaComponent} />
+                <Route exact path='/api' component={DeployOpenApi} />
+                <Route exact path='/download' component={DeployFilebrowser} />
+                <Route exact path='/settings' component={Settings} />
+              </div>
             </Switch>
           </div>
           </BrowserRouter>
