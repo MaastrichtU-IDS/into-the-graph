@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Paper from '@material-ui/core/Paper';
 import TriplestoreContext from '../TriplestoreContext';
 import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
@@ -28,16 +30,27 @@ const styles = theme => ({
   }
 })
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class Settings extends Component {
 
   static contextType = TriplestoreContext;
+  state = {open: false, setOpen: false};
 
   constructor(props) {
     super(props);
     this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
  }
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   // handleSubmit  = (event) => {
   handleSubmit  = (event, setTriplestore) => {
@@ -47,6 +60,8 @@ class Settings extends Component {
     console.log(this.formGraphsOverview.current.value);
     setTriplestore({sparql_endpoint: this.formSparqlEndpoint.current.value, 
       graphs_overview: this.formGraphsOverview.current.value});
+    // setOpen(true);
+    this.setState({ open: true });
     // alert('saved alert');
   }
 
@@ -87,6 +102,11 @@ class Settings extends Component {
                   color="primary" >
                     Save settings for this session  
                   </Button>
+                  <Snackbar open={this.state.open} autoHideDuration={6000}>
+                    <Alert onClose={this.handleClose} severity="success">
+                      The new settings has been saved!
+                    </Alert>
+                  </Snackbar>
                 </FormControl>
               </form>
             </Container>
