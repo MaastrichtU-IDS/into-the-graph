@@ -27,6 +27,7 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX cohd: <https://w3id.org/trek/cohd/>
+PREFIX trek: <https://w3id.org/trek/>
 PREFIX omop: <http://api.ohdsi.org/WebAPI/vocabulary/concept/>
 SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
 WHERE {
@@ -66,8 +67,8 @@ PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
-PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX cohd: <https://w3id.org/trek/cohd/>
+PREFIX trek: <https://w3id.org/trek/>
 PREFIX omop: <http://api.ohdsi.org/WebAPI/vocabulary/concept/>
 SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
