@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
 import "@triply/yasgui/build/yasgui.min.css";
+import Footer from './footer';
 import TriplestoreContext from '../TriplestoreContext';
 
 var Config = require('Config')
@@ -148,12 +149,15 @@ GRAPH ?metadataGraph {
 
   render () {
     const { classes } = this.props;
-    return <Container maxWidth="xl">
+    return <React.Fragment>
+      <Container maxWidth="xl">
         <Paper elevation={2} style={{textAlign: 'left'}}
         className={['mainContainer', classes.paperPadding].join(' ')}>
           <div id="yasguiDiv"></div>
         </Paper>
       </Container>
+      <Footer />
+    </React.Fragment>
   }
 }
 export default withStyles(styles)(DeployYasgui);
