@@ -222,8 +222,8 @@ class GraphsOverview extends Component {
     }
     // Now render the tables!
     return (<React.Fragment>
-      <Container maxWidth="xl">
-        <Typography variant="h5" className={classes.font300} style={{marginTop: '40px'}}>
+      <Container maxWidth="xl" style={{marginTop: '20px'}}>
+        <Typography variant="h5" className={classes.font300}>
           Graphs overview
         </Typography>
         <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
