@@ -11,8 +11,6 @@ import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
 
-var Config = require('Config')
-
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
 import $ from 'jquery';
 $.DataTable = require('datatables.net');
@@ -99,7 +97,6 @@ class GraphsOverview extends Component {
       // If "all" usually
       graphsOverviewSparql = this.getAllGraphsQuery
     }
-    console.log(this.context.triplestore);
 
     axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {

@@ -17,6 +17,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
+import TriplestoreContext from '../TriplestoreContext';
 
 var Config = require('Config')
 
@@ -64,6 +65,8 @@ const styles = theme => ({
 class Describe extends Component {
   params = new URLSearchParams(this.props.location.search + this.props.location.hash);
 
+  static contextType = TriplestoreContext;
+
   constructor(props) {
     super(props);
     this.showMoreHandler = this.showMoreHandler.bind(this);
@@ -94,7 +97,7 @@ class Describe extends Component {
   componentDidMount() {
     // if (this.state.describeUri.startsWith('http')) {
     if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(this.state.describeUri)) {
-      axios.get(Config.sparql_endpoint + `?query=` + this.getDescribeQuery(this.state.describeUri))
+      axios.get(this.context.triplestore.sparql_endpoint + `?query=` + this.getDescribeQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let describeHash = {};
@@ -185,7 +188,7 @@ class Describe extends Component {
       })
     } else {
       // Full text search
-      axios.get(Config.sparql_endpoint + `?query=` + this.getSearchQuery(this.state.describeUri))
+      axios.get(this.context.triplestore.sparql_endpoint + `?query=` + this.getSearchQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let searchResults = [];

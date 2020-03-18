@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Paper from '@material-ui/core/Paper';
@@ -15,18 +17,24 @@ import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
 
-var Config = require('Config')
-
 const styles = theme => ({
   settingsForm: {
+    // width: '100%',
+    textAlign: 'center',
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(4),
       marginTop: '40px'
     },
   },
   saveButton: {
     textTransform: 'none',
     margin: theme.spacing(4),
+  },
+  fullWidth: {
+    width: '100%'
+  },
+  alignCenter: {
+    textAlign: 'center'
   }
 })
 
@@ -66,29 +74,59 @@ class Settings extends Component {
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
-            <Container>
+            <Container >
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
-                <FormControl className={classes.settingsForm}>
-                  <TextField
-                    id="outlined-sparql-endpoint"
-                    label="SPARQL endpoint URL"
-                    defaultValue={triplestore.sparql_endpoint}
-                    placeholder="SPARQL endpoint URL"
-                    // onChange={handleChange}
-                    variant="outlined"
-                    inputRef={this.formSparqlEndpoint}
-                  />
-                  <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
-                  <TextField
+                {/* <FormControl className={classes.settingsForm}> */}
+                  <FormControl className={classes.settingsForm} >
+                    <TextField
+                      id="outlined-sparql-endpoint"
+                      label="SPARQL endpoint URL"
+                      // className={classes.fullWidth}
+                      defaultValue={triplestore.sparql_endpoint}
+                      placeholder="SPARQL endpoint URL"
+                      // onChange={handleChange}
+                      variant="outlined"
+                      inputRef={this.formSparqlEndpoint}
+                      autoFocus='true'
+                      // InputProps={{
+                      //   className: classes.fullWidth,
+                      //   style: {textAlign: 'center'}
+                      // }}
+                      // size='small'
+                      // fullWidth='false'
+                    />
+                  {/* </FormControl> */}
+                  {/* Commented, due to margin not properly working */}
+                  {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText> */}
+                  <FormControl variant="outlined">
+                    <InputLabel id="form-graph-overview-label">
+                      Graphs overview query type
+                    </InputLabel>
+                    <Select
+                      labelId="form-graph-overview-label"
+                      label="Graphs overview query type"
+                      defaultValue={triplestore.graphs_overview}
+                      inputRef={this.formGraphsOverview}
+                      MenuProps={{
+                        // className: classes.alignCenter,
+                        style: {textAlign: 'center'}
+                      }}
+                      autoWidth='true'
+                    >
+                      <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
+                      <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {/* <TextField
                     id="outlined-graphs-overview"
                     label="Graphs overview query type"
                     defaultValue={triplestore.graphs_overview}
                     placeholder="Graphs overview query type"
                     variant="outlined"
                     inputRef={this.formGraphsOverview}
-                  />
-                  <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+                  /> */}
+                  {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
                   <Button type="submit"
                   variant="contained" size="small" 
                   className={classes.saveButton} 

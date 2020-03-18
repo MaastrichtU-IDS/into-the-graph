@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Yasgui from "@triply/yasgui";
 import "@triply/yasgui/build/yasgui.min.css";
+import TriplestoreContext from '../TriplestoreContext';
 
 var Config = require('Config')
 
@@ -14,6 +15,7 @@ const styles = theme => ({
 })
 
 class DeployYasgui extends Component {
+  static contextType = TriplestoreContext;
 
   graphOverviewQuery = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -89,7 +91,7 @@ GRAPH ?metadataGraph {
 
     // const yasguiConfig = {
     //   requestConfig: {
-    //     endpoint: 'Config.sparql_endpoint',
+    //     endpoint: 'this.context.triplestore.sparql_endpoint',
     //     method: 'POST',
     //     //Example of using a getter function to define the headers field:
     //     // headers: () => ({
@@ -105,11 +107,11 @@ GRAPH ?metadataGraph {
     // Yasgui.defaults = yasguiConfig;
     // Yasgui.Yasqe.defaults = yasguiConfig;
 
-    Yasgui.defaults.endpoint = Config.sparql_endpoint;
-    Yasgui.defaults.requestConfig.endpoint = Config.sparql_endpoint;
-    Yasgui.Yasqe.defaults.requestConfig.endpoint = Config.sparql_endpoint;
+    Yasgui.defaults.endpoint = this.context.triplestore.sparql_endpoint;
+    Yasgui.defaults.requestConfig.endpoint = this.context.triplestore.sparql_endpoint;
+    Yasgui.Yasqe.defaults.requestConfig.endpoint = this.context.triplestore.sparql_endpoint;
     // TODO: fix this, and add catalog in settings.xml
-    // const catalogEndpoint = { endpoint: Config.sparql_endpoint }
+    // const catalogEndpoint = { endpoint: this.context.triplestore.sparql_endpoint }
     Yasgui.defaults.endpointCatalogueOptions.getData = () => {
       return [
         { endpoint: "http://graphdb.dumontierlab.com/repositories/trek" },
