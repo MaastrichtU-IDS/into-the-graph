@@ -37,7 +37,7 @@ function Alert(props) {
 class Settings extends Component {
 
   static contextType = TriplestoreContext;
-  state = {open: false, setOpen: false};
+  state = {open: false};
 
   constructor(props) {
     super(props);
@@ -46,10 +46,7 @@ class Settings extends Component {
  }
 
   handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
+    this.setState({ open: false});
   };
 
   // handleSubmit  = (event) => {
@@ -60,7 +57,6 @@ class Settings extends Component {
     console.log(this.formGraphsOverview.current.value);
     setTriplestore({sparql_endpoint: this.formSparqlEndpoint.current.value, 
       graphs_overview: this.formGraphsOverview.current.value});
-    // setOpen(true);
     this.setState({ open: true });
     // alert('saved alert');
   }
@@ -92,9 +88,6 @@ class Settings extends Component {
                     variant="outlined"
                     inputRef={this.formGraphsOverview}
                   />
-                  {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
-                  <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
-                    placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
                   <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
                   <Button type="submit"
                   variant="contained" size="small" 
@@ -102,9 +95,9 @@ class Settings extends Component {
                   color="primary" >
                     Save settings for this session  
                   </Button>
-                  <Snackbar open={this.state.open} autoHideDuration={6000}>
+                  <Snackbar open={this.state.open} autoHideDuration={5000}>
                     <Alert onClose={this.handleClose} severity="success">
-                      The new settings has been saved!
+                      The new settings has been saved
                     </Alert>
                   </Snackbar>
                 </FormControl>
