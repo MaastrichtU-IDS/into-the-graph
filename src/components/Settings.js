@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/styles';
 import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,7 +19,7 @@ const styles = theme => ({
     width: '90%',
     // textAlign: 'center',
     '& .MuiFormControl-root': {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
     '& .MuiFormHelperText-root': {
@@ -30,7 +31,7 @@ const styles = theme => ({
     textTransform: 'none',
     margin: theme.spacing(4),
   },
-  formTextField: {
+  fullWidth: {
     width: '100%',
   },
   smallFont: {
@@ -41,6 +42,13 @@ const styles = theme => ({
   },
   alignLeft: {
     textAlign: 'left'
+  },
+  paperPadding: {
+    padding: theme.spacing(2, 2),
+    margin: theme.spacing(2, 2),
+  },
+  font300: {
+    fontWeight: 300
   }
 })
 
@@ -136,127 +144,72 @@ class Settings extends Component {
             >
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
-                  <FormControl className={classes.settingsForm} >
-                    <Autocomplete
-                      onChange={this.handleAutocomplete.bind(this)}
-                      onInputChange={this.handleAutocomplete.bind(this)}
-                      id="autocomplete-sparql-endpoint"
-                      options={sparqlEndointList}
-                      value={this.context.triplestore.sparql_endpoint}
-                      freeSolo={true}
-                      includeInputInList={true}
-                      ListboxProps={{
-                        className: classes.alignLeft,
-                      }}
-                      renderInput={params => <TextField {...params} 
-                      label="SPARQL endpoint URL" 
-                      variant="outlined" 
-                      // getOptionLabel={option => option.title}
-                      // style={{ width: 300 }}
-                      // size='small'
-                      />}
-                    />
-                  <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
-                  <FormControl variant="outlined">
-                    <InputLabel id="form-graph-overview-label">
-                      Graphs overview query type
-                    </InputLabel>
-                    <Select
-                      labelId="form-graph-overview-label"
-                      label="Graphs overview query type"
-                      defaultValue={triplestore.graphs_overview}
-                      inputRef={this.formGraphsOverview}
-                      MenuProps={{
-                        className: classes.formTextField
-                      }}
-                      // SelectDisplayProps={{
-                      //   className: classes.smallerFont
-                      // }}
-                      InputProps={{
-                        className: classes.smallerFont
-                      }}
-                      autoWidth={true}
-                    >
-                      <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
-                      <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
-                  <TextField
-                    id="textfield-openapi-url"
-                    label="Open API URL"
-                    defaultValue={triplestore.openapi_url}
-                    placeholder="Open API URL"
-                    variant="outlined"
-                    inputRef={this.formOpenapiUrl}
-                    size='small'
-                    InputProps={{
-                      className: classes.smallerFont
-                    }}
-                    InputLabelProps={{
-                      className: classes.smallerFont
-                    }}
-                  />
-                  <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
-                  <TextField
-                    id="textfield-comunica-url"
-                    label="Comunica widget URL (Archives)"
-                    defaultValue={triplestore.comunica_url}
-                    placeholder="Comunica widget URL (Archives)"
-                    variant="outlined"
-                    inputRef={this.formComunicaUrl}
-                    size='small'
-                    InputProps={{
-                      className: classes.smallerFont
-                    }}
-                    InputLabelProps={{
-                      className: classes.smallerFont
-                    }}
-                  />
-                  <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
-                  <TextField
-                    id="textfield-filebrowser-url"
-                    label="Filebrowser URL"
-                    defaultValue={triplestore.filebrowser_url}
-                    placeholder="Filebrowser URL"
-                    variant="outlined"
-                    inputRef={this.formFilebrowserUrl}
-                    size='small'
-                    InputProps={{
-                      className: classes.smallerFont
-                    }}
-                    InputLabelProps={{
-                      className: classes.smallerFont
-                    }}
-                  />
-                  <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
-                  <TextField
-                    id="textfield-search-query"
-                    label="Search query"
-                    defaultValue={triplestore.search_query}
-                    placeholder="Search query"
-                    variant="outlined"
-                    inputRef={this.formSearchQuery}
-                    multiline={true}
-                    size='small'
-                    InputProps={{
-                      className: classes.smallerFont
-                    }}
-                    InputLabelProps={{
-                      className: classes.smallerFont
-                    }}
-                  />
-                  <FormHelperText id="helper-search-virtuoso" >
-                    SPARQL query used when searching in the navbar search box.
-                    It should return a ?foundUri and a ?foundLabel.
-                    <br/>
-                    You can use those examples queries for GraphDB or Virtuoso Search Index (needs to be enabled in the triplestore):
-                    <TextField 
-                      className={classes.formTextField}
-                      id="search-graphdb" 
-                      label="Search query for Ontotext GraphDB" 
-                      variant="outlined" multiline={true}
-                      value={example_search_graphdb}
+                  <FormControl className={classes.settingsForm}>
+                    <Paper elevation={2} className={classes.paperPadding}>
+                      <Typography variant="h5" className={classes.font300}>
+                        SPARQL endpoint
+                      </Typography>
+                      <Autocomplete
+                        onChange={this.handleAutocomplete.bind(this)}
+                        onInputChange={this.handleAutocomplete.bind(this)}
+                        id="autocomplete-sparql-endpoint"
+                        options={sparqlEndointList}
+                        value={this.context.triplestore.sparql_endpoint}
+                        freeSolo={true}
+                        includeInputInList={true}
+                        ListboxProps={{
+                          className: classes.alignLeft,
+                        }}
+                        renderInput={params => <TextField {...params} 
+                        label="SPARQL endpoint URL" 
+                        variant="outlined" 
+                        // getOptionLabel={option => option.title}
+                        // style={{ width: 300 }}
+                        // size='small'
+                        />}
+                      />
+                    <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+                    <FormControl variant="outlined" 
+                      className={classes.fullWidth}
+                      >
+                      <InputLabel id="form-graph-overview-label">
+                        Graphs overview query type
+                      </InputLabel>
+                      <Select
+                        labelId="form-graph-overview-label"
+                        label="Graphs overview query type"
+                        defaultValue={triplestore.graphs_overview}
+                        inputRef={this.formGraphsOverview}
+                        // MenuProps={{
+                        //   className: classes.fullWidth,
+                        // }}
+                        // SelectDisplayProps={{
+                        //   className: classes.smallerFont,
+                        //   style: {width: '100%'}
+                        // }}
+                        InputProps={{
+                          className: classes.smallerFont,
+                          // style: {width: '100%'}
+                        }}
+                        autoWidth
+                      >
+                        <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
+                        <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+                  </Paper>
+                  <Paper elevation={2} className={classes.paperPadding}>
+                    <Typography variant="h5" className={classes.font300}>
+                      Interfaces
+                    </Typography>
+                    <TextField
+                      id="textfield-openapi-url"
+                      label="Open API URL"
+                      defaultValue={triplestore.openapi_url}
+                      placeholder="Open API URL"
+                      variant="outlined"
+                      inputRef={this.formOpenapiUrl}
                       size='small'
                       InputProps={{
                         className: classes.smallerFont
@@ -265,12 +218,14 @@ class Settings extends Component {
                         className: classes.smallerFont
                       }}
                     />
-                    <TextField 
-                      className={classes.formTextField}
-                      id="search-virtuoso" 
-                      label="Search query for OpenLink Virtuoso" 
-                      variant="outlined" multiline={true}
-                      value={example_search_virtuoso}
+                    <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
+                    <TextField
+                      id="textfield-comunica-url"
+                      label="Comunica widget URL (Archives)"
+                      defaultValue={triplestore.comunica_url}
+                      placeholder="Comunica widget URL (Archives)"
+                      variant="outlined"
+                      inputRef={this.formComunicaUrl}
                       size='small'
                       InputProps={{
                         className: classes.smallerFont
@@ -279,7 +234,80 @@ class Settings extends Component {
                         className: classes.smallerFont
                       }}
                     />
-                  </FormHelperText>
+                    <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
+                    <TextField
+                      id="textfield-filebrowser-url"
+                      label="Filebrowser URL"
+                      defaultValue={triplestore.filebrowser_url}
+                      placeholder="Filebrowser URL"
+                      variant="outlined"
+                      inputRef={this.formFilebrowserUrl}
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
+                    <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
+                  </Paper>
+                  <Paper elevation={2} className={classes.paperPadding}>
+                    <Typography variant="h5" className={classes.font300}>
+                      Search query
+                    </Typography>
+                    <TextField
+                      id="textfield-search-query"
+                      label="Search query"
+                      className={classes.fullWidth}
+                      defaultValue={triplestore.search_query}
+                      placeholder="Search query"
+                      variant="outlined"
+                      inputRef={this.formSearchQuery}
+                      multiline={true}
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
+                    <FormHelperText id="helper-search-virtuoso" >
+                      SPARQL query used when searching in the navbar search box.
+                      It should return a ?foundUri and a ?foundLabel.
+                      <br/>
+                      You can use those examples queries for GraphDB or Virtuoso Search Index (needs to be enabled in the triplestore):
+                      <TextField 
+                        className={classes.fullWidth}
+                        id="search-graphdb" 
+                        label="Search query for Ontotext GraphDB" 
+                        variant="outlined" multiline={true}
+                        value={example_search_graphdb}
+                        size='small'
+                        InputProps={{
+                          className: classes.smallerFont
+                        }}
+                        InputLabelProps={{
+                          className: classes.smallerFont
+                        }}
+                      />
+                      <TextField 
+                        className={classes.fullWidth}
+                        id="search-virtuoso" 
+                        label="Search query for OpenLink Virtuoso" 
+                        variant="outlined" multiline={true}
+                        value={example_search_virtuoso}
+                        size='small'
+                        InputProps={{
+                          className: classes.smallerFont
+                        }}
+                        InputLabelProps={{
+                          className: classes.smallerFont
+                        }}
+                      />
+                    </FormHelperText>
+                  </Paper>
                   <Button type="submit"
                   variant="contained" size="small" 
                   className={classes.saveButton} 
