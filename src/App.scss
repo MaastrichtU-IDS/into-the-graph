@@ -8,13 +8,13 @@ body {
 }
 
 // Fix font in yasgui editor
-.CodeMirror {
-  font-family: "Open Sans" !important;
-  font-size: 12px;
+.yasgui .yasqe .CodeMirror {
+  font-family: "Open Sans";
+  font-size: 13px;
 }
 // Resize YASGUI datatable results
 .yasr .dataTables_wrapper table.dataTable td > div {
-  font-size: 12px;
+  font-size: 13px;
   padding: 1px 5px 1px 5px;
 }
 table.dataTable thead {
