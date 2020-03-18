@@ -65,6 +65,7 @@ const styles = theme => ({
   },
   input: {
     marginLeft: theme.spacing(1),
+    width: '350px',
     fontSize: '14px',
     flex: 1,
   },
@@ -86,7 +87,7 @@ const styles = theme => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+    ...theme.mixins.toolbar.dense,
     justifyContent: 'flex-end',
   },
   content: {
@@ -161,7 +162,7 @@ class NavBar extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/" className={classes.linkButton}>
+            {/* <Link to="/" className={classes.linkButton}>
               <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
                 <Icon>explore</Icon>
@@ -169,15 +170,6 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>  
             </Link>
-            {/* <Link to={"/describe?uri="}
-            className={classes.linkButton}>
-              <Tooltip title="Get all informations about an URI from the triplestore">
-                <Button className={classes.menuButton}>
-                  <Icon>format_list_bulleted</Icon>
-                  &nbsp;Describe URIs
-                </Button>
-              </Tooltip>
-            </Link> */}
             <Link to="/sparql" className={classes.linkButton}>
               <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
                 <Button className={classes.menuButton}>
@@ -227,27 +219,28 @@ class NavBar extends Component {
               //     </Button>
               //   </Tooltip>
               // </Link>
-            )}
-            <div className="flexGrow"></div>
+            )} */}
+            {/* <div className="flexGrow"></div> */}
             {/* Search box */}
             <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
-              <InputBase
+              <InputBase  // https://material-ui.com/api/input-base/
                 className={classes.input}
                 placeholder="Search triplestore"
                 onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
+                // fullWidth={true}
               />
               <IconButton type="submit" className={classes.iconButton} aria-label="search">
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <Link to="/settings" className={classes.linkButton}>
+            {/* <Link to="/settings" className={classes.linkButton}>
               <Tooltip title={this.context.triplestore.sparql_endpoint}>
                 <Button className={classes.menuButton}>
                   <Icon>settings</Icon>
                 </Button>
               </Tooltip>
-            </Link>
+            </Link> */}
             {/* <Button className={classes.menuButton} target="_blank"
             href="https://github.com/MaastrichtU-IDS/into-the-graph">
               <Icon>code</Icon>
@@ -323,7 +316,7 @@ class NavBar extends Component {
             <a href={this.context.triplestore.filebrowser_url} target='_blank' className={classes.linkButton}>
               <Tooltip title="Download RDF dumps of the triplestore graphs.">
                 <ListItem button className={classes.listItem} key='SPARQL'>
-                    <ListItemIcon><Icon>cloud_download</Icon></ListItemIcon>
+                    <ListItemIcon><Icon>exit_to_app</Icon></ListItemIcon>
                     <ListItemText primary='Download'  />
                 </ListItem>
               </Tooltip> 
