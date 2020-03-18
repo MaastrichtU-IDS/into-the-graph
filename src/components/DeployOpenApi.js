@@ -10,7 +10,7 @@ import TriplestoreContext from '../TriplestoreContext';
 //   offset: theme.mixins.toolbar.minHeight,
 // })
 
-class DeploySwaggerApi extends Component {
+class DeployOpenApi extends Component {
   static contextType = TriplestoreContext;
 
   render() {
@@ -35,5 +35,5 @@ class DeploySwaggerApi extends Component {
   //     //  iframeResizerOptions={{ checkOrigin: false }}
   //     />
 }
-export default (DeploySwaggerApi);
-// export default withStyles(styles) (DeploySwaggerApi);
+export default (DeployOpenApi);
+// export default withStyles(styles) (DeployOpenApi);

@@ -10,7 +10,7 @@ import NavBar from './components/navbar';
 import GraphsOverviewComponent from './components/GraphsOverview';
 import DeployYasguiComponent from './components/DeployYasgui';
 import DeployComunicaComponent from './components/DeployComunica';
-import DeploySwaggerApi from './components/DeploySwaggerApi';
+import DeployOpenApi from './components/DeployOpenApi';
 import DeployFilebrowser from './components/DeployFilebrowser';
 import DescribeComponent from './components/describe';
 import Settings from './components/Settings';
@@ -83,7 +83,7 @@ class App extends Component {
               <Route exact path='/sparql' component={DeployYasguiComponent} />
               <Route exact path='/describe' component={DescribeComponent} />
               <Route exact path='/archives' component={DeployComunicaComponent} />
-              <Route exact path='/api' component={DeploySwaggerApi} />
+              <Route exact path='/api' component={DeployOpenApi} />
               <Route exact path='/download' component={DeployFilebrowser} />
               <Route exact path='/settings' component={Settings} />
             </Switch>
