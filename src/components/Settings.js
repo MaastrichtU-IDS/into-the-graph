@@ -15,14 +15,6 @@ import Footer from './footer';
 
 var Config = require('Config')
 
-// import 'datatables.net-dt/css/jquery.dataTables.min.css'
-// import $ from 'jquery';
-// $.DataTable = require('datatables.net');
-// Shoud also work:
-// import $ from 'jquery'
-// import DataTable from 'datatables.net'
-// $.DataTable = DataTable
-
 const styles = theme => ({
   settingsForm: {
     '& .MuiTextField-root': {
@@ -33,38 +25,6 @@ const styles = theme => ({
   saveButton: {
     textTransform: 'none',
     margin: theme.spacing(4),
-  },
-  menuButton: {
-    color: theme.palette.secondary.main,
-    marginRight: '1em',
-    marginLeft: '1em',
-    textTransform: 'none'
-  },
-  uriLink: {
-    textDecoration: 'none',
-    color: theme.palette.primary.main,
-    '&:hover': {
-      color: theme.palette.primary.dark,
-    },
-  },
-  alignRight: {
-    textAlign: 'right'
-  },
-  alignLeft: {
-    textAlign: 'left'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(4, 4),
-  },
-  badgePadding: {
-    padding: theme.spacing(0, 2),
-  },
-  divider: {
-    margin: theme.spacing(1, 1),
-  },
-  font300: {
-    fontWeight: 300
   }
 })
 
@@ -72,15 +32,9 @@ const styles = theme => ({
 class Settings extends Component {
 
   static contextType = TriplestoreContext;
-  formSparqlEndpoint;
-  formGraphsOverview;
 
   constructor(props) {
     super(props);
-    // this.state = {
-    //   formSparqlEndpoint: triplestore.sparql_endpoint,
-    //   formGraphsOverview: triplestore.graphs_overview
-    // }
     this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
  }
@@ -89,25 +43,10 @@ class Settings extends Component {
   handleSubmit  = (event) => {
     event.preventDefault();
     console.log('saved');
-    // console.log(this.state.formSparqlEndpoint);
-    // console.log(this.state.formGraphsOverview);
     console.log(this.formSparqlEndpoint.current.value);
     console.log(this.formGraphsOverview.current.value);
     // alert('saved alert');
-    // const formSparqlEndpoint = this.formSparqlEndpoint;
-    // console.log(formSparqlEndpoint);
-
-    // const formGraphsOverview = this.formGraphsOverview.current.value
-    // console.log(formGraphsOverview);
-
     // event.preventDefault(); // Reload the page
-  }
-
-  handleChange() {
-    this.setState({
-      formSparqlEndpoint: this.formSparqlEndpoint.current.value,
-      formGraphsOverview: this.formGraphsOverview.current.value}
-    );
   }
 
   render() {
@@ -123,7 +62,6 @@ class Settings extends Component {
                   defaultValue={triplestore.sparql_endpoint}
                   placeholder="SPARQL endpoint URL"
                   // onChange={handleChange}
-                  onChange={() => this.handleChange()}
                   variant="outlined"
                   inputRef={this.formSparqlEndpoint}
                 />
@@ -133,7 +71,6 @@ class Settings extends Component {
                   label="Graphs overview query type"
                   defaultValue={triplestore.graphs_overview}
                   placeholder="Graphs overview query type"
-                  // onChange={handleChange}
                   variant="outlined"
                   inputRef={this.formGraphsOverview}
                 />
