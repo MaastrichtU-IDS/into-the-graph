@@ -25,8 +25,8 @@ const styles = theme => ({
     textTransform: 'none',
     margin: theme.spacing(4),
   },
-  formWidth: {
-    minWidth: '600px'
+  fullWidth: {
+    width: '100%'
   },
   alignLeft: {
     textAlign: 'left'
@@ -122,7 +122,6 @@ class Settings extends Component {
                       includeInputInList={true}
                       ListboxProps={{
                         className: classes.alignLeft,
-                        style: {textAlign: 'left'}
                       }}
                       // ref={this.formSparqlEndpoint}
                       // getOptionLabel={option => option.title}
@@ -131,11 +130,12 @@ class Settings extends Component {
                       // size='small'
                       label="SPARQL endpoint URL" variant="outlined" />}
                     />
+                    {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
                     {/* <TextField
                       id="outlined-sparql-endpoint"
                       label="SPARQL endpoint URL"
                       // TODO: better handle form width
-                      className={classes.formWidth}
+                      className={classes.fullWidth}
                       defaultValue={triplestore.sparql_endpoint}
                       placeholder="SPARQL endpoint URL"
                       variant="outlined"
@@ -159,8 +159,14 @@ class Settings extends Component {
                       label="Graphs overview query type"
                       defaultValue={triplestore.graphs_overview}
                       inputRef={this.formGraphsOverview}
-                      // MenuProps={{
-                      //   className: classes.alignLeft
+                      MenuProps={{
+                        className: classes.fullWidth
+                      }}
+                      // SelectDisplayProps={{
+                      //   className: classes.fullWidth
+                      // }}
+                      // InputProps={{
+                      //   className: classes.fullWidth
                       // }}
                       autoWidth={true}
                     >
@@ -205,7 +211,6 @@ class Settings extends Component {
                     multiline={true}
                     size='small'
                   />
-                  {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
                   <Button type="submit"
                   variant="contained" size="small" 
                   className={classes.saveButton} 
