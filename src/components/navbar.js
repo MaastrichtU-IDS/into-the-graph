@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter, Link } from "react-router-dom";
+import TriplestoreContext from '../TriplestoreContext';
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -44,6 +45,8 @@ const styles = theme => ({
 // export default function NavBar() {
 class NavBar extends Component {
   state = { searchText: '' }
+
+  static contextType = TriplestoreContext;
 
   constructor(props) {
     super(props);
@@ -151,7 +154,7 @@ class NavBar extends Component {
               </IconButton>
             </Paper>
             <Link to="/settings" className={classes.linkButton}>
-              <Tooltip title="Change the app settings, such as the SPARLQL endpoint URL">
+              <Tooltip title={this.context.triplestore.sparql_endpoint}>
                 <Button className={classes.menuButton}>
                   <Icon>settings</Icon>
                 </Button>
