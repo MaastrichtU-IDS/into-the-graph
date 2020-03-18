@@ -4,12 +4,25 @@ import { withRouter, Link } from "react-router-dom";
 import TriplestoreContext from '../TriplestoreContext';
 
 import {AppBar, Toolbar, Button} from '@material-ui/core';
+import Drawer from '@material-ui/core/Drawer';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
+import clsx from 'clsx';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 
 import $ from 'jquery';
 
@@ -72,6 +85,15 @@ class NavBar extends Component {
       <React.Fragment>
         <AppBar title="" position='sticky'>
           <Toolbar variant='dense'>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              // onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
             <Link to="/" className={classes.linkButton}>
               <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
