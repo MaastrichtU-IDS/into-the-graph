@@ -61,20 +61,17 @@ class Settings extends Component {
   };
 
   handleAutocomplete = (searchText) => {
-    console.log(searchText.target);
-    console.log(searchText.target.innerText);
-    console.log('tagret');
-    this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+    if (searchText.target.value) {
+      this.setState({ sparql_endpoint_autocomplete: searchText.target.value})
+    } else {
+      this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+    }
   }
 
   // handleSubmit  = (event) => {
   handleSubmit  = (event, setTriplestore) => {
     event.preventDefault();
-    console.log('saved');
-    console.log(this.state.sparql_endpoint_autocomplete);
-    console.log(this.formGraphsOverview.current.value);
     setTriplestore({
-      // sparql_endpoint: this.formSparqlEndpoint.current.value, 
       sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
       graphs_overview: this.formGraphsOverview.current.value,
       openapi_url: this.formOpenapiUrl.current.value, 
@@ -95,11 +92,11 @@ class Settings extends Component {
     //   { title: 'Bio2RDF v5', value: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
     // ]
     const sparqlEndointList = [
-      { label: 'DBpedia Virtuoso', title: 'http://dbpedia.org/sparql' },
-      { label: 'Bio2RDF Virtuoso', title: 'https://bio2rdf.org/sparql' },
-      { label: 'NCATS Translator TReK', title: 'http://graphdb.dumontierlab.com/repositories/trek' },
-      { label: 'NCATS Translator TReK', title: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
-      { label: 'Bio2RDF v5', title: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
+      'http://dbpedia.org/sparql',
+      'https://bio2rdf.org/sparql',
+      'http://graphdb.dumontierlab.com/repositories/trek',
+      'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
+      'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
     ]
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
@@ -112,13 +109,16 @@ class Settings extends Component {
                   <FormControl className={classes.settingsForm} >
                     <Autocomplete
                       onChange={this.handleAutocomplete.bind(this)}
+                      onInputChange={this.handleAutocomplete.bind(this)}
                       id="autocomplete-sparql-endpoint"
                       options={sparqlEndointList}
-                      ref={this.formSparqlEndpoint}
-                      getOptionLabel={option => option.title}
-                      // style={{ width: 300 }}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      // ref={this.formSparqlEndpoint}
+                      // getOptionLabel={option => option.title}
+                      // // style={{ width: 300 }}
                       renderInput={params => <TextField {...params} 
-                        label="SPARQL endpoint URL" variant="outlined" />}
+                      label="SPARQL endpoint URL" variant="outlined" />}
                     />
                     {/* <TextField
                       id="outlined-sparql-endpoint"
