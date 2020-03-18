@@ -23,6 +23,12 @@ var Config = require('Config')
 // $.DataTable = DataTable
 
 const styles = theme => ({
+  settingsForm: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      marginTop: '40px'
+    },
+  },
   menuButton: {
     color: theme.palette.secondary.main,
     marginRight: '1em',
@@ -65,30 +71,33 @@ class Settings extends Component {
   render() {
     const { classes } = this.props;
     return (<TriplestoreContext.Consumer>
-      {({triplestore, setTriplestore}) => (
-        <div>
-          <button
-            onClick={setTriplestore}>
-            Toggle Triplestore
-          </button>
-          {/* <p>{triplestore.sparql_endpoint}</p> */}
-          {console.log(triplestore)}
-          <FormControl>
-            <TextField
-              id="outlined-sparql-endpoint"
-              label="SPARQL endpoint URL"
-              defaultValue={triplestore.sparql_endpoint}
-              placeholder="SPARQL endpoint URL"
-              // onChange={handleChange}
-              variant="outlined"
-            />
-            {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
-            <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
-              placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
-            <FormHelperText id="my-helper-text">The SPARQL endpoint URL used to resolve URIs in this into-the-graph app.</FormHelperText>
-          </FormControl>
-        </div>
-      )}
+        {({triplestore, setTriplestore}) => (
+          <Container>
+            <FormControl className={classes.settingsForm}>
+              <TextField
+                id="outlined-sparql-endpoint"
+                label="SPARQL endpoint URL"
+                defaultValue={triplestore.sparql_endpoint}
+                placeholder="SPARQL endpoint URL"
+                // onChange={handleChange}
+                variant="outlined"
+              />
+              <FormHelperText id="my-helper-text">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+              <TextField
+                id="outlined-graphs-overview"
+                label="Graphs overview query type"
+                defaultValue={triplestore.graphs_overview}
+                placeholder="Graphs overview query type"
+                // onChange={handleChange}
+                variant="outlined"
+              />
+              {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
+              <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
+                placeholder="SPARQL endpoint URL" variant="outlined" aria-describedby="my-helper-text" /> */}
+              <FormHelperText id="my-helper-text">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+            </FormControl>
+          </Container>
+        )}
     </TriplestoreContext.Consumer>);
   }
 
