@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
+import TriplestoreContext from '../TriplestoreContext';
 
 var Config = require('Config')
 
@@ -86,6 +87,8 @@ class GraphsOverview extends Component {
     graphsLoading: true
   }
 
+  static contextType = TriplestoreContext;
+
   componentDidMount() {
     var graphsOverviewSparql = null;
     // First get the graphs overview with HCLS metadata
@@ -95,7 +98,8 @@ class GraphsOverview extends Component {
       // If "all" usually
       graphsOverviewSparql = this.getAllGraphsQuery
     }
-    console.log(graphsOverviewSparql);
+    console.log('teeest');
+    console.log(this.context);
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
         this.setState( { graphsOverview: res.data.results.bindings } );

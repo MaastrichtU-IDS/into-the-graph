@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 //import ReactDOM from 'react-dom';
 
 import './App.css';
+import TriplestoreContext from './TriplestoreContext';
 import NavBar from './components/navbar';
 import GraphsOverviewComponent from './components/GraphsOverview';
 import DeployYasguiComponent from './components/DeployYasgui';
@@ -40,7 +41,7 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <TriplestoreContext.Provider value="eee">
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
@@ -56,7 +57,7 @@ class App extends Component {
           </div>
           </BrowserRouter>
         </MuiThemeProvider>
-      </React.Fragment>
+      </TriplestoreContext.Provider>
     );
   }
 }
