@@ -99,19 +99,33 @@ class GraphsOverview extends Component {
 
     axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
-        this.setState( { graphsOverview: res.data.results.bindings } );
-        this.setState({ graphsLoading: false });
-        $(this.refs.graphsOverview).DataTable();
+        if (res.data.results){
+          this.setState( { graphsOverview: res.data.results.bindings } );
+          this.setState({ graphsLoading: false });
+          $(this.refs.graphsOverview).DataTable();
+        }
       })
       .catch(error => {
         console.log(error)
         this.setState({ graphsLoading: false });
+        graphsOverviewTable = ( 
+          <Typography variant="body2">
+            Issue querying the SPARQL endpoint 🚫<br/>
+            This could be due to CORS restrictions of the endpoint.<br/>
+            You can try installing an add-on to enable CORS in your browser (available for&nbsp;
+            <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
+              Firefox</a> or&nbsp;
+              <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" className={classes.uriLink} target='_blank'>Chrome</a>).
+          </Typography>
+        )
       });
 
     axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
       .then(res => {
-        this.setState( { entitiesRelations: res.data.results.bindings } );
-        $(this.refs.entitiesRelations).DataTable();
+        if (res.data.results){
+          this.setState( { entitiesRelations: res.data.results.bindings } );
+          $(this.refs.entitiesRelations).DataTable();
+        }
       });
   }
 
@@ -163,7 +177,7 @@ class GraphsOverview extends Component {
     } else {
       graphsOverviewTable = ( 
         <Typography variant="body2">
-          Issue querying the SPARQL endpoint 🚫<br/>
+          Issue querying the SPARQL endpoint or no results found 🚫<br/>
           This could be due to CORS restrictions of the endpoint.<br/>
           You can try installing an add-on to enable CORS in your browser (available for&nbsp;
           <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
