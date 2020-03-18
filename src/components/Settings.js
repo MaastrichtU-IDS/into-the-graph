@@ -15,7 +15,7 @@ import Footer from './footer';
 
 const styles = theme => ({
   settingsForm: {
-    // width: '100%',
+    width: '80%',
     // textAlign: 'center',
     '& .MuiFormControl-root': {
       margin: theme.spacing(2),
@@ -28,8 +28,8 @@ const styles = theme => ({
   formWidth: {
     minWidth: '600px'
   },
-  alignCenter: {
-    textAlign: 'center'
+  alignLeft: {
+    textAlign: 'left'
   }
 })
 
@@ -97,6 +97,7 @@ class Settings extends Component {
       'http://graphdb.dumontierlab.com/repositories/trek',
       'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
       'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+      'https://query.wikidata.org/sparql',
     ]
     return (<TriplestoreContext.Consumer>
         {({triplestore, setTriplestore}) => (
@@ -114,10 +115,15 @@ class Settings extends Component {
                       options={sparqlEndointList}
                       freeSolo={true}
                       includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
+                        style: {textAlign: 'left'}
+                      }}
                       // ref={this.formSparqlEndpoint}
                       // getOptionLabel={option => option.title}
                       // // style={{ width: 300 }}
                       renderInput={params => <TextField {...params} 
+                      // size='small'
                       label="SPARQL endpoint URL" variant="outlined" />}
                     />
                     {/* <TextField
@@ -149,7 +155,7 @@ class Settings extends Component {
                       defaultValue={triplestore.graphs_overview}
                       inputRef={this.formGraphsOverview}
                       // MenuProps={{
-                      //   className: classes.alignCenter
+                      //   className: classes.alignLeft
                       // }}
                       autoWidth={true}
                     >
