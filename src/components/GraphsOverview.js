@@ -99,7 +99,8 @@ class GraphsOverview extends Component {
       graphsOverviewSparql = this.getAllGraphsQuery
     }
     console.log('teeest');
-    console.log(this.context['sparql_endpoint']);
+    console.log(this.context.triplestore);
+    
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
         this.setState( { graphsOverview: res.data.results.bindings } );

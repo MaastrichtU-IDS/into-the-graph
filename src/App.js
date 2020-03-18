@@ -41,9 +41,33 @@ const theme = createMuiTheme({
 class App extends Component {
   triplestoreContext = { sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', graphs_overview: 'hcls' }
   
+  constructor(props) {
+    super(props);
+
+    this.setTriplestore = () => {
+      this.setState(state => ({
+        triplestore:
+          state.triplestore.graphs_overview === 'hcls'
+            ? { sparql_endpoint: 'http://dbpedia.org/sparql', graphs_overview: 'all' }
+            : { sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', graphs_overview: 'hcls' },
+      }));
+    };
+
+    this.state = {
+      triplestore: { 
+        sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
+        graphs_overview: 'hcls' },
+      setTriplestore: this.setTriplestore,
+    };
+  }
+
+  // updateValue = (key, val) => {
+  //   this.setState({[key]: val});
+  // }
+
   render() {
     return (
-      <TriplestoreContext.Provider value={this.triplestoreContext}>
+      <TriplestoreContext.Provider value={this.state}>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
