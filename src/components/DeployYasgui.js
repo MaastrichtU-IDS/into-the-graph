@@ -151,7 +151,7 @@ GRAPH ?metadataGraph {
   render () {
     const { classes } = this.props;
     return <React.Fragment>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" style={{height: '100%'}}>
         <Paper elevation={2} style={{textAlign: 'left'}}
         className={['mainContainer', classes.paperPadding].join(' ')}>
           <div id="yasguiDiv"></div>

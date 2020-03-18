@@ -132,7 +132,7 @@ class Settings extends Component {
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
             <Container
-              style={{marginTop: '30px'}}
+              style={{marginTop: '30px', height: '100%'}}
             >
               <form onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>

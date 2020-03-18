@@ -7,7 +7,7 @@ class DeployComunica extends Component {
   render () {
     return <iframe src={this.context.triplestore.comunica_url}
         width="100%"
-        height='89%'
+        height='100%'
         scrolling="yes" 
         frameBorder="0"
       />

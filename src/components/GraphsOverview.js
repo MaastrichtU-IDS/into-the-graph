@@ -222,7 +222,7 @@ class GraphsOverview extends Component {
     }
     // Now render the tables!
     return (<React.Fragment>
-      <Container maxWidth="xl" style={{marginTop: '20px'}}>
+      <Container maxWidth="xl" style={{marginTop: '20px', height: '100%'}}>
         <Typography variant="h5" className={classes.font300}>
           Graphs overview
         </Typography>
