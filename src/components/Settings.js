@@ -15,7 +15,7 @@ import Footer from './footer';
 
 const styles = theme => ({
   settingsForm: {
-    width: '80%',
+    width: '90%',
     // textAlign: 'center',
     '& .MuiFormControl-root': {
       marginTop: theme.spacing(3),

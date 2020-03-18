@@ -12,6 +12,7 @@ var Config = require('Config')
 const styles = theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
+    margin: theme.spacing(2, 2),
   }
 })
 
@@ -151,9 +152,12 @@ GRAPH ?metadataGraph {
   render () {
     const { classes } = this.props;
     return <React.Fragment>
-      <Container maxWidth="xl" className='mainContainer'>
+      <Container 
+        // className='mainContainer' 
+        style={{height: '100%', padding: '5px', width: '100%'}}>
         <Paper elevation={2} style={{textAlign: 'left'}}
-        className={classes.paperPadding}>
+        className={classes.paperPadding}
+        >
           <div id="yasguiDiv"></div>
         </Paper>
       </Container>

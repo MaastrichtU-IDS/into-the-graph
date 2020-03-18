@@ -40,7 +40,7 @@ const styles = theme => ({
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
-    margin: theme.spacing(4, 4),
+    margin: theme.spacing(3, 0),
   },
   badgePadding: {
     padding: theme.spacing(0, 2),
@@ -230,7 +230,6 @@ class GraphsOverview extends Component {
         <Paper elevation={2} className={classes.paperPadding}>
           {graphsOverviewTable}
         </Paper>
-        <br/>
         <Typography variant="h5" className={classes.font300}>
           Explore entities and relations
         </Typography>
