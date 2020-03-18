@@ -97,13 +97,13 @@ class Settings extends Component {
                       placeholder="SPARQL endpoint URL"
                       variant="outlined"
                       inputRef={this.formSparqlEndpoint}
-                      autoFocus='true'
+                      autoFocus={true}
                       // InputProps={{
                       //   className: classes.fullWidth,
                       //   style: {textAlign: 'center'}
                       // }}
                       // size='small'
-                      // fullWidth='false'
+                      // fullWidth={true}
                     />
                   {/* Commented, due to margin not properly working */}
                   {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText> */}
@@ -119,7 +119,7 @@ class Settings extends Component {
                       MenuProps={{
                         className: classes.alignCenter
                       }}
-                      autoWidth='true'
+                      autoWidth={true}
                     >
                       <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
                       <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>

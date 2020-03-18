@@ -55,21 +55,48 @@ class App extends Component {
         search_query: triplestore_config.search_query
        } 
       })
+      localStorage.setItem("intothegraphSettings", JSON.stringify(triplestore_config));
+      console.log('update localStorage');
+      console.log(localStorage.getItem("intothegraphSettings"));
     };
 
-    // Default settings
-    this.state = {
-      triplestore: { 
+    const localStorageConfig = localStorage.getItem("intothegraphSettings");
+    let triplestoreState = {}
+    // Get settings from local storage (more persistent)
+    if (localStorageConfig) {
+      triplestoreState = JSON.parse(localStorageConfig);
+      console.log('localstore');
+      console.log(triplestoreState);
+      
+    } else {
+      console.log('no local');
+      // Default settings
+      triplestoreState = { 
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
         openapi_url: '',
         comunica_url: 'http://query.linkeddatafragments.org/',
         filebrowser_url: '',
-        search_query: "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5"
-      },
+        search_query: "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5",
+      }
+    }
+    this.state = {
+      triplestore: triplestoreState,
       setTriplestore: this.setTriplestore,
+      // localStorage: localStorage.getItem("intothegraphSettings"),
     };
+    console.log('check localStorage');
+    console.log(localStorage.getItem("intothegraphSettings"));
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.value !== prevState.value) {
+  //     // Whatever storage mechanism you end up deciding to use.
+  //     localStorage.setItem("intothegraphSettings")
+  //     console.log('update localStorage');
+  //     console.log(localStorage.getItem("intothegraphSettings"));
+  //   }
+  // }
 
   render() {
     return (
