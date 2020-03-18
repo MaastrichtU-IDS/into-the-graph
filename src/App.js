@@ -48,7 +48,12 @@ class App extends Component {
     this.setTriplestore = (triplestore_config) => {
       this.setState( { triplestore: { 
         sparql_endpoint: triplestore_config.sparql_endpoint,
-        graphs_overview: triplestore_config.graphs_overview } 
+        graphs_overview: triplestore_config.graphs_overview,
+        openapi_url: triplestore_config.openapi_url,
+        comunica_url: triplestore_config.comunica_url,
+        filebrowser_url: triplestore_config.filebrowser_url,
+        search_query: triplestore_config.search_query
+       } 
       })
     };
 
@@ -56,7 +61,12 @@ class App extends Component {
     this.state = {
       triplestore: { 
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
-        graphs_overview: 'hcls' },
+        graphs_overview: 'hcls',
+        openapi_url: '',
+        comunica_url: 'http://query.linkeddatafragments.org/',
+        filebrowser_url: '',
+        search_query: "SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')} LIMIT 5"
+      },
       setTriplestore: this.setTriplestore,
     };
   }

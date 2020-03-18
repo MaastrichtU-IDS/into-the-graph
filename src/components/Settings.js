@@ -51,6 +51,10 @@ class Settings extends Component {
     super(props);
     this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
+    this.formOpenapiUrl = React.createRef(); 
+    this.formComunicaUrl = React.createRef(); 
+    this.formFilebrowserUrl = React.createRef(); 
+    this.formSearchQuery = React.createRef(); 
  }
 
   handleClose = (event, reason) => {
@@ -63,8 +67,14 @@ class Settings extends Component {
     console.log('saved');
     console.log(this.formSparqlEndpoint.current.value);
     console.log(this.formGraphsOverview.current.value);
-    setTriplestore({sparql_endpoint: this.formSparqlEndpoint.current.value, 
-      graphs_overview: this.formGraphsOverview.current.value});
+    setTriplestore({
+      sparql_endpoint: this.formSparqlEndpoint.current.value, 
+      graphs_overview: this.formGraphsOverview.current.value,
+      openapi_url: this.formOpenapiUrl.current.value, 
+      comunica_url: this.formComunicaUrl.current.value,
+      filebrowser_url: this.formFilebrowserUrl.current.value, 
+      search_query: this.formSearchQuery.current.value, 
+    });
     this.setState({ open: true });
     // alert('saved alert');
   }
@@ -115,14 +125,38 @@ class Settings extends Component {
                       <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
                     </Select>
                   </FormControl>
-                  {/* <TextField
-                    id="outlined-graphs-overview"
-                    label="Graphs overview query type"
-                    defaultValue={triplestore.graphs_overview}
-                    placeholder="Graphs overview query type"
+                  <TextField
+                    id="textfield-openapi-url"
+                    label="Open API URL"
+                    defaultValue={triplestore.openapi_url}
+                    placeholder="Comunica widget URL"
                     variant="outlined"
-                    inputRef={this.formGraphsOverview}
-                  /> */}
+                    inputRef={this.formOpenapiUrl}
+                  />
+                  <TextField
+                    id="textfield-comunica-url"
+                    label="Comunica widget URL"
+                    defaultValue={triplestore.comunica_url}
+                    placeholder="Comunica widget URL"
+                    variant="outlined"
+                    inputRef={this.formComunicaUrl}
+                  />
+                  <TextField
+                    id="textfield-filebrowser-url"
+                    label="Filebrowser URL"
+                    defaultValue={triplestore.filebrowser_url}
+                    placeholder="Filebrowser URL"
+                    variant="outlined"
+                    inputRef={this.formFilebrowserUrl}
+                  />
+                  <TextField
+                    id="textfield-search-query"
+                    label="Search query"
+                    defaultValue={triplestore.search_query}
+                    placeholder="Search query"
+                    variant="outlined"
+                    inputRef={this.formSearchQuery}
+                  />
                   {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
                   <Button type="submit"
                   variant="contained" size="small" 

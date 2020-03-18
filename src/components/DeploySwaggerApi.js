@@ -1,22 +1,23 @@
 import React, { Component } from "react";
+import TriplestoreContext from '../TriplestoreContext';
+
 // import { withStyles } from '@material-ui/styles';
 // import IframeResizer from 'react-iframe-resizer-super'
 // import IframeResizer from 'iframe-resizer-react'
 // import Iframe from 'react-iframe'
-
-var Config = require('Config')
 
 // const styles = theme => ({
 //   offset: theme.mixins.toolbar.minHeight,
 // })
 
 class DeploySwaggerApi extends Component {
+  static contextType = TriplestoreContext;
 
   render() {
     // const { classes } = this.props;
     // return <iframe style={{height: 'calc(100% - ' + styles.offset + ')'}}
     return <iframe
-        src={Config.swagger_api_url}
+        src={this.context.triplestore.openapi_url}
         // TODO: find ideal fix to resize iframe dynamically with content? 
         // iFrameResizer didn't work
         width='100%'

@@ -12,7 +12,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
 
 import $ from 'jquery';
-var Config = require('Config')
 
 const styles = theme => ({
   menuButton: {
@@ -98,10 +97,10 @@ class NavBar extends Component {
                 </Button>
               </Tooltip>
             </Link>
-            {Config.swagger_api_url && ( 
+            {this.context.triplestore.openapi_url && ( 
               <Link to="/api"
               className={classes.linkButton}>
-                <Tooltip title="A HTTP Swagger API to easily query the different classes and concepts in the triplestore.">
+                <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
                   <Button className={classes.menuButton}>
                     <Icon>http</Icon>
                     &nbsp;API
@@ -109,7 +108,7 @@ class NavBar extends Component {
                 </Tooltip>
               </Link>
             )}
-            {Config.comunica_url && ( 
+            {this.context.triplestore.comunica_url && ( 
               <Link to="/archives"
               className={classes.linkButton}>
                 <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget">
@@ -120,8 +119,8 @@ class NavBar extends Component {
                 </Tooltip>
               </Link>
             )}
-            {Config.download_filebrowser_url && ( 
-              // <a href={Config.download_filebrowser_url}
+            {this.context.triplestore.download_filebrowser_url && ( 
+              // <a href={this.context.triplestore.download_filebrowser_url}
               // className={classes.linkButton} target='_blank'>
               //   <Tooltip title="Download RDF dumps of the triplestore graphs.">
               //     <Button className={classes.menuButton}>

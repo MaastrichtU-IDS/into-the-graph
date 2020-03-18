@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-
-var Config = require('Config')
+import TriplestoreContext from '../TriplestoreContext';
 
 class DeployFilebrowser extends Component {
+  static contextType = TriplestoreContext;
   
   render () {
     // const { classes } = this.props;
-    return <iframe url={Config.download_filebrowser_url}
+    return <iframe url={this.context.triplestore.filebrowser_url}
         width="100%"
         // TODO: properly fix height to avoid double scroll
         height='89%'

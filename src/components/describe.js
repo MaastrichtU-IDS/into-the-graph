@@ -344,7 +344,7 @@ class Describe extends Component {
   }
 
   getSearchQuery(textToSearch) {
-    let searchQuery = Config.search_query;
+    let searchQuery = this.context.triplestore.search_query;
     if (textToSearch === "") {
       // If no text provided we use a default search query to get interesting concepts 
       // in the knowledge graph. A custom default query can be set in settings.json
@@ -352,7 +352,7 @@ class Describe extends Component {
       if (defaultSearchQuery) {
         searchQuery = defaultSearchQuery;
       } else {
-        // If no custom query defined in settings.json
+        // If no custom default_query defined in settings.json
         searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
           ?foundUri a ?type ; ?p ?foundLabel .
           VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
