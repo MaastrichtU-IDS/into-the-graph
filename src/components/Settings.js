@@ -37,7 +37,7 @@ const styles = theme => ({
     fontSize: '16px',
   },
   smallerFont: {
-    fontSize: '14px',
+    fontSize: '12px',
   },
   alignLeft: {
     textAlign: 'left'
@@ -57,7 +57,6 @@ class Settings extends Component {
 
   constructor(props) {
     super(props);
-    // console.log(this.context)
     this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
     this.formOpenapiUrl = React.createRef(); 
@@ -162,11 +161,11 @@ class Settings extends Component {
                         className: classes.formTextField
                       }}
                       // SelectDisplayProps={{
-                      //   className: classes.formTextField
+                      //   className: classes.smallerFont
                       // }}
-                      // InputProps={{
-                      //   className: classes.formTextField
-                      // }}
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
                       autoWidth={true}
                     >
                       <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
@@ -260,7 +259,7 @@ class Settings extends Component {
                     <TextField 
                       className={classes.formTextField}
                       id="search-virtuoso" 
-                      label="Search query for Virtuoso" 
+                      label="Search query for OpenLink Virtuoso" 
                       variant="outlined" multiline={true}
                       value='SELECT ?foundUri ?foundLabel WHERE {?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel . ?foundLabel bif:contains "$TEXT_TO_SEARCH*" . } LIMIT 200'
                       size='small'
