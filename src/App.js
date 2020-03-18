@@ -39,9 +39,11 @@ const theme = createMuiTheme({
 
 // Routing happens here
 class App extends Component {
+  triplestoreContext = { sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', graphs_overview: 'hcls' }
+  
   render() {
     return (
-      <TriplestoreContext.Provider value="eee">
+      <TriplestoreContext.Provider value={this.triplestoreContext}>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
           <div style={{width: '100%', height: '100%', fontFamily: 'Open Sans'}}>
