@@ -222,21 +222,22 @@ class GraphsOverview extends Component {
     }
     // Now render the tables!
     return (<React.Fragment>
-      <Container maxWidth="xl" style={{marginTop: '20px', height: '100%'}}>
+      <Container maxWidth="xl" className='mainContainer' style={{marginTop: '20px'}}>
         <Typography variant="h5" className={classes.font300}>
           Graphs overview
         </Typography>
-        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
+        {/* <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}> */}
+        <Paper elevation={2} className={classes.paperPadding}>
           {graphsOverviewTable}
         </Paper>
         <br/>
         <Typography variant="h5" className={classes.font300}>
           Explore entities and relations
         </Typography>
-        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
+        <Paper elevation={2} className={classes.paperPadding}>
           {entitiesRelationsTable}
         </Paper>
-        <Paper elevation={2} className={['mainContainer', classes.paperPadding].join(' ')}>
+        <Paper elevation={2} className={classes.paperPadding}>
           <Typography variant="body2">
             Graphs statistics are generated following the&nbsp;
             <a href="https://www.w3.org/TR/hcls-dataset/" className={classes.uriLink} target="_blank">HCLS descriptive statistics</a>

@@ -8,8 +8,7 @@ class DeployFilebrowser extends Component {
     // const { classes } = this.props;
     return <iframe url={this.context.triplestore.filebrowser_url}
         width="100%"
-        // TODO: properly fix height to avoid double scroll
-        height='89%'
+        height='100%'
         scrolling="yes" 
         frameBorder="0"/>
   }

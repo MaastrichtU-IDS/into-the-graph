@@ -26,8 +26,9 @@ table.dataTable thead {
 }
 
 .mainContainer {
+  height: 100%;
   margin-top: 20px;
-  margin-bottom: 40px; 
+  // margin-bottom: 40px; 
 }
 
 // Data table fix to avoid overflow
