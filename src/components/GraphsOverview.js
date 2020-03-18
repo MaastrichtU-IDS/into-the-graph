@@ -100,7 +100,7 @@ class GraphsOverview extends Component {
     }
     console.log('teeest');
     console.log(this.context.triplestore);
-    
+
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))
       .then(res => {
         this.setState( { graphsOverview: res.data.results.bindings } );
@@ -309,33 +309,3 @@ class GraphsOverview extends Component {
   } ORDER BY DESC(?classCount1)`;
 }
 export default withStyles(styles) (GraphsOverview);
-
-// Turgay snippet:
-// state ={
-//   number: 5,
-//   data: []
-// }
-// The component has been loaded
-// componentDidMount() {
-//   this.x =6
-//   setInterval(()=> {
-//     const {x, state: { data, number }} = this;
-//     console.log(x, data, number)
-//     //const data = this.state.data;
-//     data.push(number)
-//     this.setState({data})
-//   }, 1000)
-// }
-// render() {
-//   const { state: { number, data }} = this;
-//   return (
-//     <div className="Sparql">
-//       <p>
-//         This is the {number} sparql me page. 
-//       </p>
-//       {
-//         data.map(val => <p>{val}</p>)
-//       }
-//     </div>
-//   );
-// }
