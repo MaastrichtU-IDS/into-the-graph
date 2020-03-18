@@ -72,11 +72,42 @@ const styles = theme => ({
 class Settings extends Component {
 
   static contextType = TriplestoreContext;
+  formSparqlEndpoint;
+  formGraphsOverview;
 
-  handleSubmit(event) {
-    alert('Le nom a été soumis');
-    console.log('yeaa');
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   formSparqlEndpoint: triplestore.sparql_endpoint,
+    //   formGraphsOverview: triplestore.graphs_overview
+    // }
+    this.formSparqlEndpoint = React.createRef(); 
+    this.formGraphsOverview = React.createRef(); 
+ }
+
+  // handleSubmit(event) {
+  handleSubmit  = (event) => {
     event.preventDefault();
+    console.log('saved');
+    // console.log(this.state.formSparqlEndpoint);
+    // console.log(this.state.formGraphsOverview);
+    console.log(this.formSparqlEndpoint.current.value);
+    console.log(this.formGraphsOverview.current.value);
+    // alert('saved alert');
+    // const formSparqlEndpoint = this.formSparqlEndpoint;
+    // console.log(formSparqlEndpoint);
+
+    // const formGraphsOverview = this.formGraphsOverview.current.value
+    // console.log(formGraphsOverview);
+
+    // event.preventDefault(); // Reload the page
+  }
+
+  handleChange() {
+    this.setState({
+      formSparqlEndpoint: this.formSparqlEndpoint.current.value,
+      formGraphsOverview: this.formGraphsOverview.current.value}
+    );
   }
 
   render() {
@@ -92,7 +123,9 @@ class Settings extends Component {
                   defaultValue={triplestore.sparql_endpoint}
                   placeholder="SPARQL endpoint URL"
                   // onChange={handleChange}
+                  onChange={() => this.handleChange()}
                   variant="outlined"
+                  inputRef={this.formSparqlEndpoint}
                 />
                 <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
                 <TextField
@@ -102,6 +135,7 @@ class Settings extends Component {
                   placeholder="Graphs overview query type"
                   // onChange={handleChange}
                   variant="outlined"
+                  inputRef={this.formGraphsOverview}
                 />
                 {/* <InputLabel htmlFor="my-input">SPARQL endpoint URL</InputLabel>
                 <Input id="my-input" defaultValue={triplestore.sparql_endpoint} 
