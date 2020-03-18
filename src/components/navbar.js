@@ -297,7 +297,7 @@ class NavBar extends Component {
               <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
                 <ListItem button className={classes.listItem} key='SPARQL'>
                     <ListItemIcon><Icon>http</Icon></ListItemIcon>
-                    <ListItemText primary='Open API'  />
+                    <ListItemText primary='Reasoner API'  />
                 </ListItem>
               </Tooltip> 
             </Link>
