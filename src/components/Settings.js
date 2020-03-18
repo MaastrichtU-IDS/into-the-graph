@@ -48,7 +48,6 @@ class Settings extends Component {
     setTriplestore({sparql_endpoint: this.formSparqlEndpoint.current.value, 
       graphs_overview: this.formGraphsOverview.current.value});
     // alert('saved alert');
-    // event.preventDefault(); // Reload the page
   }
 
   render() {

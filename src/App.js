@@ -40,24 +40,19 @@ const theme = createMuiTheme({
 
 // Routing happens here
 class App extends Component {
-  // triplestoreContext = { sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', graphs_overview: 'hcls' }
   
   constructor(props) {
     super(props);
 
+    // Update the triplestore config
     this.setTriplestore = (triplestore_config) => {
       this.setState( { triplestore: { 
         sparql_endpoint: triplestore_config.sparql_endpoint,
         graphs_overview: triplestore_config.graphs_overview } 
       })
-      //   state => ({
-      //   triplestore:
-      //     state.triplestore.graphs_overview === 'hcls'
-      //       ? { sparql_endpoint: 'http://dbpedia.org/sparql', graphs_overview: 'all' }
-      //       : { sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', graphs_overview: 'hcls' },
-      // }));
     };
 
+    // Default settings
     this.state = {
       triplestore: { 
         sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
@@ -65,10 +60,6 @@ class App extends Component {
       setTriplestore: this.setTriplestore,
     };
   }
-
-  // updateValue = (key, val) => {
-  //   this.setState({[key]: val});
-  // }
 
   render() {
     return (
