@@ -18,7 +18,12 @@ const styles = theme => ({
     width: '80%',
     // textAlign: 'center',
     '& .MuiFormControl-root': {
-      margin: theme.spacing(2),
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(1),
+    },
+    '& .MuiFormHelperText-root': {
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(1),
     },
   },
   saveButton: {
@@ -123,33 +128,15 @@ class Settings extends Component {
                       ListboxProps={{
                         className: classes.alignLeft,
                       }}
-                      // ref={this.formSparqlEndpoint}
-                      // getOptionLabel={option => option.title}
-                      // // style={{ width: 300 }}
                       renderInput={params => <TextField {...params} 
+                      label="SPARQL endpoint URL" 
+                      variant="outlined" 
+                      // getOptionLabel={option => option.title}
+                      // style={{ width: 300 }}
                       // size='small'
-                      label="SPARQL endpoint URL" variant="outlined" />}
+                      />}
                     />
-                    {/* <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText> */}
-                    {/* <TextField
-                      id="outlined-sparql-endpoint"
-                      label="SPARQL endpoint URL"
-                      // TODO: better handle form width
-                      className={classes.fullWidth}
-                      defaultValue={triplestore.sparql_endpoint}
-                      placeholder="SPARQL endpoint URL"
-                      variant="outlined"
-                      inputRef={this.formSparqlEndpoint}
-                      autoFocus={true}
-                      // InputProps={{
-                      //   className: classes.fullWidth,
-                      //   style: {textAlign: 'center'}
-                      // }}
-                      // size='small'
-                      // fullWidth={true}
-                    /> */}
-                  {/* Commented, due to margin not properly working */}
-                  {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText> */}
+                  <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
                   <FormControl variant="outlined">
                     <InputLabel id="form-graph-overview-label">
                       Graphs overview query type
@@ -174,6 +161,7 @@ class Settings extends Component {
                       <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
                     </Select>
                   </FormControl>
+                  <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
                   <TextField
                     id="textfield-openapi-url"
                     label="Open API URL"
@@ -183,6 +171,7 @@ class Settings extends Component {
                     inputRef={this.formOpenapiUrl}
                     size='small'
                   />
+                  <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to query the SPARQL endpoint (require to be BioLink-compliant)</FormHelperText>
                   <TextField
                     id="textfield-comunica-url"
                     label="Comunica widget URL (Archives)"
@@ -192,6 +181,7 @@ class Settings extends Component {
                     inputRef={this.formComunicaUrl}
                     size='small'
                   />
+                  <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
                   <TextField
                     id="textfield-filebrowser-url"
                     label="Filebrowser URL"
@@ -201,6 +191,7 @@ class Settings extends Component {
                     inputRef={this.formFilebrowserUrl}
                     size='small'
                   />
+                  <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
                   <TextField
                     id="textfield-search-query"
                     label="Search query"
@@ -211,6 +202,10 @@ class Settings extends Component {
                     multiline={true}
                     size='small'
                   />
+                  <FormHelperText id="helper-graphs-overview">
+                    SPARQL query used when searching in the navbar search box.
+                    It should return a ?foundUri and a ?foundLabel
+                  </FormHelperText>
                   <Button type="submit"
                   variant="contained" size="small" 
                   className={classes.saveButton} 
