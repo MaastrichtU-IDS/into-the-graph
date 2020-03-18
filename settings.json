@@ -1,5 +1,5 @@
 {
-  "default_search_query": "SELECT ?foundUri ?foundLabel WHERE {?foundUri a ?type ; ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER(isIRI(?foundUri)) } LIMIT 20",
+  "default_search_query": "SELECT DISTINCT ?foundUri ?foundLabel WHERE {?foundUri a ?type ; ?p ?foundLabel . VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} . FILTER(isLiteral(?foundLabel)) FILTER(isIRI(?foundUri)) } LIMIT 20",
   "prefixes": {
     "rdf":         "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
@@ -26,6 +26,7 @@
     "ncit":        "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/",
-    "cito":        "http://purl.org/spar/cito/"
+    "cito":        "http://purl.org/spar/cito/",
+    "cdm":         "http://publications.europa.eu/ontology/cdm#"
   }
 }

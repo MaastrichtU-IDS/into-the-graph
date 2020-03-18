@@ -114,10 +114,17 @@ class Settings extends Component {
       'http://dbpedia.org/sparql',
       'http://opencitations.net/index/sparql',
       'http://opencitations.net/sparql',
+      'http://publications.europa.eu/webapi/rdf/sparql',
+      'http://lod.openlinksw.com/sparql',
+      'https://sparql.nextprot.org',
       'http://localhost:7200/repositories/demo',
       'http://localhost:8890/sparql',
       'http://localhost:8082/bigdata/sparql',
       // 'https://query.wikidata.org/sparql',
+      // 'https://sparql.uniprot.org/sparql/',
+      // 'http://dbtune.org/bbc/peel/cliopatria/sparql',
+      // 'https://semantic.eea.europa.eu/sparql',
+      // 'http://void.rkbexplorer.com/sparql/',
     ]
     const example_search_graphdb = 'PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex "$TEXT_TO_SEARCH*" ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200';
     const example_search_virtuoso = 'SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains "$TEXT_TO_SEARCH*" .\n} LIMIT 200';
@@ -190,7 +197,7 @@ class Settings extends Component {
                       className: classes.smallerFont
                     }}
                   />
-                  <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to query the SPARQL endpoint (require to be BioLink-compliant)</FormHelperText>
+                  <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
                   <TextField
                     id="textfield-comunica-url"
                     label="Comunica widget URL (Archives)"
