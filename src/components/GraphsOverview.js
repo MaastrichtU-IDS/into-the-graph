@@ -99,7 +99,6 @@ class GraphsOverview extends Component {
       // If "all" usually
       graphsOverviewSparql = this.getAllGraphsQuery
     }
-    console.log('teeest');
     console.log(this.context.triplestore);
 
     axios.get(Config.sparql_endpoint + `?query=` + encodeURIComponent(graphsOverviewSparql))

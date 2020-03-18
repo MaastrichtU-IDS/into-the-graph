@@ -39,12 +39,14 @@ class Settings extends Component {
     this.formGraphsOverview = React.createRef(); 
  }
 
-  // handleSubmit(event) {
-  handleSubmit  = (event) => {
+  // handleSubmit  = (event) => {
+  handleSubmit  = (event, setTriplestore) => {
     event.preventDefault();
     console.log('saved');
     console.log(this.formSparqlEndpoint.current.value);
     console.log(this.formGraphsOverview.current.value);
+    setTriplestore({sparql_endpoint: this.formSparqlEndpoint.current.value, 
+      graphs_overview: this.formGraphsOverview.current.value});
     // alert('saved alert');
     // event.preventDefault(); // Reload the page
   }
@@ -55,7 +57,8 @@ class Settings extends Component {
         {({triplestore, setTriplestore}) => (
           <React.Fragment>
             <Container>
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={(event) => {
+                this.handleSubmit(event, setTriplestore)}}>
                 <FormControl className={classes.settingsForm}>
                   <TextField
                     id="outlined-sparql-endpoint"
@@ -82,7 +85,6 @@ class Settings extends Component {
                   <Button type="submit"
                   variant="contained" size="small" 
                   className={classes.saveButton} 
-                  // onClick={() => showMoreStatements(propertyUri)}
                   color="primary" >
                     Save settings for this session  
                   </Button>
