@@ -78,16 +78,20 @@ class Settings extends Component {
     this.setState({ open: false});
   };
 
-  handleAutocomplete = (searchText) => {
-    if (searchText){
+  handleAutocomplete = (stateToUpdate, searchText) => {
+    console.log('searchText autocompleete')
+    console.log(searchText)
+    console.log(stateToUpdate)
+    if (searchText && searchText.target){
       if (searchText.target.value) {
-        this.setState({ sparql_endpoint_autocomplete: searchText.target.value})
+        this.setState({ [stateToUpdate]: searchText.target.value})
       } else {
-        this.setState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+        this.setState({ [stateToUpdate]: searchText.target.innerText})
       }
-    } else {
-      this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
-    }
+    } 
+    // else {
+    //   this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
+    // }
   }
 
   // handleSubmit  = (event) => {
@@ -151,8 +155,8 @@ class Settings extends Component {
                         SPARQL endpoint
                       </Typography>
                       <Autocomplete
-                        onChange={this.handleAutocomplete.bind(this)}
-                        onInputChange={this.handleAutocomplete.bind(this)}
+                        onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint_autocomplete')}
+                        onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint_autocomplete')}
                         id="autocomplete-sparql-endpoint"
                         options={sparqlEndointList}
                         value={this.context.triplestore.sparql_endpoint}
