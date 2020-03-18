@@ -10,6 +10,12 @@ body {
 // Fix font in yasgui editor
 .CodeMirror {
   font-family: "Open Sans" !important;
+  font-size: 14px;
+}
+// Resize YASGUI datatable results
+.yasr .dataTables_wrapper table.dataTable td > div {
+  font-size: 14px;
+  padding: 1px 5px 1px 5px;
 }
 
 .flexGrow {
@@ -37,6 +43,9 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
+}
+table.dataTable.no-footer tbody td {
+  padding: 3px;
 }
 
 

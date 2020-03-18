@@ -162,11 +162,11 @@ class GraphsOverview extends Component {
             return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
               <tr>
                 <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-                <td>{displayDate(row.dateGenerated)}</td>
-                <td>{displayTableCell(row.statements)}</td>
-                <td>{displayTableCell(row.entities)}</td>
-                <td>{displayTableCell(row.properties)}</td>
-                <td>{displayTableCell(row.classes)}</td>
+                <td><Typography variant="body2">{displayDate(row.dateGenerated)}</Typography></td>
+                <td><Typography variant="body2">{displayTableCell(row.statements)}</Typography></td>
+                <td><Typography variant="body2">{displayTableCell(row.entities)}</Typography></td>
+                <td><Typography variant="body2">{displayTableCell(row.properties)}</Typography></td>
+                <td><Typography variant="body2">{displayTableCell(row.classes)}</Typography></td>
               </tr>
             </Tooltip>;
           })}
@@ -204,11 +204,11 @@ class GraphsOverview extends Component {
           {this.state.entitiesRelations.map((row, key) => {
             return <tr key={key}>
               <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-              <td>{row.classCount1.value}</td>
+              <td><Typography variant="body2">{row.classCount1.value}</Typography></td>
               <td><LinkDescribe uri={row.class1.value} variant='body2'/></td>
               <td><LinkDescribe uri={row.relationWith.value} variant='body2'/></td>
               <td><LinkDescribe uri={row.class2.value} variant='body2'/></td>
-              <td>{row.classCount2.value}</td>
+              <td><Typography variant="body2">{row.classCount2.value}</Typography></td>
             </tr>;
           })}
         </tbody>

@@ -7,6 +7,7 @@
     "skos":        "http://www.w3.org/2004/02/skos/core#",
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
+    "trek":        "https://w3id.org/trek/",
     "omop":        "http://api.ohdsi.org/WebAPI/vocabulary/concept/",
     "cohd":        "https://w3id.org/trek/cohd/",
     "bio2rdf":     "http://bio2rdf.org/",
