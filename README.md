@@ -193,9 +193,9 @@ docker run --tty --interactive \
 
 > Don't forget to change the path to the git repository (`$HOME` at the moment).
 
-## Example SPARQL endpoints
+# Into-the-graph in action
 
-Start browsing different SPARQL endpoints using into-the-graph:
+Start browsing various SPARQL endpoints using into-the-graph in one click:
 
 * A Clinical trial in [Bio2RDF](https://bio2rdf.org):
   * http://trek.semanticscience.org/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
@@ -217,3 +217,5 @@ Start browsing different SPARQL endpoints using into-the-graph:
   * Browsing not really good due to the use of graphs for entities.
 
 > You will need to go to [settings](http://trek.semanticscience.org/settings) to change the SPARQL endpoint URL permanently.
+
+You can even directly use [trek.semanticscience.org](http://trek.semanticscience.org) to browse a locally deployed endpoint! e.g. http://localhost:8890/sparql
