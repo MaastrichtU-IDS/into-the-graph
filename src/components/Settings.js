@@ -138,6 +138,20 @@ class Settings extends Component {
       // 'https://semantic.eea.europa.eu/sparql',
       // 'http://void.rkbexplorer.com/sparql/',
     ]
+    const openapiList = [
+      'http://api.trek.semanticscience.org',
+      'http://localhost:8080',
+    ]
+    const comunicaList = [
+      'https://query.linkeddatafragments.org',
+      'http://comunica.137.120.31.102.nip.io',
+      'http://localhost:8084',
+    ]
+    const filebrowserList = [
+      'http://download.137.120.31.102.nip.io',
+      'https://download.bio2rdf.org',
+      'http://localhost:8081',
+    ]
     const example_search_graphdb = "PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200";
     const example_search_virtuoso = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains '$TEXT_TO_SEARCH' .\n} LIMIT 200";
     const example_search_default = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri ?p ?foundLabel .\n    VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n    FILTER(isLiteral(?foundLabel))\n    FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')\n} LIMIT 5";
