@@ -32,6 +32,9 @@ table.dataTable thead {
 }
 
 // Data table fix to avoid overflow
+table.dataTable, .grip-container {
+  width: 100% !important;
+}
 .dataTable {
   width: 100%;
   table-layout: fixed;

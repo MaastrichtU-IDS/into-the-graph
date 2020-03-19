@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -29,7 +30,8 @@ const styles = theme => ({
   },
   saveButton: {
     textTransform: 'none',
-    margin: theme.spacing(4),
+    margin: theme.spacing(2, 2),
+    // maxWidth: '400px'
   },
   fullWidth: {
     width: '100%',
@@ -113,6 +115,20 @@ class Settings extends Component {
       search_query: this.formSearchQuery.current.value, 
     });
     this.setState({ open: true });
+  }
+
+  handleDeleteCache  = (event, setTriplestore) => {
+    localStorage.clear();
+    // event.preventDefault();
+    // setTriplestore({
+    //   sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
+    //   graphs_overview: this.formGraphsOverview.current.value,
+    //   openapi_url: this.state.openapi_url_autocomplete, 
+    //   comunica_url: this.state.comunica_url_autocomplete,
+    //   filebrowser_url: this.state.filebrowser_url_autocomplete, 
+    //   search_query: this.formSearchQuery.current.value, 
+    // });
+    // this.setState({ open: true });
   }
 
   render() {
@@ -355,10 +371,19 @@ class Settings extends Component {
                     </FormHelperText>
                   </Paper>
                   <Button type="submit"
-                  variant="contained" size="small" 
+                  variant="contained" 
                   className={classes.saveButton} 
+                  startIcon={<Icon>save</Icon>}
                   color="primary" >
                     Save settings for this session  
+                  </Button>
+                  <Button
+                  variant="contained" size="small" 
+                  className={classes.saveButton} 
+                  onClick={this.handleDeleteCache}
+                  startIcon={<Icon>delete</Icon>}
+                  color="secondary" >
+                    Delete cache and reset settings  
                   </Button>
                   <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
                     <Alert severity="success">

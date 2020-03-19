@@ -24,10 +24,12 @@ import grey from '@material-ui/core/colors/grey';
 // Change theme color and typography here
 const theme = createMuiTheme({
   palette: {
-    primary: { light: '#eceff1', main: blue[700], dark: blue[900] },
+    primary: { light: '#63a4ff', main: blue[700], dark: '#004ba0' },
+    // primary: { light: '#63a4ff', main: blue[700], dark: blue[900] },
     // Same color as Angular into-the-graph: blue[700] / #1976d2
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
-    secondary: { light: '#fafafa', main: '#fafafa', dark: grey[600] }
+    secondary: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
+    default: { light: '#fafafa', main: '#eceff1', dark: grey[600] }
   },
   typography: {
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",

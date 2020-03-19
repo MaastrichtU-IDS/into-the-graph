@@ -30,7 +30,7 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   listItem: {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.default.dark,
   },
   appBar: {
     // transition: theme.transitions.create(['margin', 'width'], {
@@ -47,7 +47,7 @@ const styles = theme => ({
     // }),
   },
   menuButton: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.default.main,
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none',

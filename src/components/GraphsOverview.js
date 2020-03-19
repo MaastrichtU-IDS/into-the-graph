@@ -20,7 +20,7 @@ $.DataTable = require('datatables.net');
 
 const styles = theme => ({
   menuButton: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.default.main,
     marginRight: '1em',
     marginLeft: '1em',
     textTransform: 'none'

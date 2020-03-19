@@ -36,7 +36,7 @@ const styles = theme => ({
     textAlign: 'left'
   },
   greyBackground: {
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.default.main
   },
   paperPadding: {
     padding: theme.spacing(0.5, 1.5)
@@ -213,8 +213,8 @@ class Describe extends Component {
   render () {
     const { classes } = this.props;
     return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <React.Fragment>
-      <Container>
-        <div className='mainContainer'>
+      <Container className='mainContainer'>
+        {/* <div className='mainContainer'> */}
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
           {/* <div style={{textAlign: 'right'}}>
             <Button variant="contained" size="small" className={classes.showMoreButton} 
@@ -291,7 +291,7 @@ class Describe extends Component {
               </Typography>
             </Paper>
           )}
-        </div>
+        {/* </div> */}
       </Container>
       <Footer />
     </React.Fragment>
