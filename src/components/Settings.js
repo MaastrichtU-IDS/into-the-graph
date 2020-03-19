@@ -12,6 +12,11 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TriplestoreContext from '../TriplestoreContext';
 import { FormControl, TextField, Input, InputLabel, FormHelperText } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Footer from './footer';
 
@@ -63,6 +68,7 @@ class Settings extends Component {
   static contextType = TriplestoreContext;
 
   state = {open: false, 
+    dialogOpen: false,
     sparql_endpoint_autocomplete: '',
     openapi_url_autocomplete: '',
     comunica_url_autocomplete: '',
@@ -79,8 +85,12 @@ class Settings extends Component {
     // this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
  }
 
+  // Close Snackbar
   handleClose = (event, reason) => {
     this.setState({ open: false});
+  };
+  handleDialogClose = (event, reason) => {
+    this.setState({ dialogOpen: false});
   };
 
   handleAutocomplete = (stateToUpdate, searchText) => {
@@ -117,18 +127,12 @@ class Settings extends Component {
     this.setState({ open: true });
   }
 
-  handleDeleteCache  = (event, setTriplestore) => {
+  confirmDeleteCache  = () => {
+    this.setState({ dialogOpen: true });
+  }
+  doDeleteCache = () => {
     localStorage.clear();
-    // event.preventDefault();
-    // setTriplestore({
-    //   sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
-    //   graphs_overview: this.formGraphsOverview.current.value,
-    //   openapi_url: this.state.openapi_url_autocomplete, 
-    //   comunica_url: this.state.comunica_url_autocomplete,
-    //   filebrowser_url: this.state.filebrowser_url_autocomplete, 
-    //   search_query: this.formSearchQuery.current.value, 
-    // });
-    // this.setState({ open: true });
+    this.handleDialogClose();
   }
 
   render() {
@@ -380,10 +384,10 @@ class Settings extends Component {
                   <Button
                   variant="contained" size="small" 
                   className={classes.saveButton} 
-                  onClick={this.handleDeleteCache}
+                  onClick={this.confirmDeleteCache}
                   startIcon={<Icon>delete</Icon>}
                   color="secondary" >
-                    Delete cache and reset settings  
+                    Delete cache
                   </Button>
                   <Snackbar open={this.state.open} onClose={this.handleClose} autoHideDuration={3000}>
                     <Alert severity="success">
@@ -392,6 +396,28 @@ class Settings extends Component {
                   </Snackbar>
                 </FormControl>
               </form>
+              <Dialog
+                open={this.state.dialogOpen}
+                onClose={this.handleDialogClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Delete the cache?"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This will delete the cache containing your current settings.<br/>
+                    This can help resolve issues related to the cache.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.doDeleteCache} color="secondary">
+                    Delete cache
+                  </Button>
+                  <Button onClick={this.handleDialogClose} color="primary" autoFocus>
+                    Cancel
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Container>
             <Footer />
           </React.Fragment>
