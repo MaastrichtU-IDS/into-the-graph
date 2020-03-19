@@ -34,8 +34,8 @@ const styles = theme => ({
   fullWidth: {
     width: '100%',
   },
-  smallFont: {
-    fontSize: '16px',
+  normalFont: {
+    fontSize: '14px',
   },
   smallerFont: {
     fontSize: '12px',
@@ -297,12 +297,12 @@ class Settings extends Component {
                       variant="outlined"
                       inputRef={this.formSearchQuery}
                       multiline={true}
-                      size='small'
+                      // size='small'
                       InputProps={{
-                        className: classes.smallerFont
+                        className: classes.normalFont
                       }}
                       InputLabelProps={{
-                        className: classes.smallerFont
+                        className: classes.normalFont
                       }}
                     />
                     <FormHelperText id="helper-search-virtuoso" >
