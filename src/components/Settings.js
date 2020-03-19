@@ -151,10 +151,13 @@ class Settings extends Component {
       'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
       'https://bio2rdf.org/sparql',
       'http://dbpedia.org/sparql',
-      'http://rdf.disgenet.org/sparql/',
-      'http://opencitations.net/index/sparql',
-      'http://opencitations.net/sparql',
-      'http://publications.europa.eu/webapi/rdf/sparql',
+      'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
+      'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
+      'http://opencitations.net/sparql',    // Virtuoso
+      'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
+      'http://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
+      'http://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
+      'http://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
       'http://lod.openlinksw.com/sparql',
       'http://sparql.southgreen.fr',
       'https://sparql.nextprot.org',
