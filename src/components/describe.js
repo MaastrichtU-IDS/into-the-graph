@@ -88,6 +88,7 @@ class Describe extends Component {
 
   state = {
     describeUri: this.params.get('uri'),
+    providedEndpoint: this.params.get('endpoint'),
     describeHash: {}, 
     describeGraphClasses: [],
     searchResults: []
@@ -95,9 +96,20 @@ class Describe extends Component {
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
+    console.log('Triplestore providedEndpoint');
+    // console.log(this.props);
+    // console.log(this.props.triplestore);
+    // console.log(this.props.setTriplestore);
+    console.log(this.state.providedEndpoint);
+    // const endpointToQuery = '';
+    let endpointToQuery = this.context.triplestore.sparql_endpoint;
+    if (this.state.providedEndpoint) {
+      endpointToQuery = this.state.providedEndpoint;
+    } 
+
     // if (this.state.describeUri.startsWith('http')) {
     if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(this.state.describeUri)) {
-      axios.get(this.context.triplestore.sparql_endpoint + `?query=` + this.getDescribeQuery(this.state.describeUri))
+      axios.get(endpointToQuery + `?query=` + this.getDescribeQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let describeHash = {};
@@ -188,7 +200,7 @@ class Describe extends Component {
       })
     } else {
       // Full text search
-      axios.get(this.context.triplestore.sparql_endpoint + `?query=` + this.getSearchQuery(this.state.describeUri))
+      axios.get(endpointToQuery + `?query=` + this.getSearchQuery(this.state.describeUri))
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let searchResults = [];
@@ -213,9 +225,16 @@ class Describe extends Component {
   render () {
     const { classes } = this.props;
     return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <React.Fragment>
+    {/* Trying to update the Context API */}
+    {/* <TriplestoreContext.Consumer>
+     {({triplestore, setTriplestore}) => ( */}
+      {/* <Describe 
+        triplestore={triplestore} setTriplestore={setTriplestore} 
+      /> */}
       <Container className='mainContainer'>
         {/* <div className='mainContainer'> */}
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
+          {/* Snippet to collapse all Graphs expansion panels. Not working with MaterialUI panels */}
           {/* <div style={{textAlign: 'right'}}>
             <Button variant="contained" size="small" className={classes.showMoreButton} 
               color="primary" onClick={() => console.log('tyrtg')}>
@@ -295,6 +314,8 @@ class Describe extends Component {
       </Container>
       <Footer />
     </React.Fragment>
+    // )}
+    // </TriplestoreContext.Consumer>
   }
 
   getDescribeQuery(uriToDescribe) {
