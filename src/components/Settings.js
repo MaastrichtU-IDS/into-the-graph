@@ -61,16 +61,19 @@ class Settings extends Component {
   static contextType = TriplestoreContext;
 
   state = {open: false, 
-    sparql_endpoint_autocomplete: ''};
+    sparql_endpoint_autocomplete: '',
+    openapi_url_autocomplete: '',
+    comunica_url_autocomplete: '',
+    filebrowser_url_autocomplete: ''};
 
   constructor(props) {
     super(props);
-    this.formSparqlEndpoint = React.createRef(); 
+    // this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
-    this.formOpenapiUrl = React.createRef(); 
-    this.formComunicaUrl = React.createRef(); 
-    this.formFilebrowserUrl = React.createRef(); 
     this.formSearchQuery = React.createRef(); 
+    // this.formOpenapiUrl = React.createRef(); 
+    // this.formComunicaUrl = React.createRef(); 
+    // this.formFilebrowserUrl = React.createRef(); 
     // this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
  }
 
@@ -79,19 +82,23 @@ class Settings extends Component {
   };
 
   handleAutocomplete = (stateToUpdate, searchText) => {
-    console.log('searchText autocompleete')
-    console.log(searchText)
+    console.log('stateToUpdate, searchText')
     console.log(stateToUpdate)
+    console.log(searchText)
+    // Generate specific state key for this autocomplete
+    const autocompleteStateKey = stateToUpdate + '_autocomplete';
     if (searchText && searchText.target){
       if (searchText.target.value) {
-        this.setState({ [stateToUpdate]: searchText.target.value})
+        this.setState({ [autocompleteStateKey]: searchText.target.value})
       } else {
-        this.setState({ [stateToUpdate]: searchText.target.innerText})
+        this.setState({ [autocompleteStateKey]: searchText.target.innerText})
       }
     } 
-    // else {
-    //   this.setState({ sparql_endpoint_autocomplete: this.context.triplestore.sparql_endpoint})
-    // }
+    else {
+      // If nothing in field, we get from the context
+      // const fromContext = this.context.triplestore[]
+      this.setState({ [autocompleteStateKey]: this.context.triplestore[[stateToUpdate]]})
+    }
   }
 
   // handleSubmit  = (event) => {
@@ -100,9 +107,9 @@ class Settings extends Component {
     setTriplestore({
       sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
       graphs_overview: this.formGraphsOverview.current.value,
-      openapi_url: this.formOpenapiUrl.current.value, 
-      comunica_url: this.formComunicaUrl.current.value,
-      filebrowser_url: this.formFilebrowserUrl.current.value, 
+      openapi_url: this.state.openapi_url_autocomplete, 
+      comunica_url: this.state.comunica_url_autocomplete,
+      filebrowser_url: this.state.filebrowser_url_autocomplete, 
       search_query: this.formSearchQuery.current.value, 
     });
     this.setState({ open: true });
@@ -169,8 +176,8 @@ class Settings extends Component {
                         SPARQL endpoint
                       </Typography>
                       <Autocomplete
-                        onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint_autocomplete')}
-                        onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint_autocomplete')}
+                        onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
+                        onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                         id="autocomplete-sparql-endpoint"
                         options={sparqlEndointList}
                         value={this.context.triplestore.sparql_endpoint}
@@ -222,52 +229,58 @@ class Settings extends Component {
                     <Typography variant="h5" className={classes.font300}>
                       Interfaces
                     </Typography>
-                    <TextField
-                      id="textfield-openapi-url"
-                      label="Open API URL"
-                      defaultValue={triplestore.openapi_url}
-                      placeholder="Open API URL"
-                      variant="outlined"
-                      inputRef={this.formOpenapiUrl}
-                      size='small'
-                      InputProps={{
-                        className: classes.smallerFont
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+                      id="autocomplete-openapi-url"
+                      options={openapiList}
+                      value={this.context.triplestore.openapi_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
                       }}
-                      InputLabelProps={{
-                        className: classes.smallerFont
-                      }}
+                      renderInput={params => <TextField {...params} 
+                      label="Reasoner API URL"
+                      variant="outlined" 
+                      // getOptionLabel={option => option.title}
+                      // style={{ width: 300 }}
+                      // size='small'
+                      />}
                     />
                     <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
-                    <TextField
-                      id="textfield-comunica-url"
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+                      id="autocomplete-comunica-url"
+                      options={comunicaList}
+                      value={this.context.triplestore.comunica_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
+                      }}
+                      renderInput={params => <TextField {...params} 
                       label="Comunica widget URL (Archives)"
-                      defaultValue={triplestore.comunica_url}
-                      placeholder="Comunica widget URL (Archives)"
-                      variant="outlined"
-                      inputRef={this.formComunicaUrl}
-                      size='small'
-                      InputProps={{
-                        className: classes.smallerFont
-                      }}
-                      InputLabelProps={{
-                        className: classes.smallerFont
-                      }}
+                      variant="outlined" 
+                      />}
                     />
                     <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
-                    <TextField
-                      id="textfield-filebrowser-url"
-                      label="Filebrowser URL"
-                      defaultValue={triplestore.filebrowser_url}
-                      placeholder="Filebrowser URL"
-                      variant="outlined"
-                      inputRef={this.formFilebrowserUrl}
-                      size='small'
-                      InputProps={{
-                        className: classes.smallerFont
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+                      id="autocomplete-filebrowser-url"
+                      options={filebrowserList}
+                      value={this.context.triplestore.filebrowser_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
                       }}
-                      InputLabelProps={{
-                        className: classes.smallerFont
-                      }}
+                      renderInput={params => <TextField {...params} 
+                      label="Filebrowser URL to download RDF dumps"
+                      variant="outlined" 
+                      />}
                     />
                     <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
                   </Paper>
