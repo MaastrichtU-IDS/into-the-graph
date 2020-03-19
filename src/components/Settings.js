@@ -155,6 +155,7 @@ class Settings extends Component {
       'http://opencitations.net/sparql',
       'http://publications.europa.eu/webapi/rdf/sparql',
       'http://lod.openlinksw.com/sparql',
+      'http://sparql.southgreen.fr',
       'https://sparql.nextprot.org',
       'http://localhost:7200/repositories/demo',
       'http://localhost:8890/sparql',
