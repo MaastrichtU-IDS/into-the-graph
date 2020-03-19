@@ -151,6 +151,7 @@ class Settings extends Component {
       'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
       'https://bio2rdf.org/sparql',
       'http://dbpedia.org/sparql',
+      'http://rdf.disgenet.org/sparql/',
       'http://opencitations.net/index/sparql',
       'http://opencitations.net/sparql',
       'http://publications.europa.eu/webapi/rdf/sparql',
