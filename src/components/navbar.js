@@ -32,6 +32,16 @@ const styles = theme => ({
   listItem: {
     color: theme.palette.default.dark,
   },
+  logo: {
+    // Seems to fit the 48px navbar height...
+    height: '35px',
+  },
+  logoLink: {
+    // Seems to fit the 48px navbar height...
+    height: '48px',
+    alignItems: 'center',
+    display: 'flex',
+  },
   appBar: {
     // transition: theme.transitions.create(['margin', 'width'], {
     //   easing: theme.transitions.easing.sharp,
@@ -65,6 +75,7 @@ const styles = theme => ({
   },
   input: {
     marginLeft: theme.spacing(1),
+    // Hardcoded width for search input
     width: '350px',
     fontSize: '14px',
     flex: 1,
@@ -88,7 +99,8 @@ const styles = theme => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar.dense,
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
+    justifyContent: 'center', // For d2s logo
   },
   content: {
     flexGrow: 1,
@@ -151,7 +163,13 @@ class NavBar extends Component {
       <React.Fragment>
         <AppBar title="" position='sticky' className={classes.appBar}>
           <Toolbar variant='dense'>
-            <IconButton
+            {/* <a href="https://d2s.semanticscience.org" 
+              className={classes.logoLink}
+              style={{marginLeft: this.context.drawer_width }} target="_blank">
+              <img src="d2s-logo.png" alt="logo" className={classes.logo}
+              />
+            </a> */}
+            {/* <IconButton
               color="inherit"
               aria-label="open drawer"
               onClick={this.handleDrawerOpen}
@@ -161,7 +179,7 @@ class NavBar extends Component {
               // && classes.hide
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             {/* <Link to="/" className={classes.linkButton}>
               <Tooltip title="Get an overview of the content of the triplestore and its graphs using the HCLS descriptive statistics">
                 <Button className={classes.menuButton}>
@@ -222,7 +240,10 @@ class NavBar extends Component {
             )} */}
             {/* <div className="flexGrow"></div> */}
             {/* Search box */}
-            <Paper component="form" className={classes.paperSearch} onSubmit={this.submitSearch}>
+            <Paper component="form" className={classes.paperSearch}
+              style={{marginLeft: this.context.drawer_width }} 
+              onSubmit={this.submitSearch}
+            >
               <InputBase  // https://material-ui.com/api/input-base/
                 className={classes.input}
                 placeholder="Search triplestore"
@@ -258,10 +279,17 @@ class NavBar extends Component {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={this.handleDrawerClose}>
+          {/* <IconButton  onClick={this.handleDrawerClose}> */}
+          {/* <IconButton style={{display: 'none'}}>
             <ChevronLeftIcon />
-            {/* <ChevronRightIcon /> */}
-          </IconButton>
+            <ChevronRightIcon />
+          </IconButton> */}
+          {/* <img src="d2s-logo.png" alt="logo" className={classes.logo}/> */}
+          <a href="https://d2s.semanticscience.org" 
+            className={classes.logoLink} target="_blank">
+            <img src="d2s-logo.png" alt="logo" className={classes.logo}
+            />
+          </a>
         </div>
         <Divider />
         <List>
