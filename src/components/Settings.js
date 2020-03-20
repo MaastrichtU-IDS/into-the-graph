@@ -391,7 +391,7 @@ class Settings extends Component {
                   className={classes.saveButton} 
                   startIcon={<Icon>save</Icon>}
                   color="primary" >
-                    Save settings for this session  
+                    Save settings
                   </Button>
                   <Button
                   variant="contained" size="small" 
