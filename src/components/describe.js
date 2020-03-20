@@ -65,6 +65,7 @@ const styles = theme => ({
   uriTitle: {
     fontWeight: 300,
     marginBottom: theme.spacing(2),
+    lineBreak: 'anywhere',
   },
   endpointAutocomplete: {
     margin: theme.spacing(2, 15),

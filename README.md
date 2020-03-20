@@ -210,7 +210,7 @@ Start browsing various SPARQL endpoints using into-the-graph in one click:
 * A City in DBpedia
   * http://trek.semanticscience.org/describe?uri=http://dbpedia.org/resource/Menton&endpoint=http://dbpedia.org/sparql
 * A Citation in the [EU Law OpenCitation](http://opencitations.net/) corpus
-  * http://trek.semanticscience.org/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://publications.europa.eu/webapi/rdf/sparql
+  * http://trek.semanticscience.org/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://opencitations.net/index/sparql
 * A Publication in the [EU Cellar Law dataset](https://data.europa.eu/euodp/en/data/dataset/sparql-cellar-of-the-publications-office): 
   * http://trek.semanticscience.org/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
   * Browsing not really good due to the use of graphs for entities.
