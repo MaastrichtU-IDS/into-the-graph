@@ -97,7 +97,7 @@ class Describe extends Component {
   };
   doChangeEndpoint = (setTriplestore) => {
     let triplestoreConfig = this.context.triplestore;
-    triplestoreConfig = {sparql_endpoint: this.state.providedEndpoint}
+    triplestoreConfig.sparql_endpoint = this.state.providedEndpoint;
     setTriplestore(triplestoreConfig);
     localStorage.setItem("intothegraphSettings", JSON.stringify(triplestoreConfig));
     this.setState({ openChangeEndpoint: false});
