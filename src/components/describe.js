@@ -95,6 +95,13 @@ class Describe extends Component {
   handleCloseChangeEndpoint = (event, reason) => {
     this.setState({ openChangeEndpoint: false});
   };
+  doChangeEndpoint = (setTriplestore) => {
+    let triplestoreConfig = this.context.triplestore;
+    triplestoreConfig = {sparql_endpoint: this.state.providedEndpoint}
+    setTriplestore(triplestoreConfig);
+    localStorage.setItem("intothegraphSettings", JSON.stringify(triplestoreConfig));
+    this.setState({ openChangeEndpoint: false});
+  };
 
   state = {
     describeUri: this.params.get('uri'),
@@ -111,8 +118,10 @@ class Describe extends Component {
     // console.log(this.props.triplestore);
     // console.log(this.props.setTriplestore);
     console.log(this.state.providedEndpoint);
+
     // const endpointToQuery = '';
     let endpointToQuery = this.context.triplestore.sparql_endpoint;
+    // If an endpoint is provided in URL params
     if (this.state.providedEndpoint) {
       endpointToQuery = this.state.providedEndpoint;
       this.setState({ openChangeEndpoint: true});
@@ -235,13 +244,15 @@ class Describe extends Component {
   // START HTML
   render () {
     const { classes } = this.props;
-    return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <React.Fragment>
-    {/* Trying to update the Context API */}
-    {/* <TriplestoreContext.Consumer>
-     {({triplestore, setTriplestore}) => ( */}
-      {/* <Describe 
-        triplestore={triplestore} setTriplestore={setTriplestore} 
-      /> */}
+    return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <TriplestoreContext.Consumer>
+      {({triplestore, setTriplestore}) => ( 
+    // {/* Trying to update the Context API */}
+    // {/* <TriplestoreContext.Consumer>
+    //  {({triplestore, setTriplestore}) => ( */}
+    //   {/* <Describe 
+    //     triplestore={triplestore} setTriplestore={setTriplestore} 
+    //   /> */}
+    <React.Fragment>
       <Container className='mainContainer'>
         {/* <div className='mainContainer'> */}
           <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
@@ -322,25 +333,28 @@ class Describe extends Component {
             </Paper>
           )}
         {/* </div> */}
-        <Snackbar open={this.state.openChangeEndpoint} onClose={this.handleCloseChangeEndpoint} 
-          // autoHideDuration={3000}
+        <Snackbar open={this.state.openChangeEndpoint} 
+          onClose={this.handleCloseChangeEndpoint} 
+          autoHideDuration={6000}
         >
-          <Alert severity="success"
+          <Alert severity="warning"
             onClose={() => {}}
             action={
-              <Button color="inherit" size="small">
+              <Button color="inherit" size="small" 
+                onClick={() => this.doChangeEndpoint(setTriplestore)}
+              >
                 Change Endpoint
               </Button>
             }
           >
-            Settings has been saved
+            Do you want to change the SPARQL endpoint to use the one provided in the URL?
           </Alert>
         </Snackbar>
       </Container>
       <Footer />
     </React.Fragment>
-    // )}
-    // </TriplestoreContext.Consumer>
+    )}
+    </TriplestoreContext.Consumer>
   }
 
   getDescribeQuery(uriToDescribe) {
