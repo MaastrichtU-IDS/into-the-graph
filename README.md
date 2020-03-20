@@ -199,6 +199,8 @@ Start browsing various SPARQL endpoints using into-the-graph in one click:
 
 * A Clinical trial in [Bio2RDF](https://bio2rdf.org):
   * http://trek.semanticscience.org/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
+* A Pathway in [PathwayCommons](http://pathwaycommons.org/):
+  * http://trek.semanticscience.org/describe?uri=http://identifiers.org/reactome/R-HSA-8852135&endpoint=http://rdf.pathwaycommons.org/sparql/
 * A Protein in [NextProt](https://www.nextprot.org/):
   * http://trek.semanticscience.org/describe?uri=http://nextprot.org/rdf/entry/NX_Q96Q91&endpoint=https://sparql.nextprot.org
 * A [Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
@@ -212,9 +214,13 @@ Start browsing various SPARQL endpoints using into-the-graph in one click:
 * A Publication in the [EU Cellar Law dataset](https://data.europa.eu/euodp/en/data/dataset/sparql-cellar-of-the-publications-office): 
   * http://trek.semanticscience.org/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
   * Browsing not really good due to the use of graphs for entities.
-* A Product in the [LOD SPARQL endpoint](http://lod.openlinksw.com/sparql) 
-  * http://trek.semanticscience.org/describe?uri=http://openean.kaufkauf.net/id/EanUpc_0820725102496&endpoint=http://lod.openlinksw.com/sparql
+* A City in the [LOD SPARQL endpoint](http://lod.openlinksw.com/sparql) 
+  * http://trek.semanticscience.org/describe?uri=http://www.wikidata.org/entity/Q180083&endpoint=http://lod.openlinksw.com/sparql
   * Browsing not really good due to the use of graphs for entities.
+* A Dataset in OpenEuropa Joinup SPARQL
+  * http://trek.semanticscience.org/describe?uri=http://data.europa.eu/w21/dfba1169-806f-4c9e-a42e-a5c5830a2221&endpoint=https://joinup.ec.europa.eu/sparql/
+* A Statistic in the EU Open Data Portal
+  * http://trek.semanticscience.org/describe?uri=http://data.lod2.eu/scoreboard/indicators/FOA_cit_Country__of_pub_serv_for_citizen&endpoint=http://data.europa.eu/euodp/sparqlep
 
 > You will need to go to [settings](http://trek.semanticscience.org/settings) to change the SPARQL endpoint URL permanently.
 

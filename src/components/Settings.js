@@ -156,6 +156,7 @@ class Settings extends Component {
       'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
       'https://bio2rdf.org/sparql',
       'http://dbpedia.org/sparql',
+      'http://rdf.pathwaycommons.org/sparql/',
       'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
       'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
       'http://opencitations.net/sparql',    // Virtuoso
