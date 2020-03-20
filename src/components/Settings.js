@@ -54,8 +54,12 @@ const styles = theme => ({
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
   },
-  font300: {
-    fontWeight: 300
+  marginBottom: {
+    marginBottom: theme.spacing(1),
+  },
+  paperTitle: {
+    fontWeight: 300,
+    marginBottom: theme.spacing(1),
   }
 })
 
@@ -197,7 +201,7 @@ class Settings extends Component {
                 this.handleSubmit(event, setTriplestore)}}>
                   <FormControl className={classes.settingsForm}>
                     <Paper elevation={2} className={classes.paperPadding}>
-                      <Typography variant="h5" className={classes.font300}>
+                      <Typography variant="h5" className={classes.paperTitle}>
                         SPARQL endpoint
                       </Typography>
                       <Autocomplete
@@ -248,10 +252,10 @@ class Settings extends Component {
                         <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
                       </Select>
                     </FormControl>
-                    <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized on Virtuoso)</FormHelperText>
+                    <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized in Virtuoso)</FormHelperText>
                   </Paper>
                   <Paper elevation={2} className={classes.paperPadding}>
-                    <Typography variant="h5" className={classes.font300}>
+                    <Typography variant="h5" className={classes.paperTitle}>
                       Interfaces
                     </Typography>
                     <Autocomplete
@@ -310,15 +314,20 @@ class Settings extends Component {
                     <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
                   </Paper>
                   <Paper elevation={2} className={classes.paperPadding}>
-                    <Typography variant="h5" className={classes.font300}>
+                    <Typography variant="h5" className={classes.paperTitle}>
                       Search query
                     </Typography>
+                    <FormHelperText>
+                      The SPARQL query used when searching in the navbar search box. 
+                      Use $TEXT_TO_SEARCH to define where the text to search will be replaced in the query.
+                      It should return a ?foundUri and a ?foundLabel to be displayed by the app.
+                    </FormHelperText>
                     <TextField
                       id="textfield-search-query"
-                      label="Search query in use"
+                      label="Search query used by the app"
+                      placeholder="Search query used by the app"
                       className={classes.fullWidth}
                       defaultValue={triplestore.search_query}
-                      placeholder="Search query in use"
                       variant="outlined"
                       inputRef={this.formSearchQuery}
                       multiline={true}
@@ -330,54 +339,51 @@ class Settings extends Component {
                         className: classes.normalFont
                       }}
                     />
-                    <FormHelperText id="helper-search-virtuoso" >
-                      SPARQL query used when searching in the navbar search box.
-                      It should return a ?foundUri and a ?foundLabel.
-                      <br/>
-                      You can use those examples queries for GraphDB or Virtuoso Search Index (needs to be enabled in the triplestore):
-                      <TextField 
-                        className={classes.fullWidth}
-                        id="search-graphdb" 
-                        label="Search query for Ontotext GraphDB" 
-                        variant="outlined" multiline={true}
-                        value={example_search_graphdb}
-                        size='small'
-                        InputProps={{
-                          className: classes.smallerFont
-                        }}
-                        InputLabelProps={{
-                          className: classes.smallerFont
-                        }}
-                      />
-                      <TextField 
-                        className={classes.fullWidth}
-                        id="search-virtuoso" 
-                        label="Search query for OpenLink Virtuoso" 
-                        variant="outlined" multiline={true}
-                        value={example_search_virtuoso}
-                        size='small'
-                        InputProps={{
-                          className: classes.smallerFont
-                        }}
-                        InputLabelProps={{
-                          className: classes.smallerFont
-                        }}
-                      />
-                    <TextField 
-                        className={classes.fullWidth}
-                        id="search-default" 
-                        label="Default search query" 
-                        variant="outlined" multiline={true}
-                        value={example_search_default}
-                        size='small'
-                        InputProps={{
-                          className: classes.smallerFont
-                        }}
-                        InputLabelProps={{
-                          className: classes.smallerFont
-                        }}
-                      />
+                    <FormHelperText>
+                      You can use those examples queries to use GraphDB or Virtuoso Search Index (it needs to have been enabled in the triplestore before):
                     </FormHelperText>
+                    <TextField 
+                      className={classes.fullWidth}
+                      id="search-graphdb" 
+                      label="Search query for Ontotext GraphDB" 
+                      variant="outlined" multiline={true}
+                      value={example_search_graphdb}
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
+                    <TextField 
+                      className={classes.fullWidth}
+                      id="search-virtuoso" 
+                      label="Search query for OpenLink Virtuoso" 
+                      variant="outlined" multiline={true}
+                      value={example_search_virtuoso}
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
+                  <TextField 
+                      className={classes.fullWidth}
+                      id="search-default" 
+                      label="Default search query" 
+                      variant="outlined" multiline={true}
+                      value={example_search_default}
+                      size='small'
+                      InputProps={{
+                        className: classes.smallerFont
+                      }}
+                      InputLabelProps={{
+                        className: classes.smallerFont
+                      }}
+                    />
                   </Paper>
                   <Button type="submit"
                   variant="contained" 
