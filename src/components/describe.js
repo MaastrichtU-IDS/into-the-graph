@@ -41,7 +41,7 @@ const styles = theme => ({
     textAlign: 'left'
   },
   greyBackground: {
-    backgroundColor: theme.palette.default.main
+    backgroundColor: theme.palette.default.main,
   },
   paperPadding: {
     padding: theme.spacing(0.5, 1.5)
@@ -69,7 +69,7 @@ const styles = theme => ({
   },
   endpointAutocomplete: {
     margin: theme.spacing(2, 15),
-    fontSize: '13px',
+    // fontSize: '13px',
     // fontSize: theme.typography.fontSize,
     // fontSize: `calc(${theme.typography.fontSize} -2)`,
   }

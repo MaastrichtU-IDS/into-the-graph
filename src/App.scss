@@ -6,6 +6,20 @@ body {
   padding: 0;
   text-align: center;
 }
+.mainContainer {
+  height: 100%;
+  margin-top: 20px;
+  // margin-bottom: 40px; 
+}
+.flexGrow {
+  flex-grow: 1;
+}
+
+// Edit height of ExpansionPanel header in describe
+.MuiExpansionPanelSummary-root.Mui-expanded.MuiButtonBase-root {
+  height: 48px;
+  min-height: 48px;
+}
 
 // Fix font in yasgui editor
 .yasgui .yasqe .CodeMirror {
@@ -19,16 +33,6 @@ body {
 }
 table.dataTable thead {
   font-size: 14px;
-}
-
-.flexGrow {
-  flex-grow: 1;
-}
-
-.mainContainer {
-  height: 100%;
-  margin-top: 20px;
-  // margin-bottom: 40px; 
 }
 
 // Data table fix to avoid overflow
