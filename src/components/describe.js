@@ -12,6 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -62,6 +64,10 @@ const styles = theme => ({
   }
 })
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 class Describe extends Component {
   params = new URLSearchParams(this.props.location.search + this.props.location.hash);
 
@@ -72,6 +78,7 @@ class Describe extends Component {
     this.showMoreHandler = this.showMoreHandler.bind(this);
     this.state.isLoading = true;
     this.state.requestError = false;
+    this.state.openChangeEndpoint= false;
   }
 
   showMoreHandler(graphUri, propertyUri) {
@@ -85,6 +92,9 @@ class Describe extends Component {
       return {describeHash: state.describeHash};
     });
   }
+  handleCloseChangeEndpoint = (event, reason) => {
+    this.setState({ openChangeEndpoint: false});
+  };
 
   state = {
     describeUri: this.params.get('uri'),
@@ -105,6 +115,7 @@ class Describe extends Component {
     let endpointToQuery = this.context.triplestore.sparql_endpoint;
     if (this.state.providedEndpoint) {
       endpointToQuery = this.state.providedEndpoint;
+      this.setState({ openChangeEndpoint: true});
     } 
 
     // if (this.state.describeUri.startsWith('http')) {
@@ -311,6 +322,20 @@ class Describe extends Component {
             </Paper>
           )}
         {/* </div> */}
+        <Snackbar open={this.state.openChangeEndpoint} onClose={this.handleCloseChangeEndpoint} 
+          // autoHideDuration={3000}
+        >
+          <Alert severity="success"
+            onClose={() => {}}
+            action={
+              <Button color="inherit" size="small">
+                Change Endpoint
+              </Button>
+            }
+          >
+            Settings has been saved
+          </Alert>
+        </Snackbar>
       </Container>
       <Footer />
     </React.Fragment>
