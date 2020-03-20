@@ -140,6 +140,34 @@ class Settings extends Component {
     window.location.reload();
   }
 
+  static sparqlEndointList = [
+    'http://graphdb.dumontierlab.com/repositories/trek',
+    'http://graphdb.dumontierlab.com/repositories/bio2vec',
+    'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
+    'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+    'https://bio2rdf.org/sparql',
+    'http://dbpedia.org/sparql',
+    'http://rdf.pathwaycommons.org/sparql/',
+    'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
+    'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
+    'http://opencitations.net/sparql',    // Virtuoso
+    'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
+    'http://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
+    'http://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
+    'http://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
+    'http://lod.openlinksw.com/sparql',
+    'http://sparql.southgreen.fr',
+    'https://sparql.nextprot.org',
+    'http://localhost:7200/repositories/demo',
+    'http://localhost:8890/sparql',
+    'http://localhost:8082/bigdata/sparql',
+    // 'https://query.wikidata.org/sparql',
+    // 'https://sparql.uniprot.org/sparql/',
+    // 'http://dbtune.org/bbc/peel/cliopatria/sparql',
+    // 'https://semantic.eea.europa.eu/sparql',
+    // 'http://void.rkbexplorer.com/sparql/',
+  ]
+
   render() {
     const { classes } = this.props;
     // const sparqlEndointList = [
@@ -149,33 +177,6 @@ class Settings extends Component {
     //   { title: 'NCATS Translator TReK', value: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
     //   { title: 'Bio2RDF v5', value: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
     // ]
-    const sparqlEndointList = [
-      'http://graphdb.dumontierlab.com/repositories/trek',
-      'http://graphdb.dumontierlab.com/repositories/bio2vec',
-      'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
-      'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
-      'https://bio2rdf.org/sparql',
-      'http://dbpedia.org/sparql',
-      'http://rdf.pathwaycommons.org/sparql/',
-      'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
-      'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
-      'http://opencitations.net/sparql',    // Virtuoso
-      'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
-      'http://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
-      'http://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
-      'http://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
-      'http://lod.openlinksw.com/sparql',
-      'http://sparql.southgreen.fr',
-      'https://sparql.nextprot.org',
-      'http://localhost:7200/repositories/demo',
-      'http://localhost:8890/sparql',
-      'http://localhost:8082/bigdata/sparql',
-      // 'https://query.wikidata.org/sparql',
-      // 'https://sparql.uniprot.org/sparql/',
-      // 'http://dbtune.org/bbc/peel/cliopatria/sparql',
-      // 'https://semantic.eea.europa.eu/sparql',
-      // 'http://void.rkbexplorer.com/sparql/',
-    ]
     const openapiList = [
       'http://api.trek.semanticscience.org',
       'http://localhost:8080',
@@ -210,7 +211,7 @@ class Settings extends Component {
                         onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                         onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                         id="autocomplete-sparql-endpoint"
-                        options={sparqlEndointList}
+                        options={Settings.sparqlEndointList}
                         value={this.context.triplestore.sparql_endpoint}
                         freeSolo={true}
                         includeInputInList={true}

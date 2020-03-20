@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -19,6 +21,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { LinkDescribe } from "./LinkDescribe";
 import Footer from './footer';
+import Settings from './Settings';
 import TriplestoreContext from '../TriplestoreContext';
 
 var Config = require('Config')
@@ -71,6 +74,15 @@ function Alert(props) {
 class Describe extends Component {
   params = new URLSearchParams(this.props.location.search + this.props.location.hash);
 
+  state = {
+    endpointToQuery: '',
+    describeUri: this.params.get('uri'),
+    // providedEndpoint: this.params.get('endpoint'),
+    describeHash: {}, 
+    describeGraphClasses: [],
+    searchResults: []
+  }
+
   static contextType = TriplestoreContext;
 
   constructor(props) {
@@ -78,7 +90,14 @@ class Describe extends Component {
     this.showMoreHandler = this.showMoreHandler.bind(this);
     this.state.isLoading = true;
     this.state.requestError = false;
-    this.state.openChangeEndpoint= false;
+    this.state.openChangeEndpoint = false;
+    this.state.sparql_endpoint_autocomplete = '';
+    if (this.params.get('endpoint')) {
+      this.state.endpointToQuery = this.params.get('endpoint')
+    } 
+    // else {
+    //   this.state.endpointToQuery = this.context.triplestore.sparql_endpoint;
+    // }
   }
 
   showMoreHandler(graphUri, propertyUri) {
@@ -97,26 +116,50 @@ class Describe extends Component {
   };
   doChangeEndpoint = (setTriplestore) => {
     let triplestoreConfig = this.context.triplestore;
-    triplestoreConfig.sparql_endpoint = this.state.providedEndpoint;
+    triplestoreConfig.sparql_endpoint = this.state.endpointToQuery;
     setTriplestore(triplestoreConfig);
     localStorage.setItem("intothegraphSettings", JSON.stringify(triplestoreConfig));
     this.setState({ openChangeEndpoint: false});
   };
 
-  state = {
-    describeUri: this.params.get('uri'),
-    providedEndpoint: this.params.get('endpoint'),
-    describeHash: {}, 
-    describeGraphClasses: [],
-    searchResults: []
+  handleAutocomplete = (stateToUpdate, searchText) => {
+    console.log('stateToUpdate, searchText')
+    console.log(stateToUpdate)
+    console.log(searchText)
+    // Generate specific state key for this autocomplete
+    const autocompleteStateKey = stateToUpdate + '_autocomplete';
+    if (searchText && searchText.target){
+      if (searchText.target.value) {
+        this.setState({ [autocompleteStateKey]: searchText.target.value})
+      } else {
+        this.setState({ [autocompleteStateKey]: searchText.target.innerText})
+      }
+    } 
+    else {
+      // If nothing in field, we get from the context
+      // const fromContext = this.context.triplestore[]
+      this.setState({ [autocompleteStateKey]: this.context.triplestore[[stateToUpdate]]})
+    }
+  }
+  // Submit change of SPARQL endpoint URL
+  handleSubmit  = (event, setTriplestore) => {
+    event.preventDefault();
+    let triplestoreConfig = this.context.triplestore;
+    triplestoreConfig.sparql_endpoint = this.state.sparql_endpoint_autocomplete;
+    setTriplestore(triplestoreConfig);
+    // localStorage.setItem("intothegraphSettings", JSON.stringify(triplestoreConfig));
+    window.location.reload();
   }
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
-    let endpointToQuery = this.context.triplestore.sparql_endpoint;
-    // If an endpoint is provided in URL params
-    if (this.state.providedEndpoint) {
-      endpointToQuery = this.state.providedEndpoint;
+    let endpointToQuery = this.state.endpointToQuery;
+    if (!this.state.endpointToQuery || 0 === this.state.endpointToQuery.length) {
+      // No endpoint provided in URL, use Context API one
+      endpointToQuery = this.context.triplestore.sparql_endpoint;
+      this.setState({ endpointToQuery: this.context.triplestore.sparql_endpoint});
+    } else if (this.state.endpointToQuery !== this.context.triplestore.sparql_endpoint) {
+      // If an endpoint is provided in URL params: snackbar to propose to change settings
       this.setState({ openChangeEndpoint: true});
     } 
 
@@ -251,7 +294,26 @@ class Describe extends Component {
                 Collapse all
               </Button>
             </div> */}
-            <br/>
+            <form onSubmit={(event) => {
+                this.handleSubmit(event, setTriplestore)}}>
+              <Autocomplete
+                onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
+                onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
+                id="autocomplete-sparql-endpoint"
+                options={Settings.sparqlEndointList}
+                value={this.state.endpointToQuery}
+                freeSolo={true}
+                includeInputInList={true}
+                ListboxProps={{
+                  className: classes.alignLeft,
+                }}
+                renderInput={params => <TextField {...params} 
+                label="SPARQL endpoint URL" 
+                variant="outlined" 
+                size='small'
+                />}
+              />
+            </form>
             {/* Show classes for the described URI as a graph */}
             {this.state.describeGraphClasses.length > 0 &&
               <ExpansionPanel defaultExpanded>
