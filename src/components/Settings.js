@@ -137,6 +137,7 @@ class Settings extends Component {
   doDeleteCache = () => {
     localStorage.clear();
     this.handleDialogClose();
+    window.location.reload();
   }
 
   render() {
