@@ -68,11 +68,9 @@ const styles = theme => ({
   },
   endpointAutocomplete: {
     margin: theme.spacing(2, 15),
-  },
-  endpointInput: {
-    // fontWeight: 300,
-    fontSize: theme.typography.fontSize,
-    textAlign: 'center',
+    fontSize: '13px',
+    // fontSize: theme.typography.fontSize,
+    // fontSize: `calc(${theme.typography.fontSize} -2)`,
   }
 })
 
@@ -294,7 +292,6 @@ class Describe extends Component {
       <React.Fragment>
         <Container className='mainContainer'>
           {/* <div className='mainContainer'> */}
-            <Typography variant="body1" className={classes.uriTitle}>{this.state.describeUri}</Typography>
             {/* Snippet to collapse all Graphs expansion panels. Not working with MaterialUI panels */}
             {/* <div style={{textAlign: 'right'}}>
               <Button variant="contained" size="small" className={classes.showMoreButton} 
@@ -303,6 +300,9 @@ class Describe extends Component {
                 Collapse all
               </Button>
             </div> */}
+            <Typography variant="h6" className={classes.uriTitle}>
+              {this.state.describeUri}
+            </Typography>
             <form 
               onSubmit={(event) => {
                 this.handleSubmit(event, setTriplestore)}}>
@@ -310,13 +310,12 @@ class Describe extends Component {
                 className={classes.endpointAutocomplete}
                 onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
                 onInputChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
-                id="autocomplete-sparql-endpoint"
                 options={Settings.sparqlEndointList}
                 value={this.state.endpointToQuery}
                 freeSolo={true}
                 includeInputInList={true}
                 ListboxProps={{
-                  // className: classes.endpointInput,
+                  className: classes.endpointAutocomplete,
                 }}
                 renderInput={params => <TextField {...params} 
                 label="SPARQL endpoint URL" 
