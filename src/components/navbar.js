@@ -248,7 +248,8 @@ class NavBar extends Component {
             >
               <InputBase  // https://material-ui.com/api/input-base/
                 className={classes.searchInput}
-                placeholder="Search triplestore"
+                // placeholder="Search SPARQL endpoint"
+                placeholder={"Search " + this.context.triplestore.sparql_endpoint}
                 onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
                 // fullWidth={true}
@@ -287,11 +288,13 @@ class NavBar extends Component {
             <ChevronRightIcon />
           </IconButton> */}
           {/* <img src="d2s-logo.png" alt="logo" className={classes.logo}/> */}
-          <a href="https://d2s.semanticscience.org" 
-            className={classes.logoLink} target="_blank">
-            <img src="d2s-logo.png" alt="logo" className={classes.logo}
-            />
-          </a>
+          <Tooltip title="Part of the Data2Services ecosystem">
+            <a href="https://d2s.semanticscience.org" 
+              className={classes.logoLink} target="_blank">
+              <img src="d2s-logo.png" alt="logo" className={classes.logo}
+              />
+            </a>
+          </Tooltip>
         </div>
         <Divider />
         <List>

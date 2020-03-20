@@ -314,9 +314,9 @@ class Describe extends Component {
                 value={this.state.endpointToQuery}
                 freeSolo={true}
                 includeInputInList={true}
-                ListboxProps={{
-                  className: classes.endpointAutocomplete,
-                }}
+                // ListboxProps={{
+                //   className: classes.endpointAutocomplete,
+                // }}
                 renderInput={params => <TextField {...params} 
                 label="SPARQL endpoint URL" 
                 variant="outlined" 
