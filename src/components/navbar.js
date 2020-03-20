@@ -72,11 +72,13 @@ const styles = theme => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
+    // 50% of top appbar
+    width: `calc((100% - ${drawerWidth}px)/2)`,
   },
-  input: {
+  searchInput: {
     marginLeft: theme.spacing(1),
     // Hardcoded width for search input
-    width: '350px',
+    width: '50%',
     fontSize: '14px',
     flex: 1,
   },
@@ -245,7 +247,7 @@ class NavBar extends Component {
               onSubmit={this.submitSearch}
             >
               <InputBase  // https://material-ui.com/api/input-base/
-                className={classes.input}
+                className={classes.searchInput}
                 placeholder="Search triplestore"
                 onChange={this.handleChange}
                 inputProps={{ 'aria-label': 'search' }}
