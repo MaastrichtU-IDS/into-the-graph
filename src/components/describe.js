@@ -113,13 +113,6 @@ class Describe extends Component {
 
   // Query SPARQL endpoint to get the URI infos
   componentDidMount() {
-    console.log('Triplestore providedEndpoint');
-    // console.log(this.props);
-    // console.log(this.props.triplestore);
-    // console.log(this.props.setTriplestore);
-    console.log(this.state.providedEndpoint);
-
-    // const endpointToQuery = '';
     let endpointToQuery = this.context.triplestore.sparql_endpoint;
     // If an endpoint is provided in URL params
     if (this.state.providedEndpoint) {
@@ -245,114 +238,108 @@ class Describe extends Component {
   render () {
     const { classes } = this.props;
     return this.state.isLoading ? <CircularProgress className={classes.loadSpinner} /> : <TriplestoreContext.Consumer>
-      {({triplestore, setTriplestore}) => ( 
-    // {/* Trying to update the Context API */}
-    // {/* <TriplestoreContext.Consumer>
-    //  {({triplestore, setTriplestore}) => ( */}
-    //   {/* <Describe 
-    //     triplestore={triplestore} setTriplestore={setTriplestore} 
-    //   /> */}
-    <React.Fragment>
-      <Container className='mainContainer'>
-        {/* <div className='mainContainer'> */}
-          <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
-          {/* Snippet to collapse all Graphs expansion panels. Not working with MaterialUI panels */}
-          {/* <div style={{textAlign: 'right'}}>
-            <Button variant="contained" size="small" className={classes.showMoreButton} 
-              color="primary" onClick={() => console.log('tyrtg')}>
-                color="primary" onClick={() => showMoreStatements(propertyUri)}>
-              Collapse all
-            </Button>
-          </div> */}
-          <br/>
-          {/* Show classes for the described URI as a graph */}
-          {this.state.describeGraphClasses.length > 0 &&
-            <ExpansionPanel defaultExpanded>
-              <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
-                id="panel1a-header" aria-controls="panel1a-content">
-                <Typography variant="body2">As a graph (contains classes)</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                  <Grid container spacing={1} alignItems="center">
-                    {this.state.describeGraphClasses.map(function(dataset, key){
-                      return <React.Fragment key={key}>
-                        <Grid item xs={0} md={2}></Grid>
-                        <Grid item xs={12} md={8}>
-                          <Paper className={classes.paperPadding}>
-                            <LinkDescribe variant='body2' uri={dataset}/>
-                          </Paper>
-                        </Grid>
-                        <Grid item xs={0} md={2}></Grid>
-                      </React.Fragment> 
-                    })}
-                  </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          }
-
-          {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
-          {Object.keys(this.state.describeHash).map((datasetUri, key) => {
-            return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
-            datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
-          })}
-
-          {/* Show results of full text search query (if not http) */}
-          {this.state.searchResults.length > 0 &&
-            <ExpansionPanel defaultExpanded>
-              <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
-                id="panel1a-header" aria-controls="panel1a-content">
-                <Typography variant="h6">Search results</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                  <Grid container spacing={1} alignItems="center">
-                    {this.state.searchResults.map(function(searchResult, key){
-                      return <React.Fragment key={key}>
-                        <Grid item xs={6}>
-                          <Paper className={classes.paperPadding}>
-                            <LinkDescribe variant='body2' uri={searchResult.foundUri}/>
-                          </Paper>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography variant="body2">{searchResult.foundLabel}</Typography>
-                        </Grid>
-                      </React.Fragment> 
-                    })}
-                  </Grid>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          }
-
-          {/* Show error message (if request fails) */}
-          {this.state.requestError && (
-            <Paper elevation={2} className={classes.paperPadding}>
-              <Typography variant="body2">
-                The request to the SPARQL endpoint failed, try to <a href="" className={classes.uriLink}>reload the page ♻️</a><br/>
-                Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
-                  enable CORS requests</a> in your browser.
-              </Typography>
-            </Paper>
-          )}
-        {/* </div> */}
-        <Snackbar open={this.state.openChangeEndpoint} 
-          onClose={this.handleCloseChangeEndpoint} 
-          autoHideDuration={6000}
-        >
-          <Alert severity="warning"
-            onClose={() => {}}
-            action={
-              <Button color="inherit" size="small" 
-                onClick={() => this.doChangeEndpoint(setTriplestore)}
-              >
-                Change Endpoint
+    {({triplestore, setTriplestore}) => ( 
+      <React.Fragment>
+        <Container className='mainContainer'>
+          {/* <div className='mainContainer'> */}
+            <Typography variant="body1" className={classes.font300}>{this.state.describeUri}</Typography>
+            {/* Snippet to collapse all Graphs expansion panels. Not working with MaterialUI panels */}
+            {/* <div style={{textAlign: 'right'}}>
+              <Button variant="contained" size="small" className={classes.showMoreButton} 
+                color="primary" onClick={() => console.log('tyrtg')}>
+                  color="primary" onClick={() => showMoreStatements(propertyUri)}>
+                Collapse all
               </Button>
+            </div> */}
+            <br/>
+            {/* Show classes for the described URI as a graph */}
+            {this.state.describeGraphClasses.length > 0 &&
+              <ExpansionPanel defaultExpanded>
+                <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
+                  id="panel1a-header" aria-controls="panel1a-content">
+                  <Typography variant="body2">As a graph (contains classes)</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Grid container spacing={1} alignItems="center">
+                      {this.state.describeGraphClasses.map(function(dataset, key){
+                        return <React.Fragment key={key}>
+                          <Grid item xs={0} md={2}></Grid>
+                          <Grid item xs={12} md={8}>
+                            <Paper className={classes.paperPadding}>
+                              <LinkDescribe variant='body2' uri={dataset}/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={0} md={2}></Grid>
+                        </React.Fragment> 
+                      })}
+                    </Grid>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
             }
+
+            {/* Iterates over results for each graphs and display them using DescribeGraphPanel */}
+            {Object.keys(this.state.describeHash).map((datasetUri, key) => {
+              return <DescribeGraphPanel key={key} classes={classes} describeUri={this.state.describeUri}
+              datasetUri={datasetUri} datasetHash={this.state.describeHash[datasetUri]} showMoreHandler={this.showMoreHandler}/>;
+            })}
+
+            {/* Show results of full text search query (if not http) */}
+            {this.state.searchResults.length > 0 &&
+              <ExpansionPanel defaultExpanded>
+                <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
+                  id="panel1a-header" aria-controls="panel1a-content">
+                  <Typography variant="h6">Search results</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Grid container spacing={1} alignItems="center">
+                      {this.state.searchResults.map(function(searchResult, key){
+                        return <React.Fragment key={key}>
+                          <Grid item xs={6}>
+                            <Paper className={classes.paperPadding}>
+                              <LinkDescribe variant='body2' uri={searchResult.foundUri}/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography variant="body2">{searchResult.foundLabel}</Typography>
+                          </Grid>
+                        </React.Fragment> 
+                      })}
+                    </Grid>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            }
+
+            {/* Show error message (if request fails) */}
+            {this.state.requestError && (
+              <Paper elevation={2} className={classes.paperPadding}>
+                <Typography variant="body2">
+                  The request to the SPARQL endpoint failed, try to <a href="" className={classes.uriLink}>reload the page ♻️</a><br/>
+                  Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.uriLink} target='_blank'>
+                    enable CORS requests</a> in your browser.
+                </Typography>
+              </Paper>
+            )}
+          {/* Snackbar to change the SPARQL endpoint if provided in URL */}
+          <Snackbar open={this.state.openChangeEndpoint} 
+            onClose={this.handleCloseChangeEndpoint} 
+            autoHideDuration={6000}
           >
-            Do you want to change the SPARQL endpoint to use the one provided in the URL?
-          </Alert>
-        </Snackbar>
-      </Container>
-      <Footer />
-    </React.Fragment>
+            <Alert severity="warning"
+              onClose={() => {}}
+              action={
+                <Button color="inherit" size="small" 
+                  onClick={() => this.doChangeEndpoint(setTriplestore)}
+                >
+                  Change Endpoint
+                </Button>
+              }
+            >
+              Do you want to change the SPARQL endpoint to use the one provided in the URL?
+            </Alert>
+          </Snackbar>
+        </Container>
+        <Footer />
+      </React.Fragment>
     )}
     </TriplestoreContext.Consumer>
   }
