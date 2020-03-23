@@ -149,6 +149,7 @@ class Settings extends Component {
     'http://dbpedia.org/sparql',
     'http://rdf.pathwaycommons.org/sparql/',
     'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
+    'http://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
     'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
     'http://opencitations.net/sparql',    // Virtuoso
     'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
