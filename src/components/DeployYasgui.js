@@ -117,9 +117,9 @@ GRAPH ?metadataGraph {
     // const catalogEndpoint = { endpoint: this.context.triplestore.sparql_endpoint }
     Yasgui.defaults.endpointCatalogueOptions.getData = () => {
       return [
-        { endpoint: "http://graphdb.dumontierlab.com/repositories/trek" },
-        { endpoint: "http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar" },
-        { endpoint: "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" },
+        { endpoint: "https://graphdb.dumontierlab.com/repositories/trek" },
+        { endpoint: "https://graphdb.dumontierlab.com/repositories/bio2rdf-ammar" },
+        { endpoint: "https://graphdb.dumontierlab.com/repositories/ncats-red-kg" },
         { endpoint: "https://bio2rdf.org/sparql" },
         { endpoint: "http://localhost:8890/sparql" },
         { endpoint: "http://localhost:7200/repositories/test" },

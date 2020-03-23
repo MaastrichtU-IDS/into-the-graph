@@ -141,15 +141,15 @@ class Settings extends Component {
   }
 
   static sparqlEndointList = [
-    'http://graphdb.dumontierlab.com/repositories/trek',
-    'http://graphdb.dumontierlab.com/repositories/bio2vec',
-    'http://graphdb.dumontierlab.com/repositories/ncats-red-kg',
-    'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
+    'https://graphdb.dumontierlab.com/repositories/trek',
+    'https://graphdb.dumontierlab.com/repositories/bio2vec',
+    'https://graphdb.dumontierlab.com/repositories/ncats-red-kg',
+    'https://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
     'https://bio2rdf.org/sparql',
     'http://dbpedia.org/sparql',
     'http://rdf.pathwaycommons.org/sparql/',
     'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
-    'http://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
+    'https://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
     'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
     'http://opencitations.net/sparql',    // Virtuoso
     'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
@@ -174,9 +174,9 @@ class Settings extends Component {
     // const sparqlEndointList = [
     //   { title: 'DBpedia Virtuoso', value: 'http://dbpedia.org/sparql' },
     //   { title: 'Bio2RDF Virtuoso', value: 'https://bio2rdf.org/sparql' },
-    //   { title: 'NCATS Translator TReK', value: 'http://graphdb.dumontierlab.com/repositories/trek' },
-    //   { title: 'NCATS Translator TReK', value: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
-    //   { title: 'Bio2RDF v5', value: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
+    //   { title: 'NCATS Translator TReK', value: 'https://graphdb.dumontierlab.com/repositories/trek' },
+    //   { title: 'NCATS Translator TReK', value: 'https://graphdb.dumontierlab.com/repositories/ncats-red-kg' },
+    //   { title: 'Bio2RDF v5', value: 'https://graphdb.dumontierlab.com/repositories/bio2rdf-ammar' },
     // ]
     const openapiList = [
       'http://api.trek.semanticscience.org',

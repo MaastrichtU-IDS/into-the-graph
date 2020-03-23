@@ -68,7 +68,7 @@ class App extends Component {
     } else {
       // Default settings
       triplestoreState = { 
-        sparql_endpoint: 'http://graphdb.dumontierlab.com/repositories/trek', 
+        sparql_endpoint: 'https://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
         openapi_url: 'http://api.trek.semanticscience.org/',
         comunica_url: 'http://query.linkeddatafragments.org/',
