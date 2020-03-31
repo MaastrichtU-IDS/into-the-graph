@@ -147,8 +147,8 @@ class Settings extends Component {
     'https://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
     'https://bio2rdf.org/sparql',
     'http://dbpedia.org/sparql',
-    'http://rdf.pathwaycommons.org/sparql/',
     'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
+    'http://rdf.pathwaycommons.org/sparql/',
     'https://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
     'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
     'http://opencitations.net/sparql',    // Virtuoso
@@ -156,7 +156,10 @@ class Settings extends Component {
     'http://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
     'http://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
     'http://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
+    'http://data.persee.fr/sparql',   // Dataset in French about publications and bibliography. Virtuoso
     'http://lod.openlinksw.com/sparql',
+    'http://data.doremus.org/sparql',   // About Music and Arts. Virtuoso search works
+    'http://data.allie.dbcls.jp/sparql/',   // search service for abbreviations and long forms utilized in Lifesciences. Virtuoso
     'http://sparql.southgreen.fr',
     'https://sparql.nextprot.org',
     'http://localhost:7200/repositories/demo',

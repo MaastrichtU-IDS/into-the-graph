@@ -5,6 +5,7 @@
     "rdfs":        "http://www.w3.org/2000/01/rdf-schema#",
     "owl":         "http://www.w3.org/2002/07/owl#",
     "skos":        "http://www.w3.org/2004/02/skos/core#",
+    "sio":         "http://semanticscience.org/resource/",
     "bl":          "https://w3id.org/biolink/vocab/",
     "d2s":         "https://w3id.org/d2s/",
     "trek":        "https://w3id.org/trek/",
@@ -27,6 +28,10 @@
     "ncit":        "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/",
+    "prov":        "http://http://http://www.w3.org/ns/prov#",
+    "pav":         "http://http://http://purl.org/pav/",
+    "eco":         "http://http://purl.obolibrary.org/obo/eco.owl#",
+    "wi":          "http://http://purl.org/ontology/wi/core#",
     "cito":        "http://purl.org/spar/cito/",
     "cdm":         "http://publications.europa.eu/ontology/cdm#"
   }
