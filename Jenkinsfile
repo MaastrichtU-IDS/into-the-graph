@@ -20,35 +20,21 @@ pipeline {
         sh 'docker build -t umids/into-the-graph:latest .'
       }
     }
-    parallel(
-      push: {
-        stage('push') {
-          when {
-              branch 'master'
-          }
-          steps {
+    stage('deploy') {
+      when {
+          branch 'master'
+      }
+      steps {
+        parallel(
+          push: {
             sh 'docker push umids/into-the-graph:latest'
-          }
-        }
-      },
-      deploy: {
-        stage('remove') {
-          when {
-              branch 'master'
-          }
-          steps {
+          },
+          deploy: {
             sh 'docker stop into-the-graph || true'
-          }
-        }
-        stage('deploy') {
-          when {
-              branch 'master'
-          }
-          steps {
             sh 'docker run -it -d --rm --name into-the-graph --network d2s-cwl-workflows_network -e VIRTUAL_HOST=trek.semanticscience.org umids/into-the-graph:latest'
           }
-        }
+        )
       }
-    )
+    }
   }
 }
