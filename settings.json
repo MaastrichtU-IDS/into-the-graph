@@ -12,6 +12,7 @@
     "omop":        "http://api.ohdsi.org/WebAPI/vocabulary/concept/",
     "cohd":        "https://w3id.org/trek/cohd/",
     "bio2rdf":     "http://bio2rdf.org/",
+    "covid":       "http://idlab.github.io/covid19#",
     "dbo":         "http://dbpedia.org/ontology/",
     "dbp":         "http://dbpedia.org/property/",
     "wd":          "http://www.wikidata.org/entity/",
