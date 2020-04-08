@@ -265,69 +265,10 @@ class Settings extends Component {
                   </Paper>
                   <Paper elevation={2} className={classes.paperPadding}>
                     <Typography variant="h5" className={classes.paperTitle}>
-                      Interfaces
-                    </Typography>
-                    <Autocomplete
-                      onChange={this.handleAutocomplete.bind(this, 'openapi_url')}
-                      onInputChange={this.handleAutocomplete.bind(this, 'openapi_url')}
-                      id="autocomplete-openapi-url"
-                      options={openapiList}
-                      value={this.context.triplestore.openapi_url}
-                      freeSolo={true}
-                      includeInputInList={true}
-                      ListboxProps={{
-                        className: classes.alignLeft,
-                      }}
-                      renderInput={params => <TextField {...params} 
-                      label="Reasoner API URL"
-                      variant="outlined" 
-                      // getOptionLabel={option => option.title}
-                      // style={{ width: 300 }}
-                      // size='small'
-                      />}
-                    />
-                    <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
-                    <Autocomplete
-                      onChange={this.handleAutocomplete.bind(this, 'comunica_url')}
-                      onInputChange={this.handleAutocomplete.bind(this, 'comunica_url')}
-                      id="autocomplete-comunica-url"
-                      options={comunicaList}
-                      value={this.context.triplestore.comunica_url}
-                      freeSolo={true}
-                      includeInputInList={true}
-                      ListboxProps={{
-                        className: classes.alignLeft,
-                      }}
-                      renderInput={params => <TextField {...params} 
-                      label="Comunica widget URL (Archives)"
-                      variant="outlined" 
-                      />}
-                    />
-                    <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
-                    <Autocomplete
-                      onChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
-                      onInputChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
-                      id="autocomplete-filebrowser-url"
-                      options={filebrowserList}
-                      value={this.context.triplestore.filebrowser_url}
-                      freeSolo={true}
-                      includeInputInList={true}
-                      ListboxProps={{
-                        className: classes.alignLeft,
-                      }}
-                      renderInput={params => <TextField {...params} 
-                      label="Filebrowser URL to download RDF dumps"
-                      variant="outlined" 
-                      />}
-                    />
-                    <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
-                  </Paper>
-                  <Paper elevation={2} className={classes.paperPadding}>
-                    <Typography variant="h5" className={classes.paperTitle}>
                       Search query
                     </Typography>
                     <FormHelperText>
-                      The SPARQL query used when searching in the navbar search box. 
+                      Change here the SPARQL query used when searching in the navbar search box. 
                       Use $TEXT_TO_SEARCH to define where the text to search will be replaced in the query.
                       It should return a ?foundUri and a ?foundLabel to be displayed by the app.
                     </FormHelperText>
@@ -393,6 +334,65 @@ class Settings extends Component {
                         className: classes.smallerFont
                       }}
                     />
+                  </Paper>
+                  <Paper elevation={2} className={classes.paperPadding}>
+                    <Typography variant="h5" className={classes.paperTitle}>
+                      Interfaces
+                    </Typography>
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+                      id="autocomplete-openapi-url"
+                      options={openapiList}
+                      value={this.context.triplestore.openapi_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
+                      }}
+                      renderInput={params => <TextField {...params} 
+                      label="Reasoner API URL"
+                      variant="outlined" 
+                      // getOptionLabel={option => option.title}
+                      // style={{ width: 300 }}
+                      // size='small'
+                      />}
+                    />
+                    <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+                      id="autocomplete-comunica-url"
+                      options={comunicaList}
+                      value={this.context.triplestore.comunica_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
+                      }}
+                      renderInput={params => <TextField {...params} 
+                      label="Comunica widget URL (Archives)"
+                      variant="outlined" 
+                      />}
+                    />
+                    <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
+                    <Autocomplete
+                      onChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+                      onInputChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+                      id="autocomplete-filebrowser-url"
+                      options={filebrowserList}
+                      value={this.context.triplestore.filebrowser_url}
+                      freeSolo={true}
+                      includeInputInList={true}
+                      ListboxProps={{
+                        className: classes.alignLeft,
+                      }}
+                      renderInput={params => <TextField {...params} 
+                      label="Filebrowser URL to download RDF dumps"
+                      variant="outlined" 
+                      />}
+                    />
+                    <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText>
                   </Paper>
                   <Button type="submit"
                   variant="contained" 
