@@ -380,7 +380,7 @@ class Describe extends Component {
               <ExpansionPanel defaultExpanded>
                 <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
                   id="panel1a-header" aria-controls="panel1a-content">
-                  <Typography variant="body2">As a graph (contains classes)</Typography>
+                  <Typography variant="body2">As a graph (show {this.context.triplestore.graph_uri_resolution})</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                   {/* If resolve graph URI displaying only classes */}
