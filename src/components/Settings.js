@@ -82,6 +82,7 @@ class Settings extends Component {
     super(props);
     // this.formSparqlEndpoint = React.createRef(); 
     this.formGraphsOverview = React.createRef(); 
+    this.formGraphUriResolution = React.createRef(); 
     this.formSearchQuery = React.createRef(); 
     // this.formOpenapiUrl = React.createRef(); 
     // this.formComunicaUrl = React.createRef(); 
@@ -117,12 +118,13 @@ class Settings extends Component {
     }
   }
 
-  // handleSubmit  = (event) => {
+  // Save settings
   handleSubmit  = (event, setTriplestore) => {
     event.preventDefault();
     setTriplestore({
       sparql_endpoint: this.state.sparql_endpoint_autocomplete, 
       graphs_overview: this.formGraphsOverview.current.value,
+      graph_uri_resolution: this.formGraphUriResolution.current.value,
       openapi_url: this.state.openapi_url_autocomplete, 
       comunica_url: this.state.comunica_url_autocomplete,
       filebrowser_url: this.state.filebrowser_url_autocomplete, 
@@ -262,6 +264,35 @@ class Settings extends Component {
                       </Select>
                     </FormControl>
                     <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized in Virtuoso)</FormHelperText>
+                    <FormControl variant="outlined" 
+                      className={classes.fullWidth}
+                      >
+                      <InputLabel id="form-graph-uri-resolution-label">
+                        Resolution of Graph URIs
+                      </InputLabel>
+                      <Select
+                        labelId="form-graph-uri-resolution-label"
+                        label="Graphs URI resolution"
+                        defaultValue={triplestore.graph_uri_resolution}
+                        inputRef={this.formGraphUriResolution}
+                        // MenuProps={{
+                        //   className: classes.fullWidth,
+                        // }}
+                        // SelectDisplayProps={{
+                        //   className: classes.smallerFont,
+                        //   style: {width: '100%'}
+                        // }}
+                        InputProps={{
+                          className: classes.smallerFont,
+                          // style: {width: '100%'}
+                        }}
+                        autoWidth
+                      >
+                        <MenuItem value="classes">Show only classes in the graph</MenuItem>
+                        <MenuItem value="triples">Show all triples in the graph (LDP, Nanopubs)</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormHelperText id="helper-graph-uri-resolution">What is shown when resolving a URI as a graph</FormHelperText>
                   </Paper>
                   <Paper elevation={2} className={classes.paperPadding}>
                     <Typography variant="h5" className={classes.paperTitle}>

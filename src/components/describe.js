@@ -87,6 +87,7 @@ class Describe extends Component {
     describeUri: this.params.get('uri'),
     // providedEndpoint: this.params.get('endpoint'),
     describeHash: {}, 
+    describeGraph: {},
     describeGraphClasses: [],
     searchResults: []
   }
@@ -117,6 +118,17 @@ class Describe extends Component {
         state.describeHash[graphUri].showExtra[propertyUri] = true;
       }
       return {describeHash: state.describeHash};
+    });
+  }
+  showMoreHandlerGraph(subjectUri, propertyUri) {
+    this.setState((state) => {
+      if (state.describeGraph[subjectUri].showExtra[propertyUri] === true) {
+        // Hide extra statements
+        state.describeGraph[subjectUri].showExtra[propertyUri] = false;
+      } else {
+        state.describeGraph[subjectUri].showExtra[propertyUri] = true;
+      }
+      return {describeGraph: state.describeGraph};
     });
   }
   handleCloseChangeEndpoint = (event, reason) => {
@@ -177,6 +189,7 @@ class Describe extends Component {
         .then(res => {
           const sparqlResultArray = res.data.results.bindings;
           let describeHash = {};
+          let describeGraph = {};
           let describeGraphClasses = [];
 
           // Build describe object
@@ -190,10 +203,12 @@ class Describe extends Component {
                 asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
               }
               if (!(sparqlResultRow.predicate.value in describeHash[sparqlResultRow.graph.value].asSubject)) {
+                // Initiates arrays and objects if not done
                 describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
                 describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value] = [];
                 describeHash[sparqlResultRow.graph.value].showExtra[sparqlResultRow.predicate.value] = false;
               }
+              // Add to hash asSubject if less than 5
               if (describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].length < 5) {
                 describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
               } else {
@@ -248,14 +263,49 @@ class Describe extends Component {
 
             // Only get classes for the graph
             if (!('graph' in sparqlResultRow)) {
-              describeGraphClasses.push(sparqlResultRow.object.value);
+              if (this.context.triplestore.graph_uri_resolution === "classes") {
+                describeGraphClasses.push(sparqlResultRow.object.value);
+              } else {
+                // If graph_uri_resolution = "triples"
+                if (!(sparqlResultRow.subject.value in describeGraph)) {
+                  // describeHash[sparqlResultRow.subject.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+                  // asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+                  // asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
+                  describeGraph[sparqlResultRow.subject.value] = { 
+                    predicate: {}, predicateCount: 0,
+                    predicateExtra: {}, showExtra: {} 
+                  };
+                }
+                if (!(sparqlResultRow.predicate.value in describeGraph[sparqlResultRow.subject.value].predicate)) {
+                  // Initiates arrays and objects if not done
+                  describeGraph[sparqlResultRow.subject.value].predicate[sparqlResultRow.predicate.value] = [];
+                  describeGraph[sparqlResultRow.subject.value].predicateExtra[sparqlResultRow.predicate.value] = [];
+                  describeGraph[sparqlResultRow.subject.value].showExtra[sparqlResultRow.predicate.value] = false;
+                }
+                // Add to hash "predicate" if less than 5
+                if (describeGraph[sparqlResultRow.subject.value].predicate[sparqlResultRow.predicate.value].length < 5) {
+                  describeGraph[sparqlResultRow.subject.value].predicate[sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
+                } else {
+                  // Add to hash "predicateExtra" if more than 5 (to hide by default)
+                  describeGraph[sparqlResultRow.subject.value].predicateExtra[sparqlResultRow.predicate.value]
+                  .push(sparqlResultRow.object.value);
+                }
+                describeGraph[sparqlResultRow.subject.value].predicateCount++;
+              }
             }
         })
-        this.setState({ describeGraphClasses });
+
+        if (this.context.triplestore.graph_uri_resolution === "classes") {
+          this.setState({ describeGraphClasses });
+        } else {
+          console.log('yeah describe graph');
+          console.log(describeGraph);
+          this.setState({ describeGraph });
+        }
         this.setState({ describeHash });
+        console.log('State after componentDidMount in describe:');
+        console.log(this.state);
         this.setState({ isLoading: false });
-        // console.log('State after componentDidMount in describe:');
-        // console.log(this.state);
       })
       .catch(error => {
         console.log(error)
@@ -326,13 +376,15 @@ class Describe extends Component {
               />
             </form>
             {/* Show classes for the described URI as a graph */}
-            {this.state.describeGraphClasses.length > 0 &&
+            {(this.state.describeGraphClasses.length > 0 || Object.keys(this.state.describeGraph).length > 0) &&
               <ExpansionPanel defaultExpanded>
                 <ExpansionPanelSummary className={classes.greyBackground} expandIcon={<ExpandMoreIcon />}
                   id="panel1a-header" aria-controls="panel1a-content">
                   <Typography variant="body2">As a graph (contains classes)</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
+                  {/* If resolve graph URI displaying only classes */}
+                  {this.state.describeGraphClasses.length !== 0 && ( 
                     <Grid container spacing={1} alignItems="center">
                       {this.state.describeGraphClasses.map(function(dataset, key){
                         return <React.Fragment key={key}>
@@ -346,6 +398,87 @@ class Describe extends Component {
                         </React.Fragment> 
                       })}
                     </Grid>
+                  )}
+
+                  {/* If resolve graph URI displaying all triples */}
+                  {console.log("length of decribeGraph before displaying")}
+                  {console.log(Object.keys(this.state.describeGraph).length)}
+                  {console.log(this.state.describeGraph)}
+                  {Object.keys(this.state.describeGraph).length !== 0 && ( 
+                    <Grid container spacing={1} alignItems="center">
+                      {/* Iterate over subjects when resolving URI as graph */}
+                      {Object.keys(this.state.describeGraph).map((subjectUri, subjectKey) => {
+                        {/* Iterate over predicates for each subject in graph */}
+                        return <React.Fragment> 
+                        {Object.keys(this.state.describeGraph[subjectUri].predicate).map((propertyUri, key) => {
+                          let addShowMore = '';                          // Add button to show more statements if more that 5 for same property
+                          if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph.showExtra[propertyUri] === false) {
+                            addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} 
+                            color="primary" onClick={() => showMoreStatements(propertyUri, true)}>
+                              Show {this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length} more statements
+                            </Button>  );
+
+                          } else if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph.showExtra[propertyUri] === true) {
+                            // Show extra statements
+                            addShowMore = ( <React.Fragment>
+                              <Button variant="contained" size="small" className={classes.showMoreButton}
+                              color="primary" onClick={() => showMoreStatements(propertyUri, true)}>
+                                Hide {this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length} statements
+                              </Button>
+                              {/* Use the same snippet as for regular display */}
+                              {Object.keys(this.state.describeGraph[subjectUri].predicateExtra[propertyUri]).map((valueIndex, key) => {
+                                let addDivider = '';
+                                if (key !== 0) {
+                                  addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                                }
+                                return <React.Fragment key={key}>
+                                  {addDivider}
+                                  <LinkDescribe variant='body2' uri={this.state.describeGraph.predicateExtra[propertyUri][valueIndex]}/>
+                                </React.Fragment>
+                              })}
+                              <Button variant="contained" size="small" className={classes.showMoreButton} 
+                              color="primary" onClick={() => showMoreStatements(propertyUri, true)}>
+                                Hide {this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length} statements
+                              </Button>
+                            </React.Fragment>  );
+                          }
+
+                          // Display property / values for the described SUBJECT URI
+                          return <React.Fragment key={key}>
+                            <Grid item xs={4} className={classes.alignRight}>
+                              {console.log("dissplay")}
+                              {console.log(subjectUri)}
+                              <Paper className={classes.paperPadding}>
+                                <LinkDescribe variant='body2' uri={subjectUri}/>
+                              </Paper>
+                            </Grid>
+                            <Grid item xs={4} className={classes.alignRight}>
+                              <LinkDescribe variant='body2' uri={propertyUri}/>
+                            </Grid>
+                            <Grid item xs={4} className={classes.alignLeft}>
+                              {/* loop for property values in this grid cell */}
+                              <Paper className={classes.paperPadding}>
+                                {Object.keys(this.state.describeGraph[subjectUri].predicate[propertyUri]).map((valueIndex, key) => {
+                                  let addDivider = '';
+                                  if (key !== 0) {
+                                    addDivider = ( <Divider variant="middle" className={classes.divider}/> );
+                                  }
+                                  return <React.Fragment key={key}>
+                                    {addDivider}
+                                    <LinkDescribe variant='body2' uri={this.state.describeGraph[subjectUri].predicate[propertyUri][valueIndex]}/>
+                                  </React.Fragment>
+                                })}
+                                {addShowMore}
+                              </Paper>
+                            </Grid>
+                          </React.Fragment>})
+                        }
+                      </React.Fragment> 
+                      })
+                    }
+                    </Grid>
+                  )}
+
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             }
@@ -421,6 +554,7 @@ class Describe extends Component {
     var describeQuery;
     if(uriToDescribe.startsWith('node')) {
       // Case it is a blank node
+      // TODO: fix it
       uriToDescribe = "_:" + uriToDescribe
       describeQuery = `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
           GRAPH ?graph {
@@ -430,6 +564,26 @@ class Describe extends Component {
     } else {
       // Regular URI
       uriToDescribe = "<" + uriToDescribe + ">"
+      
+      // Define the query block that resolves graph URIs
+      // To returns only classes or all triples
+      // If "triples"
+      var graphQuery = `SELECT * {
+        GRAPH ` + uriToDescribe + ` {
+          ?subject ?predicate ?object .
+        }
+      } LIMIT 1000`
+      if (this.context.triplestore.graph_uri_resolution === "classes") {
+        // TODO: Add DISTINCT ? Might slow the query down in some cases
+        graphQuery = `SELECT * {
+          GRAPH ` + uriToDescribe + ` {
+            [] a ?object .
+            BIND("dummy subject" AS ?subject)
+            BIND("dummy predicate" AS ?predicate)
+          }
+        } LIMIT 1000`
+      }
+
       describeQuery = `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
         {
           SELECT * {
@@ -450,13 +604,7 @@ class Describe extends Component {
             }
           } LIMIT 1000
         } UNION {
-          SELECT * {
-            GRAPH ` + uriToDescribe + ` {
-              [] a ?object .
-              BIND("dummy subject" AS ?subject)
-              BIND("dummy predicate" AS ?predicate)
-            }
-          } LIMIT 1000
+          ` + graphQuery + `
         }
       }`
     }
@@ -504,8 +652,12 @@ export default withStyles(styles)(Describe);
 export function DescribeGraphPanel(props) {
   const { classes } = props;
 
-  function showMoreStatements(propertyUri) {
-    props.showMoreHandler(props.datasetUri, propertyUri, true)
+  function showMoreStatements(propertyUri, isGraphUri = false) {
+    if (isGraphUri){
+      props.showMoreHandlerGraph(props.datasetUri, propertyUri)
+    } else {
+      props.showMoreHandler(props.datasetUri, propertyUri, true)
+    }
   }
 
   // Define tab header here to hide them if no results for this tab

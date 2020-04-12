@@ -51,6 +51,7 @@ class App extends Component {
       this.setState( { triplestore: { 
         sparql_endpoint: triplestore_config.sparql_endpoint,
         graphs_overview: triplestore_config.graphs_overview,
+        graph_uri_resolution: triplestore_config.graph_uri_resolution,
         openapi_url: triplestore_config.openapi_url,
         comunica_url: triplestore_config.comunica_url,
         filebrowser_url: triplestore_config.filebrowser_url,
@@ -70,6 +71,7 @@ class App extends Component {
       triplestoreState = { 
         sparql_endpoint: 'https://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
+        graph_uri_resolution: 'classes',
         openapi_url: 'http://api.trek.semanticscience.org/',
         comunica_url: 'http://query.linkeddatafragments.org/',
         // comunica_url: 'http://comunica.137.120.31.102.nip.io/',

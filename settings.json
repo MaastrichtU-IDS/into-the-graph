@@ -29,10 +29,10 @@
     "ncit":        "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
     "schema":      "http://schema.org/",
-    "prov":        "http://http://http://www.w3.org/ns/prov#",
-    "pav":         "http://http://http://purl.org/pav/",
-    "eco":         "http://http://purl.obolibrary.org/obo/eco.owl#",
-    "wi":          "http://http://purl.org/ontology/wi/core#",
+    "prov":        "http://www.w3.org/ns/prov#",
+    "pav":         "http://purl.org/pav/",
+    "eco":         "http://purl.obolibrary.org/obo/eco.owl#",
+    "wi":          "http://purl.org/ontology/wi/core#",
     "cito":        "http://purl.org/spar/cito/",
     "cdm":         "http://publications.europa.eu/ontology/cdm#"
   }
