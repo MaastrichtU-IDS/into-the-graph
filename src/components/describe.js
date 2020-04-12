@@ -445,17 +445,17 @@ class Describe extends Component {
 
                           // Display property / values for the described SUBJECT URI
                           return <React.Fragment key={key}>
-                            <Grid item xs={4} className={classes.alignRight}>
+                            <Grid item xs={4}>
                               {console.log("dissplay")}
                               {console.log(subjectUri)}
                               <Paper className={classes.paperPadding}>
                                 <LinkDescribe variant='body2' uri={subjectUri}/>
                               </Paper>
                             </Grid>
-                            <Grid item xs={4} className={classes.alignRight}>
+                            <Grid item xs={4}>
                               <LinkDescribe variant='body2' uri={propertyUri}/>
                             </Grid>
-                            <Grid item xs={4} className={classes.alignLeft}>
+                            <Grid item xs={4}>
                               {/* loop for property values in this grid cell */}
                               <Paper className={classes.paperPadding}>
                                 {Object.keys(this.state.describeGraph[subjectUri].predicate[propertyUri]).map((valueIndex, key) => {

@@ -272,7 +272,7 @@ class Settings extends Component {
                       </InputLabel>
                       <Select
                         labelId="form-graph-uri-resolution-label"
-                        label="Graphs URI resolution"
+                        label="Resolution of Graph URIs"
                         defaultValue={triplestore.graph_uri_resolution}
                         inputRef={this.formGraphUriResolution}
                         // MenuProps={{
