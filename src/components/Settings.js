@@ -213,7 +213,7 @@ class Settings extends Component {
                   <FormControl className={classes.settingsForm}>
                     <Paper elevation={2} className={classes.paperPadding}>
                       <Typography variant="h5" className={classes.paperTitle}>
-                        SPARQL endpoint
+                        URI resolution
                       </Typography>
                       <Autocomplete
                         onChange={this.handleAutocomplete.bind(this, 'sparql_endpoint')}
