@@ -412,13 +412,13 @@ class Describe extends Component {
                         return <React.Fragment> 
                         {Object.keys(this.state.describeGraph[subjectUri].predicate).map((propertyUri, key) => {
                           let addShowMore = '';                          // Add button to show more statements if more that 5 for same property
-                          if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph.showExtra[propertyUri] === false) {
+                          if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph[subjectUri].showExtra[propertyUri] === false) {
                             addShowMore = ( <Button variant="contained" size="small" className={classes.showMoreButton} 
                             color="primary" onClick={() => showMoreStatements(propertyUri, true)}>
                               Show {this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length} more statements
                             </Button>  );
 
-                          } else if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph.showExtra[propertyUri] === true) {
+                          } else if (this.state.describeGraph[subjectUri].predicateExtra[propertyUri].length > 0 && this.state.describeGraph[subjectUri].showExtra[propertyUri] === true) {
                             // Show extra statements
                             addShowMore = ( <React.Fragment>
                               <Button variant="contained" size="small" className={classes.showMoreButton}
