@@ -326,24 +326,40 @@ class NavBar extends Component {
             </Tooltip> 
           </Link>
           {this.context.triplestore.openapi_url && ( 
-            <Link to="/api" className={classes.linkButton}>
+            <a href={this.context.triplestore.openapi_url} target='_blank' className={classes.linkButton}>
               <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
                 <ListItem button className={classes.listItem} key='SPARQL'>
                     <ListItemIcon><Icon>http</Icon></ListItemIcon>
                     <ListItemText primary='Reasoner API'  />
                 </ListItem>
               </Tooltip> 
-            </Link>
+            </a>
+            // <Link to="/api" className={classes.linkButton}>
+            //   <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
+            //     <ListItem button className={classes.listItem} key='API'>
+            //         <ListItemIcon><Icon>http</Icon></ListItemIcon>
+            //         <ListItemText primary='Reasoner API'  />
+            //     </ListItem>
+            //   </Tooltip> 
+            // </Link>
           )}
           {this.context.triplestore.comunica_url && ( 
-            <Link to="/archives" className={classes.linkButton}>
+            <a href={this.context.triplestore.comunica_url} target='_blank' className={classes.linkButton}>
               <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget.">
-                <ListItem button className={classes.listItem} key='SPARQL'>
+                <ListItem button className={classes.listItem} key='comunica'>
                     <ListItemIcon><Icon>unarchive</Icon></ListItemIcon>
                     <ListItemText primary='Archives'  />
                 </ListItem>
               </Tooltip> 
-            </Link>
+            </a>
+            // <Link to="/archives" className={classes.linkButton}>
+            //   <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget.">
+            //     <ListItem button className={classes.listItem} key='SPARQL'>
+            //         <ListItemIcon><Icon>unarchive</Icon></ListItemIcon>
+            //         <ListItemText primary='Archives'  />
+            //     </ListItem>
+            //   </Tooltip> 
+            // </Link>
           )}
           {this.context.triplestore.filebrowser_url && ( 
             <a href={this.context.triplestore.filebrowser_url} target='_blank' className={classes.linkButton}>
