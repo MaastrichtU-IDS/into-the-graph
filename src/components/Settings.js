@@ -155,6 +155,7 @@ class Settings extends Component {
     'http://w3id.org/FAIR_COVID19/sparql/',
     'https://graphdb.dumontierlab.com/repositories/covid-kg',
     'https://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
+    'https://data.gesis.org/claimskg/sparql',   // ClaimsKG
     'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
     'http://opencitations.net/sparql',    // Virtuoso
     'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
