@@ -321,7 +321,7 @@ class NavBar extends Component {
             <Tooltip title="Query the triplestore using the YASGUI SPARQL editor">
               <ListItem button className={classes.listItem} key='SPARQL'>
                   <ListItemIcon><Icon>share</Icon></ListItemIcon>
-                  <ListItemText primary='SPARQL'  />
+                  <ListItemText primary='SPARQL' />
               </ListItem>
             </Tooltip> 
           </Link>
@@ -330,7 +330,7 @@ class NavBar extends Component {
               <Tooltip title="A HTTP OpenAPI to easily query the different classes and concepts in the triplestore.">
                 <ListItem button className={classes.listItem} key='SPARQL'>
                     <ListItemIcon><Icon>http</Icon></ListItemIcon>
-                    <ListItemText primary='Reasoner API'  />
+                    <ListItemText primary='Reasoner API' />
                 </ListItem>
               </Tooltip> 
             </a>
@@ -348,7 +348,7 @@ class NavBar extends Component {
               <Tooltip title="Query the triplestore graphs archives and the web of Linked Data with SPARQL and GraphQL using the Comunica widget.">
                 <ListItem button className={classes.listItem} key='comunica'>
                     <ListItemIcon><Icon>unarchive</Icon></ListItemIcon>
-                    <ListItemText primary='Archives'  />
+                    <ListItemText primary='Archives' />
                 </ListItem>
               </Tooltip> 
             </a>
