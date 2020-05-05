@@ -32,7 +32,7 @@ pipeline {
           deploy: {
             sh 'docker stop into-the-graph || true'
             sh 'docker rm into-the-graph || true'
-            sh 'docker run -it -d --name into-the-graph --restart unless-stopped -e VIRTUAL_HOST=trek.semanticscience.org umids/into-the-graph:latest'
+            sh 'docker run -it -d --name into-the-graph --restart unless-stopped -e VIRTUAL_HOST=trek.semanticscience.org -e LETSENCRYPT_HOST=trek.semanticscience.org umids/into-the-graph:latest'
           }
         )
       }
