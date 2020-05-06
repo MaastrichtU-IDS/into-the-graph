@@ -71,12 +71,14 @@ class App extends Component {
       triplestoreState = { 
         sparql_endpoint: 'https://graphdb.dumontierlab.com/repositories/trek', 
         graphs_overview: 'hcls',
-        graph_uri_resolution: 'classes',
+        graph_uri_resolution: 'triples',
         openapi_url: 'http://api.trek.semanticscience.org/',
         comunica_url: 'http://query.linkeddatafragments.org/',
         // comunica_url: 'http://comunica.137.120.31.102.nip.io/',
         filebrowser_url: 'http://download.137.120.31.102.nip.io/#/',
-        search_query: "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri ?p ?foundLabel .\n    VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n    FILTER(isLiteral(?foundLabel))\n    FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')\n} LIMIT 5",
+        search_query: "PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\n        SELECT ?foundUri ?foundLabel {\n            ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ;\n            luc:score ?score .\n            ?foundUri ?p ?foundLabel .\n        } ORDER BY ?score LIMIT 200",
+        // Default default search query:
+        // search_query: "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri ?p ?foundLabel .\n    VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n    FILTER(isLiteral(?foundLabel))\n    FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')\n} LIMIT 5",
       }
     }
     this.state = {

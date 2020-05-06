@@ -298,13 +298,13 @@ class Describe extends Component {
         if (this.context.triplestore.graph_uri_resolution === "classes") {
           this.setState({ describeGraphClasses });
         } else {
-          console.log('yeah describe graph');
-          console.log(describeGraph);
+          // console.log('yeah describe graph');
+          // console.log(describeGraph);
           this.setState({ describeGraph });
         }
         this.setState({ describeHash });
-        console.log('State after componentDidMount in describe:');
-        console.log(this.state);
+        // console.log('State after componentDidMount in describe:');
+        // console.log(this.state);
         this.setState({ isLoading: false });
       })
       .catch(error => {
