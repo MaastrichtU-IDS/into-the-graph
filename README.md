@@ -1,4 +1,10 @@
-# Lightweight linked data browser
+# SPARQL querry runner and visualiser 
+
+This is a lightweight service for running SPARQL queries on a given endpoint. 
+
+Note: *sparql-ruvi* is strongly inspired by the [into-the-graph](https://github.com/MaastrichtU-IDS/into-the-graph) project. 
+
+# TODO: The folloiwng documentation is inherited from the into-the-graph and should be revised
 
 The motivation behind this linked data browser was to provide a fast [RDF](https://www.w3.org/RDF/) browser that just need a SPARQL endpoint URL to give a comfortable experience when exploring differents triplestores.
 
