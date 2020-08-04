@@ -99,12 +99,13 @@ class App extends Component {
             <Switch >
               {/* <div style={{flexGrow: 1,  height: '100%', marginLeft: this.state.drawer_width}}> */}
               <div style={{height: '100%', marginLeft: this.state.drawer_width}}>
-                <Route exact path='/' component={GraphsOverviewComponent} />
-                <Route exact path='/sparql' component={DeployYasguiComponent} />
-                <Route exact path='/describe' component={DescribeComponent} />
-                <Route exact path='/archives' component={DeployComunicaComponent} />
-                <Route exact path='/api' component={DeployOpenApi} />
-                <Route exact path='/download' component={DeployFilebrowser} />
+                <Route exact path='/' component={DeployYasguiComponent} />
+                {/*<Route exact path='/' component={GraphsOverviewComponent} />*/}
+                {/*<Route exact path='/sparql' component={DeployYasguiComponent} />*/}
+                {/*<Route exact path='/describe' component={DescribeComponent} />*/}
+                {/*<Route exact path='/archives' component={DeployComunicaComponent} />*/}
+                {/*<Route exact path='/api' component={DeployOpenApi} />*/}
+                {/*<Route exact path='/download' component={DeployFilebrowser} />*/}
                 <Route exact path='/settings' component={Settings} />
               </div>
             </Switch>
