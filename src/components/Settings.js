@@ -148,20 +148,20 @@ class Settings extends Component {
     'https://graphdb.dumontierlab.com/repositories/ncats-red-kg',
     'https://graphdb.dumontierlab.com/repositories/bio2rdf-ammar',
     'https://bio2rdf.org/sparql',
-    'http://dbpedia.org/sparql',
+    'https://dbpedia.org/sparql',
     'http://rdf.disgenet.org/sparql/',    // Disease - Gene associations and else. Virtuoso
-    'http://rdf.pathwaycommons.org/sparql/',
+    'https://rdf.pathwaycommons.org/sparql/',
     'https://stars-app.renci.org/uberongraph/sparql',
     'http://w3id.org/FAIR_COVID19/sparql/',
     'https://graphdb.dumontierlab.com/repositories/covid-kg',
     'https://graphdb.dumontierlab.com/repositories/geoeconomics',  // IDS KG course (GeoNames and WorldBank)
     'https://data.gesis.org/claimskg/sparql',   // ClaimsKG
-    'http://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
-    'http://opencitations.net/sparql',    // Virtuoso
+    'https://opencitations.net/index/sparql',  // Law OpenCitation corpus. Virtuoso
+    'https://opencitations.net/sparql',    // Virtuoso
     'https://joinup.ec.europa.eu/sparql/',   // EU Joinup initiative. Virtuoso
-    'http://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
-    'http://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
-    'http://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
+    'https://data.europa.eu/euodp/sparqlep', // EU Open Data Portal. Seems Virtuoso
+    'https://publications.europa.eu/webapi/rdf/sparql',  // EU Cellar Law dataset. Seems Virtuoso
+    'https://digital-agenda-data.eu/data/sparql', // EU  Digital Agenda Scoreboard dataset. Seems Virtuoso
     'http://data.persee.fr/sparql',   // Dataset in French about publications and bibliography. Virtuoso
     'http://lod.openlinksw.com/sparql',
     'http://data.doremus.org/sparql',   // About Music and Arts. Virtuoso search works
