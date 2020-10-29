@@ -10,13 +10,13 @@ This browser supports graphs natively (n-quads), which most RDF linked data brow
 
 This RDF linked data browser features:
 
-* A web-based UI to browse the triplestore statements easily.
+* A web-based UI to browse SPARQL endpoints content easily.
   * Stateful URL to resolve a specific URI in a specific SPARQL endpoint can be defined using the `uri` and `endpoint` parameters
   * Example to resolve the [URI of a Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
   * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
-  * Works well with RDF4J (GraphDB) and Virtuoso SPARQL endpoints.
+  * Tested with RDF4J (GraphDB) and Virtuoso SPARQL endpoints.
 * Easily search for concepts in the triplestore. Possibility to change the SPARQL query to define the custom query to use the Search index of different triplestores in [settings](http://trek.semanticscience.org/settings) (GraphDB and Virtuoso documented).
-* A [YASGUI](http://doc.yasgui.org/) SPARQL endpoint web editor.
+* A [YASGUI](http://doc.yasgui.org/) SPARQL query editor.
 * A [Comunica widget](http://query.linkeddatafragments.org/) to query Linked Data Fragments with SPARQL and GraphQL.
 * Insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
@@ -24,63 +24,106 @@ This RDF linked data browser features:
 
 Into-the-graph is built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data from any SPARQL endpoint.
 
-This service has been developed and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework. 
+> This service has been developed and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework.  [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model. Checkout the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
 
-[Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model.
+# Into-the-graph in action 🎬
 
-> Checkout the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
+Start browsing various SPARQL endpoints using into-the-graph in one click:
 
-# Development
+* A Clinical trial in [Bio2RDF](https://bio2rdf.org):
+  * http://trek.semanticscience.org/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
+* A Pathway in [PathwayCommons](http://pathwaycommons.org/):
+  * http://trek.semanticscience.org/describe?uri=http://identifiers.org/reactome/R-HSA-8852135&endpoint=http://rdf.pathwaycommons.org/sparql/
+* A Protein in [NextProt](https://www.nextprot.org/):
+  * http://trek.semanticscience.org/describe?uri=http://nextprot.org/rdf/entry/NX_Q96Q91&endpoint=https://sparql.nextprot.org
+* A [Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
+  * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
+* A Protein (UniProt) in [AgroLD](http://agrold.southgreen.fr/agrold/):
+  * http://trek.semanticscience.org/describe?uri=http://purl.uniprot.org/uniprot/M7Y493&endpoint=http://sparql.southgreen.fr
+* A City in DBpedia
+  * http://trek.semanticscience.org/describe?uri=http://dbpedia.org/resource/Menton&endpoint=http://dbpedia.org/sparql
+* A Citation in the [EU Law OpenCitation](http://opencitations.net/) corpus
+  * http://trek.semanticscience.org/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://opencitations.net/index/sparql
+* A Publication in the [EU Cellar Law dataset](https://data.europa.eu/euodp/en/data/dataset/sparql-cellar-of-the-publications-office): 
+  * http://trek.semanticscience.org/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
+  * Browsing not really good due to the use of graphs for entities.
+* A City in the [LOD SPARQL endpoint](http://lod.openlinksw.com/sparql) 
+  * http://trek.semanticscience.org/describe?uri=http://www.wikidata.org/entity/Q180083&endpoint=http://lod.openlinksw.com/sparql
+  * Browsing not really good due to the use of graphs for entities.
+* A Dataset in OpenEuropa Joinup SPARQL
+  * http://trek.semanticscience.org/describe?uri=http://data.europa.eu/w21/dfba1169-806f-4c9e-a42e-a5c5830a2221&endpoint=https://joinup.ec.europa.eu/sparql/
+* A Statistic in the EU Open Data Portal
+  * http://trek.semanticscience.org/describe?uri=http://data.lod2.eu/scoreboard/indicators/FOA_cit_Country__of_pub_serv_for_citizen&endpoint=http://data.europa.eu/euodp/sparqlep
 
-### Install dependencies
+> You will need to go to [settings](http://trek.semanticscience.org/settings) to change the SPARQL endpoint URL permanently.
 
-```shell
+You can even directly use [trek.semanticscience.org](http://trek.semanticscience.org) to browse a locally deployed endpoint! e.g. http://localhost:8890/sparql
+
+# Development 🚧
+
+To run into-the-graph for development, the deployed website will be automatically updated at each change to the code.
+
+### Install dependencies 📥
+
+Install all required dependencies locally:
+
+```bash
 yarn install
+```
 
-# Add package to dev
+Add a package to the dev environment only:
+
+```bash
 yarn add my-package --dev
+```
 
-# Upgrade packages
+Upgrade all installed packages:
+
+```bash
 yarn upgrade --latest
 ```
 
-### Start the development server
+### Start the development server 👨‍💻
 
 ```bash
 yarn dev
 ```
 
-> Access at http://localhost:19006
+> Access on http://localhost:19006
 
-# Docker
+# Deploy in production 🚀
 
-### Use the DockerHub build
+We use Docker to deploy into-the-graph in production.
 
-You can use the prebuilt image available on [DockerHub](https://hub.docker.com/repository/docker/umids/into-the-graph).
+### Use the DockerHub image 🐳
 
-```shell
-# Pull
+You can use the prebuilt image available on [DockerHub](https://hub.docker.com/repository/docker/umids/into-the-graph). 
+
+Pull the image:
+
+```bash
 docker pull umids/into-the-graph
+```
 
-# Run
+Run the image:
+
+```bash
 docker run --rm -it -p 8082:5000 umids/into-the-graph
 ```
 
-> Access at http://localhost:8082/
+> Access on http://localhost:8082/
 
-### Do a local build
+### Build the image locally 📦
 
 Or build it locally, various parameters can be changed before build in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json).
 
-```powershell
-# Build
-docker build -t into-the-graph .
-
-# Run
-docker run --rm -it -p 8082:5000 into-the-graph
+```bash
+docker build -t umids/into-the-graph .
 ```
 
-## Settings details
+> Then run it the same way as for the DockerHub build.
+
+## Settings details 📝
 
 Details about some of the parameters that can be changed in  [settings](http://trek.semanticscience.org/settings):
 
@@ -113,7 +156,7 @@ The following parameters can be changed in [settings.json](https://github.com/Ma
 docker run -v $(pwd)/settings.json:/usr/share/nginx/html/settings.json --rm -it -p 8082:80 into-the-graph
 ```
 
-### Restart script
+### Restart script ♻️
 
 Convenience script to `git pull`, `docker build` and restart docker.
 
@@ -123,9 +166,7 @@ Convenience script to `git pull`, `docker build` and restart docker.
 
 > Access at http://localhost:8082
 
-
-
-# Search queries
+# Search queries 🔎
 
 Optimized search query for different triplestores.
 
@@ -165,9 +206,9 @@ SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http:
 
 > Text operations really slow on OpenCitation SPARQL, so we do a full match (for date mainly).
 
-# Publish using Expo (experimental)
+# Publish using Expo (experimental) 🧪
 
-This feature is just a test,only try it if you know what you are doing!
+> Experimental feature, only try it if you know what you are doing!
 
 Install `expo-cli`
 
@@ -192,36 +233,3 @@ docker run --tty --interactive \
 ```
 
 > Don't forget to change the path to the git repository (`$HOME` at the moment).
-
-# Into-the-graph in action
-
-Start browsing various SPARQL endpoints using into-the-graph in one click:
-
-* A Clinical trial in [Bio2RDF](https://bio2rdf.org):
-  * http://trek.semanticscience.org/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
-* A Pathway in [PathwayCommons](http://pathwaycommons.org/):
-  * http://trek.semanticscience.org/describe?uri=http://identifiers.org/reactome/R-HSA-8852135&endpoint=http://rdf.pathwaycommons.org/sparql/
-* A Protein in [NextProt](https://www.nextprot.org/):
-  * http://trek.semanticscience.org/describe?uri=http://nextprot.org/rdf/entry/NX_Q96Q91&endpoint=https://sparql.nextprot.org
-* A [Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
-  * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
-* A Protein (UniProt) in [AgroLD](http://agrold.southgreen.fr/agrold/):
-  * http://trek.semanticscience.org/describe?uri=http://purl.uniprot.org/uniprot/M7Y493&endpoint=http://sparql.southgreen.fr
-* A City in DBpedia
-  * http://trek.semanticscience.org/describe?uri=http://dbpedia.org/resource/Menton&endpoint=http://dbpedia.org/sparql
-* A Citation in the [EU Law OpenCitation](http://opencitations.net/) corpus
-  * http://trek.semanticscience.org/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://opencitations.net/index/sparql
-* A Publication in the [EU Cellar Law dataset](https://data.europa.eu/euodp/en/data/dataset/sparql-cellar-of-the-publications-office): 
-  * http://trek.semanticscience.org/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
-  * Browsing not really good due to the use of graphs for entities.
-* A City in the [LOD SPARQL endpoint](http://lod.openlinksw.com/sparql) 
-  * http://trek.semanticscience.org/describe?uri=http://www.wikidata.org/entity/Q180083&endpoint=http://lod.openlinksw.com/sparql
-  * Browsing not really good due to the use of graphs for entities.
-* A Dataset in OpenEuropa Joinup SPARQL
-  * http://trek.semanticscience.org/describe?uri=http://data.europa.eu/w21/dfba1169-806f-4c9e-a42e-a5c5830a2221&endpoint=https://joinup.ec.europa.eu/sparql/
-* A Statistic in the EU Open Data Portal
-  * http://trek.semanticscience.org/describe?uri=http://data.lod2.eu/scoreboard/indicators/FOA_cit_Country__of_pub_serv_for_citizen&endpoint=http://data.europa.eu/euodp/sparqlep
-
-> You will need to go to [settings](http://trek.semanticscience.org/settings) to change the SPARQL endpoint URL permanently.
-
-You can even directly use [trek.semanticscience.org](http://trek.semanticscience.org) to browse a locally deployed endpoint! e.g. http://localhost:8890/sparql

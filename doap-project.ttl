@@ -1,0 +1,27 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix asf: <http://projects.apache.org/ns/asfext#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<https://w3id.org/umids/project/into-the-graph>
+  a doap:Project ;
+  doap:name "Into the Graph" ;
+  doap:description "Resolve, visualize and browse the content of any SPARQL endpoint in your web browser with graphs supports and exploration via HCLS dataset description." ;
+
+  doap:programming-language "JavaScript", "React" ;
+  doap:license <https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE> ;
+  doap:homepage <https://maastrichtu-ids.github.io/into-the-graph> ;
+  doap:bug-database <https://github.com/MaastrichtU-IDS/into-the-graph/issues> ;
+  
+  
+  doap:service-endpoint <http://trek.semanticscience.org/> ;
+  
+  doap:category "Development" ;
+  doap:repository [
+    a doap:GitRepository ;
+    doap:location <https://github.com/MaastrichtU-IDS/into-the-graph> ;
+  ] ;
+  doap:maintainer [
+    a foaf:Person ;
+    foaf:name "Vincent Emonet" ;
+    foaf:mbox <mailto:vincent.emonet@maastrichtuniversity.nl>
+  ] .
