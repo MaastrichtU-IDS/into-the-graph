@@ -4,6 +4,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, Paper, Button } from "@material-ui/core";
 import axios from 'axios';
 
+// Official datatables.net docs
+// var $  = require( 'jquery' );
+// var dt = require( 'datatables.net' )();
+
+// Import from package.json install (from itg js)
+import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import $ from 'jquery';
+// $.DataTable = require('datatables.net');
+
+// From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
+// const $ = require('jquery');
+$.DataTable = require('datatables.net');
+// CSS imported in App.css
+// https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js
+
 // import { Graph } from "perfect-graph";
 
 import iconImage from '../assets/icon.png';
@@ -24,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
+    // margin: theme.spacing(2, 2),
   },
   paperTitle: {
     fontWeight: 300,
@@ -49,6 +64,9 @@ export default function Describe() {
   });
 
   const stateRef = React.useRef(state);
+
+  // TODO: dont work to use Ref for datatables.net
+  // const datatableRef = React.useRef(null);
 
   // Avoid conflict when async calls
   const updateState = React.useCallback((update) => {
@@ -197,6 +215,14 @@ export default function Describe() {
           // console.log(sparql_results_array[0].subject.value)
           updateState({describe_results: sparql_results_array})
           updateState({isLoading: false})
+
+          const table = $('#datatableRef').DataTable();
+        
+          // const table = $(datatableRef).find('table').DataTable();
+          // Getting error when using useRef
+          // Unhandled Rejection (TypeError): this.getAttribute is not a function
+          // let table = $('.data-table-wrapper').find('table').DataTable();
+
           // sparqlResultArray.forEach((sparqlResultRow) => {
         })
 
@@ -234,19 +260,38 @@ export default function Describe() {
         {state.describe_uri}
       </Typography>
 
-      {/* Iterate Describe query results array */}
-      {state.describe_results.map(function(result_row: any, key: number){
-        return <Paper key={key.toString()} elevation={4} style={{padding: '15px', marginTop: '25px', marginBottom: '25px'}}>
-            <Typography variant="body1">
-              {result_row.subject.value} {result_row.predicate.value} {result_row.object.value} &nbsp;
-              {result_row.graph.value} 
-              {/* <b><a href={result_row.subject.value} className={classes.link}>{project.label}</a></b>&nbsp;&nbsp; */}
-            </Typography>
-          </Paper>
-        })}
+      {state.describe_results.length > 0 && ( 
+        // <table table="true" ref={datatableRef}>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <table table="true" id='datatableRef' >
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Predicate</th>
+                <th>Object</th>
+                <th>Graph</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Iterate Describe query results array */}
+              {state.describe_results.map((row: any, key: number) => {
+                // return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
+                return <tr key={key}>
+                    {/* <td><LinkDescribe uri={row.graph.value} variant='body2'/></td> */}
+                    <td><Typography variant="body2">{row.subject.value}</Typography></td>
+                    <td><Typography variant="body2">{row.predicate.value}</Typography></td>
+                    <td><Typography variant="body2">{row.object.value}</Typography></td>
+                    <td><Typography variant="body2">{row.graph.value}</Typography></td>
+                  </tr>
+                {/* </Tooltip>; */}
+              })}
+            </tbody>
+          </table>
+        </Paper>
+      )}
 
       {/* Iterate a JSON object: */}
-      {/* {Object.keys(state.repositories_hash).map(function(repo: any){ */}
+      {/* {Object.keys(state.repositories_hash).map(function(repo: any){ ... })  */}
 
       {/* image: {iconImage} */}
       {/* Color: https://perfectgraph-5c619.web.app/?path=/story/components-components--view */}

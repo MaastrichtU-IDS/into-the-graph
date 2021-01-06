@@ -85,16 +85,16 @@ export default function Homepage() {
   // }
 
   // TODO: fix to use webid hook
-  async function createEmptyDocument(location: any) {
-    // webId.replace("profile/card#me", "public/into-the-graph/preferences.ttl");
-    return data[location].put();
-  }
+  // async function createEmptyDocument(location: any) {
+  //   // webId.replace("profile/card#me", "public/into-the-graph/preferences.ttl");
+  //   return data[location].put();
+  // }
   
 
   // componentDidMount
   React.useEffect(() => {
-    console.log('solid_webid');
-    console.log(solid_webid);
+    // console.log('solid_webid');
+    // console.log(solid_webid);
 
     // Check SOLID pod for a user preferences file
     // https://github.com/solid/react-components/blob/master/demo/app.jsx
