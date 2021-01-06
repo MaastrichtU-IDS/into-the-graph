@@ -1,22 +1,18 @@
 self.__precacheManifest = [
   {
-    "revision": "8d6ba57569b24bf916ef",
-    "url": "/into-the-graph/static/js/app.cb6e4d96.chunk.js"
+    "revision": "b74be70189761b9e6dff",
+    "url": "/into-the-graph/static/js/app.b4fd05c3.chunk.js"
   },
   {
     "revision": "38a28759f8733e362459",
     "url": "/into-the-graph/static/js/runtime~app.d85ed08d.js"
   },
   {
-    "revision": "5d115bf3934083f9fe7f",
-    "url": "/into-the-graph/static/js/2.4bdab795.chunk.js"
+    "revision": "254d732dcecaa4bb9e68",
+    "url": "/into-the-graph/static/js/2.40db81cc.chunk.js"
   },
   {
-    "revision": "951e6ef1c62c25b9b10b081968119584",
-    "url": "/into-the-graph/static/media/icon.72626586.png"
-  },
-  {
-    "revision": "0c40ad95b42160cb6e34aa6e2b31bb2d",
+    "revision": "65fc868a162a60aa7ffc610088756064",
     "url": "/into-the-graph/index.html"
   },
   {
@@ -33,7 +29,7 @@ self.__precacheManifest = [
   },
   {
     "revision": "40ef0097dea400886f321bb72416f0f5",
-    "url": "/into-the-graph/static/js/2.4bdab795.chunk.js.LICENSE.txt"
+    "url": "/into-the-graph/static/js/2.40db81cc.chunk.js.LICENSE.txt"
   },
   {
     "revision": "e78221aba04ce077cb705ff3c8d2bc05",
