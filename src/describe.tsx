@@ -11,13 +11,10 @@ import axios from 'axios';
 // Import from package.json install (from itg js)
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
 import $ from 'jquery';
-// $.DataTable = require('datatables.net');
+$.DataTable = require('datatables.net');
 
 // From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
 // const $ = require('jquery');
-$.DataTable = require('datatables.net');
-// CSS imported in App.css
-// https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js
 
 // import { Graph } from "perfect-graph";
 
