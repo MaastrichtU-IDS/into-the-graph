@@ -24,7 +24,7 @@ git checkout -b new-branch
 
 ```bash
 yarn install
-yarn web
+yarn dev
 ```
 
 4. Add your change in this branch 📝

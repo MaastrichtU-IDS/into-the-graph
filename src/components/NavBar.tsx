@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SearchIcon from '@material-ui/icons/Search';
 
-import iconImage from '../assets/icon.png';
+import iconImage from '../../assets/icon.png';
 
 // import { AuthButton, Value } from '@solid/react';
 
@@ -47,10 +47,7 @@ export default function NavBar() {
         <Link to="/" className={classes.linkLogo}>
           <Tooltip title='Into the Graph homepage'>
             <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
-            {/* <Button className={classes.menuButton}>
-              🧭
-            </Button> */}
-          </Tooltip>
+          </Tooltip>  
         </Link>
         <Link to="/describe" className={classes.linkButton}>
           <Tooltip title='Describe an URI in a SPARQL endpoint'>

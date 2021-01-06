@@ -83,7 +83,7 @@ yarn
 Run the web app in development at http://localhost:19006
 
 ```bash
-yarn web
+yarn dev
 ```
 
 > The website should reload automatically at each changes to the code :arrows_clockwise:

@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { Router, Route } from "./react-router";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import './App.css';
-import NavBar from "./src/NavBar";
-import Footer from "./src/Footer";
-import Homepage from "./src/homepage";
-import Describe from "./src/describe";
+import NavBar from "./src/components/NavBar";
+import Footer from "./src/components/Footer";
+import Homepage from "./src/pages/homepage";
+import Describe from "./src/pages/describe";
 
 // import blue from '@material-ui/core/colors/blue';
 

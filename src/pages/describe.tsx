@@ -10,15 +10,14 @@ import axios from 'axios';
 
 // Import from package.json install (from itg js)
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
-import $ from 'jquery';
-$.DataTable = require('datatables.net');
+// import $ from 'jquery';
 
 // From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
-// const $ = require('jquery');
+const $ = require('jquery');
+
+$.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
-
-import iconImage from '../assets/icon.png';
 
 
 const useStyles = makeStyles(theme => ({
@@ -222,7 +221,7 @@ export default function Describe() {
           updateState({describe_results: sparql_results_array})
           updateState({isLoading: false})
 
-          const table = $('#datatableRef').DataTable();
+          $('#datatableRef').DataTable();
         
           // const table = $(datatableRef).find('table').DataTable();
           // Getting error when using useRef
@@ -269,7 +268,7 @@ export default function Describe() {
       {state.describe_results.length > 0 && ( 
         // <table table="true" ref={datatableRef}>
         <Paper elevation={4} className={classes.paperPadding}>
-          <table table="true" id='datatableRef' >
+          <table id='datatableRef' >
             <thead>
               <tr>
                 <th>Subject</th>
