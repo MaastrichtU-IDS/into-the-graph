@@ -6,8 +6,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SearchIcon from '@material-ui/icons/Search';
+import ExploreIcon from '@material-ui/icons/Explore';
 
-import iconImage from '../../assets/icon.png';
+// import iconImage from '../../assets/icon.png';
 
 // import { AuthButton, Value } from '@solid/react';
 
@@ -44,12 +45,15 @@ export default function NavBar() {
   return (
     <AppBar title="" position='static'>
       <Toolbar variant='dense'>
-        <Link to="/" className={classes.linkLogo}>
+        <Link to="/" className={classes.linkButton}>
+          {/* <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" /> */}
           <Tooltip title='Into the Graph homepage'>
-            <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
+            <Button className={classes.menuButton}>
+              <ExploreIcon />&nbsp;Into the graph
+            </Button>
           </Tooltip>  
         </Link>
-        <Link to="/describe" className={classes.linkButton}>
+        <Link to="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql" className={classes.linkButton}>
           <Tooltip title='Describe an URI in a SPARQL endpoint'>
             <Button className={classes.menuButton}>
               <SearchIcon />&nbsp;Describe URI

@@ -28,9 +28,10 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     textDecoration: 'none',
-    color: 'inherit',
+    textTransform: 'none',
+    color: theme.palette.primary.main,
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       textDecoration: 'none',
     },
   },
@@ -119,11 +120,12 @@ export default function Homepage() {
 
       <Paper elevation={4} className={classes.paperPadding}>
         <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px', marginTop: '15px'}}>
-          Provide the URI to describe and the SPARQL endpoint queried, such as:
+          Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried, such as:
         </Typography>
 
         <Typography variant="h5" style={{textAlign: 'center', marginBottom: '20px'}}>
-          <a href="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql">/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql</a>
+          <a href="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql"
+           className={classes.link}>/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql</a>
         </Typography>
       </Paper>
 
@@ -136,7 +138,7 @@ export default function Homepage() {
         <br/>🔎 A web-based UI to browse any SPARQL endpoints content easily
         <br/>🕸️ Native support for graphs (nquads)
         <br/>🏗️ Work in progress: visualize and browse concepts using <a href='https://perfectgraph-5c619.web.app' target='_blank'><code>perfect-graph</code></a>
-        <br/>🏗️ Work in progress: insights about the content of the triplestore and its different graphs, using precomputed HCLS descriptives statistics
+        <br/>🚧 Work in progress: insights about the content of the triplestore and its different graphs, using precomputed HCLS descriptives statistics
       </Typography>
 
 
@@ -144,9 +146,15 @@ export default function Homepage() {
         Other relevant libraries:
       </Typography>
       <ul>
-        <li><a href='https://github.com/micheldumontier/torres-api-platform/'>TORRES API platform</a> to store HCLS descriptive metadata for your dataset</li>
-        <li><a href='https://github.com/MaastrichtU-IDS/fair-metadata'>FAIR metadata</a> python lib: to generate HCLS descriptive metadata for your dataset</li>
-        <li><a href='https://github.com/MaastrichtU-IDS/d2s-project-template/tree/master/datasets/preppi'>Data2Services workflows</a> to generate RDF knowledge graphs from structured data using RML (RDF Mapping Language)</li>
+        <li><Typography variant="body1">
+          <a href='https://github.com/micheldumontier/torres-api-platform/' className={classes.link}>TORRES API platform</a> to store HCLS descriptive metadata for your dataset
+        </Typography></li>
+        <li><Typography variant="body1">
+          <a href='https://github.com/MaastrichtU-IDS/fair-metadata' className={classes.link}>FAIR metadata</a> python lib: to generate HCLS descriptive metadata for your dataset
+        </Typography></li>
+        <li><Typography variant="body1">
+          <a href='https://github.com/MaastrichtU-IDS/d2s-project-template/tree/master/datasets/preppi' className={classes.link}>Data2Services workflows</a> to generate RDF knowledge graphs from structured data using RML (RDF Mapping Language)
+        </Typography></li>
       </ul>
 
       {/* <LoggedIn>

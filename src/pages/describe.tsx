@@ -18,6 +18,7 @@ const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
+import LinkDescribe from "../components/LinkDescribe";
 
 
 const useStyles = makeStyles(theme => ({
@@ -283,10 +284,10 @@ export default function Describe() {
                 // return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
                 return <tr key={key}>
                     {/* <td><LinkDescribe uri={row.graph.value} variant='body2'/></td> */}
-                    <td><Typography variant="body2">{row.subject.value}</Typography></td>
-                    <td><Typography variant="body2">{row.predicate.value}</Typography></td>
-                    <td><Typography variant="body2">{row.object.value}</Typography></td>
-                    <td><Typography variant="body2">{row.graph.value}</Typography></td>
+                    <td><LinkDescribe variant='body2' uri={row.subject.value}/></td>
+                    <td><LinkDescribe variant='body2' uri={row.predicate.value}/></td>
+                    <td><LinkDescribe variant='body2' uri={row.object.value}/></td>
+                    <td><LinkDescribe variant='body2' uri={row.graph.value}/></td>
                   </tr>
                 {/* </Tooltip>; */}
               })}

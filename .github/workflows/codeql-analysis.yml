@@ -5,8 +5,8 @@ on:
     branches: [ typescript-rewrite ]
   schedule:
     - cron: '0 5 * * 4'
-  # push:
-  #   branches: [main]
+  push:
+    branches: [ typescript-rewrite ]
 
 jobs:
 

@@ -13,8 +13,9 @@ import Describe from "./src/pages/describe";
 // Change theme color and typography here
 const theme = createMuiTheme({
   palette: {
+    // Blue and orange
     primary: { light: '#63a4ff', main: '#1976d2', dark: '#004ba0' },
-    secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
+    secondary: { light: '#ffa040', main: '#ff6f00', dark: '#c43e00' },
     // main: blue[700]
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     // red: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
