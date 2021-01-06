@@ -1,13 +1,16 @@
 {
     "expo": {
       "name": "Into the Graph",
+      "description": "A browser for SPARQL endpoints",
       "slug": "into-the-graph",
+      "privacy": "public",
+      "sdkVersion": "35.0.0",
+      "platforms": ["web"],
       "version": "0.0.1",
-      "sdkVersion": "36.0.0",
-      "privacy": "unlisted",
-      "platforms": [
-        "web"
-      ]
+      "icon": "./assets/icon.png",
+      "orientation": "portrait",
+      "packagerOpts": {
+        "assetExts": ["html"]
+      }
     }
-  }
-  
+  }  

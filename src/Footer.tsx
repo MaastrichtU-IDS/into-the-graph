@@ -33,31 +33,45 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <a className={classes.darkLink} target="_blank"
+      <a className={classes.darkLink} target="_blank" rel="noopener noreferrer"
       href="https://maastrichtuniversity.nl/ids">
         Institute of Data Science at Maastricht University
       </a>{' '}
-      {'2019-2020.'}
+      {'2020.'}
     </Typography>
   );
 }
 
 export default function Footer() {
   const classes = useStyles();
+  // Set state in functional style:
+  // const [state, setState] = React.useState({search: '', name: 'Vincent'});
+  // console.log(state.search);
+  // // Set search without chaging name
+  // setState({...state, search: 'yo'})
+  // const onNameChange = React.useCallback((filterName) => {
+  //   console.log('callback', state.name);
+  // },
+  // [state.name]);
+  // // Tells callback to reload when change to state.name
+
+  // React.useEffect(() => {
+  //   console.log('componentDID mount');
+  //   return () => {
+  //     console.log('willMount');
+  //   }
+  // }, []) 
+  // Empty dep list: will only run when componentDidMount
 
   return (
       <footer className={classes.footer}>
-        <Container maxWidth="md">
-          <a href="https://github.com/MaastrichtU-IDS/into-the-graph" target="_blank">
-            <img alt="GitHub repository" src="https://img.shields.io/github/stars/MaastrichtU-IDS/into-the-graph?label=into-the-graph&style=social"/>
-          </a>
-          <Typography variant="body2">
-            The code of this site is licensed under the&nbsp;
-            <a className={classes.whiteLink} target="_blank"
-            href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/LICENSE">
+        <Container maxWidth="md" style={{textAlign: 'center'}}>
+          <Typography variant="body2" >
+            This website is licensed under the&nbsp;
+            <a className={classes.whiteLink} target="_blank" rel="noopener noreferrer"
+            href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/main/LICENSE">
               MIT license
             </a>
-            <br/>License of the displayed data is defined by the SPARQL endpoint provider
             {/* <img src={require('../assets/images/mit_license.png')} /> */}
           </Typography>
           <Copyright />

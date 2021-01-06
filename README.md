@@ -1,4 +1,6 @@
-# Lightweight linked data browser
+# 🧭 Lightweight linked data browser
+
+[![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/into-the-graph/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/into-the-graph/actions?query=workflow%3A%22Deploy+website+to+GitHub+Pages%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/into-the-graph/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/into-the-graph/actions?query=workflow%3A%22CodeQL+analysis%22) 
 
 The motivation behind this linked data browser was to provide a fast [RDF](https://www.w3.org/RDF/) browser that just need a SPARQL endpoint URL to give a comfortable experience when exploring differents triplestores.
 
@@ -6,7 +8,7 @@ This browser supports graphs natively (n-quads), which most RDF linked data brow
 
 **Browse a RDF triplestore by providing the SPARQL endpoint URL directly in the browser.** 
 
-> See an example deployment of into-the graph at [trek.semanticscience.org](http://trek.semanticscience.org). Settings can be [easily changed](http://trek.semanticscience.org/settings) to browse various triplestores.
+> See an example deployment of into-the graph at [https://maastrichtu-ids.github.io/into-the-graph](https://maastrichtu-ids.github.io/into-the-graph).
 
 This RDF linked data browser features:
 
@@ -14,161 +16,106 @@ This RDF linked data browser features:
   * Stateful URL to resolve a specific URI in a specific SPARQL endpoint can be defined using the `uri` and `endpoint` parameters
   * Example to resolve the [URI of a Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
   * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
-  * Tested with RDF4J (GraphDB) and Virtuoso SPARQL endpoints.
-* Easily search for concepts in the triplestore. Possibility to change the SPARQL query to define the custom query to use the Search index of different triplestores in [settings](http://trek.semanticscience.org/settings) (GraphDB and Virtuoso documented).
-* A [YASGUI](http://doc.yasgui.org/) SPARQL query editor.
-* A [Comunica widget](http://query.linkeddatafragments.org/) to query Linked Data Fragments with SPARQL and GraphQL.
-* Insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
+  * Tested with RDF4J (Ontotext GraphDB) and Virtuoso SPARQL endpoints.
+* Easily search for concepts in the triplestore. Possibility to change the SPARQL query to define the custom query to use the Search index of different triplestores in [settings](http://trek.semanticscience.org/settings) (Ontotext GraphDB and Virtuoso triplestores documented).
+* Work in progress: insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
-> [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/) for a graph can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it.
+> [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset/) for a graph can simply be computed and inserted running a `docker run` command. Follow [those instructions](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to run it. Or check the [`fair-metadata`](https://github.com/MaastrichtU-IDS/fair-metadata) Python library in development.
 
-Into-the-graph is built with [ReactJS](https://reactjs.org) and [Material-UI](https://material-ui.com/) to serve and explore RDF data from any SPARQL endpoint.
+Into-the-graph is built with [TypeScript](https://www.typescriptlang.org/) , [ReactJS](https://reactjs.org), and [Material-UI](https://material-ui.com/) to serve and explore RDF data from any SPARQL endpoint.
 
 > This service has been developed and used as part of the [Data2Services](http://d2s.semanticscience.org/) framework.  [Data2Services](http://d2s.semanticscience.org/) provides tools and guideline to easily integrate multiple structured data sources (CSV, RDB, XML) to a RDF knowledge graph, complying with a defined data model. Checkout the documentation at [d2s.semanticscience.org](http://d2s.semanticscience.org/)
 
-# Into-the-graph in action 🎬
+# 👨‍💻 Contribute
+
+Contributions are welcome! See the [guidelines to contribute](/CONTRIBUTING.md).
+
+# 🎬 Into-the-graph in action
+
+> ⚠️ Trying to query a HTTP SPARQL endpoint from into-the-graph which is provided through HTTPS might cause issues.
 
 Start browsing various SPARQL endpoints using into-the-graph in one click:
 
 * A Clinical trial in [Bio2RDF](https://bio2rdf.org):
-  * http://trek.semanticscience.org/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
 * A Pathway in [PathwayCommons](http://pathwaycommons.org/):
-  * http://trek.semanticscience.org/describe?uri=http://identifiers.org/reactome/R-HSA-8852135&endpoint=http://rdf.pathwaycommons.org/sparql/
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://identifiers.org/reactome/R-HSA-8852135&endpoint=http://rdf.pathwaycommons.org/sparql/
 * A Protein in [NextProt](https://www.nextprot.org/):
-  * http://trek.semanticscience.org/describe?uri=http://nextprot.org/rdf/entry/NX_Q96Q91&endpoint=https://sparql.nextprot.org
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://nextprot.org/rdf/entry/NX_Q96Q91&endpoint=https://sparql.nextprot.org
 * A [Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
-  * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
 * A Protein (UniProt) in [AgroLD](http://agrold.southgreen.fr/agrold/):
-  * http://trek.semanticscience.org/describe?uri=http://purl.uniprot.org/uniprot/M7Y493&endpoint=http://sparql.southgreen.fr
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://purl.uniprot.org/uniprot/M7Y493&endpoint=http://sparql.southgreen.fr
 * A City in DBpedia
-  * http://trek.semanticscience.org/describe?uri=http://dbpedia.org/resource/Menton&endpoint=http://dbpedia.org/sparql
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://dbpedia.org/resource/Menton&endpoint=http://dbpedia.org/sparql
 * A Citation in the [EU Law OpenCitation](http://opencitations.net/) corpus
-  * http://trek.semanticscience.org/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://opencitations.net/index/sparql
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=https://w3id.org/oc/index/coci/ci/020010000073609070863036303010963090209070963084905-02001000007362800000401006300010363000806006334&endpoint=http://opencitations.net/index/sparql
 * A Publication in the [EU Cellar Law dataset](https://data.europa.eu/euodp/en/data/dataset/sparql-cellar-of-the-publications-office): 
-  * http://trek.semanticscience.org/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://publications.europa.eu/resource/cellar/c721f802-9ce7-11e7-b92d-01aa75ed71a1&endpoint=http://publications.europa.eu/webapi/rdf/sparql
   * Browsing not really good due to the use of graphs for entities.
 * A City in the [LOD SPARQL endpoint](http://lod.openlinksw.com/sparql) 
-  * http://trek.semanticscience.org/describe?uri=http://www.wikidata.org/entity/Q180083&endpoint=http://lod.openlinksw.com/sparql
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://www.wikidata.org/entity/Q180083&endpoint=http://lod.openlinksw.com/sparql
   * Browsing not really good due to the use of graphs for entities.
 * A Dataset in OpenEuropa Joinup SPARQL
-  * http://trek.semanticscience.org/describe?uri=http://data.europa.eu/w21/dfba1169-806f-4c9e-a42e-a5c5830a2221&endpoint=https://joinup.ec.europa.eu/sparql/
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://data.europa.eu/w21/dfba1169-806f-4c9e-a42e-a5c5830a2221&endpoint=https://joinup.ec.europa.eu/sparql/
 * A Statistic in the EU Open Data Portal
-  * http://trek.semanticscience.org/describe?uri=http://data.lod2.eu/scoreboard/indicators/FOA_cit_Country__of_pub_serv_for_citizen&endpoint=http://data.europa.eu/euodp/sparqlep
+  * http://maastrichtu-ids.github.io/into-the-graph/describe?uri=http://data.lod2.eu/scoreboard/indicators/FOA_cit_Country__of_pub_serv_for_citizen&endpoint=http://data.europa.eu/euodp/sparqlep
 
-> You will need to go to [settings](http://trek.semanticscience.org/settings) to change the SPARQL endpoint URL permanently.
+You can even directly use http://maastrichtu-ids.github.io/into-the-graph to browse a locally deployed endpoint! e.g. http://localhost:8890/sparql
 
-You can even directly use [trek.semanticscience.org](http://trek.semanticscience.org) to browse a locally deployed endpoint! e.g. http://localhost:8890/sparql
+# 🏗️ Run in development
 
-# Development 🚧
+Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
-To run into-the-graph for development, the deployed website will be automatically updated at each change to the code.
-
-### Install dependencies 📥
-
-Install all required dependencies locally:
+Clone the repository:
 
 ```bash
-yarn install
+git clone https://github.com/MaastrichtU-IDS/into-the-graph
+cd into-the-graph
 ```
 
-Add a package to the dev environment only:
+Install dependencies :inbox_tray:
 
 ```bash
-yarn add my-package --dev
+yarn
 ```
 
-Upgrade all installed packages:
+Run the web app in development at http://localhost:19006
 
 ```bash
-yarn upgrade --latest
+yarn web
 ```
 
-### Start the development server 👨‍💻
+> The website should reload automatically at each changes to the code :arrows_clockwise:
+
+Upgrade the packages versions in `yarn.lock`
 
 ```bash
-yarn dev
+yarn upgrade
 ```
 
-> Access on http://localhost:19006
+# 🚀 Run in production 
 
-# Deploy in production 🚀
+> This website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/into-the-graph/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/into-the-graph
 
-We use Docker to deploy into-the-graph in production.
-
-### Use the DockerHub image 🐳
-
-You can use the prebuilt image available on [DockerHub](https://hub.docker.com/repository/docker/umids/into-the-graph). 
-
-Pull the image:
+You can build locally in `/web-build` folder and serve on [http://localhost:5000 :package:](http://localhost:5000)
 
 ```bash
-docker pull umids/into-the-graph
+yarn build
+yarn serve
 ```
 
-Run the image:
+Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (requires [docker installed](https://docs.docker.com/get-docker/))
 
 ```bash
-docker run --rm -it -p 8082:5000 umids/into-the-graph
+docker-compose up
 ```
 
-> Access on http://localhost:8082/
+> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image.
 
-### Build the image locally 📦
+# 🔎 Search queries
 
-Or build it locally, various parameters can be changed before build in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json).
-
-```bash
-docker build -t umids/into-the-graph .
-```
-
-> Then run it the same way as for the DockerHub build.
-
-## Settings details 📝
-
-Details about some of the parameters that can be changed in  [settings](http://trek.semanticscience.org/settings):
-
-* `sparql_endpoint`: the SPARQL endpoint to browse
-  * e.g. http://graphdb.dumontierlab.com/repositories/ncats-red-kg
-
-* `comunica_url`: Comunica widget URL that will be displayed as an iFrame in the Comunica page
-
-  * e.g. http://query.linkeddatafragments.org/
-  * Deploy your own instance of [comunica-sparql-widget](https://github.com/vemonet/jQuery-Widget.js) using Docker.
-
-* `search_query`: the SPARQL query used when doing a search (allow to define SPARQL query using custom search indexes)
-
-  * The SPARQL query should return `?foundUri` and `?foundLabel` as results of the search
-  * Use `$TEXT_TO_SEARCH` to define the emplacement for the search text in the query
-
-The following parameters can be changed in [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json):
-
-* `prefixes`: dictionary of prefixes and the corresponding namespaces used to resolve URIs in the web UI
-
-* `default_search_query`: the SPARQL query used when doing a search if an empty string has been passed to the `uri` param (allow to show some concepts in the triplestore by default)
-* The SPARQL query should return `?foundUri` and `?foundLabel` as results of the search
-  * Use `$TEXT_TO_SEARCH` to define the emplacement for the search text in the query
-  
-
-**TODO**: pass [settings.json](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/settings.json) at runtime
-
-```bash
-# Something like
-docker run -v $(pwd)/settings.json:/usr/share/nginx/html/settings.json --rm -it -p 8082:80 into-the-graph
-```
-
-### Restart script ♻️
-
-Convenience script to `git pull`, `docker build` and restart docker.
-
-```bash
-./restart_docker.sh
-```
-
-> Access at http://localhost:8082
-
-# Search queries 🔎
-
-Optimized search query for different triplestores.
+Optimized SPARQL query to perform full text search in different triplestores.
 
 ### Generic
 
@@ -205,31 +152,3 @@ SELECT ?foundUri ?foundLabel WHERE {?foundUri ?p ?foundLabel . VALUES ?p {<http:
 ```
 
 > Text operations really slow on OpenCitation SPARQL, so we do a full match (for date mainly).
-
-# Publish using Expo (experimental) 🧪
-
-> Experimental feature, only try it if you know what you are doing!
-
-Install `expo-cli`
-
-```bash
-npm install -g expo-cli
-```
-
-See [GitHub repository](https://github.com/expo/expo-cli) and [documentation to build standalone app](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/).
-
-Using [bycedric/expo-cli](https://hub.docker.com/r/bycedric/expo-cli) Docker image. On Docker: use `yarn start` to build using `serve`
-
-> First you need to have your app built in the `web-build` folder.
-
-```bash
-# To remove:
-docker run --tty --interactive \
-    --workdir /srv \
-    --volume $HOME/into-the-graph:/srv \
-    --env EXPO_CLI_USERNAME=vemonet \
-    --env EXPO_CLI_PASSWORD=password \
-    bycedric/expo-cli publish
-```
-
-> Don't forget to change the path to the git repository (`$HOME` at the moment).

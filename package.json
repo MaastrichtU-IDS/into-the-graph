@@ -1,55 +1,49 @@
 {
-  "name": "into-the-graph",
-  "version": "0.1.0",
-  "description": "Visualize, search and browse the content of your RDF triplestore using various interfaces (graphical, SPARQL, REST API).",
-  "private": true,
-  "author": "Vincent Emonet",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MaastrichtU-IDS/into-the-graph.git"
-  },
-  "bugs": {
-    "url": "https://github.com/MaastrichtU-IDS/into-the-graph/issues"
-  },
-  "scripts": {
-    "build-css": "node-sass src/ -o src/",
-    "watch-css": "yarn run build-css && node-sass src/ -o src/ --watch --recursive",
-    "serve": "serve -s web-build",
-    "web": "expo start --web",
-    "dev": "yarn run build-css && yarn web",
-    "build": "yarn run build-css && expo build:web",
-    "test": "jest"
-  },
   "dependencies": {
-    "@material-ui/core": "^4.7.0",
-    "@material-ui/icons": "^4.2.1",
-    "@material-ui/lab": "^4.0.0-alpha.45",
-    "@triply/yasgui": "^4.0.96",
-    "axios": "^0.19.0",
-    "expo": "^36.0.2",
-    "jquery": "^3.4.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-native": "^0.61.5",
-    "react-router-dom": "^5.1.2",
-    "react-tabs": "^3.0.0"
+    "@comunica/actor-init-sparql": "^1.17.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@solid/query-ldflex": "^2.11.3",
+    "@solid/react": "^1.10.0",
+    "axios": "^0.20.0",
+    "chart.js": "^2.9.3",
+    "chartjs-plugin-labels": "^1.1.0",
+    "expo": "~39.0.0",
+    "normalizr": "^3.6.0",
+    "react": "~16.13.0",
+    "react-chartjs-2": "^2.10.0",
+    "react-dom": "~16.13.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
+    "react-native-web": "0.13.13",
+    "react-router-dom": "^5.2.0",
+    "react-router-native": "5.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@expo/webpack-config": "^0.11.1",
-    "babel-preset-expo": "~8.0.0",
-    "datatables.net": "^1.10.19",
-    "expo-cli": "^3.13.1",
-    "node-sass": "^4.13.1",
-    "serve": "^11.2.0"
+    "@babel/core": "7.9.0",
+    "@types/axios": "^0.14.0",
+    "@types/chart.js": "^2.9.25",
+    "@types/material-ui": "^0.21.8",
+    "@types/react": "^16.9.51",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-native": "^0.63.25",
+    "@types/react-router-dom": "^5.1.6",
+    "expo-cli": "^3.27.13",
+    "gh-pages": "^3.1.0",
+    "serve": "^11.3.2",
+    "typescript": "^4.0.3"
   },
-  "keywords": [
-    "sparql",
-    "rdf",
-    "linked data",
-    "browser",
-    "react",
-    "materialui"
-  ]
+  "scripts": {
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo web",
+    "eject": "expo eject",
+    "build": "expo build:web",
+    "serve": "serve -s web-build",
+    "start": "npm run build && npm run serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d web-build"
+  },
+  "homepage": "https://maastrichtu-ids.github.io/into-the-graph",
+  "private": true
 }
