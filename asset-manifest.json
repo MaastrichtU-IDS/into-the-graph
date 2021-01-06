@@ -1,0 +1,23 @@
+{
+  "files": {
+    "app.js": "/into-the-graph/static/js/app.cf1d7bd8.chunk.js",
+    "app.js.map": "/into-the-graph/static/js/app.cf1d7bd8.chunk.js.map",
+    "runtime~app.js": "/into-the-graph/static/js/runtime~app.d85ed08d.js",
+    "runtime~app.js.map": "/into-the-graph/static/js/runtime~app.d85ed08d.js.map",
+    "static/js/2.4e91bc5e.chunk.js": "/into-the-graph/static/js/2.4e91bc5e.chunk.js",
+    "static/js/2.4e91bc5e.chunk.js.map": "/into-the-graph/static/js/2.4e91bc5e.chunk.js.map",
+    "favicon-16.png": "/into-the-graph/favicon-16.png",
+    "favicon-32.png": "/into-the-graph/favicon-32.png",
+    "favicon.ico": "/into-the-graph/favicon.ico",
+    "index.html": "/into-the-graph/index.html",
+    "manifest.json": "/into-the-graph/manifest.json",
+    "serve.json": "/into-the-graph/serve.json",
+    "static/js/2.4e91bc5e.chunk.js.LICENSE.txt": "/into-the-graph/static/js/2.4e91bc5e.chunk.js.LICENSE.txt",
+    "static/media/icon.png": "/into-the-graph/static/media/icon.72626586.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.d85ed08d.js",
+    "static/js/2.4e91bc5e.chunk.js",
+    "static/js/app.cf1d7bd8.chunk.js"
+  ]
+}
