@@ -47,6 +47,9 @@ export default function NavBar() {
         <Link to="/" className={classes.linkLogo}>
           <Tooltip title='Into the Graph homepage'>
             <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
+            {/* <Button className={classes.menuButton}>
+              🧭
+            </Button> */}
           </Tooltip>
         </Link>
         <Link to="/describe" className={classes.linkButton}>

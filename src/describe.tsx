@@ -16,7 +16,7 @@ $.DataTable = require('datatables.net');
 // From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
 // const $ = require('jquery');
 
-// import { Graph } from "perfect-graph";
+import { Graph } from "perfect-graph";
 
 import iconImage from '../assets/icon.png';
 
@@ -178,6 +178,15 @@ export default function Describe() {
     return encodeURIComponent(search_query);
   }
 
+  function convertStringToNumber(string_to_convert: string) {
+    let hash = 0, i, chr;
+    for (i = 0; i < string_to_convert.length; i++) {
+      chr   = string_to_convert.charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  }
 
   // On start of the page
   React.useEffect(() => {
@@ -300,9 +309,9 @@ export default function Describe() {
             position: { x: 10, y: 10 },
             data: {
               name: 'Institute of Data Science',
-              image: 'https://raw.githubusercontent.com/MaastrichtU-IDS/into-the-graph/main/assets/icon.png',
-              story: `Develop responsible data science by design to accelerate discovery across all sectors of society.`,
-              color: 'grey'
+              // image: 'https://raw.githubusercontent.com/MaastrichtU-IDS/into-the-graph/main/assets/icon.png',
+              story: `Develop responsible data science by design to accelerate discovery across all sectors of society.`
+              // color: 'grey'
             }
           },
           {
@@ -310,9 +319,9 @@ export default function Describe() {
             position: { x: 600, y: 10 },
             data: {
               name: 'Maastricht University',
-              image: 'https://raw.githubusercontent.com/MaastrichtU-IDS/into-the-graph/main/assets/icon.png',
-              story: `The most international university in the Netherlands, stands out for its innovative education model, and multidisciplinary approach to research and education.`,
-              color: 'grey'
+              // image: 'https://raw.githubusercontent.com/MaastrichtU-IDS/into-the-graph/main/assets/icon.png',
+              story: `The most international university in the Netherlands, stands out for its innovative education model, and multidisciplinary approach to research and education.`
+              // color: 'grey'
             }
           },
         ]}
@@ -322,10 +331,41 @@ export default function Describe() {
         renderNode={({ item: { data } }) => (
         <Graph.ProfileTemplate
           name={data.name}
-          image={data.image}
+          // image={data.image}
           story={data.story}
-          style={{ backgroundColor: '#eceff1' }}
+          // color= 'grey'
+          // style={{ backgroundColor: '#eceff1' }}
         />
+      )}
+      /> */}
+
+      {/* <Graph
+        style={{ width: '100%', height: 250 }}
+        nodes={[
+          {
+            id: 1,
+            position: { x: 10, y: 10 },
+            data: { city: 'Amsterdam' }
+          },
+          {
+            id: 2,
+            position: { x: 300, y: 10 },
+            data: { city: 'Maastricht' }
+          },
+        ]}
+        edges={[
+          { id: 51, source: 1, target: 2 }
+        ]}
+        renderNode={({ item: { data } }) => (
+          <Graph.View
+            style={{ width: 100, height: 100,}}
+          >
+            <Graph.Text
+              style={{ fontSize: 20 }}
+            >
+              {data.city}
+            </Graph.Text>
+          </Graph.View>
       )}
       /> */}
       
