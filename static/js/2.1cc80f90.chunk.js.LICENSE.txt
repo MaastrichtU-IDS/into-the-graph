@@ -16,20 +16,6 @@ object-assign
  */
 
 /*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*!
  * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
@@ -45,12 +31,6 @@ object-assign
 
 /*! DataTables 1.10.23
  * ©2008-2020 SpryMedia Ltd - datatables.net/license
- */
-
-/**
- * @file Web Cryptography API shim
- * @author Artem S Vybornov <vybornov@gmail.com>
- * @license MIT
  */
 
 /**
