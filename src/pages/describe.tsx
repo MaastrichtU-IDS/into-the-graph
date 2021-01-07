@@ -19,6 +19,7 @@ $.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
 import LinkDescribe from "../components/LinkDescribe";
+import Context from "../components/Context";
 
 
 const useStyles = makeStyles(theme => ({
@@ -75,6 +76,8 @@ export default function Describe() {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);
+
+  // const [context, setContext]: any = React.useContext(Context);
 
   // useLocation hook to get URL params
   let location = useLocation();
@@ -212,7 +215,23 @@ export default function Describe() {
     let describe_uri = params.get('uri');
     let describe_endpoint = params.get('endpoint');
 
-    // Default value if not provided
+    // Get sparql_endpoint from cookie intothegraphSettings
+    if (!describe_endpoint) {
+      const localStorageConfig = localStorage.getItem("intothegraphSettings");
+      if (localStorageConfig) {
+        let configState: any = JSON.parse(localStorageConfig);
+        describe_endpoint = configState.sparql_endpoint;
+      }
+    }
+
+    // console.log('context');
+    // console.log(context);
+    // if (!describe_endpoint && context.describe_endpoint) {
+    //   // Get endpoint from react Context
+    //   describe_endpoint = context.describe_endpoint;
+    // }
+
+    // TODO: handle default value somewhere else?
     if (!describe_uri) {
       describe_uri = 'http://bio2rdf.org/clinicaltrials:NCT00209495';
     }
@@ -222,9 +241,8 @@ export default function Describe() {
 
     updateState({describe_uri: describe_uri})
     updateState({describe_endpoint: describe_endpoint})
-
-    console.log('describe_endpoint');
-    console.log(describe_endpoint);
+    // Context not propagating properly, using cookie localStorage instead
+    // setContext(describe_endpoint)
 
     if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(describe_uri)) {
       // If URI provided
@@ -417,21 +435,7 @@ export default function Describe() {
           </Graph.View>
       )}
       /> */}
-      
-      {/* ERROR: */}
-      {/* TypeError: theme.colors is undefined
-Graph
-node_modules/perfect-graph/components/Graph/index.js:102
-
-   99 |   })('');
-  100 | }, [initialized, config.layout]);
-  101 | const theme = useTheme();
-> 102 | const backgroundColor = React.useMemo(() => C.rgbNumber(theme.colors.background), [theme.colors.background]);
-      | ^  103 | React.useEffect(() => {
-  104 |   stageRef.current.app.renderer.backgroundColor = backgroundColor;
-  105 | }, [backgroundColor]);
-   */}
-      
+    
     </Container>
   )
 }

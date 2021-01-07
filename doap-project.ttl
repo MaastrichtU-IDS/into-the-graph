@@ -6,7 +6,7 @@
 <https://w3id.org/um/ids/projects#into-the-graph>
   a doap:Project ;
   doap:name "Into the Graph" ;
-  doap:description '''A browser for SPARQL endpoints.''' ;
+  doap:description '''A lightweight web browser for SPARQL endpoints.''' ;
   bibo:status "Active" ;
 
   doap:programming-language "TypeScript" ;

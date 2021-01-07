@@ -1,12 +1,16 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, Paper, InputBase, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Paper, InputBase, IconButton, Popper, Typography } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SearchIcon from '@material-ui/icons/Search';
 import ExploreIcon from '@material-ui/icons/Explore';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import AppContext from "./Context";
+import Settings from "./Settings";
 
 // import iconImage from '../../assets/icon.png';
 
@@ -37,6 +41,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     display: 'flex',
   },
+  paperPadding: {
+    padding: theme.spacing(2, 2),
+    margin: theme.spacing(2, 2),
+  },
   // Search box
   paperSearch: {
     padding: '2px 4px',
@@ -60,12 +68,23 @@ const useStyles = makeStyles(theme => ({
 export default function NavBar(props: any) {
   const classes = useStyles();
 
+  // const [context, setContext] = React.useContext(AppContext);
+  // setContext("New Value")
+
   const [state, setState] = React.useState({
     solid_webid: '',
     search_text: '',
     describe_uri: '',
     describe_endpoint: ''
   });
+
+  // Popper for settings
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event: any) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popper' : undefined;
 
   // Avoid conflict when async calls
   const stateRef = React.useRef(state);
@@ -75,6 +94,8 @@ export default function NavBar(props: any) {
   }, [setState]);
 
   let history = useHistory();
+
+  // const appContext = React.useContext(AppContext);
 
   function submitSearch(event: any) {
     event.preventDefault();
@@ -105,18 +126,9 @@ export default function NavBar(props: any) {
           </Tooltip>
         </Link>
         <div className="flexGrow"></div>
-        {/* <a href="https://github.com/MaastrichtU-IDS/into-the-graph" 
-            target="_blank" rel="noopener noreferrer" className={classes.linkButton}>
-          <Tooltip title='External link'>
-            <Button className={classes.menuButton}>
-              <AssignmentIcon />
-              &nbsp;Import report
-            </Button>
-          </Tooltip>
-        </a> */}
         {/* <Tooltip title='Go to IDS Best Practices documentation'>
           <Button className={classes.menuButton} target="_blank"
-          href="https://maastrichtu-ids.github.io/best-practices">
+          href="https://maastrichtu-ids.github.io/best-practices" rel="noopener noreferrer">
             <MenuBookIcon />
           </Button>
         </Tooltip> */}
@@ -135,12 +147,22 @@ export default function NavBar(props: any) {
             <SearchIcon />
           </IconButton>
         </Paper>
+        <Tooltip  title='Application settings'>
+          <Button className={classes.menuButton} onClick={handleClick}>
+            <SettingsIcon />
+          </Button>
+        </Tooltip>
         <Tooltip  title='Go to https://github.com/MaastrichtU-IDS/into-the-graph'>
           <Button className={classes.menuButton} target="_blank"
           href="https://github.com/MaastrichtU-IDS/into-the-graph" rel="noopener noreferrer">
             <GitHubIcon />
           </Button>
         </Tooltip>
+        <Popper id={id} open={open} anchorEl={anchorEl}>
+          <Paper elevation={4} className={classes.paperPadding}>
+            <Settings />
+          </Paper>
+        </Popper>
         {/* <AuthButton title='Login with SOLID' className={classes.solidButton} popup="https://inrupt.net/common/popup.html"/> */}
       </Toolbar>
     </AppBar>
