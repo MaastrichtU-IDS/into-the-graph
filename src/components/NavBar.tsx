@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, Paper, InputBase, IconButton, Popper, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Paper, InputBase, IconButton, Popper, ClickAwayListener, Typography } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -75,13 +75,15 @@ export default function NavBar(props: any) {
     solid_webid: '',
     search_text: '',
     describe_uri: '',
-    describe_endpoint: ''
+    describe_endpoint: '',
+    // settings_open: false
   });
 
   // Popper for settings
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event: any) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    // updateState({ settings_open: true });
   };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
@@ -158,24 +160,29 @@ export default function NavBar(props: any) {
             <GitHubIcon />
           </Button>
         </Tooltip>
-        <Popper id={id} open={open} anchorEl={anchorEl}
-          modifiers={{
-            flip: {
-              enabled: true,
-            },
-            preventOverflow: {
-              enabled: true,
-              boundariesElement: 'scrollParent',
-            },
-            arrow: {
-              enabled: true,
-              element: anchorEl,
-            },
-          }}>
-          <Paper elevation={4} className={classes.paperPadding}>
-            <Settings />
-          </Paper>
-        </Popper>
+        {/* https://stackoverflow.com/questions/59733592/close-material-ui-popper-when-on-clickaway */}
+        {/* <ClickAwayListener onClickAway={(event: any) => setAnchorEl(anchorEl ? null : event.currentTarget)}> */}
+        {/* <ClickAwayListener onClickAway={setOpen(false)}> */}
+        <ClickAwayListener onClickAway={() => console.log('Click away')}>
+          <Popper open={open} anchorEl={anchorEl}
+            modifiers={{
+              flip: {
+                enabled: true,
+              },
+              preventOverflow: {
+                enabled: true,
+                boundariesElement: 'scrollParent',
+              },
+              // arrow: {
+              //   enabled: true,
+              //   element: anchorEl,
+              // },
+            }}>
+            <Paper elevation={4} className={classes.paperPadding}>
+              <Settings />
+            </Paper>
+          </Popper>
+        </ClickAwayListener>
         {/* <AuthButton title='Login with SOLID' className={classes.solidButton} popup="https://inrupt.net/common/popup.html"/> */}
       </Toolbar>
     </AppBar>

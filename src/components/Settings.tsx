@@ -1,6 +1,6 @@
 import React, { Component } from "react"; 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
+import { Typography, Popper, ClickAwayListener } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -80,7 +80,7 @@ export default function Settings() {
     sparql_endpoint_autocomplete: '',
     openapi_url_autocomplete: '',
     comunica_url_autocomplete: '',
-    filebrowser_url_autocomplete: ''
+    filebrowser_url_autocomplete: '',
   });
 
   // Avoid state conflict when async calls
@@ -221,271 +221,271 @@ export default function Settings() {
   const example_search_graphdb = "PREFIX luc: <http://www.ontotext.com/owlim/lucene#>\nSELECT ?foundUri ?foundLabel {\n    ?foundLabel luc:searchIndex '$TEXT_TO_SEARCH*' ;\n    luc:score ?score .\n    ?foundUri ?p ?foundLabel .\n} ORDER BY ?score LIMIT 200";
   const example_search_virtuoso = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri <http://www.w3.org/2000/01/rdf-schema#label> ?foundLabel .\n    ?foundLabel bif:contains '$TEXT_TO_SEARCH' .\n} LIMIT 200";
   const example_search_default = "SELECT ?foundUri ?foundLabel WHERE {\n    ?foundUri ?p ?foundLabel .\n    VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .\n    FILTER(isLiteral(?foundLabel))\n    FILTER contains(?foundLabel, '$TEXT_TO_SEARCH')\n} LIMIT 5";
+
   return (<Container className='mainContainer' style={{marginTop: '30px'}}>
-      <form onSubmit={(event) => {
-        handleSubmit(event)}}>
-          <FormControl className={classes.settingsForm}>
-            <Typography variant="h5" className={classes.paperTitle}>
-              SPARQL endpoint
-            </Typography>
-            <Autocomplete
-              onChange={handleAutocompleteEndpoint}
-              onInputChange={handleAutocompleteEndpoint}
-              // onChange={handleAutocomplete(event, 'sparql_endpoint')}
-              // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
-              id="autocomplete-sparql-endpoint"
-              options={sparqlEndointList}
-              // value={context.describe_endpoint}
-              freeSolo={true}
-              includeInputInList={true}
-              ListboxProps={{
-                className: classes.alignLeft,
-              }}
-              renderInput={params => <TextField {...params} 
-              label="SPARQL endpoint URL" 
-              variant="outlined" 
-              // getOptionLabel={option => option.title}
-              // style={{ width: 300 }}
-              // size='small'
-              />}
-            />
-          <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used to resolve URIs stored in a cookie 🍪</FormHelperText>
-          {/* <FormControl variant="outlined" 
-            className={classes.fullWidth}
-            >
-            <InputLabel id="form-graph-overview-label">
-              Graphs overview query type
-            </InputLabel>
-            <Select
-              labelId="form-graph-overview-label"
-              label="Graphs overview query type"
-              defaultValue={triplestore.graphs_overview}
-              inputRef={this.formGraphsOverview}
-              // MenuProps={{
-              //   className: classes.fullWidth,
-              // }}
-              // SelectDisplayProps={{
-              //   className: classes.smallerFont,
-              //   style: {width: '100%'}
-              // }}
-              InputProps={{
-                className: classes.smallerFont,
-                // style: {width: '100%'}
-              }}
-              autoWidth
-            >
-              <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
-              <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
-            </Select>
-          </FormControl>
-          <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized in Virtuoso)</FormHelperText>
-          <FormControl variant="outlined" 
-            className={classes.fullWidth}
-            >
-            <InputLabel id="form-graph-uri-resolution-label">
-              Resolution of Graph URIs
-            </InputLabel>
-            <Select
-              labelId="form-graph-uri-resolution-label"
-              label="Resolution of Graph URIs"
-              defaultValue={triplestore.graph_uri_resolution}
-              inputRef={this.formGraphUriResolution}
-              // MenuProps={{
-              //   className: classes.fullWidth,
-              // }}
-              // SelectDisplayProps={{
-              //   className: classes.smallerFont,
-              //   style: {width: '100%'}
-              // }}
-              InputProps={{
-                className: classes.smallerFont,
-                // style: {width: '100%'}
-              }}
-              autoWidth
-            >
-              <MenuItem value="classes">Show only classes in the graph</MenuItem>
-              <MenuItem value="triples">Show all triples in the graph (LDP, Nanopubs)</MenuItem>
-            </Select>
-          </FormControl>
-          <FormHelperText id="helper-graph-uri-resolution">What is shown when resolving a URI as a graph</FormHelperText>
-        </Paper>
-        <Paper elevation={2} className={classes.paperPadding}>
+    <form onSubmit={(event) => {
+      handleSubmit(event)}}>
+        <FormControl className={classes.settingsForm}>
           <Typography variant="h5" className={classes.paperTitle}>
-            Search query
-          </Typography>
-          <FormHelperText>
-            Change here the SPARQL query used when searching in the navbar search box. 
-            Use $TEXT_TO_SEARCH to define where the text to search will be replaced in the query.
-            It should return a ?foundUri and a ?foundLabel to be displayed by the app.
-          </FormHelperText>
-          <TextField
-            id="textfield-search-query"
-            label="Search query used by the app"
-            placeholder="Search query used by the app"
-            className={classes.fullWidth}
-            defaultValue={triplestore.search_query}
-            variant="outlined"
-            inputRef={this.formSearchQuery}
-            multiline={true}
-            // size='small'
-            InputProps={{
-              className: classes.normalFont
-            }}
-            InputLabelProps={{
-              className: classes.normalFont
-            }}
-          />
-          <FormHelperText>
-            You can use those examples queries to use GraphDB or Virtuoso Search Index (it needs to have been enabled in the triplestore before):
-          </FormHelperText>
-          <TextField 
-            className={classes.fullWidth}
-            id="search-graphdb" 
-            label="Search query for Ontotext GraphDB" 
-            variant="outlined" multiline={true}
-            value={example_search_graphdb}
-            size='small'
-            InputProps={{
-              className: classes.smallerFont
-            }}
-            InputLabelProps={{
-              className: classes.smallerFont
-            }}
-          />
-          <TextField 
-            className={classes.fullWidth}
-            id="search-virtuoso" 
-            label="Search query for OpenLink Virtuoso" 
-            variant="outlined" multiline={true}
-            value={example_search_virtuoso}
-            size='small'
-            InputProps={{
-              className: classes.smallerFont
-            }}
-            InputLabelProps={{
-              className: classes.smallerFont
-            }}
-          />
-        <TextField 
-            className={classes.fullWidth}
-            id="search-default" 
-            label="Default search query" 
-            variant="outlined" multiline={true}
-            value={example_search_default}
-            size='small'
-            InputProps={{
-              className: classes.smallerFont
-            }}
-            InputLabelProps={{
-              className: classes.smallerFont
-            }}
-          />
-        </Paper>
-        <Paper elevation={2} className={classes.paperPadding}>
-          <Typography variant="h5" className={classes.paperTitle}>
-            Interfaces
+            Settings
           </Typography>
           <Autocomplete
-            onChange={this.handleAutocomplete.bind(this, 'openapi_url')}
-            onInputChange={this.handleAutocomplete.bind(this, 'openapi_url')}
-            id="autocomplete-openapi-url"
-            options={openapiList}
-            value={this.context.triplestore.openapi_url}
+            onChange={handleAutocompleteEndpoint}
+            onInputChange={handleAutocompleteEndpoint}
+            // onChange={handleAutocomplete(event, 'sparql_endpoint')}
+            // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
+            id="autocomplete-sparql-endpoint"
+            options={sparqlEndointList}
+            // value={context.describe_endpoint}
             freeSolo={true}
             includeInputInList={true}
             ListboxProps={{
               className: classes.alignLeft,
             }}
             renderInput={params => <TextField {...params} 
-            label="Reasoner API URL"
+            label="SPARQL endpoint URL" 
             variant="outlined" 
             // getOptionLabel={option => option.title}
             // style={{ width: 300 }}
             // size='small'
             />}
           />
-          <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
-          <Autocomplete
-            onChange={this.handleAutocomplete.bind(this, 'comunica_url')}
-            onInputChange={this.handleAutocomplete.bind(this, 'comunica_url')}
-            id="autocomplete-comunica-url"
-            options={comunicaList}
-            value={this.context.triplestore.comunica_url}
-            freeSolo={true}
-            includeInputInList={true}
-            ListboxProps={{
-              className: classes.alignLeft,
+        <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used to resolve URIs, stored in a cookie 🍪</FormHelperText>
+        {/* <FormControl variant="outlined" 
+          className={classes.fullWidth}
+          >
+          <InputLabel id="form-graph-overview-label">
+            Graphs overview query type
+          </InputLabel>
+          <Select
+            labelId="form-graph-overview-label"
+            label="Graphs overview query type"
+            defaultValue={triplestore.graphs_overview}
+            inputRef={this.formGraphsOverview}
+            // MenuProps={{
+            //   className: classes.fullWidth,
+            // }}
+            // SelectDisplayProps={{
+            //   className: classes.smallerFont,
+            //   style: {width: '100%'}
+            // }}
+            InputProps={{
+              className: classes.smallerFont,
+              // style: {width: '100%'}
             }}
-            renderInput={params => <TextField {...params} 
-            label="Comunica widget URL (Archives)"
-            variant="outlined" 
-            />}
-          />
-          <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
-          <Autocomplete
-            onChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
-            onInputChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
-            id="autocomplete-filebrowser-url"
-            options={filebrowserList}
-            value={this.context.triplestore.filebrowser_url}
-            freeSolo={true}
-            includeInputInList={true}
-            ListboxProps={{
-              className: classes.alignLeft,
-            }}
-            renderInput={params => <TextField {...params} 
-            label="Filebrowser URL to download RDF dumps"
-            variant="outlined" 
-            />}
-          />
-          <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText> */}
-          <Button type="submit"
-          variant="contained" 
-          // className={classes.saveButton} 
-          // startIcon={<Icon>save</Icon>}
-          color="primary" >
-            <SaveIcon />&nbsp;Save settings
-          </Button>
-          {/* <Button
-          variant="contained" size="small" 
-          className={classes.saveButton} 
-          onClick={this.confirmDeleteCache}
-          startIcon={<Icon>delete</Icon>}
-          color="secondary" >
-            Delete cache
-          </Button> */}
-          <Snackbar open={state.open} onClose={handleClose} autoHideDuration={3000}>
-            {/* <Alert severity="success">
-              Settings has been saved
-            </Alert> */}
-          </Snackbar>
+            autoWidth
+          >
+            <MenuItem value="hcls">HCLS descriptive metadata</MenuItem>
+            <MenuItem value="all">Get all graphs (optimized in Virtuoso)</MenuItem>
+          </Select>
         </FormControl>
-      </form>
-      {/* <Dialog
-        open={this.state.dialogOpen}
-        onClose={this.handleDialogClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Delete the cache?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            This will delete the cache containing your current settings.<br/>
-            This can help resolve issues related to the cache.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.doDeleteCache} color="secondary">
-            Delete cache
-          </Button>
-          <Button onClick={this.handleDialogClose} color="primary" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog> */}
-    </Container>
+        <FormHelperText id="helper-graphs-overview">2 possibilities: "hcls" gets only graphs described using HCLS metadata and "all" get all graphs (optimized in Virtuoso)</FormHelperText>
+        <FormControl variant="outlined" 
+          className={classes.fullWidth}
+          >
+          <InputLabel id="form-graph-uri-resolution-label">
+            Resolution of Graph URIs
+          </InputLabel>
+          <Select
+            labelId="form-graph-uri-resolution-label"
+            label="Resolution of Graph URIs"
+            defaultValue={triplestore.graph_uri_resolution}
+            inputRef={this.formGraphUriResolution}
+            // MenuProps={{
+            //   className: classes.fullWidth,
+            // }}
+            // SelectDisplayProps={{
+            //   className: classes.smallerFont,
+            //   style: {width: '100%'}
+            // }}
+            InputProps={{
+              className: classes.smallerFont,
+              // style: {width: '100%'}
+            }}
+            autoWidth
+          >
+            <MenuItem value="classes">Show only classes in the graph</MenuItem>
+            <MenuItem value="triples">Show all triples in the graph (LDP, Nanopubs)</MenuItem>
+          </Select>
+        </FormControl>
+        <FormHelperText id="helper-graph-uri-resolution">What is shown when resolving a URI as a graph</FormHelperText>
+      </Paper>
+      <Paper elevation={2} className={classes.paperPadding}>
+        <Typography variant="h5" className={classes.paperTitle}>
+          Search query
+        </Typography>
+        <FormHelperText>
+          Change here the SPARQL query used when searching in the navbar search box. 
+          Use $TEXT_TO_SEARCH to define where the text to search will be replaced in the query.
+          It should return a ?foundUri and a ?foundLabel to be displayed by the app.
+        </FormHelperText>
+        <TextField
+          id="textfield-search-query"
+          label="Search query used by the app"
+          placeholder="Search query used by the app"
+          className={classes.fullWidth}
+          defaultValue={triplestore.search_query}
+          variant="outlined"
+          inputRef={this.formSearchQuery}
+          multiline={true}
+          // size='small'
+          InputProps={{
+            className: classes.normalFont
+          }}
+          InputLabelProps={{
+            className: classes.normalFont
+          }}
+        />
+        <FormHelperText>
+          You can use those examples queries to use GraphDB or Virtuoso Search Index (it needs to have been enabled in the triplestore before):
+        </FormHelperText>
+        <TextField 
+          className={classes.fullWidth}
+          id="search-graphdb" 
+          label="Search query for Ontotext GraphDB" 
+          variant="outlined" multiline={true}
+          value={example_search_graphdb}
+          size='small'
+          InputProps={{
+            className: classes.smallerFont
+          }}
+          InputLabelProps={{
+            className: classes.smallerFont
+          }}
+        />
+        <TextField 
+          className={classes.fullWidth}
+          id="search-virtuoso" 
+          label="Search query for OpenLink Virtuoso" 
+          variant="outlined" multiline={true}
+          value={example_search_virtuoso}
+          size='small'
+          InputProps={{
+            className: classes.smallerFont
+          }}
+          InputLabelProps={{
+            className: classes.smallerFont
+          }}
+        />
+      <TextField 
+          className={classes.fullWidth}
+          id="search-default" 
+          label="Default search query" 
+          variant="outlined" multiline={true}
+          value={example_search_default}
+          size='small'
+          InputProps={{
+            className: classes.smallerFont
+          }}
+          InputLabelProps={{
+            className: classes.smallerFont
+          }}
+        />
+      </Paper>
+      <Paper elevation={2} className={classes.paperPadding}>
+        <Typography variant="h5" className={classes.paperTitle}>
+          Interfaces
+        </Typography>
+        <Autocomplete
+          onChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+          onInputChange={this.handleAutocomplete.bind(this, 'openapi_url')}
+          id="autocomplete-openapi-url"
+          options={openapiList}
+          value={this.context.triplestore.openapi_url}
+          freeSolo={true}
+          includeInputInList={true}
+          ListboxProps={{
+            className: classes.alignLeft,
+          }}
+          renderInput={params => <TextField {...params} 
+          label="Reasoner API URL"
+          variant="outlined" 
+          // getOptionLabel={option => option.title}
+          // style={{ width: 300 }}
+          // size='small'
+          />}
+        />
+        <FormHelperText id="helper-graphs-overview">URL to the OpenAPI UI to perform Reasoner API queries and RESTful queries to explore the SPARQL endpoint (require a RDF Knowledge graph compliant with the BioLink model)</FormHelperText>
+        <Autocomplete
+          onChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+          onInputChange={this.handleAutocomplete.bind(this, 'comunica_url')}
+          id="autocomplete-comunica-url"
+          options={comunicaList}
+          value={this.context.triplestore.comunica_url}
+          freeSolo={true}
+          includeInputInList={true}
+          ListboxProps={{
+            className: classes.alignLeft,
+          }}
+          renderInput={params => <TextField {...params} 
+          label="Comunica widget URL (Archives)"
+          variant="outlined" 
+          />}
+        />
+        <FormHelperText id="helper-graphs-overview">URL to the Comunica widget to expose a Triple Pattern Fragment server to query archives.</FormHelperText>
+        <Autocomplete
+          onChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+          onInputChange={this.handleAutocomplete.bind(this, 'filebrowser_url')}
+          id="autocomplete-filebrowser-url"
+          options={filebrowserList}
+          value={this.context.triplestore.filebrowser_url}
+          freeSolo={true}
+          includeInputInList={true}
+          ListboxProps={{
+            className: classes.alignLeft,
+          }}
+          renderInput={params => <TextField {...params} 
+          label="Filebrowser URL to download RDF dumps"
+          variant="outlined" 
+          />}
+        />
+        <FormHelperText id="helper-graphs-overview">URL to the filebrowser to download RDF data dumps of the different graphs (needs to be manually exported at the moment)</FormHelperText> */}
+        <Button type="submit"
+        variant="contained" 
+        // className={classes.saveButton} 
+        // startIcon={<Icon>save</Icon>}
+        color="primary" >
+          <SaveIcon />&nbsp;Save settings
+        </Button>
+        {/* <Button
+        variant="contained" size="small" 
+        className={classes.saveButton} 
+        onClick={this.confirmDeleteCache}
+        startIcon={<Icon>delete</Icon>}
+        color="secondary" >
+          Delete cache
+        </Button> */}
+        <Snackbar open={state.open} onClose={handleClose} autoHideDuration={3000}>
+          {/* <Alert severity="success">
+            Settings has been saved
+          </Alert> */}
+        </Snackbar>
+      </FormControl>
+    </form>
+    {/* <Dialog
+      open={this.state.dialogOpen}
+      onClose={this.handleDialogClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Delete the cache?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          This will delete the cache containing your current settings.<br/>
+          This can help resolve issues related to the cache.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.doDeleteCache} color="secondary">
+          Delete cache
+        </Button>
+        <Button onClick={this.handleDialogClose} color="primary" autoFocus>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog> */}
+  </Container>
   );
-
 }
 
 // Turgay snippet:
