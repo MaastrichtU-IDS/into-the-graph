@@ -118,7 +118,7 @@ export default function NavBar(props: any) {
             </Button>
           </Tooltip>  
         </Link>
-        <Link to="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql" className={classes.linkButton}>
+        <Link to="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495" className={classes.linkButton}>
           <Tooltip title='Describe an URI in a SPARQL endpoint'>
             <Button className={classes.menuButton}>
               <SearchIcon />&nbsp;Describe URI
@@ -158,7 +158,20 @@ export default function NavBar(props: any) {
             <GitHubIcon />
           </Button>
         </Tooltip>
-        <Popper id={id} open={open} anchorEl={anchorEl}>
+        <Popper id={id} open={open} anchorEl={anchorEl}
+          modifiers={{
+            flip: {
+              enabled: true,
+            },
+            preventOverflow: {
+              enabled: true,
+              boundariesElement: 'scrollParent',
+            },
+            arrow: {
+              enabled: true,
+              element: anchorEl,
+            },
+          }}>
           <Paper elevation={4} className={classes.paperPadding}>
             <Settings />
           </Paper>

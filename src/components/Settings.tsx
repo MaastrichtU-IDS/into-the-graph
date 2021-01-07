@@ -249,7 +249,7 @@ export default function Settings() {
               // size='small'
               />}
             />
-          <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used by the into-the-graph app to resolve URIs.</FormHelperText>
+          <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL used to resolve URIs stored in a cookie 🍪</FormHelperText>
           {/* <FormControl variant="outlined" 
             className={classes.fullWidth}
             >

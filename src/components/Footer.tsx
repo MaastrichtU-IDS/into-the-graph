@@ -72,6 +72,7 @@ export default function Footer() {
             href="https://github.com/MaastrichtU-IDS/into-the-graph/blob/main/LICENSE">
               MIT license
             </a>
+            <br/>License of the displayed data is defined by the SPARQL endpoint provider
             {/* <img src={require('../assets/images/mit_license.png')} /> */}
           </Typography>
           <Copyright />
