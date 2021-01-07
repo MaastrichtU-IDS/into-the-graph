@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Paper, InputBase, IconButton } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -37,10 +37,54 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     display: 'flex',
   },
+  // Search box
+  paperSearch: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    // 50% of top appbar
+    width: `40%`,
+  },
+  searchInput: {
+    marginLeft: theme.spacing(1),
+    // Hardcoded width for search input
+    width: '50%',
+    fontSize: '14px',
+    flex: 1,
+  },
+  iconButton: {
+    padding: 5,
+  },
 }))
   
-export default function NavBar() {
+export default function NavBar(props: any) {
   const classes = useStyles();
+
+  const [state, setState] = React.useState({
+    solid_webid: '',
+    search_text: '',
+    describe_uri: '',
+    describe_endpoint: ''
+  });
+
+  // Avoid conflict when async calls
+  const stateRef = React.useRef(state);
+  const updateState = React.useCallback((update) => {
+    stateRef.current = {...stateRef.current, ...update};
+    setState(stateRef.current);
+  }, [setState]);
+
+  let history = useHistory();
+
+  function submitSearch(event: any) {
+    event.preventDefault();
+    history.push('/describe?uri=' + state.search_text)
+    // Hard reload of the page: location.reload();
+  }
+
+  function handleChange(event: any) {
+    updateState({search_text: event.target.value});
+  }
 
   return (
     <AppBar title="" position='static'>
@@ -76,6 +120,21 @@ export default function NavBar() {
             <MenuBookIcon />
           </Button>
         </Tooltip> */}
+        <Paper component="form" className={classes.paperSearch}
+          onSubmit={submitSearch}
+        >
+          <InputBase  // https://material-ui.com/api/input-base/
+            className={classes.searchInput}
+            // placeholder="Search SPARQL endpoint"
+            placeholder={"Search"}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'search' }}
+            // fullWidth={true}
+          />
+          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
         <Tooltip  title='Go to https://github.com/MaastrichtU-IDS/into-the-graph'>
           <Button className={classes.menuButton} target="_blank"
           href="https://github.com/MaastrichtU-IDS/into-the-graph" rel="noopener noreferrer">

@@ -4,7 +4,7 @@ import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper } from "
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
 
-import { LoggedIn, LoggedOut, Value, useWebId } from '@solid/react';
+// import { LoggedIn, LoggedOut, Value, useWebId } from '@solid/react';
 
 // import { Like } from '@solid/react';
 // import SolidStar from "./SolidStar";
@@ -69,7 +69,7 @@ export default function Homepage() {
   }, [setState]);
 
   // useLocation hook to get SOLID WebID
-  let solid_webid = useWebId();
+  // let solid_webid = useWebId();
 
 
   // function createEmptyDocument() {
@@ -120,7 +120,7 @@ export default function Homepage() {
 
       <Paper elevation={4} className={classes.paperPadding}>
         <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px', marginTop: '15px'}}>
-          Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried, such as:
+          Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried in the URL parameters, such as:
         </Typography>
 
         <Typography variant="h5" style={{textAlign: 'center', marginBottom: '20px'}}>
@@ -133,7 +133,7 @@ export default function Homepage() {
         <b>Into the Graph</b> provides a simple RDF web browser that just need a SPARQL endpoint URL to resolve URIs, and explore the available linked data.
       </Typography>
       
-      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '10px'}}>
+      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '20px'}}>
         This linked data browser features:
         <br/>🔎 A web-based UI to browse any SPARQL endpoints content easily
         <br/>🕸️ Native support for graphs (nquads)
