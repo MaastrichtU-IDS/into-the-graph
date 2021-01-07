@@ -339,7 +339,7 @@ export default function Describe() {
         <Paper elevation={2} className={classes.paperPadding}>
           <Typography variant="body2">
             The request to the SPARQL endpoint failed, try to <a href="" className={classes.link}>reload the page ♻️</a><br/>
-            Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.link} target='_blank'>
+            Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.link} target='_blank' rel="noopener noreferrer">
               enable CORS requests</a> in your browser.
           </Typography>
         </Paper>
