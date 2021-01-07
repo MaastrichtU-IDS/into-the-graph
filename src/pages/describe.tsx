@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button } from "@material-ui/core";
+import { Typography, Container, Paper, Grid, CircularProgress, Button } from "@material-ui/core";
 import axios from 'axios';
 
 // Official datatables.net docs
@@ -22,6 +22,15 @@ import LinkDescribe from "../components/LinkDescribe";
 
 
 const useStyles = makeStyles(theme => ({
+  link: {
+    textDecoration: 'none',
+    textTransform: 'none',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      color: theme.palette.secondary.main,
+      textDecoration: 'none',
+    },
+  },
   fullWidth: {
     width: '100%',
   },
@@ -41,15 +50,15 @@ const useStyles = makeStyles(theme => ({
   paperTitle: {
     fontWeight: 300,
     marginBottom: theme.spacing(1),
+  },
+  loadSpinner: {
+    padding: theme.spacing(10, 10)
   }
 }))
 
 
 export default function Describe() {
   const classes = useStyles();
-
-  // useLocation hook to get URL params
-  let location = useLocation();
 
   const [state, setState] = React.useState({
     describe_uri: '',
@@ -59,17 +68,19 @@ export default function Describe() {
     isLoading: true,
     requestError: false
   });
-
   const stateRef = React.useRef(state);
-
-  // TODO: dont work to use Ref for datatables.net
-  // const datatableRef = React.useRef(null);
 
   // Avoid conflict when async calls
   const updateState = React.useCallback((update) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);
+
+  // useLocation hook to get URL params
+  let location = useLocation();
+
+  // TODO: dont work to use Ref for datatables.net
+  // const datatableRef = React.useRef(null);
   
   // Build SPARQL query to describe a URI
   function getDescribeQuery(uri_to_describe: any) {
@@ -188,9 +199,13 @@ export default function Describe() {
     return hash;
   }
 
-  // On start of the page
+  // Run on start of the page
   React.useEffect(() => {
-    
+    // Reset state
+    updateState({describe_results: {}})
+    updateState({search_results: {}})
+    updateState({isLoading: true})
+
     // Get URL params 
     const params = new URLSearchParams(location.search + location.hash);
 
@@ -266,6 +281,11 @@ export default function Describe() {
         {state.describe_uri}
       </Typography>
 
+      {state.isLoading && (
+        <CircularProgress className={classes.loadSpinner} />
+      )}
+
+      {/* Display a datatable with subject, predicate, object, graph retrieved */}
       {state.describe_results.length > 0 && ( 
         // <table table="true" ref={datatableRef}>
         <Paper elevation={4} className={classes.paperPadding}>
@@ -293,6 +313,35 @@ export default function Describe() {
               })}
             </tbody>
           </table>
+        </Paper>
+      )}
+
+      {/* Show results of full text search query */}
+      {state.search_results.length > 0 &&
+        <Paper elevation={4} className={classes.paperPadding}>
+            {state.search_results.map(function(searchResult: any, key: number){
+              return <Grid container spacing={2} alignItems="center" key={key}>
+                <Grid item xs={6}>
+                  <Paper className={classes.paperPadding}>
+                    <LinkDescribe variant='body2' uri={searchResult.foundUri.value}/>
+                  </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body2">{searchResult.foundLabel.value}</Typography>
+                </Grid>
+              </Grid>
+            })}
+        </Paper>
+      }
+
+      {/* Show error message (if request fails) */}
+      {state.requestError && (
+        <Paper elevation={2} className={classes.paperPadding}>
+          <Typography variant="body2">
+            The request to the SPARQL endpoint failed, try to <a href="" className={classes.link}>reload the page ♻️</a><br/>
+            Or&nbsp;<a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.link} target='_blank'>
+              enable CORS requests</a> in your browser.
+          </Typography>
         </Paper>
       )}
 
@@ -345,12 +394,12 @@ export default function Describe() {
           {
             id: 1,
             position: { x: 10, y: 10 },
-            data: { city: 'Amsterdam' }
+            data: { city: 'Amsterdam',  color: 'red' }
           },
           {
             id: 2,
             position: { x: 300, y: 10 },
-            data: { city: 'Maastricht' }
+            data: { city: 'Maastricht', color: 'blue' }
           },
         ]}
         edges={[
@@ -358,7 +407,7 @@ export default function Describe() {
         ]}
         renderNode={({ item: { data } }) => (
           <Graph.View
-            style={{ width: 100, height: 100,}}
+            style={{ width: 100, height: 100, backgroundColor: data.color}}
           >
             <Graph.Text
               style={{ fontSize: 20 }}
@@ -369,6 +418,19 @@ export default function Describe() {
       )}
       /> */}
       
+      {/* ERROR: */}
+      {/* TypeError: theme.colors is undefined
+Graph
+node_modules/perfect-graph/components/Graph/index.js:102
+
+   99 |   })('');
+  100 | }, [initialized, config.layout]);
+  101 | const theme = useTheme();
+> 102 | const backgroundColor = React.useMemo(() => C.rgbNumber(theme.colors.background), [theme.colors.background]);
+      | ^  103 | React.useEffect(() => {
+  104 |   stageRef.current.app.renderer.backgroundColor = backgroundColor;
+  105 | }, [backgroundColor]);
+   */}
       
     </Container>
   )

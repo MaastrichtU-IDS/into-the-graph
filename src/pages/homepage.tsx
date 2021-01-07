@@ -112,7 +112,7 @@ export default function Homepage() {
   // Trying out the SOLID webId hook
 
   return(
-    <Container className='mainContainer'>
+    <Container className='mainContainer' style={{ textAlign: 'left' }}>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: '15px'}}>
         🧭 Into the Graph
         {/* <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" /> */}
