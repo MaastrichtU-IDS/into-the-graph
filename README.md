@@ -2,9 +2,7 @@
 
 [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/into-the-graph/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/into-the-graph/actions?query=workflow%3A%22Deploy+website+to+GitHub+Pages%22) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/into-the-graph/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/into-the-graph/actions?query=workflow%3A%22CodeQL+analysis%22) 
 
-The motivation behind this linked data browser was to provide a fast [RDF](https://www.w3.org/RDF/) browser that just need a SPARQL endpoint URL to give a comfortable experience when exploring differents triplestores.
-
-This browser supports graphs natively (n-quads), which most RDF linked data browser don't at the moment, this gives a net gain of 33% of informations for each statement! 📈 
+Lightweight and fast [RDF](https://www.w3.org/RDF/) browser that just need a SPARQL endpoint URL to give a comfortable experience when exploring differents graphs.
 
 **Browse a RDF triplestore by providing the SPARQL endpoint URL directly in the browser.** 
 
@@ -12,11 +10,7 @@ This browser supports graphs natively (n-quads), which most RDF linked data brow
 
 This RDF linked data browser features:
 
-* A web-based UI to browse SPARQL endpoints content easily.
-  * Stateful URL to resolve a specific URI in a specific SPARQL endpoint can be defined using the `uri` and `endpoint` parameters
-  * Example to resolve the [URI of a Gene-Disease association](http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b ) in the [DisGeNET SPARQL endpoint](http://rdf.disgenet.org/sparql/):
-  * http://trek.semanticscience.org/describe?uri=http://rdf.disgenet.org/resource/gda/DGN06012220986003d9ecac664f0865140b&endpoint=http://rdf.disgenet.org/sparql/
-  * Tested with RDF4J (Ontotext GraphDB) and Virtuoso SPARQL endpoints.
+* A web-based UI to browse SPARQL endpoints content easily. Stateful URL to resolve a specific URI in a specific SPARQL endpoint can be defined using the `uri` and `endpoint` parameters. Tested with RDF4J (Ontotext GraphDB) and Virtuoso SPARQL endpoints.
 * Easily search for concepts in the triplestore. Possibility to change the SPARQL query to define the custom query to use the Search index of different triplestores in [settings](http://trek.semanticscience.org/settings) (Ontotext GraphDB and Virtuoso triplestores documented).
 * Work in progress: insights about the content of the triplestore and its different graphs, using precomputed [HCLS descriptives statistics](https://www.w3.org/TR/hcls-dataset/).
 
