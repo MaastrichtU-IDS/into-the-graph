@@ -124,7 +124,7 @@ export default function Homepage() {
           Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried in the URL parameters, such as:
         </Typography>
 
-        <Typography variant="h5" style={{textAlign: 'center', marginBottom: '20px'}}>
+        <Typography variant="h5" style={{textAlign: 'center', marginBottom: '15px'}}>
           <Link to={{
             pathname: '/describe',
             search: '?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql',
@@ -134,7 +134,7 @@ export default function Homepage() {
         </Typography>
       </Paper>
 
-      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '20px'}}>
+      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '20px', marginTop: '30px'}}>
         <b>Into the Graph</b> provides a simple RDF web browser that just need a SPARQL endpoint URL to resolve URIs, and explore the available linked data.
       </Typography>
       

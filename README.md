@@ -85,7 +85,7 @@ yarn dev
 Upgrade the packages versions in `yarn.lock`
 
 ```bash
-yarn upgrade
+yarn upgrade perfect-graph unitx-ui unitx
 ```
 
 # 🚀 Run in production 

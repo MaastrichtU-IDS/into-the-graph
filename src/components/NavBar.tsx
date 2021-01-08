@@ -18,7 +18,8 @@ import Settings from "./Settings";
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
+    margin: theme.spacing(1, 1),
   },
   solidButton: {
     backgroundColor: theme.palette.primary.main,
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   linkButton: {
     textTransform: 'none',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   linkLogo: {
     // Seems to fit the 48px navbar height...
@@ -163,26 +164,27 @@ export default function NavBar(props: any) {
         {/* https://stackoverflow.com/questions/59733592/close-material-ui-popper-when-on-clickaway */}
         {/* <ClickAwayListener onClickAway={(event: any) => setAnchorEl(anchorEl ? null : event.currentTarget)}> */}
         {/* <ClickAwayListener onClickAway={setOpen(false)}> */}
-        <ClickAwayListener onClickAway={() => console.log('Click away')}>
           <Popper open={open} anchorEl={anchorEl}
-            modifiers={{
-              flip: {
-                enabled: true,
-              },
-              preventOverflow: {
-                enabled: true,
-                boundariesElement: 'scrollParent',
-              },
+            // modifiers={{
+            //   flip: {
+            //     enabled: true,
+            //   },
+            //   preventOverflow: {
+            //     enabled: true,
+            //     boundariesElement: 'scrollParent',
+            //   },
               // arrow: {
               //   enabled: true,
               //   element: anchorEl,
-              // },
-            }}>
-            <Paper elevation={4} className={classes.paperPadding}>
-              <Settings />
-            </Paper>
+              // }, }}
+            >
+            <ClickAwayListener onClickAway={() => console.log('Click away')}>
+              <Paper elevation={4} className={classes.paperPadding}>
+                <Settings />
+              </Paper>
+            </ClickAwayListener>
           </Popper>
-        </ClickAwayListener>
+        {/* </ClickAwayListener> */}
         {/* <AuthButton title='Login with SOLID' className={classes.solidButton} popup="https://inrupt.net/common/popup.html"/> */}
       </Toolbar>
     </AppBar>

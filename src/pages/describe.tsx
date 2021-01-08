@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,  useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Paper, Grid, CircularProgress, Button } from "@material-ui/core";
 import axios from 'axios';
 
@@ -18,6 +18,8 @@ const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
+import { ApplicationProvider } from 'unitx-ui'
+
 import LinkDescribe from "../components/LinkDescribe";
 import Context from "../components/Context";
 
@@ -54,12 +56,16 @@ const useStyles = makeStyles(theme => ({
   },
   loadSpinner: {
     padding: theme.spacing(10, 10)
+  },
+  datatable_text: {
+    wordBreak: 'break-word'
   }
 }))
 
 
 export default function Describe() {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [state, setState] = React.useState({
     describe_uri: '',
@@ -255,7 +261,9 @@ export default function Describe() {
           updateState({describe_results: sparql_results_array})
           updateState({isLoading: false})
 
-          $('#datatableRef').DataTable();
+          $('#datatableRef').DataTable({
+            "autoWidth": false
+          });
         
           // const table = $(datatableRef).find('table').DataTable();
           // Getting error when using useRef
@@ -307,7 +315,7 @@ export default function Describe() {
       {state.describe_results.length > 0 && ( 
         // <table table="true" ref={datatableRef}>
         <Paper elevation={4} className={classes.paperPadding}>
-          <table id='datatableRef' >
+          <table id='datatableRef' style={{ wordBreak: 'break-all' }}>
             <thead>
               <tr>
                 <th>Subject</th>
@@ -363,6 +371,27 @@ export default function Describe() {
         </Paper>
       )}
 
+      {/* {!state.loadSpinner && ( */}
+      {/* {!state.requestError && !state.search_results && !state.describe_results && !state.loadSpinner && ( */}
+      {console.log(state.search_results.length)}
+      {/* No results for URI resolution */}
+      {!state.requestError && !state.isLoading && state.describe_results.length < 1 && !state.search_results.length && (
+        <Paper elevation={2} className={classes.paperPadding}>
+          <Typography variant="body2">
+            We could not find a match for your URI in the SPARQL endpoint.
+          </Typography>
+        </Paper>
+      )}
+
+      {/* No results for Search */}
+      {!state.requestError && !state.isLoading && state.search_results.length < 1 && !state.describe_results.length && (
+        <Paper elevation={2} className={classes.paperPadding}>
+          <Typography variant="body2">
+            We could not find a match for your search in the SPARQL endpoint.
+          </Typography>
+        </Paper>
+      )}
+
       {/* Iterate a JSON object: */}
       {/* {Object.keys(state.repositories_hash).map(function(repo: any){ ... })  */}
 
@@ -406,35 +435,39 @@ export default function Describe() {
       )}
       /> */}
 
-      {/* <Graph
-        style={{ width: '100%', height: 250 }}
-        nodes={[
-          {
-            id: 1,
-            position: { x: 10, y: 10 },
-            data: { city: 'Amsterdam',  color: 'red' }
-          },
-          {
-            id: 2,
-            position: { x: 300, y: 10 },
-            data: { city: 'Maastricht', color: 'blue' }
-          },
-        ]}
-        edges={[
-          { id: 51, source: 1, target: 2 }
-        ]}
-        renderNode={({ item: { data } }) => (
-          <Graph.View
-            style={{ width: 100, height: 100, backgroundColor: data.color}}
-          >
-            <Graph.Text
-              style={{ fontSize: 20 }}
-            >
-              {data.city}
-            </Graph.Text>
-          </Graph.View>
-      )}
-      /> */}
+      <Paper elevation={4} className={classes.paperPadding} style={{ marginTop: '20px'}}>
+        <ApplicationProvider>
+          <Graph
+            style={{ width: '100%', height: 250 }}
+            nodes={[
+              {
+                id: '1',
+                position: { x: 10, y: 10 },
+                data: { city: 'Amsterdam', color: 'red' },
+              },
+              {
+                id: '2',
+                position: { x: 300, y: 10 },
+                data: { city: 'Maastricht', color: 'blue' },
+              },
+            ]}
+            edges={[
+              { id: 51, source: '1', target: '2' },
+            ]}
+            renderNode={({ item: { data } }: any) => (
+              <Graph.View
+                style={{ width: 100, height: 100, backgroundColor: data.color }}
+              >
+                <Graph.Text
+                  style={{ fontSize: 20 }}
+                >
+                  {data.city}
+                </Graph.Text>
+              </Graph.View>
+            )}
+          />
+        </ApplicationProvider>
+      </Paper>
     
     </Container>
   )
