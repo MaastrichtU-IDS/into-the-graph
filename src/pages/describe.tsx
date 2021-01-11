@@ -502,46 +502,47 @@ export default function Describe() {
       )}
       /> */}
 
-      <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-        {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
-        Perfect Graph visualization
-        {/* </a> */}
-      </Typography>
-
-      <Paper elevation={4} className={classes.paperPadding}>
-        <ApplicationProvider>
-          <Graph
-            style={{ width: '100%', height: 800 }}
-            nodes={state.graph_data.nodes}
-            edges={state.graph_data.edges}
-            // nodes={[
-            //   {
-            //     id: '1',
-            //     position: { x: 10, y: 10 },
-            //     data: { city: 'Amsterdam', color: 'red' },
-            //   },
-            //   {
-            //     id: '2',
-            //     position: { x: 300, y: 10 },
-            //     data: { city: 'Maastricht', color: 'blue' },
-            //   },
-            // ]}
-            // edges={[
-            //   { id: '51', source: '1', target: '2' },
-            // ]}
-            renderNode={({ item: { data } }: any) => (
-              <Graph.View
-                style={{ width: 100, height: 100, backgroundColor: data.color }}
-              >
-                <Graph.Text style={{ fontSize: 16 }}>
-                  {data.uri}
-                </Graph.Text>
-                {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
-              </Graph.View>
-            )}
-          />
-        </ApplicationProvider>
-      </Paper>
+      {state.graph_data.nodes.length > 0 && (<>
+        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+          Perfect Graph visualization
+          {/* </a> */}
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <ApplicationProvider>
+            <Graph
+              style={{ width: '100%', height: 800 }}
+              nodes={state.graph_data.nodes}
+              edges={state.graph_data.edges}
+              // nodes={[
+              //   {
+              //     id: '1',
+              //     position: { x: 10, y: 10 },
+              //     data: { city: 'Amsterdam', color: 'red' },
+              //   },
+              //   {
+              //     id: '2',
+              //     position: { x: 300, y: 10 },
+              //     data: { city: 'Maastricht', color: 'blue' },
+              //   },
+              // ]}
+              // edges={[
+              //   { id: '51', source: '1', target: '2' },
+              // ]}
+              renderNode={({ item: { data } }: any) => (
+                <Graph.View
+                  style={{ width: 100, height: 100, backgroundColor: data.color }}
+                >
+                  <Graph.Text style={{ fontSize: 16 }}>
+                    {data.uri}
+                  </Graph.Text>
+                  {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
+                </Graph.View>
+              )}
+            />
+          </ApplicationProvider>
+        </Paper>
+      </> )}
     
     </Container>
   )
