@@ -14,7 +14,7 @@
     "expo": "~39.0.0",
     "jquery": "^3.5.1",
     "normalizr": "^3.6.0",
-    "perfect-graph": "^0.0.54",
+    "perfect-graph": "^0.0.61",
     "react": "~16.13.0",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "~16.13.0",
@@ -22,8 +22,8 @@
     "react-native-web": "0.13.13",
     "react-router-dom": "^5.2.0",
     "react-router-native": "5.1.2",
-    "unitx": "^0.0.440",
-    "unitx-ui": "^0.0.341"
+    "unitx": "^0.0.442",
+    "unitx-ui": "^0.0.342"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

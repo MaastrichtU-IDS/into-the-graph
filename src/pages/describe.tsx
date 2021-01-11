@@ -72,6 +72,7 @@ export default function Describe() {
     describe_endpoint: '',
     describe_results: [],
     search_results: [],
+    graph_data: {nodes: [], edges: []},
     isLoading: true,
     requestError: false
   });
@@ -201,8 +202,8 @@ export default function Describe() {
     // //   // Use $TEXT_TO_SEARCH as search variable to replace
     // //   searchQuery = searchQuery.replace('$TEXT_TO_SEARCH', text_to_search)
     // }
-    console.log('search_query generated');
-    console.log(search_query);
+    // console.log('search_query generated');
+    // console.log(search_query);
     return encodeURIComponent(search_query);
   }
 
@@ -260,7 +261,7 @@ export default function Describe() {
 
     if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(describe_uri)) {
       // If URI provided
-      console.log(getDescribeQuery(describe_uri));
+      // console.log(getDescribeQuery(describe_uri));
       axios.get(describe_endpoint + `?query=` + getDescribeQuery(describe_uri))
         .then(res => {
           const sparql_results_array = res.data.results.bindings;
@@ -272,6 +273,58 @@ export default function Describe() {
           $('#datatableRef').DataTable({
             "autoWidth": false
           });
+
+          let graph_nodes: any = {}
+          let graph_edges: any = []
+          let node_count = 1;
+
+          sparql_results_array.forEach((result_row: any) => {
+            // Add subject node to hash if not present
+            if (!(result_row.subject.value in graph_nodes)) {
+              // If not already in array
+              graph_nodes[result_row.subject.value] = {
+                id: result_row.subject.value,
+                position: { x: node_count * 100, y: node_count * 400 },
+                data: { uri: result_row.subject.value, color: 'red' },
+              };
+              node_count += 1;
+            }
+
+            // Add object node
+            if (!(result_row.object.value in graph_nodes)) {
+              // If not already in array
+              graph_nodes[result_row.object.value] = {
+                id: result_row.object.value,
+                position: { x: node_count * 80, y: node_count * 40 },
+                data: { uri: result_row.object.value, color: 'green' },
+              };
+              node_count += 1;
+            }
+
+            // Add edge between the 2 nodes
+            const edge_id = result_row.subject.value + result_row.predicate.value + result_row.object.value;
+            graph_edges.push({
+              id: edge_id,
+              source: result_row.subject.value,
+              target: result_row.object.value,
+              data: { uri: result_row.predicate.value, color: 'green' }
+            });
+            console.log("Graph nodes and edges");
+            console.log(graph_nodes);
+            console.log(graph_edges);
+          })
+
+        // const graph_nodes_array = [];
+        // for(nodes in graph_nodes) {
+        //   graph_nodes_array.push(Number(o), ob[o]);
+        // }
+        const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
+          return graph_nodes[node_id];
+        });
+
+        updateState({
+          graph_data: { nodes: graph_nodes_array, edges: graph_edges }
+        })
         
           // const table = $(datatableRef).find('table').DataTable();
           // Getting error when using useRef
@@ -381,7 +434,7 @@ export default function Describe() {
 
       {/* {!state.loadSpinner && ( */}
       {/* {!state.requestError && !state.search_results && !state.describe_results && !state.loadSpinner && ( */}
-      {console.log(state.search_results.length)}
+      {/* {console.log(state.search_results.length)} */}
       {/* No results for URI resolution */}
       {!state.requestError && !state.isLoading && state.describe_results.length < 1 && !state.search_results.length && (
         <Paper elevation={2} className={classes.paperPadding}>
@@ -447,21 +500,23 @@ export default function Describe() {
         <ApplicationProvider>
           <Graph
             style={{ width: '100%', height: 250 }}
-            nodes={[
-              {
-                id: '1',
-                position: { x: 10, y: 10 },
-                data: { city: 'Amsterdam', color: 'red' },
-              },
-              {
-                id: '2',
-                position: { x: 300, y: 10 },
-                data: { city: 'Maastricht', color: 'blue' },
-              },
-            ]}
-            edges={[
-              { id: 51, source: '1', target: '2' },
-            ]}
+            nodes={state.graph_data.nodes}
+            edges={state.graph_data.edges}
+            // nodes={[
+            //   {
+            //     id: '1',
+            //     position: { x: 10, y: 10 },
+            //     data: { city: 'Amsterdam', color: 'red' },
+            //   },
+            //   {
+            //     id: '2',
+            //     position: { x: 300, y: 10 },
+            //     data: { city: 'Maastricht', color: 'blue' },
+            //   },
+            // ]}
+            // edges={[
+            //   { id: '51', source: '1', target: '2' },
+            // ]}
             renderNode={({ item: { data } }: any) => (
               <Graph.View
                 style={{ width: 100, height: 100, backgroundColor: data.color }}
@@ -469,7 +524,8 @@ export default function Describe() {
                 <Graph.Text
                   style={{ fontSize: 20 }}
                 >
-                  {data.city}
+                  {data.uri}
+                  {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
                 </Graph.Text>
               </Graph.View>
             )}
