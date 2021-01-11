@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
   
-export default function NavBar(props: any) {
+export default function NavBar() {
   const classes = useStyles();
 
   // const [context, setContext] = React.useContext(AppContext);
@@ -81,12 +81,18 @@ export default function NavBar(props: any) {
   });
 
   // Popper for settings
+  const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event: any) => {
+    console.log('Click button!');
     setAnchorEl(anchorEl ? null : event.currentTarget);
-    // updateState({ settings_open: true });
+    setOpen((prev) => !prev);
   };
-  const open = Boolean(anchorEl);
+  const handleClickAway = () => {
+    setOpen(false);
+    setAnchorEl(anchorEl ? null : anchorEl);
+    console.log('Click away!');
+  };
   const id = open ? 'simple-popper' : undefined;
 
   // Avoid conflict when async calls
@@ -150,41 +156,29 @@ export default function NavBar(props: any) {
             <SearchIcon />
           </IconButton>
         </Paper>
-        <Tooltip  title='Application settings'>
-          <Button className={classes.menuButton} onClick={handleClick}>
-            <SettingsIcon />
-          </Button>
-        </Tooltip>
+        {/* <ClickAwayListener onClickAway={handleClickAway}> */}
+          {/* Nice popper example: https://stackoverflow.com/questions/55143914/material-ui-clickawaylistener-close-when-clicking-itself */}
+          {/* <div> */}
+          <Tooltip  title='Application settings'>
+            <Button className={classes.menuButton} onClick={handleClick}>
+              <SettingsIcon />
+            </Button>
+          </Tooltip>
+          <Popper open={open} anchorEl={anchorEl}>
+            <ClickAwayListener onClickAway={handleClickAway}>
+              <Paper elevation={4} className={classes.paperPadding}>
+                <Settings />
+              </Paper>
+            </ClickAwayListener>
+          </Popper>
+          {/* </div> */}
+        {/* </ClickAwayListener> */}
         <Tooltip  title='Go to https://github.com/MaastrichtU-IDS/into-the-graph'>
           <Button className={classes.menuButton} target="_blank"
           href="https://github.com/MaastrichtU-IDS/into-the-graph" rel="noopener noreferrer">
             <GitHubIcon />
           </Button>
         </Tooltip>
-        {/* https://stackoverflow.com/questions/59733592/close-material-ui-popper-when-on-clickaway */}
-        {/* <ClickAwayListener onClickAway={(event: any) => setAnchorEl(anchorEl ? null : event.currentTarget)}> */}
-        {/* <ClickAwayListener onClickAway={setOpen(false)}> */}
-          <Popper open={open} anchorEl={anchorEl}
-            // modifiers={{
-            //   flip: {
-            //     enabled: true,
-            //   },
-            //   preventOverflow: {
-            //     enabled: true,
-            //     boundariesElement: 'scrollParent',
-            //   },
-              // arrow: {
-              //   enabled: true,
-              //   element: anchorEl,
-              // }, }}
-            >
-            <ClickAwayListener onClickAway={() => console.log('Click away')}>
-              <Paper elevation={4} className={classes.paperPadding}>
-                <Settings />
-              </Paper>
-            </ClickAwayListener>
-          </Popper>
-        {/* </ClickAwayListener> */}
         {/* <AuthButton title='Login with SOLID' className={classes.solidButton} popup="https://inrupt.net/common/popup.html"/> */}
       </Toolbar>
     </AppBar>

@@ -157,37 +157,14 @@ export default function Describe() {
   }
 
   function getSearchQuery(text_to_search: string) {
-    // let searchQuery = this.context.triplestore.search_query;
     let search_query = ''
-    if (text_to_search === "") {
-      // If no text provided we use a default search query to get interesting concepts 
-      search_query = `SELECT ?foundUri ?foundLabel WHERE {
-        ?foundUri a ?type ; ?p ?foundLabel .
-        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-        FILTER(isLiteral(?foundLabel))
-        FILTER(isIRI(?foundUri))
-        } LIMIT 20`
-
-      // A custom default query can be set in settings.json
-      // let defaultSearchQuery = Config.default_search_query;
-      // if (defaultSearchQuery) {
-      //   searchQuery = defaultSearchQuery;
-      // } else {
-      //   // If no custom default_query defined in settings.json
-      //   searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
-      //     ?foundUri a ?type ; ?p ?foundLabel .
-      //     VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
-      //     FILTER(isLiteral(?foundLabel))
-      //     FILTER(isIRI(?foundUri))
-      //     } LIMIT 20`
-      // }
-    // } else if (search_query) {
-    //   // If defined in settings.json
-    //   // Results are provided through ?foundUri and ?foundLabel
-    //   // Use $TEXT_TO_SEARCH as search variable to replace
-    //   searchQuery = searchQuery.replace('$TEXT_TO_SEARCH', text_to_search)
-    } else {
-      // Default search query, if no query provided
+    const localStorageConfig = localStorage.getItem("intothegraphSettings");
+    if (localStorageConfig) {
+      let configState: any = JSON.parse(localStorageConfig);
+      search_query = configState.search_query;
+    }
+    if (!search_query) {
+      // Default search query, if no query in localStorage
       search_query = `SELECT ?foundUri ?foundLabel WHERE {
         ?foundUri ?p ?foundLabel .
         VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
@@ -195,6 +172,37 @@ export default function Describe() {
         FILTER contains(?foundLabel, "$TEXT_TO_SEARCH")
         } LIMIT 5`.replace('$TEXT_TO_SEARCH', text_to_search)
     }
+
+    // if (text_to_search === "") {
+    //   // If no text provided, we use a default search query to get interesting concepts 
+    //   search_query = `SELECT ?foundUri ?foundLabel WHERE {
+    //     ?foundUri a ?type ; ?p ?foundLabel .
+    //     VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+    //     FILTER(isLiteral(?foundLabel))
+    //     FILTER(isIRI(?foundUri))
+    //     } LIMIT 20`
+
+    //   // A custom default query can be set in settings.json
+    //   // let defaultSearchQuery = Config.default_search_query;
+    //   // if (defaultSearchQuery) {
+    //   //   searchQuery = defaultSearchQuery;
+    //   // } else {
+    //   //   // If no custom default_query defined in settings.json
+    //   //   searchQuery = `SELECT ?foundUri ?foundLabel WHERE {
+    //   //     ?foundUri a ?type ; ?p ?foundLabel .
+    //   //     VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
+    //   //     FILTER(isLiteral(?foundLabel))
+    //   //     FILTER(isIRI(?foundUri))
+    //   //     } LIMIT 20`
+    //   // }
+    // // } else if (search_query) {
+    // //   // If defined in settings.json
+    // //   // Results are provided through ?foundUri and ?foundLabel
+    // //   // Use $TEXT_TO_SEARCH as search variable to replace
+    // //   searchQuery = searchQuery.replace('$TEXT_TO_SEARCH', text_to_search)
+    // }
+    console.log('search_query generated');
+    console.log(search_query);
     return encodeURIComponent(search_query);
   }
 
