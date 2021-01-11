@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import axios from 'axios';
+
+// Import jquery datatables.net
+import 'datatables.net-dt/css/jquery.dataTables.min.css'
+const $ = require('jquery');
+$.DataTable = require('datatables.net');
+
+import LinkDescribe from '../components/LinkDescribe';
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
 
@@ -59,9 +67,11 @@ export default function Homepage() {
   const theme = useTheme();
   
   const [state, setState] = React.useState({
+    describe_endpoint: '',
     webid: '',
     projects_list: [],
     search: '',
+    get_all_graphs_results: [],
     repositories_hash: {},
     category_pie: {}
   });
@@ -112,11 +122,134 @@ export default function Homepage() {
     // https://github.com/solid/react-components/blob/master/demo/app.jsx
     // https://solid.github.io/react-components/
 
+    // First get the graphs overview with HCLS metadata
+    // if (this.context.triplestore.graphs_overview === "hcls") {
+    //   graphsOverviewSparql = this.hclsOverviewQuery
+    // } else {
+    //   // If "all" usually
+    //   graphsOverviewSparql = this.getAllGraphsQuery
+    // }
+    let describe_endpoint = '';
+    // Get sparql_endpoint from cookie intothegraphSettings
+    if (!describe_endpoint) {
+      const localStorageConfig = localStorage.getItem("intothegraphSettings");
+      if (localStorageConfig) {
+        let configState: any = JSON.parse(localStorageConfig);
+        describe_endpoint = configState.sparql_endpoint;
+      }
+    }
+    if (!describe_endpoint) {
+      // If no endpoint found in localStorage
+      describe_endpoint = 'https://bio2rdf.org/sparql';
+    }
+    updateState({ describe_endpoint: describe_endpoint });
+
+    axios.get(describe_endpoint + `?query=` + encodeURIComponent(get_all_graphs_query))
+      .then((res: any) => {
+        console.log('after get all graphs');
+        console.log(res);
+        if (res.data.results){
+          updateState( { get_all_graphs_results: res.data.results.bindings } );
+          // updateState({ graphsLoading: false });
+          // $(this.refs.graphsOverview).DataTable();
+          $('#datatableAllGraphs').DataTable({
+            "autoWidth": false
+          });
+        }
+      })
+      .catch((error: any) => {
+        console.log(error)
+        // updateState({ graphsLoading: false });
+        // graphsOverviewTable = ( 
+        //   <Typography variant="body2">
+        //     Issue querying the SPARQL endpoint 🚫<br/>
+        //     This could be due to CORS restrictions of the endpoint.<br/>
+        //     You can try installing an add-on to enable CORS in your browser (available for&nbsp;
+        //     <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.link} target='_blank'>
+        //       Firefox</a> or&nbsp;
+        //       <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" className={classes.link} target='_blank'>Chrome</a>).
+        //   </Typography>
+        // )
+      });
+
+    // axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
+    //   .then(res => {
+    //     if (res.data.results){
+    //       this.setState( { entitiesRelations: res.data.results.bindings } );
+    //       $(this.refs.entitiesRelations).DataTable();
+    //     }
+    //   });
+
   }, [])  
   // This useless array needs to be added for React to understand he needs to use the state inside...
 
   // }, [solid_webid])
   // Trying out the SOLID webId hook
+
+  const get_all_graphs_query = `SELECT DISTINCT ?graph WHERE { GRAPH ?graph {?s ?p ?o} }`;
+
+  const hcls_overview_query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX void: <http://rdfs.org/ns/void#>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  SELECT DISTINCT ?graph ?name ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+  WHERE {
+    GRAPH ?metadataGraph {
+      ?graph a void:Dataset .
+      OPTIONAL {
+        ?dataset a dctypes:Dataset ;
+          dct:title ?name ;
+          dct:description ?description ;
+          foaf:page ?homepage .
+        ?version dct:isVersionOf ?dataset ;
+          dcat:distribution ?graph .
+      }
+      OPTIONAL {
+        ?graph void:triples ?statements ;
+          void:entities ?entities ;
+          void:properties ?properties .
+      }
+      OPTIONAL {
+        ?graph dct:created ?dateGenerated .
+      }
+      OPTIONAL {
+        ?graph void:classPartition [
+          void:class rdfs:Class ;
+          void:distinctSubjects ?classes
+        ] .
+      }
+    }
+  } ORDER BY DESC(?statements)`;
+
+  const entities_relations_query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX bl: <http://w3id.org/biolink/vocab/>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX idot: <http://identifiers.org/idot/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX void: <http://rdfs.org/ns/void#>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  PREFIX void-ext: <http://ldf.fi/void-ext#>
+  SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+  WHERE {
+  GRAPH ?metadataGraph {
+    ?graph a void:Dataset .
+    ?graph void:propertyPartition [
+      void:property ?relationWith ;
+      void:classPartition [
+        void:class ?class1 ;
+        void:distinctSubjects ?classCount1 ;
+      ];
+      void-ext:objectClassPartition [
+      void:class ?class2 ;
+      void:distinctObjects ?classCount2 ;
+      ]] .
+    }
+  } ORDER BY DESC(?classCount1)`;
 
   return(
     <Container className='mainContainer'>
@@ -168,6 +301,43 @@ export default function Homepage() {
         </Typography></li>
       </ul>
 
+      {/* Display a datatable with subject, predicate, object, graph retrieved */}
+      {Object.keys(state.get_all_graphs_results).length > 0 && (<>
+        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          {state.describe_endpoint} graphs overview
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <table id='datatableAllGraphs' style={{ wordBreak: 'break-all' }}>
+            <thead>
+              <tr>
+                <th>Graph</th>
+                {/* <th># of triples</th> */}
+                {/* <th>Date generated</th>
+                <th># of entities</th>
+                <th># of properties</th>
+                <th># of classes</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {/* Iterate Describe query results array */}
+              {/* {state.get_all_graphs_results.map((row: any, key: number) => { */}
+              {/* {Object.keys(state.get_all_graphs_results).map(function(row: any, key: number){  */}
+              {state.get_all_graphs_results.map((row: any, key: number) => {
+                // return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
+                return <tr key={key}>
+                    {/* <td><LinkDescribe uri={row.graph.value} variant='body2'/></td> */}
+                    <td><LinkDescribe variant='body2' uri={row.graph.value}/></td>
+                    {/* <td><LinkDescribe variant='body2' uri={row.statements.value}/></td> */}
+                    {/* <td><LinkDescribe variant='body2' uri={row.object.value}/></td>
+                    <td><LinkDescribe variant='body2' uri={row.graph.value}/></td> */}
+                  </tr>
+                {/* </Tooltip>; */}
+              })}
+            </tbody>
+          </table>
+        </Paper>
+        </>)}
+
       {/* <LoggedIn>
         <Typography style={{textAlign: 'center', marginBottom: '20px'}}>
           Welcome <Value src="user.name"/>!
@@ -184,5 +354,6 @@ export default function Homepage() {
 
     </Container>
   )
+
 }
 
