@@ -75,9 +75,11 @@ export default function Settings() {
     search_text: '',
     describe_uri: '',
     describe_endpoint: '',
+    metadata_endpoint: '',
     open: false, 
     dialogOpen: false,
     sparql_endpoint_autocomplete: '',
+    metadata_endpoint_autocomplete: '',
     search_query_autocomplete: '',
     search_query: '',
     custom_search_query: '',
@@ -115,14 +117,26 @@ export default function Settings() {
   // };
 
   // function handleAutocomplete(stateToUpdate: any, searchText: any) {
-  function handleAutocompleteEndpoint(searchText: any) {
+  function handleAutocompleteSparqlEndpoint(input_text: any) {
     // Generate specific state key for this autocomplete
     console.log("Update state ")
-    if (searchText && searchText.target){
-      if (searchText.target.value && searchText.target.value !== 0) {
-        updateState({ sparql_endpoint_autocomplete: searchText.target.value})
+    if (input_text && input_text.target){
+      if (input_text.target.value && input_text.target.value !== 0) {
+        updateState({ sparql_endpoint_autocomplete: input_text.target.value})
       } else {
-        updateState({ sparql_endpoint_autocomplete: searchText.target.innerText})
+        updateState({ sparql_endpoint_autocomplete: input_text.target.innerText})
+      }
+    }
+  }
+
+  function handleAutocompleteMetadataEndpoint(input_text: any) {
+    // Generate specific state key for this autocomplete
+    console.log("Update state ")
+    if (input_text && input_text.target){
+      if (input_text.target.value && input_text.target.value !== 0) {
+        updateState({ sparql_endpoint_autocomplete: input_text.target.value})
+      } else {
+        updateState({ sparql_endpoint_autocomplete: input_text.target.innerText})
       }
     }
   }
@@ -174,6 +188,7 @@ export default function Settings() {
   //   updateState({ open: true });
   // }
   function handleSubmit (event: any) {
+    // Prevent from reloading the page when submitting the form:
     // event.preventDefault();
     updateState({ open: true });
     console.log('context before change, and sparql endpoint autocomplete value')
@@ -184,6 +199,7 @@ export default function Settings() {
     console.log(context)
     const settings_object = {
       sparql_endpoint: state.sparql_endpoint_autocomplete,
+      metadata_endpoint: state.metadata_endpoint_autocomplete,
       search_query: state.search_query,
       search_query_autocomplete: state.search_query_autocomplete,
     }
@@ -290,8 +306,8 @@ export default function Settings() {
             🔗 SPARQL endpoint URL
           </Typography>
           <Autocomplete
-            onChange={handleAutocompleteEndpoint}
-            onInputChange={handleAutocompleteEndpoint}
+            onChange={handleAutocompleteSparqlEndpoint}
+            onInputChange={handleAutocompleteSparqlEndpoint}
             // onChange={handleAutocomplete(event, 'sparql_endpoint')}
             // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
             id="autocomplete-sparql-endpoint"
@@ -311,6 +327,33 @@ export default function Settings() {
             />}
           />
         {/* <FormHelperText id="helper-sparql-endpoint">SPARQL endpoint URL</FormHelperText> */}
+
+        <Typography variant="body1">
+          🏷️ Metadata endpoint URL
+        </Typography>
+        <Autocomplete
+          onChange={handleAutocompleteMetadataEndpoint}
+          onInputChange={handleAutocompleteMetadataEndpoint}
+          // onChange={handleAutocomplete(event, 'sparql_endpoint')}
+          // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
+          id="autocomplete-metadata-endpoint"
+          options={[
+            'https://graphdb.dumontierlab.com/repositories/trek',
+          ]}
+          // value={state.describe_endpoint}
+          freeSolo={true}
+          includeInputInList={true}
+          ListboxProps={{
+            className: classes.alignLeft,
+          }}
+          renderInput={params => <TextField {...params} 
+          label="Metadata endpoint URL" 
+          variant="outlined" 
+          // getOptionLabel={option => option.title}
+          // style={{ width: '60ch' }}
+          // size='small'
+          />}
+        />
 
         {/* Dropdown to choose search query */}
         {/* <FormControl variant="outlined" className={classes.fullWidth}> */}
