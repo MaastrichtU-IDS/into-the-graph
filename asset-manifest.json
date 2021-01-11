@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/into-the-graph/static/js/app.651df269.chunk.js",
-    "app.js.map": "/into-the-graph/static/js/app.651df269.chunk.js.map",
+    "app.js": "/into-the-graph/static/js/app.b95dde96.chunk.js",
+    "app.js.map": "/into-the-graph/static/js/app.b95dde96.chunk.js.map",
     "runtime~app.js": "/into-the-graph/static/js/runtime~app.d85ed08d.js",
     "runtime~app.js.map": "/into-the-graph/static/js/runtime~app.d85ed08d.js.map",
-    "static/js/2.8faf86f6.chunk.js": "/into-the-graph/static/js/2.8faf86f6.chunk.js",
-    "static/js/2.8faf86f6.chunk.js.map": "/into-the-graph/static/js/2.8faf86f6.chunk.js.map",
+    "static/js/2.9e0c5f9e.chunk.js": "/into-the-graph/static/js/2.9e0c5f9e.chunk.js",
+    "static/js/2.9e0c5f9e.chunk.js.map": "/into-the-graph/static/js/2.9e0c5f9e.chunk.js.map",
     "fonts/MaterialCommunityIcons.ttf": "/into-the-graph/./fonts/MaterialCommunityIcons.ttf",
     "favicon-16.png": "/into-the-graph/favicon-16.png",
     "favicon-32.png": "/into-the-graph/favicon-32.png",
@@ -13,11 +13,11 @@
     "index.html": "/into-the-graph/index.html",
     "manifest.json": "/into-the-graph/manifest.json",
     "serve.json": "/into-the-graph/serve.json",
-    "static/js/2.8faf86f6.chunk.js.LICENSE.txt": "/into-the-graph/static/js/2.8faf86f6.chunk.js.LICENSE.txt"
+    "static/js/2.9e0c5f9e.chunk.js.LICENSE.txt": "/into-the-graph/static/js/2.9e0c5f9e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.d85ed08d.js",
-    "static/js/2.8faf86f6.chunk.js",
-    "static/js/app.651df269.chunk.js"
+    "static/js/2.9e0c5f9e.chunk.js",
+    "static/js/app.b95dde96.chunk.js"
   ]
 }
