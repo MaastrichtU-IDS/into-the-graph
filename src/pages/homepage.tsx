@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
@@ -15,6 +15,11 @@ import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper } from "
 // import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
 
 const useStyles = makeStyles(theme => ({
+  margin: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    // textAlign: 'center',
+  },
   paperSearch: {
     padding: '2px 4px',
     display: 'flex',
@@ -51,6 +56,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Homepage() {
   const classes = useStyles();
+  const theme = useTheme();
   
   const [state, setState] = React.useState({
     webid: '',
@@ -113,18 +119,18 @@ export default function Homepage() {
   // Trying out the SOLID webId hook
 
   return(
-    <Container className='mainContainer' style={{ textAlign: 'left' }}>
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: '15px'}}>
+    <Container className='mainContainer'>
+      <Typography variant="h4" className={classes.margin} style={{marginBottom: theme.spacing(4) }}>
         🧭 Into the Graph
         {/* <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" /> */}
       </Typography>
 
       <Paper elevation={4} className={classes.paperPadding}>
-        <Typography variant="body1" style={{textAlign: 'center', marginBottom: '20px', marginTop: '15px'}}>
+        <Typography variant="body1" className={classes.margin}>
           Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried in the URL parameters, such as:
         </Typography>
 
-        <Typography variant="h5" style={{textAlign: 'center', marginBottom: '15px'}}>
+        <Typography variant="h5" className={classes.margin}>
           <Link to={{
             pathname: '/describe',
             search: '?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql',
@@ -134,11 +140,11 @@ export default function Homepage() {
         </Typography>
       </Paper>
 
-      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '20px', marginTop: '30px'}}>
+      <Typography variant="body1" className={classes.margin} style={{textAlign: 'left', marginTop: theme.spacing(5) }}>
         <b>Into the Graph</b> provides a simple RDF web browser that just need a SPARQL endpoint URL to resolve URIs, and explore the available linked data.
       </Typography>
       
-      <Typography variant="body1" style={{textAlign: 'left', marginBottom: '20px'}}>
+      <Typography variant="body1" className={classes.margin} style={{ textAlign: 'left' }}>
         This linked data browser features:
         <br/>🔎 A web-based UI to browse any SPARQL endpoints content easily
         <br/>🕸️ Native support for graphs (nquads)
@@ -147,10 +153,10 @@ export default function Homepage() {
       </Typography>
 
 
-      <Typography variant="body1" style={{textAlign: 'left'}}>
+      <Typography variant="body1" className={classes.margin} style={{textAlign: 'left'}}>
         Other relevant libraries:
       </Typography>
-      <ul>
+      <ul style={{textAlign: 'left'}}>
         <li><Typography variant="body1">
           <a href='https://github.com/micheldumontier/torres-api-platform/' className={classes.link} target='_blank' rel="noopener noreferrer">TORRES API platform</a> to store HCLS descriptive metadata for your dataset
         </Typography></li>
