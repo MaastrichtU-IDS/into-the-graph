@@ -25,6 +25,11 @@ import Context from "../components/Context";
 
 
 const useStyles = makeStyles(theme => ({
+  margin: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    textAlign: 'center',
+  },
   link: {
     textDecoration: 'none',
     textTransform: 'none',
@@ -361,10 +366,11 @@ export default function Describe() {
 
   return(
     <Container className='mainContainer'>
-      <Typography variant="body2" style={{textAlign: 'center', marginBottom: '20px'}}>
+      <Typography variant="body2" className={classes.margin}>
+      {/* <Typography variant="body2" style={{textAlign: 'center', marginBottom: '20px'}}> */}
         {state.describe_endpoint}
       </Typography>
-      <Typography variant="h5" style={{textAlign: 'center', marginBottom: '20px'}}>
+      <Typography variant="h5" className={classes.margin}>
         {state.describe_uri}
       </Typography>
 
@@ -496,10 +502,16 @@ export default function Describe() {
       )}
       /> */}
 
-      <Paper elevation={4} className={classes.paperPadding} style={{ marginTop: '20px'}}>
+      <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+        {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+        Perfect Graph visualization
+        {/* </a> */}
+      </Typography>
+
+      <Paper elevation={4} className={classes.paperPadding}>
         <ApplicationProvider>
           <Graph
-            style={{ width: '100%', height: 250 }}
+            style={{ width: '100%', height: 800 }}
             nodes={state.graph_data.nodes}
             edges={state.graph_data.edges}
             // nodes={[
@@ -521,12 +533,10 @@ export default function Describe() {
               <Graph.View
                 style={{ width: 100, height: 100, backgroundColor: data.color }}
               >
-                <Graph.Text
-                  style={{ fontSize: 20 }}
-                >
+                <Graph.Text style={{ fontSize: 16 }}>
                   {data.uri}
-                  {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
                 </Graph.Text>
+                {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
               </Graph.View>
             )}
           />
