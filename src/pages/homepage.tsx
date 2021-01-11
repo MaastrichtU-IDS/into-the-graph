@@ -304,13 +304,13 @@ export default function Homepage() {
       {/* Display a datatable with subject, predicate, object, graph retrieved */}
       {Object.keys(state.get_all_graphs_results).length > 0 && (<>
         <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-          {state.describe_endpoint} graphs overview
+        <a href={state.describe_endpoint} className={classes.link} >{state.describe_endpoint}</a> endpoint overview
         </Typography>
         <Paper elevation={4} className={classes.paperPadding}>
           <table id='datatableAllGraphs' style={{ wordBreak: 'break-all' }}>
             <thead>
               <tr>
-                <th>Graph</th>
+                <th>Graphs</th>
                 {/* <th># of triples</th> */}
                 {/* <th>Date generated</th>
                 <th># of entities</th>

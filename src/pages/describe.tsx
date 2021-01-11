@@ -270,7 +270,7 @@ export default function Describe() {
       axios.get(describe_endpoint + `?query=` + getDescribeQuery(describe_uri))
         .then(res => {
           const sparql_results_array = res.data.results.bindings;
-          console.log(sparql_results_array)
+          // console.log(sparql_results_array)
           // console.log(sparql_results_array[0].subject.value)
           updateState({describe_results: sparql_results_array})
           updateState({isLoading: false})
@@ -314,9 +314,6 @@ export default function Describe() {
               target: result_row.object.value,
               data: { uri: result_row.predicate.value, color: 'green' }
             });
-            console.log("Graph nodes and edges");
-            console.log(graph_nodes);
-            console.log(graph_edges);
           })
 
         // const graph_nodes_array = [];
