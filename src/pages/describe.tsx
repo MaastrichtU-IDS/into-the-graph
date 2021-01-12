@@ -9,7 +9,7 @@ import axios from 'axios';
 // var dt = require( 'datatables.net' )();
 
 // Import from package.json install (from itg js)
-import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import 'datatables.net-dt/css/jquery.dataTables.min.css';
 // import $ from 'jquery';
 
 // From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
@@ -18,7 +18,9 @@ const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
-import { ApplicationProvider } from 'unitx-ui'
+import { ApplicationProvider } from 'unitx-ui';
+
+import CytoscapeComponent from 'react-cytoscapejs';
 
 import LinkDescribe from "../components/LinkDescribe";
 import Context from "../components/Context";
@@ -78,6 +80,7 @@ export default function Describe() {
     describe_results: [],
     search_results: [],
     graph_data: {nodes: [], edges: []},
+    cytoscape_elements: [],
     isLoading: true,
     requestError: false
   });
@@ -281,6 +284,7 @@ export default function Describe() {
 
           let graph_nodes: any = {}
           let graph_edges: any = []
+          let cytoscape_elements: any = []
           let node_count = 1;
 
           // Prepare perfect graph data
@@ -293,6 +297,7 @@ export default function Describe() {
                 position: { x: node_count * 100, y: node_count * 400 },
                 data: { uri: result_row.subject.value, color: 'red' },
               };
+              cytoscape_elements.push({ data: { id: result_row.subject.value, label: result_row.subject.value } })
               node_count += 1;
             }
 
@@ -304,6 +309,7 @@ export default function Describe() {
                 position: { x: node_count * 80, y: node_count * 40 },
                 data: { uri: result_row.object.value, color: 'green' },
               };
+              cytoscape_elements.push({ data: { id: result_row.object.value, label: result_row.object.value } })
               node_count += 1;
             }
 
@@ -315,6 +321,11 @@ export default function Describe() {
               target: result_row.object.value,
               data: { uri: result_row.predicate.value, color: 'green' }
             });
+            cytoscape_elements.push({ data: { 
+              source: result_row.subject.value, 
+              target: result_row.object.value, 
+              label: result_row.predicate.value 
+            } })
           })
 
         // const graph_nodes_array = [];
@@ -325,8 +336,14 @@ export default function Describe() {
           return graph_nodes[node_id];
         });
 
+        console.log('Graph nodes and edges data');
+        console.log(graph_nodes_array);
+        console.log(graph_edges);
+
+
         updateState({
-          graph_data: { nodes: graph_nodes_array, edges: graph_edges }
+          graph_data: { nodes: graph_nodes_array, edges: graph_edges },
+          cytoscape_elements: cytoscape_elements
         })
         
           // const table = $(datatableRef).find('table').DataTable();
@@ -361,6 +378,27 @@ export default function Describe() {
 
   }, [location])
 
+  // Change Cytoscape layout: https://js.cytoscape.org/#layouts
+  const cytoscape_layout = { 
+    name: 'concentric',
+    minNodeSpacing: 20
+  };
+  // const cytoscape_layout = { name: 'breadthfirst' };
+  // const cytoscape_layout = {
+  //   name: 'cose',
+  //   animate: 'end',
+  //   fit: true,
+  //   componentSpacing: 1000,
+  //   nodeOverlap: 10,
+  //   nodeRepulsion: function( node: any ){ return 4092; },
+  //   idealEdgeLength: function( edge: any ){ return 300; },
+  //   // name: 'cola',
+  //   // nodeSpacing: 5,
+  //   // edgeLengthVal: 45,
+  //   // animate: true,
+  //   // randomize: false,
+  //   // maxSimulationTime: 1500
+  // };
 
   return(
     <Container className='mainContainer'>
@@ -541,6 +579,21 @@ export default function Describe() {
           </ApplicationProvider>
         </Paper>
       </> )}
+
+      {state.graph_data.nodes.length > 0 && (<>
+        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+          Cytoscape JS visualization
+          {/* </a> */}
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
+          <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
+            style={ { width: '100%', height: '100%' } } 
+          />
+        </Paper>
+      </> )}
+
+ 
     
     </Container>
   )

@@ -7534,7 +7534,7 @@ cytoscape-fcose@^1.2.3:
   dependencies:
     cose-base "^1.0.0"
 
-cytoscape@^3.17.1:
+cytoscape@^3.17.1, cytoscape@^3.2.19:
   version "3.17.1"
   resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.17.1.tgz#da2dd84035db1bcfcff84989ff87f3f841ea01cc"
   integrity sha512-66jNdRnRxIS4IE+EOax6ElhQcwK8VHmcsbGtDJ4YeuDGLRr5HLotCgeTCAIzpYt6V9CuaTuvhkSkie83wUqhxg==
@@ -15862,6 +15862,14 @@ react-css-styled@^0.1.4:
   dependencies:
     css-styled "^0.1.7"
     framework-utils "^0.3.4"
+
+react-cytoscapejs@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-cytoscapejs/-/react-cytoscapejs-1.2.1.tgz#ccce46acabf4f0c41dce9070743854f92b0dc050"
+  integrity sha512-8exVCetpzyGCAKuRjXPWGjFCnb22boZ3SXUPpPB/+wQI8Q8BwkT1URN3A7J1Czvj1qAbShh5QQ514mBUp7i7kw==
+  dependencies:
+    cytoscape "^3.2.19"
+    prop-types "^15.6.2"
 
 react-dev-utils@10.2.1, react-dev-utils@~10.2.1:
   version "10.2.1"
