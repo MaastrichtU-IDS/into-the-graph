@@ -510,112 +510,116 @@ export default function Homepage() {
         </Paper>
         </>)}
 
-        {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
-        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-          Entities-relations metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
-        </Typography>
-        <Paper elevation={4} className={classes.paperPadding}>
-          <table id='datatableEntitiesRelationOverview' style={{ wordBreak: 'break-all' }}>
-            <thead>
-              <tr>
-                <th>Graph</th>
-                <th># of instance of subject</th>
-                <th>Subject class</th>
-                <th>Have relation</th>
-                <th>With Object class</th>
-                <th># of instance of object</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Iterate Describe query results array */}
-              {state.entities_relations_overview_results.map((row: any, key: number) => {
-                return <tr key={key}>
-                    <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-                    <td><Typography variant="body2">{row.classCount1.value}</Typography></td>
-                    <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
-                    <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
-                    <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
-                    <td><Typography variant="body2">{row.classCount2.value}</Typography></td>
-                  </tr>
-                {/* </Tooltip>; */}
-              })}
-            </tbody>
-          </table>
-        </Paper>
-        </>)}
+        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%' } }>
+          
+          {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
+          <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+            Entities-relations metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
+          </Typography>
+          <Paper elevation={4} className={classes.paperPadding}>
+            <table id='datatableEntitiesRelationOverview' style={{ wordBreak: 'break-all' }}>
+              <thead>
+                <tr>
+                  <th>Graph</th>
+                  <th># of instance of subject</th>
+                  <th>Subject class</th>
+                  <th>Have relation</th>
+                  <th>With Object class</th>
+                  <th># of instance of object</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Iterate Describe query results array */}
+                {state.entities_relations_overview_results.map((row: any, key: number) => {
+                  return <tr key={key}>
+                      <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
+                      <td><Typography variant="body2">{row.classCount1.value}</Typography></td>
+                      <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
+                      <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
+                      <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
+                      <td><Typography variant="body2">{row.classCount2.value}</Typography></td>
+                    </tr>
+                  {/* </Tooltip>; */}
+                })}
+              </tbody>
+            </table>
+          </Paper>
+          </>)}
+
+          {state.graph_data.nodes.length > 0 && (<>
+          <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+            {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+            Perfect Graph visualization
+            {/* </a> */}
+          </Typography>
+          <Paper elevation={4} className={classes.paperPadding}>
+            <ApplicationProvider>
+              <Graph
+                style={{ width: '100%', height: 800 }}
+                nodes={state.graph_data.nodes}
+                edges={state.graph_data.edges}
+                // nodes={[
+                //   {
+                //     id: '1',
+                //     position: { x: 10, y: 10 },
+                //     data: { city: 'Amsterdam', color: 'red' },
+                //   },
+                //   {
+                //     id: '2',
+                //     position: { x: 300, y: 10 },
+                //     data: { city: 'Maastricht', color: 'blue' },
+                //   },
+                // ]}
+                // edges={[
+                //   { id: '51', source: '1', target: '2' },
+                // ]}
+                renderNode={({ item: { data } }: any) => (
+                  <Graph.View
+                    style={{ width: 100, height: 100, backgroundColor: data.color }}
+                  >
+                    <Graph.Text style={{ fontSize: 16 }}>
+                      {data.uri}
+                    </Graph.Text>
+                    {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
+                  </Graph.View>
+                )}
+              />
+            </ApplicationProvider>
+          </Paper>
+        </> )}
 
         {state.graph_data.nodes.length > 0 && (<>
-        <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
-          Perfect Graph visualization
-          {/* </a> */}
-        </Typography>
-        <Paper elevation={4} className={classes.paperPadding}>
-          <ApplicationProvider>
-            <Graph
-              style={{ width: '100%', height: 800 }}
-              nodes={state.graph_data.nodes}
-              edges={state.graph_data.edges}
-              // nodes={[
-              //   {
-              //     id: '1',
-              //     position: { x: 10, y: 10 },
-              //     data: { city: 'Amsterdam', color: 'red' },
-              //   },
-              //   {
-              //     id: '2',
-              //     position: { x: 300, y: 10 },
-              //     data: { city: 'Maastricht', color: 'blue' },
-              //   },
-              // ]}
-              // edges={[
-              //   { id: '51', source: '1', target: '2' },
-              // ]}
-              renderNode={({ item: { data } }: any) => (
-                <Graph.View
-                  style={{ width: 100, height: 100, backgroundColor: data.color }}
-                >
-                  <Graph.Text style={{ fontSize: 16 }}>
-                    {data.uri}
-                  </Graph.Text>
-                  {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
-                </Graph.View>
-              )}
+          <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+            {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+            Cytoscape JS visualization
+            {/* </a> */}
+          </Typography>
+          <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
+            <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
+              style={ { width: '100%', height: '100%',  } } 
+              stylesheet={[
+                {
+                  selector: 'edge',
+                  style: {
+                    'label': 'data(label)'
+                    // width: 15
+                  }
+                },
+                {
+                  selector: 'node',
+                  style: {
+                    'label': 'data(label)'
+                    // width: 20,
+                    // height: 20,
+                    // shape: 'rectangle'
+                  }
+                }
+              ]}
             />
-          </ApplicationProvider>
-        </Paper>
-      </> )}
+          </Paper>
+        </> )}
 
-      {state.graph_data.nodes.length > 0 && (<>
-        <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
-          Cytoscape JS visualization
-          {/* </a> */}
-        </Typography>
-        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
-          <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
-            style={ { width: '100%', height: '100%',  } } 
-            stylesheet={[
-              {
-                selector: 'edge',
-                style: {
-                  'label': 'data(label)'
-                  // width: 15
-                }
-              },
-              {
-                selector: 'node',
-                style: {
-                  'label': 'data(label)'
-                  // width: 20,
-                  // height: 20,
-                  // shape: 'rectangle'
-                }
-              }
-            ]}
-          />
-        </Paper>
-      </> )}
+      </Paper>
 
       {/* <LoggedIn>
         <Typography style={{textAlign: 'center', marginBottom: '20px'}}>
