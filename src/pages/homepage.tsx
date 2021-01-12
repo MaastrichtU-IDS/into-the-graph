@@ -9,6 +9,11 @@ import 'datatables.net-dt/css/jquery.dataTables.min.css'
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
+import { Graph } from "perfect-graph";
+import { ApplicationProvider } from 'unitx-ui';
+
+import CytoscapeComponent from 'react-cytoscapejs';
+
 import LinkDescribe from '../components/LinkDescribe';
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
@@ -72,6 +77,10 @@ export default function Homepage() {
     projects_list: [],
     search: '',
     get_all_graphs_results: [],
+    hcls_overview_results: [],
+    entities_relations_overview_results: [],
+    graph_data: {nodes: [], edges: []},
+    cytoscape_elements: [],
     repositories_hash: {},
     category_pie: {}
   });
@@ -112,6 +121,13 @@ export default function Homepage() {
   //   return data[location].put();
   // }
   
+  function displayTableCell(stringToDisplay: any) {
+    if (stringToDisplay) {
+      return stringToDisplay.value;
+    } else {
+      return 'Not computed';
+    }
+  }
 
   // componentDidMount
   React.useEffect(() => {
@@ -170,6 +186,104 @@ export default function Homepage() {
         //       <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" className={classes.link} target='_blank'>Chrome</a>).
         //   </Typography>
         // )
+      });
+
+    axios.get(describe_endpoint + `?query=` + encodeURIComponent(hcls_overview_query))
+      .then((res: any) => {
+        if (res.data.results){
+          updateState( { hcls_overview_results: res.data.results.bindings } );
+          // updateState({ graphsLoading: false });
+          // $(this.refs.graphsOverview).DataTable();
+          $('#datatableHclsOverview').DataTable({
+            "autoWidth": false
+          });
+        }
+      })
+      .catch((error: any) => {
+        console.log(error)
+      });
+
+    axios.get(describe_endpoint + `?query=` + encodeURIComponent(entities_relations_query))
+      .then((res: any) => {
+        if (res.data.results){
+          updateState( { entities_relations_overview_results: res.data.results.bindings } );
+          // updateState({ graphsLoading: false });
+          // $(this.refs.graphsOverview).DataTable();
+          $('#datatableEntitiesRelationOverview').DataTable({
+            "autoWidth": false
+          });
+
+          let graph_nodes: any = {}
+          let graph_edges: any = []
+          let cytoscape_elements: any = []
+          let node_count = 1;
+
+          // Prepare perfect graph and cytoscape data
+          res.data.results.bindings.forEach((result_row: any) => {
+            // ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+            // Add subject node to hash if not present
+            if (!(result_row.subject.value in graph_nodes)) {
+              // If not already in array
+              graph_nodes[result_row.subject.value] = {
+                id: result_row.subject.value,
+                position: { x: node_count * 100, y: node_count * 400 },
+                data: { uri: result_row.subject.value, color: 'red' },
+              };
+              cytoscape_elements.push({ data: { id: result_row.subject.value, label: result_row.subject.value } })
+              node_count += 1;
+            }
+
+            // Add object node
+            if (!(result_row.object.value in graph_nodes)) {
+              // If not already in array
+              graph_nodes[result_row.object.value] = {
+                id: result_row.object.value,
+                position: { x: node_count * 80, y: node_count * 40 },
+                data: { uri: result_row.object.value, color: 'green' },
+              };
+              cytoscape_elements.push({ data: { id: result_row.object.value, label: result_row.object.value } })
+              node_count += 1;
+            }
+
+            // Add edge between the 2 nodes
+            const edge_id = result_row.subject.value + result_row.predicate.value + result_row.object.value;
+            if (!(result_row.object.value === result_row.subject.value)) {
+              graph_edges.push({
+                id: edge_id,
+                source: result_row.subject.value,
+                target: result_row.object.value,
+                data: { uri: result_row.predicate.value, color: 'green' }
+              });
+              cytoscape_elements.push({ data: { 
+                source: result_row.subject.value, 
+                target: result_row.object.value, 
+                label: result_row.predicate.value 
+              } })
+            }
+
+          })
+
+        // const graph_nodes_array = [];
+        // for(nodes in graph_nodes) {
+        //   graph_nodes_array.push(Number(o), ob[o]);
+        // }
+        const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
+          return graph_nodes[node_id];
+        });
+
+        console.log('Graph nodes and edges data');
+        console.log(graph_nodes_array);
+        console.log(graph_edges);
+
+
+        updateState({
+          graph_data: { nodes: graph_nodes_array, edges: graph_edges },
+          cytoscape_elements: cytoscape_elements
+        })
+        }
+      })
+      .catch((error: any) => {
+        console.log(error)
       });
 
     // axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
@@ -234,22 +348,45 @@ export default function Homepage() {
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+  SELECT DISTINCT ?graph ?classCount1 ?subject ?predicate ?classCount2 ?object
   WHERE {
   GRAPH ?metadataGraph {
     ?graph a void:Dataset .
     ?graph void:propertyPartition [
-      void:property ?relationWith ;
+      void:property ?predicate ;
       void:classPartition [
-        void:class ?class1 ;
+        void:class ?subject ;
         void:distinctSubjects ?classCount1 ;
       ];
       void-ext:objectClassPartition [
-      void:class ?class2 ;
+      void:class ?object ;
       void:distinctObjects ?classCount2 ;
       ]] .
     }
   } ORDER BY DESC(?classCount1)`;
+
+  // Change Cytoscape layout: https://js.cytoscape.org/#layouts
+  // const cytoscape_layout = { 
+  //   name: 'concentric',
+  //   minNodeSpacing: 200
+  // };
+  const cytoscape_layout = { name: 'breadthfirst' };
+  // const cytoscape_layout = {
+  //   name: 'cose',
+  //   animate: 'end',
+  //   fit: true,
+  //   componentSpacing: 1000,
+  //   nodeOverlap: 10,
+  //   nodeRepulsion: function( node: any ){ return 4092; },
+  //   idealEdgeLength: function( edge: any ){ return 300; },
+  //   // name: 'cola',
+  //   // nodeSpacing: 5,
+  //   // edgeLengthVal: 45,
+  //   // animate: true,
+  //   // randomize: false,
+  //   // maxSimulationTime: 1500
+  // };
+  
 
   return(
     <Container className='mainContainer'>
@@ -337,6 +474,148 @@ export default function Homepage() {
           </table>
         </Paper>
         </>)}
+
+        {Object.keys(state.hcls_overview_results).length > 0 && (<>
+        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          Endpoint descriptive metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <table id='datatableHclsOverview' style={{ wordBreak: 'break-all' }}>
+            <thead>
+              <tr>
+                <th>Graph</th>
+                <th>Date generated</th>
+                <th># of triples</th>
+                <th># of entities</th>
+                <th># of properties</th>
+                <th># of classes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Iterate Describe query results array */}
+              {state.hcls_overview_results.map((row: any, key: number) => {
+                // return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
+                return <tr key={key}>
+                    <td><LinkDescribe variant='body2' uri={row.graph.value}/></td>
+                    <td><Typography variant="body2">{displayTableCell(row.dateGenerated)}</Typography></td>
+                    <td><Typography variant="body2">{displayTableCell(row.statements)}</Typography></td>
+                    <td><Typography variant="body2">{displayTableCell(row.entities)}</Typography></td>
+                    <td><Typography variant="body2">{displayTableCell(row.properties)}</Typography></td>
+                    <td><Typography variant="body2">{displayTableCell(row.classes)}</Typography></td>
+                  </tr>
+                {/* </Tooltip>; */}
+              })}
+            </tbody>
+          </table>
+        </Paper>
+        </>)}
+
+        {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
+        <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          Entities-relations metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <table id='datatableEntitiesRelationOverview' style={{ wordBreak: 'break-all' }}>
+            <thead>
+              <tr>
+                <th>Graph</th>
+                <th># of instance of subject</th>
+                <th>Subject class</th>
+                <th>Have relation</th>
+                <th>With Object class</th>
+                <th># of instance of object</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Iterate Describe query results array */}
+              {state.entities_relations_overview_results.map((row: any, key: number) => {
+                return <tr key={key}>
+                    <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
+                    <td><Typography variant="body2">{row.classCount1.value}</Typography></td>
+                    <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
+                    <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
+                    <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
+                    <td><Typography variant="body2">{row.classCount2.value}</Typography></td>
+                  </tr>
+                {/* </Tooltip>; */}
+              })}
+            </tbody>
+          </table>
+        </Paper>
+        </>)}
+
+        {state.graph_data.nodes.length > 0 && (<>
+        <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+          Perfect Graph visualization
+          {/* </a> */}
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding}>
+          <ApplicationProvider>
+            <Graph
+              style={{ width: '100%', height: 800 }}
+              nodes={state.graph_data.nodes}
+              edges={state.graph_data.edges}
+              // nodes={[
+              //   {
+              //     id: '1',
+              //     position: { x: 10, y: 10 },
+              //     data: { city: 'Amsterdam', color: 'red' },
+              //   },
+              //   {
+              //     id: '2',
+              //     position: { x: 300, y: 10 },
+              //     data: { city: 'Maastricht', color: 'blue' },
+              //   },
+              // ]}
+              // edges={[
+              //   { id: '51', source: '1', target: '2' },
+              // ]}
+              renderNode={({ item: { data } }: any) => (
+                <Graph.View
+                  style={{ width: 100, height: 100, backgroundColor: data.color }}
+                >
+                  <Graph.Text style={{ fontSize: 16 }}>
+                    {data.uri}
+                  </Graph.Text>
+                  {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
+                </Graph.View>
+              )}
+            />
+          </ApplicationProvider>
+        </Paper>
+      </> )}
+
+      {state.graph_data.nodes.length > 0 && (<>
+        <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+          {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
+          Cytoscape JS visualization
+          {/* </a> */}
+        </Typography>
+        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
+          <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
+            style={ { width: '100%', height: '100%',  } } 
+            stylesheet={[
+              {
+                selector: 'edge',
+                style: {
+                  'label': 'data(label)'
+                  // width: 15
+                }
+              },
+              {
+                selector: 'node',
+                style: {
+                  'label': 'data(label)'
+                  // width: 20,
+                  // height: 20,
+                  // shape: 'rectangle'
+                }
+              }
+            ]}
+          />
+        </Paper>
+      </> )}
 
       {/* <LoggedIn>
         <Typography style={{textAlign: 'center', marginBottom: '20px'}}>

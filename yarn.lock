@@ -4249,6 +4249,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cytoscape@*", "@types/cytoscape@^3.14.11":
+  version "3.14.11"
+  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.14.11.tgz#b5b6c90e182843f89aa1fad0d33e3f5d49237c5c"
+  integrity sha512-v/+A/5D4MuHrHZ2cIw4KThM5BA8NdBcltgYTRwqwPpSfBg2OG7EYYpyoQ9ZZzBA5VXi/xw65+AmzqwfFt62DsA==
+
 "@types/debug@*":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
@@ -4543,6 +4548,14 @@
   resolved "https://registry.yarnpkg.com/@types/react-addons-linked-state-mixin/-/react-addons-linked-state-mixin-0.14.21.tgz#3abf296fe09d036c233ebe55f4562f3e6233af49"
   integrity sha512-3UF7Szd3JyuU+z90kqu8L4VdDWp7SUC0eRjV2QmMEliaHODGLi5XyO5ctS50K/lG6fjC0dSAPVbvnqv0nPoGMQ==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-cytoscapejs@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-cytoscapejs/-/react-cytoscapejs-1.2.0.tgz#b6c78f266b06ed3758cdb3e106619629423a16c4"
+  integrity sha512-lDb04Bv7YFBAVVRy1y7IdCRDYUkDuo5YfpU5N4xcH1yT8MK90zQr9GS+PgI2IZBAa/fuqardyW+39ePx6kKJVw==
+  dependencies:
+    "@types/cytoscape" "*"
     "@types/react" "*"
 
 "@types/react-dom@^16.9.8":
