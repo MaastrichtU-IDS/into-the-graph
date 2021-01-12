@@ -283,6 +283,7 @@ export default function Describe() {
           let graph_edges: any = []
           let node_count = 1;
 
+          // Prepare perfect graph data
           sparql_results_array.forEach((result_row: any) => {
             // Add subject node to hash if not present
             if (!(result_row.subject.value in graph_nodes)) {
