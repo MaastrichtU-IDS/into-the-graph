@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper } from "@material-ui/core";
+import { Typography, Container, Paper, CircularProgress } from "@material-ui/core";
 import axios from 'axios';
 
 // Import jquery datatables.net
@@ -17,18 +17,16 @@ import Cytoscape from 'cytoscape';
 import Cola from 'cytoscape-cola';
 
 import LinkDescribe from '../components/LinkDescribe';
+
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
-
 // import { LoggedIn, LoggedOut, Value, useWebId } from '@solid/react';
-
 // import { Like } from '@solid/react';
 // import SolidStar from "./SolidStar";
 
 // import {newEngine} from '@comunica/actor-init-sparql';
 // import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
 // import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
-
 
 Cytoscape.use(Cola);
 
@@ -67,8 +65,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     marginTop: 8,
   },
-  pos: {
-    // marginBottom: 12,
+  loadSpinner: {
+    padding: theme.spacing(10, 10)
   },
 }))
 
@@ -77,6 +75,7 @@ export default function Homepage() {
   const theme = useTheme();
   
   const [state, setState] = React.useState({
+    isLoading: true,
     describe_endpoint: '',
     webid: '',
     projects_list: [],
@@ -212,11 +211,17 @@ export default function Homepage() {
               // If not already in array
               graph_nodes[result_row.subject.value] = {
                 id: result_row.subject.value,
-                position: { x: node_count * 100, y: node_count * 400 },
-                data: { uri: result_row.subject.value, color: 'red' },
+                position: { x: node_count * 80, y: node_count * 100 },
+                data: { uri: result_row.subject.value, color: 'red', size: result_row.subjectCount.value },
               };
-              cytoscape_elements.push({ data: { id: result_row.subject.value, label: result_row.subject.value } })
+              // cytoscape_elements.push({ data: { 
+              //   id: result_row.subject.value, 
+              //   label: result_row.subject.value, 
+              //   size: result_row.subjectCount.value
+              // } })
               node_count += 1;
+            } else {
+              graph_nodes[result_row.subject.value].data.size += result_row.subjectCount.value;
             }
 
             // Add object node
@@ -225,10 +230,16 @@ export default function Homepage() {
               graph_nodes[result_row.object.value] = {
                 id: result_row.object.value,
                 position: { x: node_count * 80, y: node_count * 40 },
-                data: { uri: result_row.object.value, color: 'green' },
+                data: { uri: result_row.object.value, color: 'green', size: result_row.objectCount.value },
               };
-              cytoscape_elements.push({ data: { id: result_row.object.value, label: result_row.object.value } })
+              // cytoscape_elements.push({ data: { 
+              //   id: result_row.object.value, 
+              //   label: result_row.object.value,
+              //   size: result_row.objectCount.value
+              // } })
               node_count += 1;
+            } else {
+              graph_nodes[result_row.object.value].data.size += result_row.objectCount.value;
             }
 
             // Add edge between the 2 nodes
@@ -250,6 +261,11 @@ export default function Homepage() {
           })
 
         const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
+          cytoscape_elements.push({ data: { 
+            id: node_id, 
+            label: node_id, 
+            size: graph_nodes[node_id].data.size
+          } })
           return graph_nodes[node_id];
         });
 
@@ -260,7 +276,8 @@ export default function Homepage() {
 
         updateState({
           graph_data: { nodes: graph_nodes_array, edges: graph_edges },
-          cytoscape_elements: cytoscape_elements
+          cytoscape_elements: cytoscape_elements,
+          isLoading: false
         })
         }
       })
@@ -324,7 +341,7 @@ export default function Homepage() {
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?graph ?classCount1 ?subject ?predicate ?classCount2 ?object
+  SELECT DISTINCT ?graph ?subjectCount ?subject ?predicate ?objectCount ?object
   WHERE {
   GRAPH ?metadataGraph {
     ?graph a void:Dataset .
@@ -332,18 +349,26 @@ export default function Homepage() {
       void:property ?predicate ;
       void:classPartition [
         void:class ?subject ;
-        void:distinctSubjects ?classCount1 ;
+        void:distinctSubjects ?subjectCount ;
       ];
       void-ext:objectClassPartition [
       void:class ?object ;
-      void:distinctObjects ?classCount2 ;
+      void:distinctObjects ?objectCount ;
       ]] .
     }
-  } ORDER BY DESC(?classCount1)`;
+  } ORDER BY DESC(?subjectCount)`;
 
   // Change Cytoscape layout
   // https://js.cytoscape.org/#layouts
 
+  const cytoscape_layout = {
+    name: 'cola',
+    nodeSpacing: 400,
+    edgeLengthVal: 1500,
+    animate: false,
+    randomize: false,
+    maxSimulationTime: 1500
+  }
   // const cytoscape_layout = { 
   //   name: 'concentric',
   //   minNodeSpacing: 200
@@ -357,27 +382,7 @@ export default function Homepage() {
   //   nodeOverlap: 10,
   //   nodeRepulsion: function( node: any ){ return 4092; },
   //   idealEdgeLength: function( edge: any ){ return 300; },
-  //   // name: 'cola',
-  //   // nodeSpacing: 5,
-  //   // edgeLengthVal: 45,
-  //   // animate: true,
-  //   // randomize: false,
-  //   // maxSimulationTime: 1500
   // };
-
-  // const cytoscape_layout = {
-  //   name: 'random',
-  //   animate: 'end'
-  // }
-
-  const cytoscape_layout = {
-    name: 'cola',
-    nodeSpacing: 400,
-    edgeLengthVal: 1500,
-    animate: false,
-    randomize: false,
-    maxSimulationTime: 1500
-  }
 
   return(
     <Container className='mainContainer'>
@@ -439,25 +444,14 @@ export default function Homepage() {
             <thead>
               <tr>
                 <th>Graphs</th>
-                {/* <th># of triples</th> */}
-                {/* <th>Date generated</th>
-                <th># of entities</th>
-                <th># of properties</th>
-                <th># of classes</th> */}
               </tr>
             </thead>
             <tbody>
               {/* Iterate Describe query results array */}
-              {/* {state.get_all_graphs_results.map((row: any, key: number) => { */}
-              {/* {Object.keys(state.get_all_graphs_results).map(function(row: any, key: number){  */}
               {state.get_all_graphs_results.map((row: any, key: number) => {
                 // return <Tooltip title={displayDescription(row.name, row.description)} key={key}>
                 return <tr key={key}>
-                    {/* <td><LinkDescribe uri={row.graph.value} variant='body2'/></td> */}
                     <td><LinkDescribe variant='body2' uri={row.graph.value}/></td>
-                    {/* <td><LinkDescribe variant='body2' uri={row.statements.value}/></td> */}
-                    {/* <td><LinkDescribe variant='body2' uri={row.object.value}/></td>
-                    <td><LinkDescribe variant='body2' uri={row.graph.value}/></td> */}
                   </tr>
                 {/* </Tooltip>; */}
               })}
@@ -468,7 +462,7 @@ export default function Homepage() {
 
         {Object.keys(state.hcls_overview_results).length > 0 && (<>
         <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-          Endpoint descriptive metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
+          Endpoint <b>descriptive metadata</b> (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
         </Typography>
         <Paper elevation={4} className={classes.paperPadding}>
           <table id='datatableHclsOverview' style={{ wordBreak: 'break-all' }}>
@@ -501,116 +495,129 @@ export default function Homepage() {
         </Paper>
         </>)}
 
-        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%' } }>
-
-          {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
-          <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-            Entities-relations metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
-          </Typography>
-          <Paper elevation={4} className={classes.paperPadding}>
-            <table id='datatableEntitiesRelationOverview' style={{ wordBreak: 'break-all' }}>
-              <thead>
-                <tr>
-                  <th>Graph</th>
-                  <th># of instance of subject</th>
-                  <th>Subject class</th>
-                  <th>Have relation</th>
-                  <th>With Object class</th>
-                  <th># of instance of object</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Iterate Describe query results array */}
-                {state.entities_relations_overview_results.map((row: any, key: number) => {
-                  return <tr key={key}>
-                      <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-                      <td><Typography variant="body2">{row.classCount1.value}</Typography></td>
-                      <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
-                      <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
-                      <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
-                      <td><Typography variant="body2">{row.classCount2.value}</Typography></td>
-                    </tr>
-                  {/* </Tooltip>; */}
-                })}
-              </tbody>
-            </table>
-          </Paper>
-          </>)}
+        <Paper elevation={4} className={classes.paperPadding}>
+          {state.isLoading && (
+            <CircularProgress className={classes.loadSpinner} />
+          )}
 
           {state.graph_data.nodes.length > 0 && (<>
-          <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-            {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
-            Perfect Graph visualization
-            {/* </a> */}
-          </Typography>
-          <Paper elevation={4} className={classes.paperPadding}>
-            <ApplicationProvider>
-              <Graph
-                style={{ width: '100%', height: 800 }}
-                nodes={state.graph_data.nodes}
-                edges={state.graph_data.edges}
-                // nodes={[
-                //   {
-                //     id: '1',
-                //     position: { x: 10, y: 10 },
-                //     data: { city: 'Amsterdam', color: 'red' },
-                //   },
-                //   {
-                //     id: '2',
-                //     position: { x: 300, y: 10 },
-                //     data: { city: 'Maastricht', color: 'blue' },
-                //   },
-                // ]}
-                // edges={[
-                //   { id: '51', source: '1', target: '2' },
-                // ]}
-                renderNode={({ item: { data } }: any) => (
-                  <Graph.View
-                    style={{ width: 100, height: 100, backgroundColor: data.color }}
-                  >
-                    <Graph.Text style={{ fontSize: 16 }}>
-                      {data.uri}
-                    </Graph.Text>
-                    {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
-                  </Graph.View>
-                )}
+            <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+              <b>Entities-relations</b> metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
+            </Typography>
+            <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+              <a href='https://perfectgraph-5c619.web.app/' className={classes.link} target='_blank' rel="noopener noreferrer">
+                <b>Perfect Graph</b>
+              </a> visualization
+            </Typography>
+            <Paper elevation={4} className={classes.paperPadding}>
+              <ApplicationProvider>
+                <Graph
+                  style={{ width: '100%', height: 800 }}
+                  nodes={state.graph_data.nodes}
+                  edges={state.graph_data.edges}
+                  // nodes={[
+                  //   {
+                  //     id: '1',
+                  //     position: { x: 10, y: 10 },
+                  //     data: { city: 'Amsterdam', color: 'red' },
+                  //   },
+                  //   {
+                  //     id: '2',
+                  //     position: { x: 300, y: 10 },
+                  //     data: { city: 'Maastricht', color: 'blue' },
+                  //   },
+                  // ]}
+                  // edges={[
+                  //   { id: '51', source: '1', target: '2' },
+                  // ]}
+                  renderNode={({ item: { data } }: any) => (
+                    <Graph.View
+                      style={{ width: 100, height: 100, backgroundColor: data.color }}
+                    >
+                      <Graph.Text style={{ fontSize: 16 }}>
+                        {data.uri}
+                      </Graph.Text>
+                      {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
+                    </Graph.View>
+                  )}
+                />
+              </ApplicationProvider>
+            </Paper>
+          </> )}
+
+          {state.graph_data.nodes.length > 0 && (<>
+            <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+              <a href='https://github.com/plotly/react-cytoscapejs' className={classes.link} target='_blank' rel="noopener noreferrer">
+                <b>Cytoscape JS</b>
+              </a> visualization
+            </Typography>
+            <Paper elevation={4} className={classes.paperPadding} style={{ height: '80vh', textAlign: 'left' }}>
+              <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
+                style={{ width: '100%', height: '100%',  }} 
+                stylesheet={[
+                  {
+                    selector: 'edge',
+                    style: {
+                      'label': 'data(label)',
+                      'color': '#546e7a', // Grey
+                      'text-wrap': 'wrap',
+                      'font-size': '18px',
+                      'text-opacity': 0.9,
+                      // width: 15
+                    }
+                  },
+                  {
+                    selector: 'node',
+                    style: {
+                      'label': 'data(label)',
+                      'text-wrap': 'wrap',
+                      'font-size': '30px',
+                      // 'width': 'data(size)',
+                      // 'height': 'data(size)',
+                      // shape: 'rectangle'
+                    }
+                  }
+                ]}
               />
-            </ApplicationProvider>
-          </Paper>
-        </> )}
+            </Paper>
+          </> )}
 
-        {state.graph_data.nodes.length > 0 && (<>
-          <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
-            {/* <a href='https://perfectgraph-5c619.web.app/' className={classes.link} > */}
-            Cytoscape JS visualization
-            {/* </a> */}
-          </Typography>
-          <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
-            <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
-              style={ { width: '100%', height: '100%',  } } 
-              stylesheet={[
-                {
-                  selector: 'edge',
-                  style: {
-                    'label': 'data(label)'
-                    // width: 15
-                  }
-                },
-                {
-                  selector: 'node',
-                  style: {
-                    'label': 'data(label)'
-                    // width: 20,
-                    // height: 20,
-                    // shape: 'rectangle'
-                  }
-                }
-              ]}
-            />
-          </Paper>
-        </> )}
+          {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
+            <Typography variant="body1" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
+              <a href='https://datatables.net' className={classes.link} target='_blank' rel="noopener noreferrer">
+                Datatable
+              </a>
+            </Typography>
+            <Paper elevation={4} className={classes.paperPadding}>
+              <table id='datatableEntitiesRelationOverview' style={{ wordBreak: 'break-all' }}>
+                <thead>
+                  <tr>
+                    <th>Graph</th>
+                    <th># of instance of subject</th>
+                    <th>Subject class</th>
+                    <th>Have relation</th>
+                    <th>With Object class</th>
+                    <th># of instance of object</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Iterate Describe query results array */}
+                  {state.entities_relations_overview_results.map((row: any, key: number) => {
+                    return <tr key={key}>
+                        <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
+                        <td><Typography variant="body2">{row.subjectCount.value}</Typography></td>
+                        <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
+                        <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
+                        <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
+                        <td><Typography variant="body2">{row.objectCount.value}</Typography></td>
+                      </tr>
+                  })}
+                </tbody>
+              </table>
+            </Paper>
+          </>)}
 
-      </Paper>
+        </Paper>
 
       {/* <LoggedIn>
         <Typography style={{textAlign: 'center', marginBottom: '20px'}}>

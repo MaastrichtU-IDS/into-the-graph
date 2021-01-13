@@ -4,27 +4,21 @@ import { makeStyles,  useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Paper, Grid, CircularProgress, Button } from "@material-ui/core";
 import axios from 'axios';
 
-// Official datatables.net docs
-// var $  = require( 'jquery' );
-// var dt = require( 'datatables.net' )();
-
-// Import from package.json install (from itg js)
-import 'datatables.net-dt/css/jquery.dataTables.min.css';
-// import $ from 'jquery';
-
 // From https://medium.com/@zbzzn/integrating-react-and-datatables-not-as-hard-as-advertised-f3364f395dfa
+import 'datatables.net-dt/css/jquery.dataTables.min.css';
 const $ = require('jquery');
-
 $.DataTable = require('datatables.net');
 
 import { Graph } from "perfect-graph";
 import { ApplicationProvider } from 'unitx-ui';
-
 import CytoscapeComponent from 'react-cytoscapejs';
+import Cytoscape from 'cytoscape';
+import Cola from 'cytoscape-cola';
 
 import LinkDescribe from "../components/LinkDescribe";
-import Context from "../components/Context";
+// import Context from "../components/Context";
 
+Cytoscape.use(Cola);
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -264,17 +258,14 @@ export default function Describe() {
 
     updateState({describe_uri: describe_uri})
     updateState({describe_endpoint: describe_endpoint})
-    // Context not propagating properly, using cookie localStorage instead
+    // TODO: Context not propagating properly, using cookie localStorage instead
     // setContext(describe_endpoint)
 
     if(/^(?:node[0-9]+)|((https?|ftp):.*)$/.test(describe_uri)) {
       // If URI provided
-      // console.log(getDescribeQuery(describe_uri));
       axios.get(describe_endpoint + `?query=` + getDescribeQuery(describe_uri))
         .then(res => {
           const sparql_results_array = res.data.results.bindings;
-          // console.log(sparql_results_array)
-          // console.log(sparql_results_array[0].subject.value)
           updateState({describe_results: sparql_results_array})
           updateState({isLoading: false})
 
@@ -328,10 +319,6 @@ export default function Describe() {
             } })
           })
 
-        // const graph_nodes_array = [];
-        // for(nodes in graph_nodes) {
-        //   graph_nodes_array.push(Number(o), ob[o]);
-        // }
         const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
           return graph_nodes[node_id];
         });
@@ -339,20 +326,11 @@ export default function Describe() {
         console.log('Graph nodes and edges data');
         console.log(graph_nodes_array);
         console.log(graph_edges);
-
-
         updateState({
           graph_data: { nodes: graph_nodes_array, edges: graph_edges },
           cytoscape_elements: cytoscape_elements
         })
-        
-          // const table = $(datatableRef).find('table').DataTable();
-          // Getting error when using useRef
-          // Unhandled Rejection (TypeError): this.getAttribute is not a function
-          // let table = $('.data-table-wrapper').find('table').DataTable();
-
-          // sparqlResultArray.forEach((sparqlResultRow) => {
-        })
+      })
 
     } else {
       // Full text search if not URI
@@ -379,10 +357,18 @@ export default function Describe() {
   }, [location])
 
   // Change Cytoscape layout: https://js.cytoscape.org/#layouts
-  const cytoscape_layout = { 
-    name: 'concentric',
-    minNodeSpacing: 20
-  };
+  const cytoscape_layout = {
+    name: 'cola',
+    nodeSpacing: 170,
+    // edgeLengthVal: 1000,
+    animate: false,
+    randomize: false,
+    maxSimulationTime: 1500
+  }
+  // const cytoscape_layout = { 
+  //   name: 'concentric',
+  //   minNodeSpacing: 20
+  // };
   // const cytoscape_layout = { name: 'breadthfirst' };
   // const cytoscape_layout = {
   //   name: 'cose',
@@ -392,12 +378,6 @@ export default function Describe() {
   //   nodeOverlap: 10,
   //   nodeRepulsion: function( node: any ){ return 4092; },
   //   idealEdgeLength: function( edge: any ){ return 300; },
-  //   // name: 'cola',
-  //   // nodeSpacing: 5,
-  //   // edgeLengthVal: 45,
-  //   // animate: true,
-  //   // randomize: false,
-  //   // maxSimulationTime: 1500
   // };
 
   return(
@@ -474,9 +454,6 @@ export default function Describe() {
         </Paper>
       )}
 
-      {/* {!state.loadSpinner && ( */}
-      {/* {!state.requestError && !state.search_results && !state.describe_results && !state.loadSpinner && ( */}
-      {/* {console.log(state.search_results.length)} */}
       {/* No results for URI resolution */}
       {!state.requestError && !state.isLoading && state.describe_results.length < 1 && !state.search_results.length && (
         <Paper elevation={2} className={classes.paperPadding}>
@@ -586,9 +563,33 @@ export default function Describe() {
           Cytoscape JS visualization
           {/* </a> */}
         </Typography>
-        <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%', height: '100vh', textAlign: 'left' } }>
+        <Paper elevation={4} className={classes.paperPadding} style={{ height: '100vh', textAlign: 'left' }}>
           <CytoscapeComponent elements={state.cytoscape_elements} layout={cytoscape_layout}
-            style={ { width: '100%', height: '100%' } } 
+            style={{ width: '100%', height: '100%' }} 
+            stylesheet={[
+              {
+                selector: 'edge',
+                style: {
+                  'label': 'data(label)',
+                  'color': '#546e7a', // Grey
+                  'text-wrap': 'wrap',
+                  'font-size': '18px',
+                  'text-opacity': 0.9,
+                  // width: 15
+                }
+              },
+              {
+                selector: 'node',
+                style: {
+                  'label': 'data(label)',
+                  'text-wrap': 'wrap',
+                  'font-size': '30px',
+                  // width: 20,
+                  // height: 20,
+                  // shape: 'rectangle'
+                }
+              }
+            ]}
           />
         </Paper>
       </> )}
