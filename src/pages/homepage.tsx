@@ -199,20 +199,25 @@ export default function Homepage() {
           });
 
           let graph_nodes: any = {}
-          let graph_edges: any = []
+          let graph_edges: any = {}
           let cytoscape_elements: any = []
           let node_count = 1;
+          let edge_count = 0;
+          const edge_max = 100;
 
           // Prepare perfect graph and cytoscape data
           res.data.results.bindings.forEach((result_row: any) => {
-            // ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+            let subject_count = 1;
+            if (result_row.subjectCount) {
+              subject_count = result_row.subjectCount.value;
+            }
             // Add subject node to hash if not present
             if (!(result_row.subject.value in graph_nodes)) {
               // If not already in array
               graph_nodes[result_row.subject.value] = {
                 id: result_row.subject.value,
                 position: { x: node_count * 80, y: node_count * 100 },
-                data: { uri: result_row.subject.value, color: 'red', size: result_row.subjectCount.value },
+                data: { uri: result_row.subject.value, color: 'red', size: subject_count },
               };
               // cytoscape_elements.push({ data: { 
               //   id: result_row.subject.value, 
@@ -221,45 +226,57 @@ export default function Homepage() {
               // } })
               node_count += 1;
             } else {
-              graph_nodes[result_row.subject.value].data.size += result_row.subjectCount.value;
+              graph_nodes[result_row.subject.value].data.size += subject_count;
             }
 
+            let object_count = 1;
+            if (result_row.objectCount) {
+              object_count = result_row.objectCount.value;
+            }
             // Add object node
-            if (!(result_row.object.value in graph_nodes)) {
-              // If not already in array
-              graph_nodes[result_row.object.value] = {
-                id: result_row.object.value,
-                position: { x: node_count * 80, y: node_count * 40 },
-                data: { uri: result_row.object.value, color: 'green', size: result_row.objectCount.value },
-              };
-              // cytoscape_elements.push({ data: { 
-              //   id: result_row.object.value, 
-              //   label: result_row.object.value,
-              //   size: result_row.objectCount.value
-              // } })
-              node_count += 1;
-            } else {
-              graph_nodes[result_row.object.value].data.size += result_row.objectCount.value;
+            if (result_row.object) {
+              if (!(result_row.object.value in graph_nodes)) {
+                // If not already in array
+                graph_nodes[result_row.object.value] = {
+                  id: result_row.object.value,
+                  position: { x: node_count * 80, y: node_count * 40 },
+                  data: { uri: result_row.object.value, color: 'green', size: object_count },
+                };
+                // cytoscape_elements.push({ data: { 
+                //   id: result_row.object.value, 
+                //   label: result_row.object.value,
+                //   size: result_row.objectCount.value
+                // } })
+                node_count += 1;
+              } else {
+                graph_nodes[result_row.object.value].data.size += object_count;
+              }
             }
 
             // Add edge between the 2 nodes
-            const edge_id = result_row.subject.value + result_row.predicate.value + result_row.object.value;
-            if (!(result_row.object.value === result_row.subject.value)) {
-              graph_edges.push({
-                id: edge_id,
-                source: result_row.subject.value,
-                target: result_row.object.value,
-                data: { uri: result_row.predicate.value, color: 'green' }
-              });
-              cytoscape_elements.push({ data: { 
-                source: result_row.subject.value, 
-                target: result_row.object.value, 
-                label: result_row.predicate.value 
-              } })
+            if (result_row.object && edge_count < edge_max) {
+              const edge_id = result_row.subject.value + result_row.predicate.value + result_row.object.value;
+              if (!(edge_id in graph_edges)) {
+                if (!(result_row.object.value === result_row.subject.value)) {
+                  // Prevents link to itself (too confusing currently)
+                  graph_edges[edge_id] = {
+                    id: edge_id,
+                    source: result_row.subject.value,
+                    target: result_row.object.value,
+                    data: { uri: result_row.predicate.value, color: 'green' }
+                  };
+                  cytoscape_elements.push({ data: { 
+                    source: result_row.subject.value, 
+                    target: result_row.object.value, 
+                    label: result_row.predicate.value 
+                  } })
+                }
+                edge_count += 1
+              }
             }
-
           })
 
+        // Convert graph nodes and edges objects to arrays
         const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
           cytoscape_elements.push({ data: { 
             id: node_id, 
@@ -268,6 +285,14 @@ export default function Homepage() {
           } })
           return graph_nodes[node_id];
         });
+        const graph_edges_array = Object.keys(graph_edges).map(function(edge_id){
+          // cytoscape_elements.push({ data: { 
+          //   source: graph_edges[edge_id].source, 
+          //   target: graph_edges[edge_id].target, 
+          //   label: graph_edges[edge_id].data.uri 
+          // } })
+          return graph_edges[edge_id];
+        });
 
         console.log('Graph nodes and edges data');
         console.log(graph_nodes_array);
@@ -275,14 +300,14 @@ export default function Homepage() {
 
 
         updateState({
-          graph_data: { nodes: graph_nodes_array, edges: graph_edges },
+          graph_data: { nodes: graph_nodes_array, edges: graph_edges_array },
           cytoscape_elements: cytoscape_elements,
           isLoading: false
         })
         }
       })
       .catch((error: any) => {
-        console.log('Query to get all HCLS entities-relations infos failed');
+        console.log('Query to get all HCLS entities-relations infos FAILED:');
         console.log(error);
       });
 
@@ -294,6 +319,10 @@ export default function Homepage() {
   // Trying out the SOLID webId hook
 
   const get_all_graphs_query = `SELECT DISTINCT ?graph WHERE { GRAPH ?graph {?s ?p ?o} }`;
+
+  // TODO: For Bio2RDF documented queries fails
+  // https://github.com/bio2rdf/bio2rdf-scripts/wiki/Bio2RDF-Dataset-Summary-Statistics
+
 
   const hcls_overview_query = `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX dct: <http://purl.org/dc/terms/>
@@ -343,20 +372,21 @@ export default function Homepage() {
   PREFIX void-ext: <http://ldf.fi/void-ext#>
   SELECT DISTINCT ?graph ?subjectCount ?subject ?predicate ?objectCount ?object
   WHERE {
-  GRAPH ?metadataGraph {
-    ?graph a void:Dataset .
-    ?graph void:propertyPartition [
-      void:property ?predicate ;
-      void:classPartition [
-        void:class ?subject ;
-        void:distinctSubjects ?subjectCount ;
-      ];
-      void-ext:objectClassPartition [
-      void:class ?object ;
-      void:distinctObjects ?objectCount ;
-      ]] .
-    }
-  } ORDER BY DESC(?subjectCount)`;
+    GRAPH ?metadataGraph {
+      # ?graph a void:Dataset .
+      ?graph void:propertyPartition [
+        void:property ?predicate ;
+        void:classPartition [
+          void:class ?subject ;
+          void:distinctSubjects ?subjectCount ;
+        ];
+        void-ext:objectClassPartition [
+        void:class ?object ;
+        void:distinctObjects ?objectCount ;
+        ]
+      ] .
+      }
+    } ORDER BY DESC(?subjectCount)`;
 
   // Change Cytoscape layout
   // https://js.cytoscape.org/#layouts
@@ -605,11 +635,16 @@ export default function Homepage() {
                   {state.entities_relations_overview_results.map((row: any, key: number) => {
                     return <tr key={key}>
                         <td><LinkDescribe uri={row.graph.value} variant='body2'/></td>
-                        <td><Typography variant="body2">{row.subjectCount.value}</Typography></td>
+                        <td><Typography variant="body2">{displayTableCell(row.subjectCount)}</Typography></td>
                         <td><LinkDescribe uri={row.subject.value} variant='body2'/></td>
                         <td><LinkDescribe uri={row.predicate.value} variant='body2'/></td>
-                        <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
-                        <td><Typography variant="body2">{row.objectCount.value}</Typography></td>
+                        {row.object && (
+                          <td><LinkDescribe uri={row.object.value} variant='body2'/></td>
+                        )}
+                        {!row.object && (
+                          <td><Typography variant="body2">Not found</Typography></td>
+                        )}
+                        <td><Typography variant="body2">{displayTableCell(row.objectCount)}</Typography></td>
                       </tr>
                   })}
                 </tbody>
