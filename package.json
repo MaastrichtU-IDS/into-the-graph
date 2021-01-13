@@ -12,6 +12,7 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-labels": "^1.1.0",
     "cytoscape": "^3.17.1",
+    "cytoscape-cola": "^2.4.0",
     "datatables.net": "^1.10.23",
     "datatables.net-dt": "^1.10.23",
     "expo": "~39.0.0",

@@ -13,6 +13,8 @@ import { Graph } from "perfect-graph";
 import { ApplicationProvider } from 'unitx-ui';
 
 import CytoscapeComponent from 'react-cytoscapejs';
+import Cytoscape from 'cytoscape';
+import Cola from 'cytoscape-cola';
 
 import LinkDescribe from '../components/LinkDescribe';
 // import { data } from "@solid/query-ldflex";
@@ -26,6 +28,9 @@ import LinkDescribe from '../components/LinkDescribe';
 // import {newEngine} from '@comunica/actor-init-sparql';
 // import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
 // import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
+
+
+Cytoscape.use(Cola);
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -94,9 +99,12 @@ export default function Homepage() {
     setState(stateRef.current);
   }, [setState]);
 
+  // Check SOLID pod for a user preferences file
+  // https://github.com/solid/react-components/blob/master/demo/app.jsx
+  // https://solid.github.io/react-components/
+
   // useLocation hook to get SOLID WebID
   // let solid_webid = useWebId();
-
 
   // function createEmptyDocument() {
   //   // const location = "/public/into-the-graph/preferences.ttl";
@@ -129,22 +137,9 @@ export default function Homepage() {
     }
   }
 
-  // componentDidMount
+  // Run at start of the page
   React.useEffect(() => {
-    // console.log('solid_webid');
-    // console.log(solid_webid);
 
-    // Check SOLID pod for a user preferences file
-    // https://github.com/solid/react-components/blob/master/demo/app.jsx
-    // https://solid.github.io/react-components/
-
-    // First get the graphs overview with HCLS metadata
-    // if (this.context.triplestore.graphs_overview === "hcls") {
-    //   graphsOverviewSparql = this.hclsOverviewQuery
-    // } else {
-    //   // If "all" usually
-    //   graphsOverviewSparql = this.getAllGraphsQuery
-    // }
     let describe_endpoint = '';
     // Get sparql_endpoint from cookie intothegraphSettings
     if (!describe_endpoint) {
@@ -174,18 +169,8 @@ export default function Homepage() {
         }
       })
       .catch((error: any) => {
-        console.log(error)
-        // updateState({ graphsLoading: false });
-        // graphsOverviewTable = ( 
-        //   <Typography variant="body2">
-        //     Issue querying the SPARQL endpoint 🚫<br/>
-        //     This could be due to CORS restrictions of the endpoint.<br/>
-        //     You can try installing an add-on to enable CORS in your browser (available for&nbsp;
-        //     <a href="https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/" className={classes.link} target='_blank'>
-        //       Firefox</a> or&nbsp;
-        //       <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" className={classes.link} target='_blank'>Chrome</a>).
-        //   </Typography>
-        // )
+        console.log('Query to get all graphs failed');
+        console.log(error);
       });
 
     axios.get(describe_endpoint + `?query=` + encodeURIComponent(hcls_overview_query))
@@ -200,7 +185,8 @@ export default function Homepage() {
         }
       })
       .catch((error: any) => {
-        console.log(error)
+        console.log('Query to get HCLS stats overview failed');
+        console.log(error);
       });
 
     axios.get(describe_endpoint + `?query=` + encodeURIComponent(entities_relations_query))
@@ -263,10 +249,6 @@ export default function Homepage() {
 
           })
 
-        // const graph_nodes_array = [];
-        // for(nodes in graph_nodes) {
-        //   graph_nodes_array.push(Number(o), ob[o]);
-        // }
         const graph_nodes_array = Object.keys(graph_nodes).map(function(node_id){
           return graph_nodes[node_id];
         });
@@ -283,16 +265,10 @@ export default function Homepage() {
         }
       })
       .catch((error: any) => {
-        console.log(error)
+        console.log('Query to get all HCLS entities-relations infos failed');
+        console.log(error);
       });
 
-    // axios.get(this.context.triplestore.sparql_endpoint + `?query=` + encodeURIComponent(this.entitiesRelationsQuery))
-    //   .then(res => {
-    //     if (res.data.results){
-    //       this.setState( { entitiesRelations: res.data.results.bindings } );
-    //       $(this.refs.entitiesRelations).DataTable();
-    //     }
-    //   });
 
   }, [])  
   // This useless array needs to be added for React to understand he needs to use the state inside...
@@ -365,12 +341,14 @@ export default function Homepage() {
     }
   } ORDER BY DESC(?classCount1)`;
 
-  // Change Cytoscape layout: https://js.cytoscape.org/#layouts
+  // Change Cytoscape layout
+  // https://js.cytoscape.org/#layouts
+
   // const cytoscape_layout = { 
   //   name: 'concentric',
   //   minNodeSpacing: 200
   // };
-  const cytoscape_layout = { name: 'breadthfirst' };
+  // const cytoscape_layout = { name: 'breadthfirst' };
   // const cytoscape_layout = {
   //   name: 'cose',
   //   animate: 'end',
@@ -386,7 +364,20 @@ export default function Homepage() {
   //   // randomize: false,
   //   // maxSimulationTime: 1500
   // };
-  
+
+  // const cytoscape_layout = {
+  //   name: 'random',
+  //   animate: 'end'
+  // }
+
+  const cytoscape_layout = {
+    name: 'cola',
+    nodeSpacing: 400,
+    edgeLengthVal: 1500,
+    animate: false,
+    randomize: false,
+    maxSimulationTime: 1500
+  }
 
   return(
     <Container className='mainContainer'>
@@ -511,7 +502,7 @@ export default function Homepage() {
         </>)}
 
         <Paper elevation={4} className={classes.paperPadding} style={ { width: '100%' } }>
-          
+
           {Object.keys(state.entities_relations_overview_results).length > 0 && (<>
           <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
             Entities-relations metadata (<a href={state.describe_endpoint} className={classes.link}>HCLS</a>)
