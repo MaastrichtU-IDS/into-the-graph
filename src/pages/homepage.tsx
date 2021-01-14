@@ -150,7 +150,8 @@ export default function Homepage() {
     }
     if (!describe_endpoint) {
       // If no endpoint found in localStorage
-      describe_endpoint = 'https://bio2rdf.org/sparql';
+      describe_endpoint = 'https://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+      // describe_endpoint = 'https://bio2rdf.org/sparql';
     }
     updateState({ describe_endpoint: describe_endpoint });
 
@@ -429,9 +430,10 @@ export default function Homepage() {
         <Typography variant="h5" className={classes.margin}>
           <Link to={{
             pathname: '/describe',
-            search: '?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql',
+            search: '?uri=https://identifiers.org/drugbank:DB00002&endpoint=https://graphdb.dumontierlab.com/repositories/ncats-red-kg',
+            // search: '?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql',
           }} className={classes.link}>
-            /describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495&endpoint=https://bio2rdf.org/sparql
+            /describe?uri=https://identifiers.org/drugbank:DB00002&endpoint=https://graphdb.dumontierlab.com/repositories/ncats-red-kg
           </Link>
         </Typography>
       </Paper>
@@ -593,7 +595,12 @@ export default function Homepage() {
                       'text-wrap': 'wrap',
                       'font-size': '18px',
                       'text-opacity': 0.9,
-                      // width: 15
+                      'target-arrow-shape': 'triangle',
+                      // 'line-color': '#ccc',
+                      // 'target-arrow-color': '#ccc',
+                      // Control multi edge on 2 nodes:
+                      'curve-style': 'bezier',
+                      'control-point-step-size': 300,
                     }
                   },
                   {
@@ -602,6 +609,7 @@ export default function Homepage() {
                       'label': 'data(label)',
                       'text-wrap': 'wrap',
                       'font-size': '30px',
+                      // width: 15,
                       // 'width': 'data(size)',
                       // 'height': 'data(size)',
                       // shape: 'rectangle'

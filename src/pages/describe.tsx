@@ -105,7 +105,7 @@ export default function Describe() {
           GRAPH ?graph {
             ` + uri_to_describe + ` ?predicate ?object .
           }
-        } LIMIT 1000`
+        } LIMIT 100`
     } else {
       // Regular URI
       uri_to_describe = "<" + uri_to_describe + ">"
@@ -117,7 +117,7 @@ export default function Describe() {
           ?subject ?predicate ?object .
           BIND(` + uri_to_describe + ` AS ?graph)
         }
-      } LIMIT 1000`
+      } LIMIT 100`
       // if (this.context.triplestore.graph_uri_resolution === "classes") {
       //   // TODO: Add DISTINCT ? Might slow the query down in some cases
       //   graphQuery = `SELECT * {
@@ -136,21 +136,21 @@ export default function Describe() {
               ` + uri_to_describe + ` ?predicate ?object .
               BIND(` + uri_to_describe + ` AS ?subject)
             }
-          } LIMIT 1000
+          } LIMIT 100
         } UNION {
           SELECT * {
             GRAPH ?graph {
               ?subject ?predicate ` + uri_to_describe + ` .
               BIND(` + uri_to_describe + ` AS ?object)
             }
-          } LIMIT 1000
+          } LIMIT 100
         } UNION {
           SELECT * {
             GRAPH ?graph {
               ?subject ` + uri_to_describe + ` ?object .
               BIND(` + uri_to_describe + ` AS ?predicate)
             }
-          } LIMIT 1000
+          } LIMIT 100
         } UNION {
           ` + graphQuery + `
         }
@@ -250,10 +250,12 @@ export default function Describe() {
 
     // TODO: handle default value somewhere else?
     if (!describe_uri) {
-      describe_uri = 'http://bio2rdf.org/clinicaltrials:NCT00209495';
+      describe_uri = 'https://identifiers.org/drugbank:DB00002';
+      // describe_uri = 'http://bio2rdf.org/clinicaltrials:NCT00209495';
     }
     if (!describe_endpoint) {
-      describe_endpoint = 'https://bio2rdf.org/sparql';
+      describe_endpoint = 'https://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+      // describe_endpoint = 'https://bio2rdf.org/sparql';
     }
 
     updateState({describe_uri: describe_uri})
@@ -575,6 +577,12 @@ export default function Describe() {
                   'text-wrap': 'wrap',
                   'font-size': '18px',
                   'text-opacity': 0.9,
+                  'target-arrow-shape': 'triangle',
+                  // 'line-color': '#ccc',
+                  // 'target-arrow-color': '#ccc',
+                  // Control multi edge on 2 nodes:
+                  'curve-style': 'bezier',
+                  'control-point-step-size': 300,
                   // width: 15
                 }
               },

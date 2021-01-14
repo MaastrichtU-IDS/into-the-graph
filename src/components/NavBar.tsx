@@ -127,7 +127,7 @@ export default function NavBar() {
             </Button>
           </Tooltip>  
         </Link>
-        <Link to="/describe?uri=http://bio2rdf.org/clinicaltrials:NCT00209495" className={classes.linkButton}>
+        <Link to="/describe?uri=https://identifiers.org/drugbank:DB00002" className={classes.linkButton}>
           <Tooltip title='Describe an URI in a SPARQL endpoint'>
             <Button className={classes.menuButton}>
               <SearchIcon />&nbsp;Describe URI
