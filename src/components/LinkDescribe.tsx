@@ -48,7 +48,7 @@ export default function LinkDescribe(props: any) {
     "obo":         "http://purl.obolibrary.org/obo/",
     "ncit":        "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "xsd":         "http://www.w3.org/2001/XMLSchema#",
-    "schema":      "http://schema.org/",
+    "schema":      "https://schema.org/",
     "cito":        "http://purl.org/spar/cito/",
     "prov":        "http://www.w3.org/ns/prov#",
     "pav":         "http://purl.org/pav/",
