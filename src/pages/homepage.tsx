@@ -20,6 +20,7 @@ import Cytoscape from 'cytoscape';
 import Cola from 'cytoscape-cola';
 
 import LinkDescribe from '../components/LinkDescribe';
+import About from './About';
 
 // import { data } from "@solid/query-ldflex";
 // import data from "@solid/query-ldflex";
@@ -62,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
   paperPadding: {
     padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
+    margin: theme.spacing(2, 0),
   },
   cardSubtitle: {
     fontSize: 14,
@@ -431,12 +432,10 @@ export default function Homepage() {
 
   return(
     <Container className='mainContainer'>
-      <Typography variant="h4" className={classes.margin} style={{marginBottom: theme.spacing(4) }}>
-        🧭 Into the Graph
-        {/* <img src={idsLogo} style={{maxWidth: '200px'}} alt="IDS Logo" /> */}
-      </Typography>
 
-      <Paper elevation={4} className={classes.paperPadding}>
+      <About />
+
+      {/* <Paper elevation={4} className={classes.paperPadding}>
         <Typography variant="body1" className={classes.margin}>
           Provide the <b>URI to describe</b>, and the <b>SPARQL endpoint</b> queried in the URL parameters, such as:
         </Typography>
@@ -477,7 +476,7 @@ export default function Homepage() {
         <li><Typography variant="body1">
           <a href='https://github.com/MaastrichtU-IDS/d2s-project-template/tree/master/datasets/preppi' className={classes.link} target='_blank' rel="noopener noreferrer">Data2Services workflows</a> to generate RDF knowledge graphs from structured data using RML (RDF Mapping Language)
         </Typography></li>
-      </ul>
+      </ul> */}
 
       {/* Display YASGUI */}
       <Paper elevation={4} className={classes.paperPadding} style={{ textAlign: 'left', marginTop: theme.spacing(4) }}>
