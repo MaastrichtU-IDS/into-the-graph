@@ -9,8 +9,8 @@ import 'datatables.net-dt/css/jquery.dataTables.min.css'
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
-// import Yasgui from "@triply/yasgui";
-// import "@triply/yasgui/build/yasgui.min.css";
+import Yasgui from "@triply/yasgui";
+import "@triply/yasgui/build/yasgui.min.css";
 
 import { Graph, drawLine } from "perfect-graph";
 import { ApplicationProvider } from 'unitx-ui';
@@ -157,6 +157,17 @@ export default function Homepage() {
       // describe_endpoint = 'https://bio2rdf.org/sparql';
     }
     updateState({ describe_endpoint: describe_endpoint });
+
+    Yasgui.defaults.requestConfig.endpoint = describe_endpoint;
+    // @ts-ignore If endpoint and query provided
+    let yasgui: any = new Yasgui(document.getElementById('yasguiDiv'), {
+      requestConfig: { endpoint: describe_endpoint },
+      copyEndpointOnNewTab: true,
+    });
+    // yasgui.addTab(
+    //   true, // set as active tab
+    //   { ...Yasgui.Tab.getDefaults(), yasqe: { value: props.query }}
+    // );
 
     axios.get(describe_endpoint + `?query=` + encodeURIComponent(get_all_graphs_query))
       .then((res: any) => {
@@ -453,7 +464,6 @@ export default function Homepage() {
         <br/>🚧 Work in progress: insights about the content of the triplestore and its different graphs, using precomputed HCLS descriptives statistics
       </Typography>
 
-
       <Typography variant="body1" className={classes.margin} style={{textAlign: 'left'}}>
         Other relevant libraries:
       </Typography>
@@ -470,6 +480,9 @@ export default function Homepage() {
       </ul>
 
       {/* Display YASGUI */}
+      <Paper elevation={4} className={classes.paperPadding} style={{ textAlign: 'left', marginTop: theme.spacing(4) }}>
+        <div id="yasguiDiv"></div>
+      </Paper>
 
       {/* Display a datatable with subject, predicate, object, graph retrieved */}
       {Object.keys(state.get_all_graphs_results).length > 0 && (<>
