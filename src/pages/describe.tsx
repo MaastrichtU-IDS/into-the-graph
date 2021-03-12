@@ -527,6 +527,7 @@ export default function Describe() {
           <ApplicationProvider>
             <Graph
               style={{ width: '100%', height: 800 }}
+              // config={{ layout: Graph.Layouts.euler }}
               nodes={state.graph_data.nodes}
               edges={state.graph_data.edges}
               // nodes={[
@@ -544,6 +545,15 @@ export default function Describe() {
               // edges={[
               //   { id: '51', source: '1', target: '2' },
               // ]}
+              // drawLine={({ graphics, to, from }) => {
+              //   drawLine({
+              //     graphics,
+              //     to,
+              //     from,
+              //     directed: true
+              //     // type: 'bezier'
+              //   })
+              // }} 
               renderNode={({ item: { data } }: any) => (
                 <Graph.View
                   style={{ width: 100, height: 100, backgroundColor: data.color }}

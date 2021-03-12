@@ -9,7 +9,10 @@ import 'datatables.net-dt/css/jquery.dataTables.min.css'
 const $ = require('jquery');
 $.DataTable = require('datatables.net');
 
-import { Graph } from "perfect-graph";
+// import Yasgui from "@triply/yasgui";
+// import "@triply/yasgui/build/yasgui.min.css";
+
+import { Graph, drawLine } from "perfect-graph";
 import { ApplicationProvider } from 'unitx-ui';
 
 import CytoscapeComponent from 'react-cytoscapejs';
@@ -371,7 +374,7 @@ export default function Homepage() {
   PREFIX dc: <http://purl.org/dc/elements/1.1/>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?graph ?subjectCount ?subject ?predicate ?objectCount ?object
+  SELECT DISTINCT ?metadataGraph ?graph ?subjectCount ?subject ?predicate ?objectCount ?object
   WHERE {
     GRAPH ?metadataGraph {
       # ?graph a void:Dataset .
@@ -466,6 +469,8 @@ export default function Homepage() {
         </Typography></li>
       </ul>
 
+      {/* Display YASGUI */}
+
       {/* Display a datatable with subject, predicate, object, graph retrieved */}
       {Object.keys(state.get_all_graphs_results).length > 0 && (<>
         <Typography variant="h5" className={classes.margin} style={{ marginTop: theme.spacing(6) }}>
@@ -545,6 +550,7 @@ export default function Homepage() {
               <ApplicationProvider>
                 <Graph
                   style={{ width: '100%', height: 800 }}
+                  config={{ layout: Graph.Layouts.euler }}
                   nodes={state.graph_data.nodes}
                   edges={state.graph_data.edges}
                   // nodes={[
@@ -562,12 +568,21 @@ export default function Homepage() {
                   // edges={[
                   //   { id: '51', source: '1', target: '2' },
                   // ]}
+                  // drawLine={({ graphics, to, from }) => {
+                  //   drawLine({
+                  //     graphics,
+                  //     to,
+                  //     from,
+                  //     directed: true
+                  //     // type: 'bezier'
+                  //   })
+                  // }} 
                   renderNode={({ item: { data } }: any) => (
                     <Graph.View
                       style={{ width: 100, height: 100, backgroundColor: data.color }}
                     >
                       <Graph.Text style={{ fontSize: 16 }}>
-                        {data.uri}
+                        {data.uri.substring(data.uri.lastIndexOf('/') + 1)}
                       </Graph.Text>
                       {/* <LinkDescribe variant='body2' uri={data.uri}/> */}
                     </Graph.View>
