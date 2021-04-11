@@ -2,7 +2,7 @@ name: Deploy website to GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: [ typescript-rewrite ]
+    branches: [ master ]
 
 jobs:
   deploy:
@@ -10,8 +10,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: 'typescript-rewrite'
+      # with:
+      #   ref: 'typescript-rewrite'
     - uses: actions/setup-node@v1
       with:
         node-version: 12
